@@ -1,0 +1,56 @@
+[
+	{
+		"name": "Plakat Akrilik",
+		"category": "plakat",
+		"image": "./images/products/product1.png",
+		"price": "Rp. 80.000,00"
+	},
+	{
+		"name": "Plakat Kalimantan",
+		"category": "plakat",
+		"image": "./images/products/product2.png",
+		"price": "Rp. 210.000,00"
+	},
+	{
+		"name": "Plakat Kristal",
+		"category": "plakat",
+		"image": "./images/products/product3.png",
+		"price": "Rp. 400.000,00"
+	},
+	{
+		"name": "Plakat Kristal",
+		"category": "plakat",
+		"image": "./images/products/product3.png",
+		"price": "Rp. 400.000,00"
+	},
+	{
+		"name": "Plakat Kristal",
+		"category": "plakat",
+		"image": "./images/products/product3.png",
+		"price": "Rp. 400.000,00"
+	},
+	{
+		"name": "Mini Banner",
+		"category": "banner",
+		"image": "./images/products/product4.png",
+		"price": "Rp. 30.000,00"
+	},
+	{
+		"name": "Tag Gun",
+		"category": "aksesoris",
+		"image": "./images/products/product5.png",
+		"price": "Rp. 95.000,00"
+	},
+	{
+		"name": "Peniti - Emas",
+		"category": "aksesoris",
+		"image": "./images/products/product6.png",
+		"price": "Rp. 15.000,00"
+	},
+	{
+		"name": "Tinta Dye",
+		"category": "aksesoris",
+		"image": "./images/products/product7.png",
+		"price": "Rp. 235.000,00"
+	}
+]
