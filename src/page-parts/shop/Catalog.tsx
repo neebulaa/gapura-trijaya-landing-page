@@ -4,6 +4,8 @@ import productsData from "../../assets/data/products.json";
 import DropdownFilter from "../../components/DropdownFilter";
 import { ProductType } from "../../dto/ProductType";
 
+const MAX_PAGE_ON_PAGINATION = 5;
+
 export default function Catalog() {
 	const [gridSystem, setGridSystem] = useState("columns");
 	const [products, setProducts] = useState(productsData);
@@ -104,8 +106,7 @@ export default function Catalog() {
 	function setPage(to: string | number) {
 		if (typeof to == "number") {
 			if (to == currentPage) return;
-			if (to > currentPage) to = "next";
-			else to = "previous";
+			setCurrentPage(to);
 		}
 
 		if (to == "next" && currentPage < maxPage) {
@@ -403,17 +404,42 @@ export default function Catalog() {
 						>
 							<i className="fa-solid fa-chevron-left"></i>
 						</button>
-						{new Array(maxPage).fill(0).map((_, i) => (
-							<button
-								onClick={() => setPage(i + 1)}
-								key={i}
-								className={`${
-									i + 1 == currentPage ? "active" : ""
-								}`}
-							>
-								{i + 1}
-							</button>
-						))}
+						{new Array(
+							MAX_PAGE_ON_PAGINATION > maxPage
+								? maxPage
+								: MAX_PAGE_ON_PAGINATION
+						)
+							.fill(0)
+							.map((_, i) => {
+								let page = i + 1;
+								const pageMinThreshold =
+									MAX_PAGE_ON_PAGINATION -
+									Math.floor(MAX_PAGE_ON_PAGINATION / 2);
+								const pageMaxThreshold =
+									maxPage -
+									Math.floor(MAX_PAGE_ON_PAGINATION / 2);
+								let currentPageToWatch = currentPage;
+								if (currentPageToWatch >= pageMaxThreshold) {
+									currentPageToWatch = pageMaxThreshold;
+								}
+
+								if (currentPageToWatch > pageMinThreshold) {
+									page +=
+										currentPageToWatch - pageMinThreshold;
+								}
+
+								return (
+									<button
+										onClick={() => setPage(page)}
+										key={i}
+										className={`${
+											page == currentPage ? "active" : ""
+										}`}
+									>
+										{page}
+									</button>
+								);
+							})}
 						<button
 							onClick={() => setPage("next")}
 							disabled={currentPage == maxPage}
