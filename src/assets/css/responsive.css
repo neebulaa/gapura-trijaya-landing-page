@@ -72,6 +72,7 @@
 }
 
 @media (max-width: 1024px) {
+	/* ***** HOME PAGE START ***** */
 	/* navbar start */
 	.burger {
 		display: flex;
@@ -159,6 +160,38 @@
 		right: -12%;
 	}
 	/* membership section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* catalog section start */
+	#catalog {
+		flex-direction: column;
+	}
+
+	.catalog-filters-vertical {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+	/* catalog section end */
+
+	/* dropdown filter start */
+	.dropdown-filter:first-child {
+		margin-top: 1.5rem;
+	}
+
+	.dropdown-filter {
+		flex: 1 0 250px;
+	}
+
+	.catalog-pagination {
+		justify-content: center;
+	}
+	/* dropdown filter end */
+
+	/* catalog section end */
+	/* ***** SHOP PAGE END ***** */
 }
 
 @media (max-width: 768px) {
@@ -166,6 +199,7 @@
 		font-size: 15px;
 	}
 
+	/* ***** HOME PAGE START ***** */
 	/* benefits section start */
 
 	.benefit h2 {
@@ -253,6 +287,36 @@
 		width: 100%;
 	}
 	/* about section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* dropdown filter start */
+	.dropdown-filter {
+		flex: 1 0 200px;
+	}
+	/* dropdown filter end */
+
+	/* catalog section start */
+	.catalog-filters-horizontal {
+		flex-wrap: wrap;
+		justify-content: space-between;
+		row-gap: 2rem;
+	}
+
+	.catalog-filters-horizontal p {
+		width: 100%;
+	}
+
+	.filter-btn {
+		order: 4;
+	}
+
+	#catalog-sort {
+		margin-left: initial;
+	}
+
+	/* catalog section end */
+	/* ***** SHOP PAGE END ***** */
 }
 
 @media (max-width: 480px) {
@@ -278,6 +342,7 @@
 		font-size: 1.7rem;
 	}
 
+	/* ***** HOME PAGE START ***** */
 	/* navbar start */
 	.nav-links {
 		font-size: 1.6rem;
@@ -393,9 +458,17 @@
 		/* align-items: center; */
 	}
 	/* footer section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	.catalog-filters-horizontal p {
+		font-size: 1.1rem;
+	}
+	/* ***** SHOP PAGE END ***** */
 }
 
 @media (max-width: 375px) {
+	/* ***** HOME PAGE START ***** */
 	/* hero section start */
 	.shape1 {
 		top: -5%;
@@ -433,4 +506,5 @@
 		right: -20%;
 	}
 	/* membership section end */
+	/* ***** HOME PAGE END ***** */
 }

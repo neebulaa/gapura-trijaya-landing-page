@@ -336,7 +336,7 @@ export default function Catalog() {
 						<option value="pl-ph">Price - Low to High</option>
 						<option value="ph-pl">Price - High to Low</option>
 					</select>
-					<button className="btn">Filter</button>
+					<button className="btn filter-btn">Filter</button>
 					<div className="btn-split">
 						<button
 							onClick={() => setGridSystem("columns")}
