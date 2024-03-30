@@ -1,33 +1,36 @@
-import { useState, useMemo } from "react";
-import productsData from "../assets/data/products.json";
-import ProductCard from "../components/ProductCard";
+import { useState, useMemo, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import productsData from "../../assets/data/products.json";
+import ProductCard from "../../components/ProductCard";
 
 export default function Products() {
 	const [products, setProducts] = useState(productsData);
 	const [productsPerPage, setProductsPerPage] = useState(4);
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentSlide, setCurrentSlide] = useState(1);
-	const [maxSlide, setMaxSlide] = useState(() => {
+	const maxSlide = useMemo(() => {
 		return Math.ceil(products.length / productsPerPage);
-	});
+	}, [products]);
 
-	const productsFiltered = useMemo(() => {
-		// filter by category
-		const currentProducts =
-			currentCategory == "all"
-				? products
-				: products.filter(
-						(product) => product.category == currentCategory
-				  );
-		setMaxSlide(Math.ceil(currentProducts.length / productsPerPage));
-		// filter by slide number
-		const firstIndex = (currentSlide - 1) * productsPerPage;
-		const lastIndex = firstIndex + productsPerPage;
-		return currentProducts.slice(firstIndex, lastIndex);
-	}, [currentSlide, currentCategory]);
+	const categories = useMemo(
+		() => [
+			"all",
+			...productsData.reduce<string[]>((acc, curr) => {
+				if (!acc.includes(curr.category)) {
+					acc.push(curr.category);
+				}
+				return acc;
+			}, []),
+		],
+		[productsData]
+	);
+
+	useEffect(() => {
+		setCurrentSlide(1);
+		filter();
+	}, [currentCategory]);
 
 	function setCategory(category: string) {
-		setCurrentSlide(1);
 		setCurrentCategory(category);
 	}
 
@@ -39,15 +42,27 @@ export default function Products() {
 		}
 	}
 
-	const categories = [
-		"all",
-		...products.reduce<string[]>((acc, curr) => {
-			if (!acc.includes(curr.category)) {
-				acc.push(curr.category);
-			}
-			return acc;
-		}, []),
-	];
+	function paginateProducts() {
+		const firstIndex = (currentSlide - 1) * productsPerPage;
+		const lastIndex = firstIndex + productsPerPage;
+		return products.slice(firstIndex, lastIndex);
+	}
+
+	function filter() {
+		filterByCategory();
+	}
+
+	function filterByCategory() {
+		setProducts(() => {
+			const data =
+				currentCategory == "all"
+					? productsData
+					: productsData.filter(
+							(product) => product.category == currentCategory
+					  );
+			return data;
+		});
+	}
 
 	return (
 		<section
@@ -63,7 +78,10 @@ export default function Products() {
 					<h2>Katalog Produk</h2>
 				</div>
 				<button className="btn btn-outline flex gap-1 items-center">
-					Lihat Semua <i className="fa-solid fa-chevron-right"></i>
+					<NavLink to="/shop">
+						Lihat Semua{" "}
+						<i className="fa-solid fa-chevron-right"></i>
+					</NavLink>
 				</button>
 			</header>
 			<section className="cards-action">
@@ -72,7 +90,7 @@ export default function Products() {
 						<button
 							onClick={() => setCategory(category)}
 							key={i}
-							className={`${
+							className={`btn-link ${
 								category == currentCategory ? "current" : ""
 							}`}
 						>
@@ -96,17 +114,16 @@ export default function Products() {
 						className={`${
 							currentSlide == maxSlide ? "inactive" : ""
 						}`}
-						disabled={
-							currentSlide ==
-							Math.ceil(products.length / productsPerPage)
-						}
+						disabled={currentSlide == maxSlide}
 					>
 						<i className="fa-solid fa-chevron-right"></i>
 					</button>
 				</div>
 			</section>
 			<section className="cards-list">
-				{productsFiltered.map((product) => (<ProductCard {...product}/>))}
+				{paginateProducts().map((product) => (
+					<ProductCard key={product.id} {...product} />
+				))}
 			</section>
 		</section>
 	);

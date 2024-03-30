@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -38,16 +39,16 @@ export default function Navbar() {
 					<div className="nav-info">
 						<ul className="nav-links">
 							<li>
-								<a href="#home">Home</a>
+								<NavLink to="/">Home</NavLink>
 							</li>
 							<li>
-								<a href="#shop">Shop</a>
+								<NavLink to="/shop">Shop</NavLink>
 							</li>
 							<li>
-								<a href="#About">About</a>
+								<NavLink to="/about">About</NavLink>
 							</li>
 							<li>
-								<a href="#contact">Contact</a>
+								<NavLink to="/contact">Contact</NavLink>
 							</li>
 						</ul>
 

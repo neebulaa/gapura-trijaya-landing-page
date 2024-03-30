@@ -4,7 +4,7 @@ export default function OrderSteps() {
 			className="container"
 			id="order-steps"
 			style={{
-				marginTop: "0rem",
+				marginTop: "2rem",
 			}}
 		>
 			<header className="section-header">

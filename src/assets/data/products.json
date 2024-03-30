@@ -1,56 +1,112 @@
 [
 	{
+		"id": 1,
 		"name": "Plakat Akrilik",
 		"category": "plakat",
 		"image": "./images/products/product1.png",
-		"price": "Rp. 80.000,00"
+		"price": 80000,
+		"size": "kecil",
+		"colors": ["merah"],
+		"materials": ["akrilik"]
 	},
 	{
+		"id": 2,
 		"name": "Plakat Kalimantan",
 		"category": "plakat",
 		"image": "./images/products/product2.png",
-		"price": "Rp. 210.000,00"
+		"price": 210000,
+		"size": "sedang",
+		"colors": ["cokelat"],
+		"materials": ["kayu", "kristal"]
 	},
 	{
+		"id": 3,
 		"name": "Plakat Kristal",
 		"category": "plakat",
 		"image": "./images/products/product3.png",
-		"price": "Rp. 400.000,00"
+		"price": 400000,
+		"size": "sedang",
+		"colors": ["putih"],
+		"materials": ["kristal"]
 	},
 	{
-		"name": "Plakat Kristal",
-		"category": "plakat",
-		"image": "./images/products/product3.png",
-		"price": "Rp. 400.000,00"
+		"id": 4,
+		"name": "Standing X/Y Banner",
+		"category": "banner",
+		"image": "./images/products/product8.png",
+		"price": 80000,
+		"size": "besar",
+		"colors": ["kuning"],
+		"materials": ["vinyl"]
 	},
 	{
-		"name": "Plakat Kristal",
-		"category": "plakat",
-		"image": "./images/products/product3.png",
-		"price": "Rp. 400.000,00"
+		"id": 5,
+		"name": "Stand Banner Stainless",
+		"category": "banner",
+		"image": "./images/products/product11.png",
+		"price": 500000,
+		"size": "sangat besar",
+		"colors": ["putih"],
+		"materials": ["stainless steel"]
 	},
 	{
+		"id": 6,
 		"name": "Mini Banner",
 		"category": "banner",
 		"image": "./images/products/product4.png",
-		"price": "Rp. 30.000,00"
+		"price": 30000,
+		"size": "kecil",
+		"colors": ["merah muda"],
+		"materials": ["polyester fabric", "kanvas"]
 	},
 	{
+		"id": 7,
 		"name": "Tag Gun",
 		"category": "aksesoris",
 		"image": "./images/products/product5.png",
-		"price": "Rp. 95.000,00"
+		"price": 95000,
+		"size": "sedang",
+		"colors": ["merah"],
+		"materials": ["plastik", "logam"]
 	},
 	{
+		"id": 8,
 		"name": "Peniti - Emas",
 		"category": "aksesoris",
 		"image": "./images/products/product6.png",
-		"price": "Rp. 15.000,00"
+		"price": 15000,
+		"size": "kecil",
+		"colors": ["kuning", "emas"],
+		"materials": ["logam"]
 	},
 	{
+		"id": 9,
 		"name": "Tinta Dye",
 		"category": "aksesoris",
 		"image": "./images/products/product7.png",
-		"price": "Rp. 235.000,00"
+		"price": 235000,
+		"size": "kecil",
+		"colors": ["merah", "biru", "kuning", "hitam"],
+		"materials": ["tinta"]
+	},
+	{
+		"id": 10,
+		"name": "Tripod Banner",
+		"category": "banner",
+		"image": "./images/products/product10.png",
+		"price": 250000,
+		"size": "sangat besar",
+		"colors": ["putih"],
+		"materials": ["kanvas"]
+	},
+	{
+		"id": 11,
+		"name": "Custom Name Banner",
+		"category": "banner",
+		"image": "./images/products/product9.png",
+		"price": 80000,
+		"size": "besar",
+		"colors": ["biru", "putih"],
+		"materials": ["polyester fabric"]
 	}
 ]

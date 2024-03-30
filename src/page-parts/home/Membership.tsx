@@ -3,7 +3,7 @@ export default function Membership() {
 		<section
 			className="container"
 			style={{
-				marginTop: "0rem",
+				marginTop: "2rem",
 			}}
 		>
 			<section id="membership">

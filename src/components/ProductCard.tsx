@@ -1,8 +1,10 @@
-type ProductCardProps =  {
-    name: string,
-    category: string,
-    price: string,
-    image: string,
+import { formatCurrencyRupiah } from './../utils/formatCurrency';
+type ProductCardProps = {
+	id: number;
+	name: string;
+	category: string;
+	price: number;
+	image: string;
 };
 
 export default function ProductCard(props: ProductCardProps) {
@@ -16,11 +18,11 @@ export default function ProductCard(props: ProductCardProps) {
 			</div>
 			<div className="card-content">
 				<h3 className="card-title">{props.name}</h3>
-				<h4 className="card-info">{props.category}</h4>
-				<div className="flex justify-between flex-wrap gap-1">
+				<h4 className="card-highlighter">{props.category}</h4>
+				<div className="card-info flex justify-between flex-wrap gap-1">
 					<p className="card-description flex gap-04 items-center">
 						Mulai dari
-						<span className="product-price">{props.price}</span>
+						<span className="product-price">{formatCurrencyRupiah(props.price)}</span>
 					</p>
 					<button className="btn card-badge">
 						<i className="fa-solid fa-cart-shopping"></i>

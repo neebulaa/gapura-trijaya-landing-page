@@ -8,9 +8,6 @@ export default function Hero() {
 		<section
 			className="container"
 			id="hero"
-			style={{
-				marginTop: "100px",
-			}}
 		>
 			<section className="hero-content">
 				<h1>Cetak Berkualitas</h1>

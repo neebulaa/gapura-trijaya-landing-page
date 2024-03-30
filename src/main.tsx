@@ -5,9 +5,12 @@ import "./assets/css/init.css";
 import "./assets/css/font.css";
 import "./assets/css/index.css";
 import "./assets/css/responsive.css";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<App />
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 	</React.StrictMode>
 );

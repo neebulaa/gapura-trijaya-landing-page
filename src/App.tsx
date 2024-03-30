@@ -1,22 +1,27 @@
-import Hero from "./page-parts/Hero";
-import Benefits from "./page-parts/Benefits";
-import Products from "./page-parts/Products";
-import Membership from "./page-parts/Membership";
-import OrderSteps from "./page-parts/OrderSteps";
-import About from "./page-parts/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 	return (
 		<>
 			<Navbar />
-			<Hero />
-			<Benefits />
-			<Products />
-			<Membership />
-			<OrderSteps />
-			<About />
+			<section
+				style={{
+					marginTop: "100px", // this is how many pxs the fixed navbar is
+				}}
+			>
+				<Routes>
+					<Route path="/" element={<Home />}></Route>
+					<Route path="/shop" element={<Shop />}></Route>
+					<Route path="/about" element={<About />}></Route>
+					<Route path="/contact" element={<Contact />}></Route>
+				</Routes>
+			</section>
 			<Footer />
 		</>
 	);

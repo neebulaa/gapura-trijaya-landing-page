@@ -3,9 +3,11 @@
 	--primary: #003459;
 	--secondary: #fcbd01;
 	--accent: #ff564f;
+	--accent-two: #0D6EFD;
 	--secondary-light: #fff2da;
 	--black: black;
 	--gray: #737373;
+	--light-gray: #DDD;
 	--white: white;
 	--dim-white: #ebeeef;
 }
@@ -137,4 +139,8 @@ q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+input{
+	margin: 0;
 }
