@@ -234,6 +234,34 @@
 	.card .card-content .card-highlight {
 		font-size: 1rem;
 	}
+
+	.cards-list.list-rows .card {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.cards-list.list-rows .card .card-thumb {
+		height: 150px;
+	}
+
+	.cards-list.list-rows .card-title {
+		font-size: 1.1rem;
+	}
+
+	.cards-list.list-rows .card-highlighter {
+		font-size: 0.9rem;
+	}
+
+	.cards-list.list-rows .card .card-content {
+		align-items: center;
+		padding: 1rem;
+		flex-direction: column;
+	}
+
+	.cards-list.list-rows .card-content .card-info {
+		align-items: center;
+	}
+
 	/* products section end */
 
 	/* membership section start */
