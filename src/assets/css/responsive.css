@@ -163,19 +163,6 @@
 	/* ***** HOME PAGE END ***** */
 
 	/* ***** SHOP PAGE START ***** */
-	/* catalog section start */
-	#catalog {
-		flex-direction: column;
-	}
-
-	.catalog-filters-vertical {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		margin-top: 1.5rem;
-	}
-	/* catalog section end */
-
 	/* dropdown filter start */
 	.dropdown-filter:first-child {
 		margin-top: 1.5rem;
@@ -190,6 +177,17 @@
 	}
 	/* dropdown filter end */
 
+	/* catalog section start */
+	#catalog {
+		flex-direction: column;
+	}
+
+	.catalog-filters-vertical {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
 	/* catalog section end */
 	/* ***** SHOP PAGE END ***** */
 }
@@ -201,7 +199,6 @@
 
 	/* ***** HOME PAGE START ***** */
 	/* benefits section start */
-
 	.benefit h2 {
 		font-size: 2.2rem;
 	}
@@ -227,17 +224,12 @@
 		justify-content: space-between;
 	}
 
-	.card .card-content .card-title {
-		font-size: 1.1rem;
-	}
-
 	.card .card-content .card-highlight {
 		font-size: 1rem;
 	}
 
 	.cards-list.list-rows .card {
-		flex-wrap: wrap;
-		justify-content: center;
+		gap: 2rem;
 	}
 
 	.cards-list.list-rows .card .card-thumb {
@@ -250,16 +242,6 @@
 
 	.cards-list.list-rows .card-highlighter {
 		font-size: 0.9rem;
-	}
-
-	.cards-list.list-rows .card .card-content {
-		align-items: center;
-		padding: 1rem;
-		flex-direction: column;
-	}
-
-	.cards-list.list-rows .card-content .card-info {
-		align-items: center;
 	}
 
 	/* products section end */
@@ -335,14 +317,9 @@
 		width: 100%;
 	}
 
-	.filter-btn {
-		order: 4;
-	}
-
 	#catalog-sort {
 		margin-left: initial;
 	}
-
 	/* catalog section end */
 	/* ***** SHOP PAGE END ***** */
 }
@@ -412,9 +389,22 @@
 	/* hero section end */
 
 	/* products section start */
-	.card .card-content .card-description {
-		font-size: 1.1rem;
+	.cards-list.list-rows .card {
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		text-align: center;
 	}
+
+	.cards-list.list-rows .card .card-content {
+		align-items: center;
+		padding: 0;
+	}
+
+	.cards-list.list-rows .card-content .card-info {
+		align-items: center;
+	}
+
 	/* products section end */
 
 	/* membership section start */
@@ -489,9 +479,11 @@
 	/* ***** HOME PAGE END ***** */
 
 	/* ***** SHOP PAGE START ***** */
+	/* catalog section start  */
 	.catalog-filters-horizontal p {
 		font-size: 1.1rem;
 	}
+	/* catalog section end  */
 	/* ***** SHOP PAGE END ***** */
 }
 
@@ -512,6 +504,17 @@
 	}
 	/* hero section end */
 
+	/* product section start */
+	.card .card-thumb {
+		height: 200px;
+	}
+
+	.card .card-content .card-title {
+		font-size: 1rem;
+	}
+	/* product section end */
+
+	/* membership section start */
 	#membership::before {
 		border-radius: 80px;
 		width: 1400px;
@@ -535,4 +538,16 @@
 	}
 	/* membership section end */
 	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* catalog section start  */
+	.catalog-filters-horizontal {
+		gap: 1.5rem;
+	}
+
+	#catalog-sort {
+		width: 100%;
+	}
+	/* catalog section end */
+	/* ***** SHOP PAGE END ***** */
 }
