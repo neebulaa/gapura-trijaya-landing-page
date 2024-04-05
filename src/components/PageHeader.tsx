@@ -1,14 +1,16 @@
-import { CSSProperties, Fragment, useId } from "react";
+import { CSSProperties, Fragment, ReactNode } from "react";
 
 type PageHeaderProps = {
 	title: string;
-	navigations: string[];
+	navigations?: string[];
 	style?: CSSProperties;
+	children?: ReactNode;
 };
 export default function PageHeader({
 	title,
-	navigations,
+	navigations = [],
 	style,
+	children,
 }: PageHeaderProps) {
 	return (
 		<section
@@ -17,23 +19,26 @@ export default function PageHeader({
 		>
 			<section className="container">
 				<h1>{title}</h1>
-				<h2>
-					{navigations.map((nav, i) =>
-						i == navigations.length - 1 ? (
-							<span className="last" key={i}>
-								{nav}
-							</span>
-						) : (
-							<Fragment key={i}>
-								<span>{nav}</span>
-								<i className="fa-solid fa-chevron-right"></i>
-							</Fragment>
-						)
-					)}
-				</h2>
+				{navigations.length > 0 && (
+					<h2>
+						{navigations.map((nav, i) =>
+							i == navigations.length - 1 ? (
+								<span className="last" key={i}>
+									{nav}
+								</span>
+							) : (
+								<Fragment key={i}>
+									<span>{nav}</span>
+									<i className="fa-solid fa-chevron-right"></i>
+								</Fragment>
+							)
+						)}
+					</h2>
+				)}
+				{children}
 			</section>
 			<img
-				src="./images/pattern-left.png"
+				src={`${import.meta.env.VITE_APP_URL}/images/pattern-left.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Left `}
 				style={{
 					position: "absolute",
@@ -43,7 +48,7 @@ export default function PageHeader({
 				}}
 			/>
 			<img
-				src="./images/pattern-right.png"
+				src={`${import.meta.env.VITE_APP_URL}/images/pattern-right.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Right `}
 				style={{
 					position: "absolute",

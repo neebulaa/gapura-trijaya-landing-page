@@ -288,6 +288,7 @@ export default function Catalog() {
 						type="link"
 						onFilter={setCategory}
 						currentItem={currentCategory}
+						open={true}
 					/>
 					<DropdownFilter
 						title="Warna"

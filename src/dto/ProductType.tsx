@@ -1,9 +1,11 @@
 export type ProductType = {
     id: number;
     name: string;
+    slug: string;
     category: string;
     price: number;
     image: string;
     colors: string[];
-    materials: string[]
+    materials: string[];
+    category_type: string;
 }

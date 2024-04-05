@@ -5,7 +5,7 @@ import ProductCard from "../../components/ProductCard";
 
 export default function Products() {
 	const [products, setProducts] = useState(productsData);
-	const [productsPerPage, setProductsPerPage] = useState(4);
+	const [productsPerPage] = useState(4);
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentSlide, setCurrentSlide] = useState(1);
 	const maxSlide = useMemo(() => {
@@ -79,7 +79,7 @@ export default function Products() {
 				</div>
 				<button className="btn btn-outline flex gap-1 items-center">
 					<NavLink to="/shop">
-						Lihat Semua{" "}
+						Lihat Semua {"   "}
 						<i className="fa-solid fa-chevron-right"></i>
 					</NavLink>
 				</button>

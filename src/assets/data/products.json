@@ -2,111 +2,205 @@
 	{
 		"id": 1,
 		"name": "Plakat Akrilik",
+		"slug": "plakat-akrilik",
 		"category": "plakat",
 		"image": "./images/products/product1.png",
 		"price": 80000,
 		"size": "kecil",
 		"colors": ["merah"],
-		"materials": ["akrilik"]
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
 	},
 	{
 		"id": 2,
 		"name": "Plakat Kalimantan",
+		"slug": "plakat-kalimantan",
 		"category": "plakat",
 		"image": "./images/products/product2.png",
 		"price": 210000,
 		"size": "sedang",
 		"colors": ["cokelat"],
-		"materials": ["kayu", "kristal"]
+		"materials": ["kayu", "logam"],
+		"category_type": "kayu"
 	},
 	{
 		"id": 3,
 		"name": "Plakat Kristal",
+		"slug": "plakat-kristal",
 		"category": "plakat",
 		"image": "./images/products/product3.png",
 		"price": 400000,
 		"size": "sedang",
 		"colors": ["putih"],
-		"materials": ["kristal"]
+		"materials": ["kristal", "logam"],
+		"category_type": "kristal"
 	},
 	{
 		"id": 4,
 		"name": "Standing X/Y Banner",
+		"slug": "standing-x/y-banner",
 		"category": "banner",
 		"image": "./images/products/product8.png",
 		"price": 80000,
 		"size": "besar",
 		"colors": ["kuning"],
-		"materials": ["vinyl"]
+		"materials": ["vinyl"],
+		"category_type": "vinyl"
 	},
 	{
 		"id": 5,
 		"name": "Stand Banner Stainless",
+		"slug": "stand-banner-stainless",
 		"category": "banner",
 		"image": "./images/products/product11.png",
 		"price": 500000,
 		"size": "sangat besar",
 		"colors": ["putih"],
-		"materials": ["stainless steel"]
+		"materials": ["stainless steel"],
+		"category_type": "steel"
 	},
 	{
 		"id": 6,
 		"name": "Mini Banner",
+		"slug": "mini-banner",
 		"category": "banner",
 		"image": "./images/products/product4.png",
 		"price": 30000,
 		"size": "kecil",
 		"colors": ["merah muda"],
-		"materials": ["polyester fabric", "kanvas"]
+		"materials": ["polyester fabric", "kanvas"],
+		"category_type": "fabric"
 	},
 	{
 		"id": 7,
 		"name": "Tag Gun",
+		"slug": "tag-gun",
 		"category": "aksesoris",
 		"image": "./images/products/product5.png",
 		"price": 95000,
 		"size": "sedang",
 		"colors": ["merah"],
-		"materials": ["plastik", "logam"]
+		"materials": ["plastik", "logam"],
+		"category_type": "plastik"
 	},
 	{
 		"id": 8,
-		"name": "Peniti - Emas",
+		"name": "Peniti Emas",
+		"slug": "peniti-emas",
 		"category": "aksesoris",
 		"image": "./images/products/product6.png",
 		"price": 15000,
 		"size": "kecil",
 		"colors": ["kuning", "emas"],
-		"materials": ["logam"]
+		"materials": ["logam"],
+		"category_type": "logam"
 	},
 	{
 		"id": 9,
 		"name": "Tinta Dye",
+		"slug": "tinta-dye",
 		"category": "aksesoris",
 		"image": "./images/products/product7.png",
 		"price": 235000,
 		"size": "kecil",
 		"colors": ["merah", "biru", "kuning", "hitam"],
-		"materials": ["tinta"]
+		"materials": ["tinta"],
+		"category_type": "tinta"
 	},
 	{
 		"id": 10,
 		"name": "Tripod Banner",
+		"slug": "tripod-banner",
 		"category": "banner",
 		"image": "./images/products/product10.png",
 		"price": 250000,
 		"size": "sangat besar",
 		"colors": ["putih"],
-		"materials": ["kanvas"]
+		"materials": ["kanvas"],
+		"category_type": "kanvas"
 	},
 	{
 		"id": 11,
 		"name": "Custom Name Banner",
+		"slug": "custom-name-banner",
 		"category": "banner",
 		"image": "./images/products/product9.png",
 		"price": 80000,
 		"size": "besar",
 		"colors": ["biru", "putih"],
-		"materials": ["polyester fabric"]
+		"materials": ["polyester fabric"],
+		"category_type": "fabric"
+	},
+	{
+		"id": 12,
+		"name": "Plakat Akrilik Ucapan",
+		"slug": "plakat-akrilik-ucapan",
+		"category": "plakat",
+		"image": "./images/products/product12.png",
+		"price": 50000,
+		"size": "sedang",
+		"colors": ["putih", "hitam"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
+	},
+	{
+		"id": 13,
+		"name": "Plakat Akrilik Penghargaan",
+		"slug": "plakat-akrilik-penghargaan",
+		"category": "plakat",
+		"image": "./images/products/product13.png",
+		"price": 40000,
+		"size": "sedang",
+		"colors": ["putih", "hitam"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
+	},
+	{
+		"id": 14,
+		"name": "Plakat Akrilik Juara",
+		"slug": "plakat-akrilik-juara",
+		"category": "plakat",
+		"image": "./images/products/product14.png",
+		"price": 45000,
+		"size": "sedang",
+		"colors": ["bening", "hitam", "kuning"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
+	},
+	{
+		"id": 15,
+		"name": "Plakat Akrilik Kenangan",
+		"slug": "plakat-akrilik-kenangan",
+		"category": "plakat",
+		"image": "./images/products/product15.png",
+		"price": 30000,
+		"size": "sedang",
+		"colors": ["bening", "hitam", "kuning"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
+	},
+	{
+		"id": 16,
+		"name": "Plakat Akrilik Ucapan 2",
+		"slug": "plakat-akrilik-ucapan-2",
+		"category": "plakat",
+		"image": "./images/products/product16.png",
+		"price": 50000,
+		"size": "besar",
+		"colors": ["bening", "hitam", "hijau", "kuning"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
+	},
+	{
+		"id": 17,
+		"name": "Plakat Akrilik",
+		"slug": "plakat-akrilik-2",
+		"category": "plakat",
+		"image": "./images/products/product1.png",
+		"price": 80000,
+		"size": "kecil",
+		"colors": ["merah"],
+		"materials": ["akrilik"],
+		"category_type": "akrilik"
 	}
 ]

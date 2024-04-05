@@ -3,11 +3,11 @@
 	--primary: #003459;
 	--secondary: #fcbd01;
 	--accent: #ff564f;
-	--accent-two: #0D6EFD;
+	--accent-two: #0d6efd;
 	--secondary-light: #fff2da;
-	--black: black;
+	--black: #272833;
 	--gray: #737373;
-	--light-gray: #DDD;
+	--light-gray: #e0e0e0;
 	--white: white;
 	--dim-white: #ebeeef;
 }
@@ -141,6 +141,6 @@ table {
 	border-spacing: 0;
 }
 
-input{
+input {
 	margin: 0;
 }

@@ -5,7 +5,7 @@ export default function Footer() {
 				className="container"
 				style={{
 					paddingTop: "4rem",
-					marginTop: "3rem",
+					marginTop: "2rem",
 				}}
 			>
 				<section id="footer">

@@ -5,6 +5,8 @@ import Shop from "./pages/Shop";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import { Routes, Route } from "react-router-dom";
+import ShopPlakatDetail from "./pages/shop/ShopPlakatDetail";
+import NotFound from "./pages/NotFound";
 
 function App() {
 	return (
@@ -17,9 +19,22 @@ function App() {
 			>
 				<Routes>
 					<Route path="/" element={<Home />}></Route>
-					<Route path="/shop" element={<Shop />}></Route>
+					<Route path="/shop">
+						<Route index element={<Shop />} />
+						<Route path="plakat">
+							<Route index element={<Shop />} />
+							<Route path=":category_type" >
+								<Route index element={<Shop />}/>
+								<Route
+									path=":slug"
+									element={<ShopPlakatDetail />}
+								/>
+							</Route>
+						</Route>
+					</Route>
 					<Route path="/about" element={<About />}></Route>
 					<Route path="/contact" element={<Contact />}></Route>
+					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</section>
 			<Footer />

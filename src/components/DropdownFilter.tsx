@@ -7,6 +7,7 @@ type DropdownFilterProps = {
 	type?: string;
 	onFilter: Function;
 	currentItem: string | string[];
+	open?:boolean;
 };
 const FilterType = ["link", "checkbox", "radio"];
 export default function DropdownFilter({
@@ -16,12 +17,13 @@ export default function DropdownFilter({
 	type = "link",
 	onFilter,
 	currentItem,
+	open = false
 }: DropdownFilterProps) {
 	if (!FilterType.includes(type)) {
 		type = "link";
 	}
 	const componentId = useId();
-	const [openDropdown, setOpenDropdown] = useState(true);
+	const [openDropdown, setOpenDropdown] = useState(open);
 	const [openAll, setOpenAll] = useState(false);
 
 	const [itemValue, setItemValue] = useState(() => {
