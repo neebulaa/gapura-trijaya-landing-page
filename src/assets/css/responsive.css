@@ -52,7 +52,6 @@
 	.membership-content button {
 		margin-inline: auto;
 	}
-
 	/* membership section end */
 
 	/* about section start */
@@ -155,7 +154,6 @@
 		align-items: center;
 		text-align: center;
 	}
-
 	/* benefits section end */
 
 	/* membership section start */
@@ -281,7 +279,6 @@
 	.cards-list.list-rows .card-highlighter {
 		font-size: 0.9rem;
 	}
-
 	/* products section end */
 
 	/* membership section start */
@@ -473,7 +470,6 @@
 	.cards-list.list-rows .card-content .card-info {
 		align-items: center;
 	}
-
 	/* products section end */
 
 	/* membership section start */
@@ -542,7 +538,6 @@
 
 	.footer-copyright {
 		flex-direction: column;
-		/* align-items: center; */
 	}
 	/* footer section end */
 	/* ***** HOME PAGE END ***** */
