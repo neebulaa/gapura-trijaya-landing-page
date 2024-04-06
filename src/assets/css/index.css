@@ -4,15 +4,6 @@ body {
 	color: var(--black);
 }
 
-html {
-	scroll-behavior: smooth;
-}
-
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
 p {
 	line-height: 1.2;
 }
@@ -27,145 +18,12 @@ input[type="text"] {
 	font-size: 0.9rem;
 }
 
-.input-box {
-	display: flex;
-	flex-direction: column;
-	gap: 0.8rem;
-}
-
-.input-box label:not(.btn) {
-	font-weight: 500;
-}
-
-.container {
-	padding: 2rem;
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
-.fill-container {
-	background: var(--primary);
-}
-
-.page-header {
-	color: white;
-	position: relative;
-}
-
-.page-header .container {
-	padding-block: initial;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	height: 100%;
-	align-items: center;
-	justify-content: center;
-}
-
-.page-header p {
-	line-height: 1.2;
-	text-align: center;
-}
-
-.page-header .container h1 {
-	font-size: 3rem;
-	font-family: "Poppins";
-	font-weight: 500;
-}
-
-.page-header .container h2,
-.page-header-nav .container h2 {
-	color: white;
-	display: flex;
-	gap: 1rem;
-	font-weight: 500;
-	text-transform: capitalize;
-	align-items: center;
-}
-
-.page-header .container h2 .last,
-.page-header-nav .container h2 .last {
-	font-weight: 300;
-}
-
-.page-header-nav .container {
-	padding-block: 1rem;
-	color: white;
-}
-
-.page-header-nav .container h2 i {
-	font-size: 0.5rem;
-}
-
-.flex {
-	display: flex;
-}
-
-.flex-wrap {
-	flex-wrap: wrap;
-}
-
-.justify-between {
-	justify-content: space-between;
-}
-
-.items-center {
-	align-items: center;
-}
-
-.gap-1 {
-	gap: 1rem;
-}
-
-.gap-05 {
-	gap: 0.5rem;
-}
-
-.gap-04 {
-	gap: 0.4rem;
-}
-
-.ml-auto {
-	margin-left: auto;
-}
-
-.underline {
-	text-decoration: underline;
-}
-
-.mt-05 {
-	margin-top: 0.5rem;
-}
-
-.mt-1 {
-	margin-top: 1rem;
-}
-
-.mt-1-05 {
-	margin-top: 1.5rem;
-}
-
-.mt-2 {
-	margin-top: 2rem;
-}
-
-.mb-1 {
-	margin-bottom: 1rem;
-}
-
-.mb-2 {
-	margin-bottom: 2rem;
-}
-
-.uppercase {
-	text-transform: uppercase;
-}
-
 hr {
 	border: 1px solid var(--light-gray);
 }
 
 button {
+	font-family: "Gilroy";
 	appearance: none;
 	outline: none;
 	background: none;
@@ -174,124 +32,7 @@ button {
 	cursor: pointer;
 }
 
-.none {
-	display: none;
-}
-
-.btn {
-	--bg: var(--primary);
-	font-weight: 600;
-	background: var(--bg);
-	color: white;
-	border-radius: 1000px;
-	padding: 0.875rem 1.75rem;
-	transition: 0.3s;
-	text-align: center;
-	letter-spacing: 0.025em;
-	cursor: pointer;
-}
-
-.no-pointer {
-	cursor: initial;
-}
-
-.btn-outline {
-	background: transparent;
-	border: 2px solid var(--bg);
-	color: var(--bg);
-}
-
-.btn.btn-secondary {
-	--bg: var(--secondary);
-}
-
-.btn-secondary.btn-glow {
-	box-shadow: 0 0 35px rgba(252, 189, 1, 0.4);
-}
-
-.text-center {
-	text-align: center;
-}
-
-.btn:focus {
-	outline: lightblue;
-	outline-offset: 2px;
-}
-
-.btn:not(.no-hover):hover {
-	opacity: 0.6;
-}
-
-.btn-split {
-	display: flex;
-	border-radius: 10px;
-	overflow: hidden;
-	border: 1px solid var(--light-gray);
-	height: max-content;
-}
-
-.btn-split button {
-	width: 40px;
-	height: 40px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.btn-split button.active {
-	background: var(--dim-white);
-	font-weight: 600;
-}
-
-.btn-split button + button {
-	border-left: 1px solid var(--light-gray);
-}
-
-.section-header {
-	display: flex;
-	width: 100%;
-	gap: 1rem;
-	justify-content: space-between;
-}
-
-.section-header .title {
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-
-.section-header h3 {
-	font-weight: 600;
-	font-size: 1rem;
-	color: var(--black);
-}
-
-.section-header h2 {
-	font-weight: 700;
-	font-size: 1.5rem;
-	color: var(--primary);
-}
-
-.btn-link {
-	text-transform: capitalize;
-	color: var(--gray);
-	cursor: pointer;
-	font-size: 0.9rem;
-	font-weight: 500;
-}
-
-.btn-link.current {
-	color: var(--primary);
-	font-weight: 600;
-}
-
-.inactive {
-	opacity: 0.5;
-	cursor: not-allowed;
-}
-
 /* ***** HOME PAGE START ***** */
-
 /* navbar start */
 #navbar-container {
 	position: fixed;
@@ -451,7 +192,6 @@ button {
 .burger.open span:last-child {
 	rotate: -41deg;
 }
-
 /* navbar end */
 
 /* hero section start */
@@ -533,7 +273,6 @@ button {
 	bottom: 10%;
 	right: 0;
 }
-
 /* hero section end */
 
 /* benefits section start */
@@ -577,7 +316,6 @@ button {
 	align-items: flex-start;
 	text-align: left;
 }
-
 /* benefits section end */
 
 /* products section start */
@@ -633,14 +371,6 @@ button {
 	gap: 2rem;
 }
 
-.card-as-link {
-	display: block;
-}
-
-.italic {
-	font-style: italic;
-}
-
 .card {
 	border-radius: 12px;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -688,13 +418,13 @@ button {
 	font-size: 0.875rem;
 }
 
+.card .card-content .card-info {
+	margin-top: 1rem;
+}
+
 .card .card-content .card-description {
 	font-weight: 700;
 	color: var(--primary);
-}
-
-.card .card-content .card-info {
-	margin-top: 1rem;
 }
 
 .cards-list.list-rows .card-content .card-info {
@@ -707,7 +437,7 @@ button {
 	color: var(--accent);
 }
 
-.card .card-badge {
+.card .card-button {
 	padding: initial;
 	width: 40px;
 	height: 40px;
@@ -716,7 +446,6 @@ button {
 	justify-content: center;
 	align-items: center;
 }
-
 /* products section end */
 
 /* membership section start */
@@ -787,7 +516,6 @@ button {
 .membership-thumb {
 	max-height: 400px;
 }
-
 /* membership section end */
 
 /* order steps section start */
@@ -823,7 +551,6 @@ button {
 	font-size: 1.05rem;
 	font-weight: 700;
 }
-
 /* order steps section end */
 
 /* about section start */
@@ -864,7 +591,6 @@ button {
 	height: 100%;
 	object-fit: cover;
 }
-
 /* about section end */
 
 /* footer section start */
@@ -936,6 +662,7 @@ button {
 .dropdown-filter:first-child {
 	margin-top: 3rem;
 }
+
 .dropdown-filter {
 	border-top: 1px solid var(--light-gray);
 	padding-top: 1.5rem;
@@ -1183,13 +910,13 @@ button {
 	font-size: 1.25rem;
 }
 
-.content-split {
+.table-content-split {
 	display: flex;
 	gap: 0.5rem;
 	flex-wrap: wrap;
 }
 
-.content-split h5 {
+.table-content-split h5 {
 	color: var(--gray);
 	max-width: 150px;
 	width: 100%;
@@ -1241,17 +968,18 @@ button {
 	padding-left: 1rem;
 }
 
-.table-navigation div {
+.table-navigation button {
 	position: relative;
 	cursor: pointer;
+	font-size: 1rem;
 }
 
-.table-navigation div.active {
+.table-navigation button.active {
 	color: var(--primary);
 	font-weight: 600;
 }
 
-.table-navigation div::after {
+.table-navigation button::after {
 	content: '';
 	position: absolute;
 	bottom: -0.5rem;
@@ -1265,9 +993,8 @@ button {
 	transition: .3s;
 }
 
-.table-navigation div.active::after{
+.table-navigation button.active::after{
 	scale: 1;
 }
-
 /* shop product detail end */
 /* ***** SHOP PAGE END ***** */

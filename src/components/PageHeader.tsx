@@ -1,26 +1,23 @@
-import { CSSProperties, Fragment, ReactNode } from "react";
+import { Fragment, ReactNode } from "react";
 
 type PageHeaderProps = {
 	title: string;
 	navigations?: string[];
-	style?: CSSProperties;
 	children?: ReactNode;
 };
 export default function PageHeader({
 	title,
 	navigations = [],
-	style,
 	children,
 }: PageHeaderProps) {
 	return (
 		<section
 			className="fill-container page-header"
-			style={{ height: "335px", ...style }}
 		>
 			<section className="container">
 				<h1>{title}</h1>
 				{navigations.length > 0 && (
-					<h2>
+					<p>
 						{navigations.map((nav, i) =>
 							i == navigations.length - 1 ? (
 								<span className="last" key={i}>
@@ -33,7 +30,7 @@ export default function PageHeader({
 								</Fragment>
 							)
 						)}
-					</h2>
+					</p>
 				)}
 				{children}
 			</section>

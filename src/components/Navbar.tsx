@@ -39,16 +39,16 @@ export default function Navbar() {
 					<div className="nav-info">
 						<ul className="nav-links">
 							<li>
-								<NavLink to="/">Home</NavLink>
+								<NavLink to="/" onClick={() => setSidebarOpen(false)}>Home</NavLink>
 							</li>
 							<li>
-								<NavLink to="/shop">Shop</NavLink>
+								<NavLink to="/shop" onClick={() => setSidebarOpen(false)}>Shop</NavLink>
 							</li>
 							<li>
-								<NavLink to="/about">About</NavLink>
+								<NavLink to="/about" onClick={() => setSidebarOpen(false)}>About</NavLink>
 							</li>
 							<li>
-								<NavLink to="/contact">Contact</NavLink>
+								<NavLink to="/contact" onClick={() => setSidebarOpen(false)}>Contact</NavLink>
 							</li>
 						</ul>
 

@@ -3,7 +3,7 @@
 // import Shape2 from "../assets/images/shapes/shape2.png";
 // import Shape3 from "../assets/images/shapes/shape3.png";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
 	return (
@@ -17,7 +17,7 @@ export default function Hero() {
 					yang luas untuk kebutuhan Anda.
 				</p>
 				<button className="btn btn-secondary btn-glow">
-					<NavLink to="/shop">Belanja Sekarang</NavLink>
+					<Link to="/shop">Belanja Sekarang</Link>
 				</button>
 			</section>
 			<section className="hero-image">

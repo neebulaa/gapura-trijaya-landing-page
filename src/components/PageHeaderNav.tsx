@@ -9,7 +9,7 @@ export default function PageHeaderNav({navigations = []}: PageHeaderNavProps) {
 		<header className="fill-container page-header-nav">
 			<section className="container">
 				{navigations.length > 0 && (
-					<h2>
+					<p>
 						{navigations.map((nav, i) =>
 							i == navigations.length - 1 ? (
 								<span className="last" key={i}>
@@ -22,7 +22,7 @@ export default function PageHeaderNav({navigations = []}: PageHeaderNavProps) {
 								</Fragment>
 							)
 						)}
-					</h2>
+					</p>
 				)}
 			</section>
 		</header>

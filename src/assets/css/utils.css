@@ -1,0 +1,250 @@
+.container {
+	padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.fill-container {
+	background: var(--primary);
+}
+
+.section-header {
+	display: flex;
+	width: 100%;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.section-header .title {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.section-header .title h2 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.section-header .title h3 {
+	font-weight: 600;
+	font-size: 1rem;
+	color: var(--black);
+}
+
+.page-header {
+	color: white;
+	position: relative;
+	height: 335px;
+}
+
+.page-header .container {
+	padding-block: initial;
+	height: 100%;
+	display: flex;
+	gap: 1rem;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.page-header-nav .container {
+	padding-block: 1rem;
+	color: white;
+}
+
+.page-header .container h1 {
+	font-size: 3rem;
+	font-family: "Poppins";
+	font-weight: 500;
+}
+
+.page-header .container p,
+.page-header-nav .container p {
+	display: flex;
+	gap: 1rem;
+	font-weight: 500;
+	text-transform: capitalize;
+	align-items: center;
+}
+
+.page-header .container p .last,
+.page-header-nav .container p .last {
+	font-weight: 300;
+}
+
+.page-header-nav .container p i {
+	font-size: 0.5rem;
+}
+
+.input-box {
+	display: flex;
+	flex-direction: column;
+	gap: 0.8rem;
+}
+
+.input-box label:not(.btn) {
+	font-weight: 500;
+}
+
+.btn {
+	--bg: var(--primary);
+	font-weight: 600;
+	background: var(--bg);
+	color: white;
+	border-radius: 1000px;
+	padding: 0.875rem 1.75rem;
+	transition: 0.3s;
+	text-align: center;
+	letter-spacing: 0.025em;
+	cursor: pointer;
+}
+
+.btn-outline {
+	background: transparent;
+	border: 2px solid var(--bg);
+	color: var(--bg);
+}
+
+.btn.btn-secondary {
+	--bg: var(--secondary);
+}
+
+.btn-secondary.btn-glow {
+	box-shadow: 0 0 35px rgba(252, 189, 1, 0.4);
+}
+
+.btn:focus {
+	outline: lightblue;
+	outline-offset: 2px;
+}
+
+.btn:not(.no-hover):hover {
+	opacity: 0.6;
+}
+
+.btn-split {
+	display: flex;
+	border-radius: 10px;
+	overflow: hidden;
+	border: 1px solid var(--light-gray);
+	height: max-content;
+}
+
+.btn-split button {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-split button.active {
+	background: var(--dim-white);
+	font-weight: 600;
+}
+
+.btn-split button + button {
+	border-left: 1px solid var(--light-gray);
+}
+
+.btn-link {
+	text-transform: capitalize;
+	color: var(--gray);
+	cursor: pointer;
+	font-size: 0.9rem;
+	font-weight: 500;
+}
+
+.btn-link.current {
+	color: var(--primary);
+	font-weight: 600;
+}
+
+/* class utils */
+
+.flex {
+	display: flex;
+}
+
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+.justify-between {
+	justify-content: space-between;
+}
+
+.items-center {
+	align-items: center;
+}
+
+.gap-1 {
+	gap: 1rem;
+}
+
+.gap-05 {
+	gap: 0.5rem;
+}
+
+.gap-04 {
+	gap: 0.4rem;
+}
+
+.ml-auto {
+	margin-left: auto;
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+.mt-05 {
+	margin-top: 0.5rem;
+}
+
+.mt-1 {
+	margin-top: 1rem;
+}
+
+.mt-1-05 {
+	margin-top: 1.5rem;
+}
+
+.mt-2 {
+	margin-top: 2rem;
+}
+
+.mb-1 {
+	margin-bottom: 1rem;
+}
+
+.mb-2 {
+	margin-bottom: 2rem;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.none {
+	display: none;
+}
+
+.no-pointer {
+	cursor: initial;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.inactive {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.italic {
+	font-style: italic;
+}

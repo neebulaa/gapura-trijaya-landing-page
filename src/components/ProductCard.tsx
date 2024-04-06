@@ -26,7 +26,7 @@ export default function ProductCard(props: ProductCardProps) {
 								{formatCurrencyRupiah(props.price)}
 							</span>
 						</p>
-						<button className="btn card-badge">
+						<button className="btn card-button">
 							<i className="fa-solid fa-cart-shopping"></i>
 						</button>
 					</div>

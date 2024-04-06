@@ -52,21 +52,21 @@ export default function ShopProductDetailGallery({
 				</div>
 				<div className={`subs-container ${isMobile ? 'mobile' : ''}`}>
 					{!isMobile && index > 0 && (
-						<div
+						<button
 							className="navigator navigator-left"
 							onClick={() => setIndex((prev) => prev - 1)}
 						>
 							<i className="fa-solid fa-chevron-left"></i>
-						</div>
+						</button>
 					)}
 
 					{!isMobile && index < maxIndex && (
-						<div
+						<button
 							className="navigator navigator-right"
 							onClick={() => setIndex((prev) => prev + 1)}
 						>
 							<i className="fa-solid fa-chevron-right"></i>
-						</div>
+						</button>
 					)}
 
 					{!isMobile && (
