@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ProductType } from "../dto/ProductType";
 import { getElementProperty } from "../utils/getElementProperty";
 type ShopProductDetailGalleryProps = {
@@ -16,6 +16,17 @@ export default function ShopProductDetailGallery({
 		() => products.filter((product) => product !== mainProduct),
 		[products]
 	);
+
+	const [isMobile, setIsMobile] = useState(() => {
+		return window.innerWidth <= 768;
+	});
+
+	useEffect(() => {
+		function handleResize() {
+			setIsMobile(window.innerWidth <= 768);
+		}
+		addEventListener("resize", handleResize);
+	}, []);
 
 	const gallery = useRef<HTMLElement>(null);
 	const subsCount = 4;
@@ -39,8 +50,8 @@ export default function ShopProductDetailGallery({
 						}`}
 					/>
 				</div>
-				<div className="subs-container">
-					{index > 0 && (
+				<div className={`subs-container ${isMobile ? 'mobile' : ''}`}>
+					{!isMobile && index > 0 && (
 						<div
 							className="navigator navigator-left"
 							onClick={() => setIndex((prev) => prev - 1)}
@@ -49,7 +60,7 @@ export default function ShopProductDetailGallery({
 						</div>
 					)}
 
-					{index < maxIndex && (
+					{!isMobile && index < maxIndex && (
 						<div
 							className="navigator navigator-right"
 							onClick={() => setIndex((prev) => prev + 1)}
@@ -57,58 +68,62 @@ export default function ShopProductDetailGallery({
 							<i className="fa-solid fa-chevron-right"></i>
 						</div>
 					)}
-					<div
-						className="container-content"
-						style={{
-							translate: `-${
-								index == 0
-									? 0
-									: ((parseInt(
-											getElementProperty(
-												gallery.current!,
-												"--gallery-width"
-											)
-									  ) +
-											parseInt(
+
+					{!isMobile && (
+						<div
+							className="container-content"
+							style={{
+								translate: `-${
+									isMobile
+										? 0
+										: index == 0
+										? 0
+										: ((parseInt(
 												getElementProperty(
 													gallery.current!,
-													"--gallery-gap"
+													"--gallery-width"
 												)
-											)) /
-											Math.floor(subsCount / 2)) *
-											index -
-									  (subProducts.length % 2 === 1 &&
-									  index == maxIndex
-											? 1 *
-											  ((parseInt(
+										  ) +
+												parseInt(
 													getElementProperty(
 														gallery.current!,
-														"--gallery-width"
+														"--gallery-gap"
 													)
-											  ) +
-													parseInt(
+												)) /
+												Math.floor(subsCount / 2)) *
+												index -
+										  (subProducts.length % 2 === 1 &&
+										  index == maxIndex
+												? 1 *
+												  ((parseInt(
 														getElementProperty(
 															gallery.current!,
-															"--gallery-gap"
+															"--gallery-width"
 														)
-													)) /
-													subsCount)
-											: 0)
-							}px`,
-						}}
-					>
-						{Array(Math.ceil(subProducts.length / subsCount))
-							.fill(0)
-							.map((_, i) => (
-								<div className="subs" key={i}>
-									{subProducts
-										.slice(
-											i * subsCount,
-											(i + 1) * subsCount
-										)
-										.map((product) => (
-											<Fragment key={product.id}>
+												  ) +
+														parseInt(
+															getElementProperty(
+																gallery.current!,
+																"--gallery-gap"
+															)
+														)) /
+														subsCount)
+												: 0)
+								}px`,
+							}}
+						>
+							{Array(Math.ceil(subProducts.length / subsCount))
+								.fill(0)
+								.map((_, i) => (
+									<div className="subs" key={i}>
+										{subProducts
+											.slice(
+												i * subsCount,
+												(i + 1) * subsCount
+											)
+											.map((product) => (
 												<div
+													key={product.id}
 													className="sub"
 													onClick={() =>
 														setMainProduct(product)
@@ -125,11 +140,32 @@ export default function ShopProductDetailGallery({
 														} - ${product.name}`}
 													/>
 												</div>
-											</Fragment>
-										))}
+											))}
+									</div>
+								))}
+						</div>
+					)}
+
+					{isMobile && (
+						<div className="container-content mobile">
+							{subProducts.map((product) => (
+								<div
+									key={product.id}
+									className="sub"
+									onClick={() => setMainProduct(product)}
+								>
+									<img
+										src={`${import.meta.env.VITE_APP_URL}${
+											product.image
+										}`}
+										alt={`${
+											import.meta.env.VITE_APP_NAME
+										} - ${product.name}`}
+									/>
 								</div>
 							))}
-					</div>
+						</div>
+					)}
 				</div>
 			</section>
 		</>

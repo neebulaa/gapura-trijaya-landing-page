@@ -1044,6 +1044,10 @@ button {
 	overflow-x: hidden;
 }
 
+.subs-container.mobile {
+	overflow-x: auto;
+}
+
 .subs-container .navigator {
 	position: absolute;
 	top: 0;
@@ -1089,6 +1093,10 @@ button {
 	aspect-ratio: 1;
 	border-radius: 10px;
 	overflow: hidden;
+}
+
+.container-content.mobile .sub {
+	width: 100px;
 }
 
 .shop-product-detail-gallery img {
