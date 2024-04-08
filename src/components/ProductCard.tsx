@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { formatCurrencyRupiah } from "./../utils/formatCurrency";
 import { ProductType } from "../dto/ProductType";
+import IconCart from "../assets/icons/IconCart";
 type ProductCardProps = ProductType;
 
 export default function ProductCard(props: ProductCardProps) {
@@ -27,7 +28,7 @@ export default function ProductCard(props: ProductCardProps) {
 							</span>
 						</p>
 						<button className="btn card-button">
-							<i className="fa-solid fa-cart-shopping"></i>
+							<IconCart width={"20"} height={"20"} />
 						</button>
 					</div>
 				</div>

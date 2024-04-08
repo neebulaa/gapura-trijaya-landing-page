@@ -23,8 +23,8 @@ function App() {
 						<Route index element={<Shop />} />
 						<Route path="plakat">
 							<Route index element={<Shop />} />
-							<Route path=":category_type" >
-								<Route index element={<Shop />}/>
+							<Route path=":category_type">
+								<Route index element={<Shop />} />
 								<Route
 									path=":slug"
 									element={<ShopPlakatDetail />}

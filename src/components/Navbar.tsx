@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import IconSearch from "../assets/icons/IconSearch";
+import IconHeart from "../assets/icons/IconHeart";
+import IconCart from "../assets/icons/IconCart";
 
 export default function Navbar() {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -39,28 +42,48 @@ export default function Navbar() {
 					<div className="nav-info">
 						<ul className="nav-links">
 							<li>
-								<NavLink to="/" onClick={() => setSidebarOpen(false)}>Home</NavLink>
+								<NavLink
+									to="/"
+									onClick={() => setSidebarOpen(false)}
+								>
+									Home
+								</NavLink>
 							</li>
 							<li>
-								<NavLink to="/shop" onClick={() => setSidebarOpen(false)}>Shop</NavLink>
+								<NavLink
+									to="/shop"
+									onClick={() => setSidebarOpen(false)}
+								>
+									Shop
+								</NavLink>
 							</li>
 							<li>
-								<NavLink to="/about" onClick={() => setSidebarOpen(false)}>About</NavLink>
+								<NavLink
+									to="/about"
+									onClick={() => setSidebarOpen(false)}
+								>
+									About
+								</NavLink>
 							</li>
 							<li>
-								<NavLink to="/contact" onClick={() => setSidebarOpen(false)}>Contact</NavLink>
+								<NavLink
+									to="/contact"
+									onClick={() => setSidebarOpen(false)}
+								>
+									Contact
+								</NavLink>
 							</li>
 						</ul>
 
 						<ul className="nav-action">
 							<li>
-								<i className="fa-solid fa-magnifying-glass"></i>
+								<IconSearch width={"20"} height={"20"} />
 							</li>
 							<li>
-								<i className="fa-regular fa-heart"></i>
+								<IconHeart width={"20"} height={"20"} />
 							</li>
 							<li>
-								<i className="fa-solid fa-cart-shopping"></i>
+								<IconCart width={'20'} height={'20'}/>
 							</li>
 							<li>
 								<button className="btn">Login</button>

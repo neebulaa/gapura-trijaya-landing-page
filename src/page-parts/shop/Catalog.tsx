@@ -3,6 +3,8 @@ import ProductCard from "../../components/ProductCard";
 import productsData from "../../assets/data/products.json";
 import DropdownFilter from "../../components/DropdownFilter";
 import { ProductType } from "../../dto/ProductType";
+import IconChevronRight from "../../assets/icons/IconChevronRight";
+import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 
 const MAX_PAGE_ON_PAGINATION = 5;
 
@@ -16,9 +18,7 @@ export default function Catalog() {
 	const [currentPriceRange, setCurrentPriceRange] = useState("all");
 	const [currentMaterials, setCurrentMaterials] = useState<string[]>([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	const maxPage = useMemo(() => {
-		return Math.ceil(products.length / productsPerPage);
-	}, [products, productsPerPage]);
+	const maxPage = Math.ceil(products.length / productsPerPage);
 
 	const categories = useMemo(
 		() => [
@@ -402,7 +402,7 @@ export default function Catalog() {
 							className={`${currentPage == 1 ? "inactive" : ""}`}
 							disabled={currentPage == 1}
 						>
-							<i className="fa-solid fa-chevron-left"></i>
+							<IconChevronLeft width={"25"} height={"25"} />
 						</button>
 						{new Array(
 							MAX_PAGE_ON_PAGINATION > maxPage
@@ -447,7 +447,7 @@ export default function Catalog() {
 								currentPage == maxPage ? "inactive" : ""
 							}`}
 						>
-							<i className="fa-solid fa-chevron-right"></i>
+							<IconChevronRight width={"25"} height={"25"} />
 						</button>
 					</section>
 				</section>

@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import IconChevronRight from "../assets/icons/IconChevronRight";
 
 type PageHeaderNavProps = {
 	navigations?: string[];
@@ -18,7 +19,7 @@ export default function PageHeaderNav({navigations = []}: PageHeaderNavProps) {
 							) : (
 								<Fragment key={i}>
 									<span>{nav}</span>
-									<i className="fa-solid fa-chevron-right"></i>
+									<IconChevronRight width={'20'} height={'20'}/>
 								</Fragment>
 							)
 						)}

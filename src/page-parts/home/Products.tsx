@@ -1,16 +1,17 @@
 import { useState, useMemo, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import productsData from "../../assets/data/products.json";
 import ProductCard from "../../components/ProductCard";
+import IconChevronRight from "../../assets/icons/IconChevronRight";
+import IconChevronLeft from "../../assets/icons/IconChevronLeft";
+import IconChevronDown from "../../assets/icons/IconChevronDown";
 
 export default function Products() {
 	const [products, setProducts] = useState(productsData);
 	const [productsPerPage] = useState(4);
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentSlide, setCurrentSlide] = useState(1);
-	const maxSlide = useMemo(() => {
-		return Math.ceil(products.length / productsPerPage);
-	}, [products]);
+	const maxSlide = Math.ceil(products.length / productsPerPage);
 
 	const categories = useMemo(
 		() => [
@@ -77,11 +78,11 @@ export default function Products() {
 					<h3>Produk Terlaris</h3>
 					<h2>Katalog Produk</h2>
 				</div>
-				<button className="btn btn-outline flex gap-1 items-center">
-					<NavLink to="/shop">
+				<button className="btn btn-outline">
+					<Link to="/shop" className="flex gap-04 items-center">
 						Lihat Semua {"   "}
-						<i className="fa-solid fa-chevron-right"></i>
-					</NavLink>
+						<IconChevronRight width={"20"} height={"20"} />
+					</Link>
 				</button>
 			</header>
 			<section className="cards-action">
@@ -90,13 +91,13 @@ export default function Products() {
 						<button
 							onClick={() => setCategory(category)}
 							key={i}
-							className={`btn-link ${
+							className={`btn-link flex items-center ${
 								category == currentCategory ? "current" : ""
 							}`}
 						>
 							{category}{" "}
 							{category == "all" && (
-								<i className="fa-solid fa-caret-down"></i>
+								<IconChevronDown width={"20"} height={"20"} />
 							)}
 						</button>
 					))}
@@ -107,7 +108,7 @@ export default function Products() {
 						className={`${currentSlide == 1 ? "inactive" : ""}`}
 						disabled={currentSlide == 1}
 					>
-						<i className="fa-solid fa-chevron-left"></i>
+						<IconChevronLeft width={"25"} height={"25"} />
 					</button>
 					<button
 						onClick={() => setSlide("next")}
@@ -116,7 +117,7 @@ export default function Products() {
 						}`}
 						disabled={currentSlide == maxSlide}
 					>
-						<i className="fa-solid fa-chevron-right"></i>
+						<IconChevronRight width={"25"} height={"25"} />
 					</button>
 				</div>
 			</section>

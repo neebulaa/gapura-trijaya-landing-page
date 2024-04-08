@@ -1,3 +1,5 @@
+import IconChevronRight from "../../assets/icons/IconChevronRight";
+
 export default function Membership() {
 	return (
 		<section
@@ -6,7 +8,7 @@ export default function Membership() {
 				marginTop: "2rem",
 			}}
 		>
-			<section id="membership">
+			<section id="membership"> 
 				<section className="membership-content">
 					<h2>Dapatkan Poin</h2>
 					<h3>Dengan Join Membership</h3>
@@ -15,12 +17,11 @@ export default function Membership() {
 						pembelian Anda? Bergabunglah dengan program membership
 						kami dan mulailah mengumpulkan poin hari ini!
 					</p>
-					<button className="btn flex gap-1 items-center">
+					<button className="btn flex gap-04 items-center">
 						Gabung Sekarang
-						<i className="fa-solid fa-chevron-right"></i>
+						<IconChevronRight width={"25"} height={"25"}/>
 					</button>
 				</section>
-
 				<img
 					src="./images/membership.png"
 					alt="membership"

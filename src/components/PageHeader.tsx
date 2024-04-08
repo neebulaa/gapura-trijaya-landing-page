@@ -1,4 +1,5 @@
 import { Fragment, ReactNode } from "react";
+import IconChevronRight from "../assets/icons/IconChevronRight";
 
 type PageHeaderProps = {
 	title: string;
@@ -11,9 +12,7 @@ export default function PageHeader({
 	children,
 }: PageHeaderProps) {
 	return (
-		<section
-			className="fill-container page-header"
-		>
+		<section className="fill-container page-header">
 			<section className="container">
 				<h1>{title}</h1>
 				{navigations.length > 0 && (
@@ -26,7 +25,10 @@ export default function PageHeader({
 							) : (
 								<Fragment key={i}>
 									<span>{nav}</span>
-									<i className="fa-solid fa-chevron-right"></i>
+									<IconChevronRight
+										width={"25"}
+										height={"25"}
+									/>
 								</Fragment>
 							)
 						)}

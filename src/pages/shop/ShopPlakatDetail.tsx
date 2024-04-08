@@ -35,16 +35,22 @@ export default function ShopPlakatDetail() {
 			<PageHeaderNav
 				navigations={["Home", "Shop", "plakat", category_type]}
 			/>
-			<section className="container mt-1" id="shop-product-detail">
-				<ShopProductDetailGallery
-					products={products}
-					mainProduct={mainProduct}
-					setMainProduct={(item: ProductType) => setMainProduct(item)}
-				/>
-				<ShopPlakatDetailForm product={mainProduct} />
-			</section>
-			<section className="container mt-2">
-				<ShopProductDetailTable />
+			<section className="container mt-1">
+				<section id="shop-product-detail">
+					<ShopProductDetailGallery
+						products={products}
+						mainProduct={mainProduct}
+						setMainProduct={(item: ProductType) =>
+							setMainProduct(item)
+						}
+					/>
+					<ShopPlakatDetailForm product={mainProduct} />
+				</section>
+				<section style={{ 
+					marginTop: '5rem'
+				 }}>
+					<ShopProductDetailTable />
+				</section>
 			</section>
 		</>
 	);

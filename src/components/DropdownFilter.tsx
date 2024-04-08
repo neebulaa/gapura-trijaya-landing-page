@@ -1,4 +1,5 @@
 import { useState, useId } from "react";
+import IconChevronDown from './../assets/icons/IconChevronDown';
 
 type DropdownFilterProps = {
 	title: string;
@@ -68,7 +69,7 @@ export default function DropdownFilter({
 				onClick={toggleOpenDropdown}
 			>
 				<h4>{title}</h4>
-				<i className="fa-solid fa-angle-down"></i>
+				<IconChevronDown width={'20'} height={'20'} color={'#737373'}/>
 			</header>
 			<section
 				className={`dropdown-filter-items ${

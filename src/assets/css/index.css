@@ -616,6 +616,7 @@ button {
 .footer-links .social-medias {
 	display: flex;
 	gap: 1rem;
+	align-items: center;
 }
 
 .footer-copyright {
@@ -679,10 +680,6 @@ button {
 
 .dropdown-filter-header h4 {
 	font-weight: 700;
-}
-
-.dropdown-filter-header .fa-angle-down {
-	color: var(--gray);
 }
 
 .dropdown-filter-items {
