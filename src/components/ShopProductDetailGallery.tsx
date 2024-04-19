@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ProductType } from "../dto/ProductType";
 import { getElementProperty } from "../utils/getElementProperty";
+import IconChevronLeft from "../assets/icons/IconChevronLeft";
+import IconChevronRight from "../assets/icons/IconChevronRight";
+
 type ShopProductDetailGalleryProps = {
 	products: ProductType[];
 	mainProduct: ProductType;
@@ -56,7 +59,7 @@ export default function ShopProductDetailGallery({
 							className="navigator navigator-left"
 							onClick={() => setIndex((prev) => prev - 1)}
 						>
-							<i className="fa-solid fa-chevron-left"></i>
+							<IconChevronLeft width="25" height='25' />
 						</button>
 					)}
 
@@ -65,7 +68,7 @@ export default function ShopProductDetailGallery({
 							className="navigator navigator-right"
 							onClick={() => setIndex((prev) => prev + 1)}
 						>
-							<i className="fa-solid fa-chevron-right"></i>
+							<IconChevronRight width="25" height='25' />
 						</button>
 					)}
 
@@ -160,7 +163,8 @@ export default function ShopProductDetailGallery({
 										}`}
 										alt={`${
 											import.meta.env.VITE_APP_NAME
-										} - ${product.name}`}
+										}import IconChevronLeft from './../assets/icons/IconChevronLeft';
+ - ${product.name}`}
 									/>
 								</div>
 							))}

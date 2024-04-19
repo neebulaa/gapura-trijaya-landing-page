@@ -778,7 +778,7 @@ button {
 	bottom: 0;
 	background: rgba(0, 0, 0, 0.4);
 	display: flex;
-	padding: 1rem;
+	padding: .5rem;
 	align-items: center;
 	color: white;
 	cursor: pointer;
