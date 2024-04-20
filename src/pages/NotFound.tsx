@@ -6,11 +6,10 @@ export default function NotFound() {
 			<p>
 				Sepertinya halaman yang anda kunjungi tidak ada atau sudah
 				dipindahkan
-				<br />
-				<Link to="/" className="underline">
-					Kembali ke Beranda
-				</Link>
 			</p>
+			<Link to="/" className="underline">
+				Kembali ke Beranda
+			</Link>
 		</PageHeader>
 	);
 }

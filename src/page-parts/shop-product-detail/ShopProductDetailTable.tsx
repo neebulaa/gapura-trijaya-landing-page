@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-export default function ShopProductDetailTable() {
+type ShopProductDetailTableProps = {
+	category_type: string
+}
+export default function ShopProductDetailTable({category_type} : ShopProductDetailTableProps) {
 	const [page, setPage] = useState("deskripsi");
 
 	return (

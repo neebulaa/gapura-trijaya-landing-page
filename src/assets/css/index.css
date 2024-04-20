@@ -9,7 +9,8 @@ p {
 }
 
 select,
-input[type="text"] {
+input[type="text"],
+textarea {
 	outline: none;
 	color: var(--gray);
 	border-radius: 5px;

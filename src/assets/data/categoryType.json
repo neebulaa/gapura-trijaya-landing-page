@@ -1,0 +1,32 @@
+[
+	{
+		"id": 1,
+		"category": "plakat",
+		"category_type": "akrilik",
+		"description": "Plakat akrilik custom dengan ketebalan 5mm/8mm. Dipotong dengan mesin laser terbaik, yang menghasilkan potongan yang rapih dan halus."
+	},
+	{
+		"id": 2,
+		"category": "plakat",
+		"category_type": "kristal",
+		"description": "Plakat kristal dengan ketebalan 2mm dilengkapi dengan kaki plakat yang tebal. Terkesan sangat mewah dan elegan, memiliki bermacam bentuk yang berbeda."
+	},
+	{
+		"id": 3,
+		"category": "plakat",
+		"category_type": "kalimantan",
+		"description": "Berbagai plakat akrilik yang bertemakan Kalimantan dengan dua lapisan warna yang berbeda."
+	},
+	{
+		"id": 4,
+		"category": "banner",
+		"category_type": "fixed banner",
+		"description": "Fixed banner adalah banner yang tidak dapat disesuaikan atau diubah sesuai kebutuhan atau preferensi pengguna."
+	},
+	{
+		"id": 5,
+		"category": "banner",
+		"category_type": "custom banner",
+		"description": "Custom banner adalah jenis banner yang dapat disesuaikan atau diubah sesuai dengan kebutuhan atau preferensi pengguna"
+	}
+]

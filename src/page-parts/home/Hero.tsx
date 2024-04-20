@@ -27,17 +27,17 @@ export default function Hero() {
 					alt={`${import.meta.env.VITE_APP_NAME} - Hero Image`}
 				/>
 				<img
-					src="./images/shapes/shape1.png"
+					src="./images/shape1.png"
 					className="shape1"
 					alt={`${import.meta.env.VITE_APP_NAME} - Custom Shape`}
 				/>
 				<img
-					src="./images/shapes/shape2.png"
+					src="./images/shape2.png"
 					className="shape2"
 					alt={`${import.meta.env.VITE_APP_NAME} - Custom Shape`}
 				/>
 				<img
-					src="./images/shapes/shape3.png"
+					src="./images/shape3.png"
 					className="shape3"
 					alt={`${import.meta.env.VITE_APP_NAME} - Custom Shape`}
 				/>

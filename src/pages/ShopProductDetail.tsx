@@ -1,20 +1,20 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import productsData from "../../assets/data/products.json";
-import PageHeaderNav from "../../components/PageHeaderNav";
-import ShopProductDetailGallery from "../../components/ShopProductDetailGallery";
-import ShopPlakatDetailForm from "../../components/ShopPlakatDetailForm";
-import { ProductType } from "../../dto/ProductType";
-import ShopProductDetailTable from "../../components/ShopProductDetailTable";
+import productsData from "../assets/data/products.json";
+import PageHeaderNav from "../components/PageHeaderNav";
+import ShopProductDetailGallery from "../page-parts/shop-product-detail/ShopProductDetailGallery";
+import ShopProductDetailForm from "../page-parts/shop-product-detail/ShopProductDetailForm";
+import { ProductType } from "../dto/ProductType";
+import ShopProductDetailTable from "../page-parts/shop-product-detail/ShopProductDetailTable";
 
 export default function ShopPlakatDetail() {
 	const navigator = useNavigate();
-	const { category_type = "", slug = "" } = useParams();
+	const { category = "", category_type = "", slug = "" } = useParams();
 	const [products, setProducts] = useState(() => {
 		return productsData.filter((product) => {
 			return (
-				product.category == "plakat" &&
+				product.category == category &&
 				product.category_type == category_type
 			);
 		});
@@ -33,7 +33,7 @@ export default function ShopPlakatDetail() {
 	return (
 		<>
 			<PageHeaderNav
-				navigations={["Home", "Shop", "plakat", category_type]}
+				navigations={["Home", "Shop", category, category_type]}
 			/>
 			<section className="container mt-1">
 				<section id="shop-product-detail">
@@ -44,12 +44,20 @@ export default function ShopPlakatDetail() {
 							setMainProduct(item)
 						}
 					/>
-					<ShopPlakatDetailForm product={mainProduct} />
+					<ShopProductDetailForm
+						product={mainProduct}
+						category={category}
+						category_type={mainProduct.category_type}
+					/>
 				</section>
-				<section style={{ 
-					marginTop: '5rem'
-				 }}>
-					<ShopProductDetailTable />
+				<section
+					style={{
+						marginTop: "5rem",
+					}}
+				>
+					<ShopProductDetailTable
+						category_type={mainProduct.category_type}
+					/>
 				</section>
 			</section>
 		</>

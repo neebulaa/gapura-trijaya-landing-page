@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ProductType } from "../dto/ProductType";
-import { getElementProperty } from "../utils/getElementProperty";
-import IconChevronLeft from "../assets/icons/IconChevronLeft";
-import IconChevronRight from "../assets/icons/IconChevronRight";
+import { ProductType } from "../../dto/ProductType";
+import { getElementProperty } from "../../utils/getElementProperty";
+import IconChevronLeft from "../../assets/icons/IconChevronLeft";
+import IconChevronRight from "../../assets/icons/IconChevronRight";
 
 type ShopProductDetailGalleryProps = {
 	products: ProductType[];
@@ -53,13 +53,13 @@ export default function ShopProductDetailGallery({
 						}`}
 					/>
 				</div>
-				<div className={`subs-container ${isMobile ? 'mobile' : ''}`}>
+				<div className={`subs-container ${isMobile ? "mobile" : ""}`}>
 					{!isMobile && index > 0 && (
 						<button
 							className="navigator navigator-left"
 							onClick={() => setIndex((prev) => prev - 1)}
 						>
-							<IconChevronLeft width="25" height='25' />
+							<IconChevronLeft width="25" height="25" />
 						</button>
 					)}
 
@@ -68,7 +68,7 @@ export default function ShopProductDetailGallery({
 							className="navigator navigator-right"
 							onClick={() => setIndex((prev) => prev + 1)}
 						>
-							<IconChevronRight width="25" height='25' />
+							<IconChevronRight width="25" height="25" />
 						</button>
 					)}
 

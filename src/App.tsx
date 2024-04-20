@@ -5,7 +5,7 @@ import Shop from "./pages/Shop";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import { Routes, Route } from "react-router-dom";
-import ShopPlakatDetail from "./pages/shop/ShopPlakatDetail";
+import ShopProductDetail from "./pages/ShopProductDetail";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -21,13 +21,13 @@ function App() {
 					<Route path="/" element={<Home />}></Route>
 					<Route path="/shop">
 						<Route index element={<Shop />} />
-						<Route path="plakat">
+						<Route path=":category">
 							<Route index element={<Shop />} />
 							<Route path=":category_type">
 								<Route index element={<Shop />} />
 								<Route
 									path=":slug"
-									element={<ShopPlakatDetail />}
+									element={<ShopProductDetail />}
 								/>
 							</Route>
 						</Route>

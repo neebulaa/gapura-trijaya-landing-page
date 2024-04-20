@@ -21,7 +21,7 @@
 		"size": "sedang",
 		"colors": ["cokelat"],
 		"materials": ["kayu", "logam"],
-		"category_type": "kayu"
+		"category_type": "kalimantan"
 	},
 	{
 		"id": 3,
@@ -45,7 +45,7 @@
 		"size": "besar",
 		"colors": ["kuning"],
 		"materials": ["vinyl"],
-		"category_type": "vinyl"
+		"category_type": "fixed banner"
 	},
 	{
 		"id": 5,
@@ -57,7 +57,7 @@
 		"size": "sangat besar",
 		"colors": ["putih"],
 		"materials": ["stainless steel"],
-		"category_type": "steel"
+		"category_type": "fixed banner"
 	},
 	{
 		"id": 6,
@@ -69,7 +69,7 @@
 		"size": "kecil",
 		"colors": ["merah muda"],
 		"materials": ["polyester fabric", "kanvas"],
-		"category_type": "fabric"
+		"category_type": "fixed banner"
 	},
 	{
 		"id": 7,
@@ -109,15 +109,15 @@
 	},
 	{
 		"id": 10,
-		"name": "Tripod Banner",
-		"slug": "tripod-banner",
+		"name": "Custom Tripod Banner",
+		"slug": "custom-tripod-banner",
 		"category": "banner",
 		"image": "./images/products/product10.png",
 		"price": 250000,
 		"size": "sangat besar",
 		"colors": ["putih"],
 		"materials": ["kanvas"],
-		"category_type": "kanvas"
+		"category_type": "custom banner"
 	},
 	{
 		"id": 11,
@@ -129,7 +129,7 @@
 		"size": "besar",
 		"colors": ["biru", "putih"],
 		"materials": ["polyester fabric"],
-		"category_type": "fabric"
+		"category_type": "custom banner"
 	},
 	{
 		"id": 12,
@@ -202,5 +202,161 @@
 		"colors": ["merah"],
 		"materials": ["akrilik"],
 		"category_type": "akrilik"
+	},
+	{
+		"id": 18,
+		"name": "Plakat Kristal Rainbow",
+		"slug": "plakat-kristal-rainbow",
+		"category": "plakat",
+		"image": "./images/products/product17.png",
+		"price": 200000,
+		"size": "sedang",
+		"colors": ["merah", "putih", "kuning", "hijau"],
+		"materials": ["kristal"],
+		"category_type": "kristal"
+	},
+	{
+		"id": 19,
+		"name": "Plakat Kristal Premium",
+		"slug": "plakat-kristal-premium",
+		"category": "plakat",
+		"image": "./images/products/product18.png",
+		"price": 300000,
+		"size": "besar",
+		"colors": ["putih", "kuning"],
+		"materials": ["kristal"],
+		"category_type": "kristal"
+	},
+	{
+		"id": 20,
+		"name": "Plakat Kristal Persegi",
+		"slug": "plakat-kristal-persegi",
+		"category": "plakat",
+		"image": "./images/products/product19.png",
+		"price": 200000,
+		"size": "sedang",
+		"colors": ["putih", "biru"],
+		"materials": ["kristal"],
+		"category_type": "kristal"
+	},
+	{
+		"id": 21,
+		"name": "Plakat Kristal Ruby",
+		"slug": "plakat-kristal-Rubi",
+		"category": "plakat",
+		"image": "./images/products/product20.png",
+		"price": 150000,
+		"size": "kecil",
+		"colors": ["putih", "merah"],
+		"materials": ["kristal"],
+		"category_type": "kristal"
+	},
+	{
+		"id": 22,
+		"name": "Plakat Kalimantan 2",
+		"slug": "plakat-kalimantan-2",
+		"category": "plakat",
+		"image": "./images/products/product21.png",
+		"price": 150000,
+		"size": "sedang",
+		"colors": ["hitam", "kuning", "coklat"],
+		"materials": ["kayu"],
+		"category_type": "kalimantan"
+	},
+	{
+		"id": 23,
+		"name": "Plakat Kalimantan 3",
+		"slug": "plakat-kalimantan-3",
+		"category": "plakat",
+		"image": "./images/products/product22.png",
+		"price": 180000,
+		"size": "sedang",
+		"colors": ["hitam", "merah", "coklat"],
+		"materials": ["kayu", "plastik"],
+		"category_type": "kalimantan"
+	},
+	{
+		"id": 24,
+		"name": "Plakat Kalimantan 4",
+		"slug": "plakat-kalimantan-4",
+		"category": "plakat",
+		"image": "./images/products/product23.png",
+		"price": 200000,
+		"size": "sedang",
+		"colors": ["hitam", "kuning", "coklat"],
+		"materials": ["kayu"],
+		"category_type": "kalimantan"
+	},
+	{
+		"id": 25,
+		"name": "Plakat Kalimantan 5",
+		"slug": "plakat-kalimantan-5",
+		"category": "plakat",
+		"image": "./images/products/product24.png",
+		"price": 220000,
+		"size": "sedang",
+		"colors": ["hitam", "kuning", "emas"],
+		"materials": ["kayu"],
+		"category_type": "kalimantan"
+	},
+	{
+		"id": 26,
+		"name": "Stand Stainless Banner",
+		"slug": "stand-stainless-banner",
+		"category": "banner",
+		"image": "./images/products/product25.png",
+		"price": 100000,
+		"size": "besar",
+		"colors": ["hitam", "putih"],
+		"materials": ["stainless steel", "logam"],
+		"category_type": "fixed banner"
+	},
+	{
+		"id": 27,
+		"name": "Standing Banner X/Y",
+		"slug": "standin-banner-x/y",
+		"category": "banner",
+		"image": "./images/products/product26.png",
+		"price": 80000,
+		"size": "besar",
+		"colors": ["biru", "merah muda", "hijau", "putih"],
+		"materials": ["polyester fabric"],
+		"category_type": "fixed banner"
+	},
+	{
+		"id": 28,
+		"name": "Tripod Banner 2",
+		"slug": "tripod-banner-2",
+		"category": "banner",
+		"image": "./images/products/product27.png",
+		"price": 75000,
+		"size": "sedang",
+		"colors": ["biru", "putih", "kuning"],
+		"materials": ["polyester fabric"],
+		"category_type": "fixed banner"
+	},
+	{
+		"id": 29,
+		"name": "Custom Roll Up Banner",
+		"slug": "custom-roll-up-banner",
+		"category": "banner",
+		"image": "./images/products/product28.png",
+		"price": 160000,
+		"size": "besar",
+		"colors": ["kuning", "hitam", "merah"],
+		"materials": ["polyester fabric"],
+		"category_type": "custom banner"
+	},
+	{
+		"id": 30,
+		"name": "Custom Standing X/Y Banner",
+		"slug": "custom-standing-x/y-banner",
+		"category": "banner",
+		"image": "./images/products/product29.png",
+		"price": 75000,
+		"size": "sedang",
+		"colors": ["biru", "putih", "kuning"],
+		"materials": ["polyester fabric"],
+		"category_type": "custom banner"
 	}
 ]
