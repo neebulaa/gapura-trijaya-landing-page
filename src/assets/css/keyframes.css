@@ -6,3 +6,9 @@
 		opacity: 1;
 	}
 }
+
+@keyframes show {
+	100%{
+		opacity: 1;
+	}
+}

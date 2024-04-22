@@ -2,8 +2,11 @@ import IconMinus from "../../../assets/icons/IconMinus";
 import IconBag from "../../../assets/icons/IconBag";
 import IconPlus from "../../../assets/icons/IconPlus";
 import IconQuestionMark from "../../../assets/icons/IconQuestionMark";
+import { useState } from "react";
 
 export default function PlakatAkrilikForm() {
+	const [openBoxBuldru, setOpenBoxBuldru] = useState(false);
+
 	return (
 		<form action="">
 			<div className="input-box">
@@ -38,7 +41,26 @@ export default function PlakatAkrilikForm() {
 			<div className="input-box mt-1">
 				<label htmlFor="box-buldru">
 					Box Plakat Buldru{" "}
-					<IconQuestionMark width={"15"} height={"15"} />
+					<div
+						className="hover-box-container"
+						style={{ display: "inline", cursor: "pointer" }}
+						onMouseEnter={() => setOpenBoxBuldru(true)}
+						onMouseLeave={() => setOpenBoxBuldru(false)}
+					>
+						<IconQuestionMark width={"15"} height={"15"} />
+						{openBoxBuldru && (
+							<div className="hover-box">
+								<img
+									src={`${
+										import.meta.env.VITE_APP_URL
+									}./images/product-supporting-images/box-buldru.png`}
+									alt={`${
+										import.meta.env.VITE_APP_NAME
+									} - Box Buldru`}
+								/>
+							</div>
+						)}
+					</div>
 				</label>
 				<select name="box-buldru" id="box-buldru">
 					<option value="">Kaki kotak</option>
