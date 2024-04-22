@@ -358,5 +358,65 @@
 		"colors": ["biru", "putih", "kuning"],
 		"materials": ["polyester fabric"],
 		"category_type": "custom banner"
+	},
+	{
+		"id": 31,
+		"name": "Label Nama Anak",
+		"slug": "label-nama-anak",
+		"category": "stiker",
+		"image": "./images/products/product30.png",
+		"price": 50000,
+		"size": "sedang",
+		"colors": ["merah muda", "merah", "putih", "kuning", "biru", "hijau"],
+		"materials": ["vinyl", "kertas"],
+		"category_type": "label nama"
+	},
+	{
+		"id": 32,
+		"name": "Stiker Alamat Lucu",
+		"slug": "stiker-alamat",
+		"category": "stiker",
+		"image": "./images/products/product31.png",
+		"price": 60000,
+		"size": "kecil",
+		"colors": ["merah muda", "merah", "putih", "kuning", "biru", "hijau", "ungu"],
+		"materials": ["vinyl", "kertas"],
+		"category_type": "stiker alamat"
+	},
+	{
+		"id": 33,
+		"name": "Stiker Kromo",
+		"slug": "stiker-kromo",
+		"category": "stiker",
+		"image": "./images/products/product32.png",
+		"price": 110000,
+		"size": "besar",
+		"colors": ["merah muda", "merah", "putih", "kuning", "emas"],
+		"materials": ["kertas"],
+		"category_type": "stiker kromo"
+	},
+	{
+		"id": 35,
+		"name": "Stiker Vinyl HOHO - Semi Waterproof",
+		"slug": "stiker-kromo-hoho-semi-waterproof",
+		"category": "stiker",
+		"image": "./images/products/product33.png",
+		"price": 30000,
+		"size": "sedang",
+		"colors": ["merah muda", "merah", "putih", "kuning", "hitam"],
+		"materials": ["kertas", "vinyl"],
+		"category_type": "stiker vinyl"
+	},
+	{
+		"id": 36,
+		"name": "Stiker Vinyl HOHO - Waterproof",
+		"slug": "stiker-kromo-hoho-waterproof",
+		"category": "stiker",
+		"image": "./images/products/product33.png",
+		"price": 60000,
+		"size": "sedang",
+		"colors": ["merah muda", "merah", "putih", "kuning", "hitam"],
+		"materials": ["kertas", "vinyl"],
+		"category_type": "stiker vinyl"
 	}
 ]

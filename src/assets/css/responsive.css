@@ -365,6 +365,9 @@
 		--gallery-width: 80%;
 		margin-top: 0;
 	}
+	.shop-product-detail-gallery {
+		position: static;
+	}
 
 	.quantity-button {
 		flex: 2;

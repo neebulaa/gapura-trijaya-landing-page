@@ -28,5 +28,29 @@
 		"category": "banner",
 		"category_type": "custom banner",
 		"description": "Custom banner adalah jenis banner yang dapat disesuaikan atau diubah sesuai dengan kebutuhan atau preferensi pengguna"
+	},
+	{
+		"id": 6,
+		"category": "stiker",
+		"category_type": "label nama",
+		"description": "Label nama menggunakan bahan stiker vinyl bisa ditempel dan waterproof, cocok untuk menemani masa sekolah sikecil."
+	},
+	{
+		"id": 7,
+		"category": "stiker",
+		"category_type": "stiker alamat",
+		"description": "Stiker alamat menggunakan HVS mudah ditulis"
+	},
+	{
+		"id": 8,
+		"category": "stiker",
+		"category_type": "stiker kromo",
+		"description": "Stiker Kromo merupakan stiker dari bahan kertas licin yang memang bagus untuk dicetak separasi, juga memiliki daya lengket yang bagus biasa digunakan pada label botol, promosi. Stiker Kromo tidak tahan dengan air, oleh karena itu cocok ditempelkan atau digunakan indoor."
+	},
+	{
+		"id": 9,
+		"category": "stiker",
+		"category_type": "stiker vinyl",
+		"description": "Stiker vynil bahan stiker yang memiliki permukaan halus dan mengkilap. Bahan ini tahan akan air dengan tekstur menyerupai plastik juga memiliki daya lengket yang bagus biasa digunakan pada label botol, promosi. Cocok digunakan untuk produk yang perlu dimasukkan dalam kulkas/basah atau digunakan outdoor"
 	}
 ]

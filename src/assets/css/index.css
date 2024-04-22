@@ -10,6 +10,7 @@ p {
 
 select,
 input[type="text"],
+input[type="number"],
 textarea {
 	outline: none;
 	color: var(--gray);
@@ -754,6 +755,9 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: var(--gallery-gap);
+	position: sticky;
+	top: 100px;
+	height: max-content;
 }
 
 .shop-product-detail-gallery .main {

@@ -5,9 +5,12 @@ import PlakatAkrilikForm from "./PlakatForm/PlakatAkrilikForm";
 import PlakatKalimantanForm from "./PlakatForm/PlakatKalimantanForm";
 import PlakatKristalForm from "./PlakatForm/PlakatKristalForm";
 import CategoryType from "../../assets/data/categoryType.json";
-import { redirect } from "react-router-dom";
 import FixedBannerForm from "./BannerForm/FixedBannerForm";
 import CustomBannerForm from "./BannerForm/CustomBannerForm";
+import LabelNamaForm from "./StikerForm/LabelNamaForm";
+import StikerAlamatForm from "./StikerForm/StikerAlamatForm";
+import StikerKromoForm from "./StikerForm/StikerKromoForm";
+import StikerVinylForm from "./StikerForm/StikerVinylForm";
 
 type ShopPlakatDetailFormType = {
 	product: ProductType;
@@ -27,11 +30,7 @@ export default function ShopPlakatDetailForm({
 		);
 	});
 
-	if (!categoryObject) {
-		redirect("/not-found");
-		return "";
-	}
-
+	if(!categoryObject) return;
 	return (
 		<section className="shop-product-detail-form">
 			<h1 className="product-name">{product.name}</h1>
@@ -59,6 +58,22 @@ export default function ShopPlakatDetailForm({
 			{categoryObject.category == "banner" &&
 				categoryObject.category_type == "custom banner" && (
 					<CustomBannerForm />
+				)}
+			{categoryObject.category == "stiker" &&
+				categoryObject.category_type == "label nama" && (
+					<LabelNamaForm />
+				)}
+			{categoryObject.category == "stiker" &&
+				categoryObject.category_type == "stiker alamat" && (
+					<StikerAlamatForm />
+				)}
+			{categoryObject.category == "stiker" &&
+				categoryObject.category_type == "stiker kromo" && (
+					<StikerKromoForm />
+				)}
+			{categoryObject.category == "stiker" &&
+				categoryObject.category_type == "stiker vinyl" && (
+					<StikerVinylForm />
 				)}
 		</section>
 	);

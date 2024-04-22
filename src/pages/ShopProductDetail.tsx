@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { redirect, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import productsData from "../assets/data/products.json";
 import PageHeaderNav from "../components/PageHeaderNav";
@@ -19,21 +19,36 @@ export default function ShopPlakatDetail() {
 			);
 		});
 	});
+
 	const [mainProduct, setMainProduct] = useState<ProductType>(() => {
 		// check if slug exists
 		const product = products.find((product) => product.slug == slug);
 		if (product == null) {
-			navigator("/shop", { replace: true });
 			return {} as ProductType;
 		} else {
 			return product;
 		}
 	});
 
+	useEffect(() => {
+		// Redirect if mainProduct is not found
+		if (!mainProduct.slug) {
+			navigator("/shop");
+		}
+	}, [mainProduct, navigator]);
+
+
+	if(!mainProduct.slug) return;
 	return (
 		<>
 			<PageHeaderNav
-				navigations={["Home", "Shop", category, category_type]}
+				navigations={[
+					"Home",
+					"Shop",
+					category,
+					category_type,
+					mainProduct.name,
+				]}
 			/>
 			<section className="container mt-1">
 				<section id="shop-product-detail">
