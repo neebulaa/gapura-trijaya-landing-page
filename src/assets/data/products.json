@@ -1,8 +1,8 @@
 [
 	{
 		"id": 1,
-		"name": "Plakat Akrilik",
-		"slug": "plakat-akrilik",
+		"name": "Plakat Akrilik Original",
+		"slug": "plakat-akrilik-original",
 		"category": "plakat",
 		"image": "./images/products/product1.png",
 		"price": 80000,
@@ -13,20 +13,20 @@
 	},
 	{
 		"id": 2,
-		"name": "Plakat Kalimantan",
-		"slug": "plakat-kalimantan",
+		"name": "Plakat Kalimantan Standar",
+		"slug": "plakat-kalimantan-standar",
 		"category": "plakat",
 		"image": "./images/products/product2.png",
 		"price": 210000,
 		"size": "sedang",
-		"colors": ["cokelat"],
+		"colors": ["coklat"],
 		"materials": ["kayu", "logam"],
 		"category_type": "kalimantan"
 	},
 	{
 		"id": 3,
-		"name": "Plakat Kristal",
-		"slug": "plakat-kristal",
+		"name": "Plakat Kristal Standar",
+		"slug": "plakat-kristal-standar",
 		"category": "plakat",
 		"image": "./images/products/product3.png",
 		"price": 400000,
@@ -70,42 +70,6 @@
 		"colors": ["merah muda"],
 		"materials": ["polyester fabric", "kanvas"],
 		"category_type": "fixed banner"
-	},
-	{
-		"id": 7,
-		"name": "Tag Gun",
-		"slug": "tag-gun",
-		"category": "aksesoris",
-		"image": "./images/products/product5.png",
-		"price": 95000,
-		"size": "sedang",
-		"colors": ["merah"],
-		"materials": ["plastik", "logam"],
-		"category_type": "plastik"
-	},
-	{
-		"id": 8,
-		"name": "Peniti Emas",
-		"slug": "peniti-emas",
-		"category": "aksesoris",
-		"image": "./images/products/product6.png",
-		"price": 15000,
-		"size": "kecil",
-		"colors": ["kuning", "emas"],
-		"materials": ["logam"],
-		"category_type": "logam"
-	},
-	{
-		"id": 9,
-		"name": "Tinta Dye",
-		"slug": "tinta-dye",
-		"category": "aksesoris",
-		"image": "./images/products/product7.png",
-		"price": 235000,
-		"size": "kecil",
-		"colors": ["merah", "biru", "kuning", "hitam"],
-		"materials": ["tinta"],
-		"category_type": "tinta"
 	},
 	{
 		"id": 10,
@@ -379,7 +343,15 @@
 		"image": "./images/products/product31.png",
 		"price": 60000,
 		"size": "kecil",
-		"colors": ["merah muda", "merah", "putih", "kuning", "biru", "hijau", "ungu"],
+		"colors": [
+			"merah muda",
+			"merah",
+			"putih",
+			"kuning",
+			"biru",
+			"hijau",
+			"ungu"
+		],
 		"materials": ["vinyl", "kertas"],
 		"category_type": "stiker alamat"
 	},
@@ -418,5 +390,17 @@
 		"colors": ["merah muda", "merah", "putih", "kuning", "hitam"],
 		"materials": ["kertas", "vinyl"],
 		"category_type": "stiker vinyl"
+	},
+	{
+		"id": 37,
+		"name": "Thankyou Card by Etania",
+		"slug": "thankyou-card-by-etania",
+		"category": "kartu",
+		"image": "./images/products/product34.png",
+		"price": 50000,
+		"size": "kecil",
+		"colors": ["merah muda", "merah", "putih", "coklat"],
+		"materials": ["kertas"],
+		"category_type": "thankyou card"
 	}
 ]

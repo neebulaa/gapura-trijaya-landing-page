@@ -52,5 +52,11 @@
 		"category": "stiker",
 		"category_type": "stiker vinyl",
 		"description": "Stiker vynil bahan stiker yang memiliki permukaan halus dan mengkilap. Bahan ini tahan akan air dengan tekstur menyerupai plastik juga memiliki daya lengket yang bagus biasa digunakan pada label botol, promosi. Cocok digunakan untuk produk yang perlu dimasukkan dalam kulkas/basah atau digunakan outdoor"
+	},
+	{
+		"id": 10,
+		"category": "kartu",
+		"category_type": "thankyou card",
+		"description": "Thank You Card mempunyai peran penting terhadap brand kamu. Kamu bisa membuat kartu ucapan itu menjadi media yang menarik untuk tokomu mengekspresikan citranya."
 	}
 ]

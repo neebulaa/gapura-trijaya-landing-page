@@ -33,7 +33,7 @@ export default function StikerVinylForm() {
 			];
 		} else {
 			switch (true) {
-				case jumlahLembar >= 1 && jumlahLembar <= 5:
+				case jumlahLembar >= 1 && jumlahLembar <= 10:
 					return 30000;
 				case jumlahLembar > 10 && jumlahLembar <= 30:
 					return 28000;
@@ -115,6 +115,7 @@ export default function StikerVinylForm() {
 						name="jumlahLembar"
 						id="jumlahLembar"
 						value={formData.jumlahLembar}
+						disabled={formData.paket != "non-paket"}
 						onChange={handleFormDataChange}
 					/>
 				</div>
@@ -185,7 +186,7 @@ export default function StikerVinylForm() {
 					<div>
 						<IconMinus width="10" height="2" />
 					</div>
-					<p>0</p>
+					<p>{formData.jumlahLembar}</p>
 					<div>
 						<IconPlus width="14" height="14" />
 					</div>

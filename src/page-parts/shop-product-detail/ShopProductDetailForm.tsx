@@ -11,6 +11,7 @@ import LabelNamaForm from "./StikerForm/LabelNamaForm";
 import StikerAlamatForm from "./StikerForm/StikerAlamatForm";
 import StikerKromoForm from "./StikerForm/StikerKromoForm";
 import StikerVinylForm from "./StikerForm/StikerVinylForm";
+import ThankyouCardForm from "./CardForm/ThankyouCardForm";
 
 type ShopPlakatDetailFormType = {
 	product: ProductType;
@@ -74,6 +75,10 @@ export default function ShopPlakatDetailForm({
 			{categoryObject.category == "stiker" &&
 				categoryObject.category_type == "stiker vinyl" && (
 					<StikerVinylForm />
+				)}
+			{categoryObject.category == "kartu" &&
+				categoryObject.category_type == "thankyou card" && (
+					<ThankyouCardForm />
 				)}
 		</section>
 	);
