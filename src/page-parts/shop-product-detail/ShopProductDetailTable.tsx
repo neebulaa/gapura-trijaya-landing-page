@@ -50,26 +50,26 @@ export default function ShopProductDetailTable({category_type} : ShopProductDeta
 					</div>
 					<div className="content-right">
 						<h3>Spesifikasi Produk</h3>
-						<div className="table-content-split mt-1-05">
+						<div className="content-split mt-1-05">
 							<h5>Harga: </h5>
 							<p>Mulai dari Rp. 80.000</p>
 						</div>
 						<hr className="mt-1" />
-						<div className="table-content-split mt-1">
+						<div className="content-split mt-1">
 							<h5>Kategori: </h5>
 							<p>Plakat</p>
 						</div>
-						<div className="table-content-split mt-1">
+						<div className="content-split mt-1">
 							<h5>Bahan: </h5>
 							<p>Akrilik</p>
 						</div>
 
-						<div className="table-content-split mt-1">
+						<div className="content-split mt-1">
 							<h5>SKU: </h5>
 							<p>PLK-001</p>
 						</div>
 						<hr className="mt-1" />
-						<div className="table-content-split mt-1">
+						<div className="content-split mt-1">
 							<h5>Ketebalan: </h5>
 							<p>5mm / 8mm</p>
 						</div>

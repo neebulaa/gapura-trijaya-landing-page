@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import IconSearch from "../assets/icons/IconSearch";
 import IconHeart from "../assets/icons/IconHeart";
 import IconCart from "../assets/icons/IconCart";
+import CartPopup from "./CartPopup";
 
 export default function Navbar() {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [openSidebar, setOpenSidebar] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const [openCartPopup, setOpenCartPopup] = useState(false);
+	const [isMobile, setIsMobile] = useState(() => {
+		return window.innerWidth <= 768;
+	});
 
 	useEffect(() => {
 		function handleScroll() {
@@ -17,9 +22,15 @@ export default function Navbar() {
 			}
 		}
 
+		function handleResize() {
+			setIsMobile(window.innerWidth <= 768);
+		}
+
 		window.addEventListener("scroll", handleScroll);
+		addEventListener("resize", handleResize);
 
 		return () => {
+			removeEventListener("resize", handleResize);
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
@@ -44,7 +55,7 @@ export default function Navbar() {
 							<li>
 								<NavLink
 									to="/"
-									onClick={() => setSidebarOpen(false)}
+									onClick={() => setOpenSidebar(false)}
 								>
 									Home
 								</NavLink>
@@ -52,7 +63,7 @@ export default function Navbar() {
 							<li>
 								<NavLink
 									to="/shop"
-									onClick={() => setSidebarOpen(false)}
+									onClick={() => setOpenSidebar(false)}
 								>
 									Shop
 								</NavLink>
@@ -60,7 +71,7 @@ export default function Navbar() {
 							<li>
 								<NavLink
 									to="/about"
-									onClick={() => setSidebarOpen(false)}
+									onClick={() => setOpenSidebar(false)}
 								>
 									About
 								</NavLink>
@@ -68,7 +79,7 @@ export default function Navbar() {
 							<li>
 								<NavLink
 									to="/contact"
-									onClick={() => setSidebarOpen(false)}
+									onClick={() => setOpenSidebar(false)}
 								>
 									Contact
 								</NavLink>
@@ -83,7 +94,22 @@ export default function Navbar() {
 								<IconHeart width={"20"} height={"20"} />
 							</li>
 							<li>
-								<IconCart width={'20'} height={'20'}/>
+								{!isMobile && (
+									<div onClick={() => setOpenCartPopup(true)}>
+										<IconCart width={"20"} height={"20"} />
+									</div>
+								)}
+
+								{openCartPopup && <CartPopup close={() => setOpenCartPopup(false)}/>}
+
+								{isMobile && (
+									<Link
+										to="/cart"
+										onClick={() => setOpenSidebar(false)}
+									>
+										<IconCart width={"20"} height={"20"} />
+									</Link>
+								)}
 							</li>
 							<li>
 								<button className="btn">Login</button>
@@ -102,8 +128,8 @@ export default function Navbar() {
 					</div>
 
 					<div
-						className={`burger ${sidebarOpen ? "open" : ""}`}
-						onClick={() => setSidebarOpen((prev) => !prev)}
+						className={`burger ${openSidebar ? "open" : ""}`}
+						onClick={() => setOpenSidebar((prev) => !prev)}
 					>
 						<span></span>
 						<span></span>

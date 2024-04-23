@@ -1,17 +1,34 @@
-import IconMinus from "../../../assets/icons/IconMinus";
-import IconBag from "../../../assets/icons/IconBag";
-import IconPlus from "../../../assets/icons/IconPlus";
 import IconQuestionMark from "../../../assets/icons/IconQuestionMark";
-import { useState } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
-export default function PlakatAkrilikForm() {
+export default function PlakatAkrilikForm({ setData }: { setData: Function }) {
 	const [openBoxBuldru, setOpenBoxBuldru] = useState(false);
+	const [formData, setFormData] = useState({
+		ketebalan: "",
+		ukuran: "",
+		jenisKaki: "",
+		boxBuldru: "",
+		keterangan: "",
+	});
 
+	function handleFormDataChange(
+		e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+	) {
+		const key = e.target.id;
+		setFormData((prev) => ({
+			...prev,
+			[key]: e.target.value,
+		}));
+	}
+
+	useEffect(() => {
+		setData(formData);
+	}, []);
 	return (
-		<form action="">
+		<>
 			<div className="input-box">
 				<label htmlFor="ketebalan">Ketebalan</label>
-				<select name="ketebalan" id="ketebalan">
+				<select name="ketebalan" id="ketebalan" value={formData.ketebalan} onChange={handleFormDataChange}>
 					<option value="">5 mm</option>
 					<option value="">10 mm</option>
 					<option value="">12 mm</option>
@@ -21,7 +38,7 @@ export default function PlakatAkrilikForm() {
 
 			<div className="input-box mt-1">
 				<label htmlFor="ukuran">Ukuran</label>
-				<select name="ukuran" id="ukuran">
+				<select name="ukuran" id="ukuran" value={formData.ukuran} onChange={handleFormDataChange}>
 					<option value="">15 x 10 cm</option>
 					<option value="">15 x 20 cm</option>
 					<option value="">15 x 12 cm</option>
@@ -31,15 +48,15 @@ export default function PlakatAkrilikForm() {
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="jenis-kaki">Jenis Kaki</label>
-				<select name="jenis-kaki" id="jenis-kaki">
+				<label htmlFor="jenisKaki">Jenis Kaki</label>
+				<select name="jenisKaki" id="jenisKaki" value={formData.jenisKaki} onChange={handleFormDataChange}>
 					<option value="">Kaki kotak</option>
 					<option value="">Kaki biasa</option>
 				</select>
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="box-buldru">
+				<label htmlFor="boxBuldru">
 					Box Plakat Buldru{" "}
 					<div
 						className="hover-box-container"
@@ -62,7 +79,7 @@ export default function PlakatAkrilikForm() {
 						)}
 					</div>
 				</label>
-				<select name="box-buldru" id="box-buldru">
+				<select name="boxBuldru" id="boxBuldru" value={formData.boxBuldru} onChange={handleFormDataChange}>
 					<option value="">Kaki kotak</option>
 					<option value="">Kaki biasa</option>
 				</select>
@@ -70,7 +87,7 @@ export default function PlakatAkrilikForm() {
 
 			<div className="input-box mt-1">
 				<label htmlFor="keterangan">Keterangan</label>
-				<input type="text" name="keterangan" id="keterangan" />
+				<input type="text" name="keterangan" id="keterangan" value={formData.keterangan} onChange={handleFormDataChange}/>
 			</div>
 
 			<div className="input-box mt-1">
@@ -85,22 +102,6 @@ export default function PlakatAkrilikForm() {
 				</label>
 				<input className="none" type="file" id="upload-file" />
 			</div>
-
-			<div className="mt-1-05 quantity-and-add-to-bag-button">
-				<button className="btn btn-outline quantity-button no-hover no-pointer">
-					<div>
-						<IconMinus width="10" height="2" />
-					</div>
-					<p>0</p>
-					<div>
-						<IconPlus width="14" height="14" />
-					</div>
-				</button>
-				<button className="btn uppercase add-to-bag-button">
-					<IconBag width="14" height="17" />
-					Add to bag
-				</button>
-			</div>
-		</form>
+		</>
 	);
 }
