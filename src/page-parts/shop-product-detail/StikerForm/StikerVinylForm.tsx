@@ -3,8 +3,9 @@ import IconBag from "../../../assets/icons/IconBag";
 import IconPlus from "../../../assets/icons/IconPlus";
 import { useState, ChangeEvent, useEffect } from "react";
 import { formatCurrencyRupiah } from "./../../../utils/formatCurrency";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function StikerVinylForm() {
+export default function StikerVinylForm({ setData }: ShopProductFormType) {
 	const hargaDesain = 20000;
 	const jumlahLembarOptions = {
 		"non-paket": 6,

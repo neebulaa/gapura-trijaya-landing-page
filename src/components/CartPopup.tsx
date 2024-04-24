@@ -8,7 +8,11 @@ type CartPopupProps = {
 export default function CartPopup({ close }: CartPopupProps) {
 	const [cart, setCart] = useState(CartData);
 	return (
-		<section className="popup-cart">
+		<section className="popup-cart" onClick={(e) => {
+			if(e.target == e.currentTarget){
+				close()
+			}
+		}}>
 			<div
 				className="popup-cart-content"
 				style={{

@@ -3,8 +3,9 @@ import IconBag from "../../../assets/icons/IconBag";
 import IconPlus from "../../../assets/icons/IconPlus";
 import { useState, ChangeEvent, useEffect } from "react";
 import { formatCurrencyRupiah } from "./../../../utils/formatCurrency";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function StikerKromoForm() {
+export default function StikerKromoForm({ setData }: ShopProductFormType) {
 	const hargaDesain = 20000;
 	const jumlahLembarOptions = {
 		"non-paket": 6,
@@ -62,6 +63,10 @@ export default function StikerKromoForm() {
 	}
 
 	useEffect(() => {
+		setData(formData);
+	}, []);
+
+	useEffect(() => {
 		setFormData((prev) => ({
 			...prev,
 			jumlahLembar:
@@ -115,7 +120,7 @@ export default function StikerKromoForm() {
 						name="jumlahLembar"
 						id="jumlahLembar"
 						value={formData.jumlahLembar}
-						disabled={formData.paket != 'non-paket'}
+						disabled={formData.paket != "non-paket"}
 						onChange={handleFormDataChange}
 					/>
 				</div>

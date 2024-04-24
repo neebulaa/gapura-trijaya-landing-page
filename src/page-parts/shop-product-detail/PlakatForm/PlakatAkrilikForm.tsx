@@ -1,7 +1,8 @@
 import IconQuestionMark from "../../../assets/icons/IconQuestionMark";
 import { useState, useEffect, ChangeEvent } from "react";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function PlakatAkrilikForm({ setData }: { setData: Function }) {
+export default function PlakatAkrilikForm({ setData }: ShopProductFormType) {
 	const [openBoxBuldru, setOpenBoxBuldru] = useState(false);
 	const [formData, setFormData] = useState({
 		ketebalan: "",

@@ -1,13 +1,35 @@
-import IconMinus from "../../../assets/icons/IconMinus";
-import IconBag from "../../../assets/icons/IconBag";
-import IconPlus from "../../../assets/icons/IconPlus";
+import { useState, useEffect, ChangeEvent } from "react";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function PlakatKalimantanForm() {
+export default function PlakatKalimantanForm({ setData }: ShopProductFormType) {
+	const [formData, setFormData] = useState({
+		jenisPlakat: "",
+		keterangan: "",
+	});
+
+	function handleFormDataChange(
+		e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+	) {
+		const key = e.target.id;
+		setFormData((prev) => ({
+			...prev,
+			[key]: e.target.value,
+		}));
+	}
+
+	useEffect(() => {
+		setData(formData);
+	}, []);
 	return (
-		<form action="">
+		<>
 			<div className="input-box">
-				<label htmlFor="jenis-plakat">Jenis Plakat</label>
-				<select name="jenis-plakat" id="jenis-plakat">
+				<label htmlFor="jenisPlakat">Jenis Plakat</label>
+				<select
+					name="jenisPlakat"
+					id="jenisPlakat"
+					value={formData.jenisPlakat}
+					onChange={handleFormDataChange}
+				>
 					<option value="">5 mm</option>
 					<option value="">10 mm</option>
 					<option value="">12 mm</option>
@@ -17,8 +39,8 @@ export default function PlakatKalimantanForm() {
 
 			<div className="input-box mt-1">
 				<label htmlFor="spesifikasi">Spesifikasi</label>
-				<ul 
-					id='spesifikasi'
+				<ul
+					id="spesifikasi"
 					className="list"
 					style={{
 						listStyle: "disc",
@@ -46,29 +68,15 @@ export default function PlakatKalimantanForm() {
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="plakat-keterangan">Keterangan</label>
+				<label htmlFor="keterangan">Keterangan</label>
 				<input
+					value={formData.keterangan}
+					onChange={handleFormDataChange}
 					type="text"
-					name="plakat-keterangan"
-					id="plakat-keterangan"
+					name="keterangan"
+					id="keterangan"
 				/>
 			</div>
-
-			<div className="mt-1-05 quantity-and-add-to-bag-button">
-				<button className="btn btn-outline quantity-button no-hover no-pointer">
-					<div>
-						<IconMinus width="10" height="2" />
-					</div>
-					<p>0</p>
-					<div>
-						<IconPlus width="14" height="14" />
-					</div>
-				</button>
-				<button className="btn uppercase add-to-bag-button">
-					<IconBag width="14" height="17" />
-					Add to bag
-				</button>
-			</div>
-		</form>
+		</>
 	);
 }

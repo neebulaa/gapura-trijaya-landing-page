@@ -1,13 +1,37 @@
-import IconMinus from "../../../assets/icons/IconMinus";
-import IconBag from "../../../assets/icons/IconBag";
-import IconPlus from "../../../assets/icons/IconPlus";
+import { useState, useEffect, ChangeEvent } from "react";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function PlakatKristalForm() {
+export default function PlakatKristalForm({ setData }: ShopProductFormType) {
+	const [formData, setFormData] = useState({
+		ketebalan: "",
+		ukuran: "",
+		keterangan: "",
+	});
+
+	function handleFormDataChange(
+		e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+	) {
+		const key = e.target.id;
+		setFormData((prev) => ({
+			...prev,
+			[key]: e.target.value,
+		}));
+	}
+
+	useEffect(() => {
+		setData(formData);
+	}, []);
+
 	return (
-		<form action="">
+		<>
 			<div className="input-box">
-				<label htmlFor="plakat-ketebalan">Ketebalan</label>
-				<select name="plakat-ketebalan" id="plakat-ketebalan">
+				<label htmlFor="ketebalan">Ketebalan</label>
+				<select
+					name="ketebalan"
+					id="ketebalan"
+					value={formData.ketebalan}
+					onChange={handleFormDataChange}
+				>
 					<option value="">5 mm</option>
 					<option value="">10 mm</option>
 					<option value="">12 mm</option>
@@ -16,8 +40,13 @@ export default function PlakatKristalForm() {
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="plakat-ukuran">Ukuran</label>
-				<select name="plakat-ukuran" id="plakat-ukuran">
+				<label htmlFor="ukuran">Ukuran</label>
+				<select
+					name="ukuran"
+					id="ukuran"
+					value={formData.ukuran}
+					onChange={handleFormDataChange}
+				>
 					<option value="">15 x 10 cm</option>
 					<option value="">15 x 20 cm</option>
 					<option value="">15 x 12 cm</option>
@@ -27,11 +56,13 @@ export default function PlakatKristalForm() {
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="plakat-keterangan">Keterangan</label>
+				<label htmlFor="keterangan">Keterangan</label>
 				<input
 					type="text"
-					name="plakat-keterangan"
-					id="plakat-keterangan"
+					name="keterangan"
+					id="keterangan"
+					value={formData.keterangan}
+					onChange={handleFormDataChange}
 				/>
 			</div>
 
@@ -47,22 +78,6 @@ export default function PlakatKristalForm() {
 				</label>
 				<input className="none" type="file" id="upload-file" />
 			</div>
-
-			<div className="mt-1-05 quantity-and-add-to-bag-button">
-				<button className="btn btn-outline quantity-button no-hover no-pointer">
-					<div>
-						<IconMinus width="10" height="2" />
-					</div>
-					<p>0</p>
-					<div>
-						<IconPlus width="14" height="14" />
-					</div>
-				</button>
-				<button className="btn uppercase add-to-bag-button">
-					<IconBag width="14" height="17" />
-					Add to bag
-				</button>
-			</div>
-		</form>
+		</>
 	);
 }

@@ -1,13 +1,36 @@
-import IconMinus from "../../../assets/icons/IconMinus";
-import IconBag from "../../../assets/icons/IconBag";
-import IconPlus from "../../../assets/icons/IconPlus";
+import { useState, useEffect, ChangeEvent } from "react";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function CustomBannerForm() {
+export default function CustomBannerForm({ setData }: ShopProductFormType) {
+	const [formData, setFormData] = useState({
+		ukuran: "",
+		jenisBahan: "",
+		keterangan: "",
+	});
+
+	function handleFormDataChange(
+		e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+	) {
+		const key = e.target.id;
+		setFormData((prev) => ({
+			...prev,
+			[key]: e.target.value,
+		}));
+	}
+
+	useEffect(() => {
+		setData(formData);
+	}, []);
 	return (
-		<form action="">
+		<>
 			<div className="input-box mt-1">
 				<label htmlFor="ukuran">Ukuran (L x T)</label>
-				<select name="ukuran" id="ukuran">
+				<select
+					name="ukuran"
+					id="ukuran"
+					onChange={handleFormDataChange}
+					value={formData.ukuran}
+				>
 					<option value="">30 x 50 cm</option>
 					<option value="">15 x 25 cm</option>
 					<option value="">60 x 100 cm</option>
@@ -16,8 +39,13 @@ export default function CustomBannerForm() {
 			</div>
 
 			<div className="input-box mt-1">
-				<label htmlFor="jenis-bahan">Jenis Bahan</label>
-				<select name="jenis-bahan" id="jenis-bahan">
+				<label htmlFor="jenisBahan">Jenis Bahan</label>
+				<select
+					name="jenisBahan"
+					id="jenisBahan"
+					onChange={handleFormDataChange}
+					value={formData.jenisBahan}
+				>
 					<option value="">Fabric Polyester</option>
 					<option value="">Kanvas</option>
 					<option value="">Flexi China</option>
@@ -26,7 +54,13 @@ export default function CustomBannerForm() {
 
 			<div className="input-box mt-1">
 				<label htmlFor="keterangan">Keterangan</label>
-				<input type="text" name="keterangan" id="keterangan" />
+				<input
+					type="text"
+					name="keterangan"
+					id="keterangan"
+					onChange={handleFormDataChange}
+					value={formData.keterangan}
+				/>
 			</div>
 
 			<div className="input-box mt-1">
@@ -41,22 +75,6 @@ export default function CustomBannerForm() {
 				</label>
 				<input className="none" type="file" id="upload-file" />
 			</div>
-
-			<div className="mt-1-05 quantity-and-add-to-bag-button">
-				<button className="btn btn-outline quantity-button no-hover no-pointer">
-					<div>
-						<IconMinus width="10" height="2" />
-					</div>
-					<p>0</p>
-					<div>
-						<IconPlus width="14" height="14" />
-					</div>
-				</button>
-				<button className="btn uppercase add-to-bag-button">
-					<IconBag width="14" height="17" />
-					Add to bag
-				</button>
-			</div>
-		</form>
+		</>
 	);
 }

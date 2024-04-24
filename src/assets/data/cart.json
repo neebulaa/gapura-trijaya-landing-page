@@ -20,15 +20,15 @@
 		"id": 2,
 		"product": {
 			"id": 4,
-		"name": "Standing X/Y Banner",
-		"slug": "standing-x/y-banner",
-		"category": "banner",
-		"image": "./images/products/product8.png",
-		"price": 170000,
-		"size": "besar",
-		"colors": ["kuning"],
-		"materials": ["vinyl"],
-		"category_type": "fixed banner"
+			"name": "Standing X/Y Banner",
+			"slug": "standing-x/y-banner",
+			"category": "banner",
+			"image": "./images/products/product8.png",
+			"price": 170000,
+			"size": "besar",
+			"colors": ["kuning"],
+			"materials": ["vinyl"],
+			"category_type": "fixed banner"
 		},
 		"quantity": 1,
 		"subtotal": 170000

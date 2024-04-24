@@ -1,9 +1,7 @@
-import IconMinus from "../../../assets/icons/IconMinus";
-import IconBag from "../../../assets/icons/IconBag";
-import IconPlus from "../../../assets/icons/IconPlus";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
+import { ShopProductFormType } from "../../../dto/ShopProductFormType";
 
-export default function LabelNamaForm() {
+export default function LabelNamaForm({ setData }: ShopProductFormType) {
 	const [formData, setFormData] = useState({
 		bahanStiker: "",
 		bentukStiker: "persegi panjang",
@@ -21,8 +19,11 @@ export default function LabelNamaForm() {
 		}));
 	}
 
+	useEffect(() => {
+		setData(formData);
+	}, []);
 	return (
-		<form action="">
+		<>
 			<img
 				style={{
 					width: "100%",
@@ -143,22 +144,6 @@ export default function LabelNamaForm() {
 				</label>
 				<input className="none" type="file" id="upload-file" />
 			</div>
-
-			<div className="mt-1-05 quantity-and-add-to-bag-button">
-				<button className="btn btn-outline quantity-button no-hover no-pointer">
-					<div>
-						<IconMinus width="10" height="2" />
-					</div>
-					<p>0</p>
-					<div>
-						<IconPlus width="14" height="14" />
-					</div>
-				</button>
-				<button className="btn uppercase add-to-bag-button">
-					<IconBag width="14" height="17" />
-					Add to bag
-				</button>
-			</div>
-		</form>
+		</>
 	);
 }
