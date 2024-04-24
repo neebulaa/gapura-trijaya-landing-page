@@ -100,7 +100,11 @@ export default function Navbar() {
 									</div>
 								)}
 
-								{openCartPopup && <CartPopup close={() => setOpenCartPopup(false)}/>}
+								{openCartPopup && (
+									<CartPopup
+										close={() => setOpenCartPopup(false)}
+									/>
+								)}
 
 								{isMobile && (
 									<Link
@@ -112,7 +116,9 @@ export default function Navbar() {
 								)}
 							</li>
 							<li>
-								<button className="btn">Login</button>
+								<Link to="/login">
+									<button className="btn">Login</button>
+								</Link>
 							</li>
 							<li className="flag-selection">
 								<div className="flag">

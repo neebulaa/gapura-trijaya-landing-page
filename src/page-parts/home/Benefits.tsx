@@ -22,16 +22,16 @@ export default function Benefits() {
 			</section>
 			{/* image pattern */}
 			<img
-				src="./images/pattern-left.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-left.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Left `}
 				style={{
 					position: "absolute",
 					top: 0,
 					left: 0,
 				}}
-			/>
+				/>
 			<img
-				src="./images/pattern-left.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-left.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Left `}
 				style={{
 					position: "absolute",
@@ -40,7 +40,7 @@ export default function Benefits() {
 				}}
 			/>
 			<img
-				src="./images/pattern-left.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-left.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Left `}
 				style={{
 					position: "absolute",
@@ -49,7 +49,7 @@ export default function Benefits() {
 				}}
 			/>
 			<img
-				src="./images/reverse-stamp.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/reverse-stamp.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Reverse Stamp Icon`}
 				style={{
 					position: "absolute",
@@ -59,7 +59,7 @@ export default function Benefits() {
 				}}
 			/>
 			<img
-				src="./images/pattern-right.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-right.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Right`}
 				style={{
 					position: "absolute",
@@ -68,7 +68,7 @@ export default function Benefits() {
 				}}
 			/>
 			<img
-				src="./images/pattern-right.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-right.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Right`}
 				style={{
 					position: "absolute",
@@ -77,7 +77,7 @@ export default function Benefits() {
 				}}
 			/>
 			<img
-				src="./images/pattern-right.png"
+				src={`${import.meta.env.VITE_APP_URL}./images/pattern-right.png`}
 				alt={`${import.meta.env.VITE_APP_NAME} - Pattern Right`}
 				style={{
 					position: "absolute",

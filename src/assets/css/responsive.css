@@ -86,6 +86,28 @@
 }
 
 @media (max-width: 1024px) {
+	/* ***** LOGIN PAGE START ***** */
+	#login {
+		flex-direction: column;
+	}
+
+	.login-image {
+		max-height: 350px;
+	}
+
+	.login-image-1 {
+		top: 20% !important;
+		left: 110% !important;
+		rotate: -30deg;
+	}
+
+	.login-image-2 {
+		top: 0% !important;
+		translate: -140% !important;
+		rotate: 60deg;
+	}
+	/* ***** LOGIN PAGE END ***** */
+
 	/* ***** HOME PAGE START ***** */
 	/* navbar start */
 	.burger {
@@ -218,6 +240,14 @@
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	/* shopping cart detail start */
+	.shopping-cart-detail {
+		gap: 2rem;
+	}
+	/* shopping cart detail end */
+	/* SHOPPING CART PAGE END */
 }
 
 @media (max-width: 768px) {
@@ -229,8 +259,12 @@
 		height: 300px !important;
 	}
 
-	.btn {
+	.btn:not(.btn-circle) {
 		padding: 0.775rem 1.5rem;
+	}
+
+	.card-bordered {
+		padding: 1rem;
 	}
 
 	/* ***** HOME PAGE START ***** */
@@ -365,6 +399,7 @@
 		--gallery-width: 80%;
 		margin-top: 0;
 	}
+
 	.shop-product-detail-gallery {
 		position: static;
 	}
@@ -378,6 +413,22 @@
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	/* shopping cart table start */
+	.shopping-cart-table .table-body .table-body-col:first-child img {
+		width: 65px;
+		height: 65px;
+	}
+	/* shopping cart table end */
+
+	/* shopping cart detail start */
+	.shopping-cart-detail {
+		flex-direction: column;
+	}
+
+	/* shopping cart detail end */
+	/* SHOPPING CART PAGE END */
 }
 
 @media (max-width: 600px) {
@@ -565,6 +616,12 @@
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	.popup-cart .popup-cart-content {
+		width: 100%;
+	}
+	/* SHOPPING CART PAGE END */
 }
 
 @media (max-width: 400px) {
@@ -581,6 +638,10 @@
 	.shop-product-detail-form .hover-box::after {
 		left: 1.5rem;
 		translate: 30%;
+	}
+
+	.quantity-and-add-to-bag-button {
+		flex-direction: column;
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */

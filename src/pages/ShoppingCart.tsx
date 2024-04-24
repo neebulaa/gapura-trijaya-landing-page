@@ -59,110 +59,122 @@ export default function ShoppingCart() {
 				navigations={["Home", "Shopping Cart"]}
 			/>
 			<section className="container" id="shopping-cart">
-				<section className="shopping-cart-table">
-					<header className="table-header">
-						<h5>Product</h5>
-						<h5>Price</h5>
-						<h5>Quantity</h5>
-						<h5>Subtotal</h5>
-						<h5></h5>
-					</header>
-					<section className="table-body">
-						{cart.length == 0 && <p>Your cart is empty</p>}
-						{cart.length > 0 &&
-							cart.map((c) => {
-								return (
-									<div className="table-body-row" key={c.id}>
-										<div className="table-body-col">
-											<img
-												src={`${
-													import.meta.env.VITE_APP_URL
-												}${c.product.image}`}
-												alt={
-													`${
+				<div className="table-container">
+					<section className="shopping-cart-table">
+						<header className="table-header">
+							<h5>Product</h5>
+							<h5>Price</h5>
+							<h5>Quantity</h5>
+							<h5>Subtotal</h5>
+							<h5></h5>
+						</header>
+						<section className="table-body">
+							{cart.length == 0 && <p>Your cart is empty</p>}
+							{cart.length > 0 &&
+								cart.map((c) => {
+									return (
+										<div
+											className="table-body-row"
+											key={c.id}
+										>
+											<div className="table-body-col">
+												<img
+													src={`${
 														import.meta.env
-															.VITE_APP_NAME
-													} - ` + c.product.name
-												}
-											/>
-											<h4 className="semibold">
-												{c.product.name}
-											</h4>
-										</div>
-										<div className="table-body-col">
-											{formatCurrencyRupiah(
-												c.product.price
-											)}
-										</div>
-										<div className="table-body-col">
-											<button
-												className="btn btn-empty btn-quantity no-hover no-pointer"
-												style={{
-													padding: ".5rem",
-												}}
-											>
-												<div
-													className="btn btn-circle btn-tertiary"
+															.VITE_APP_URL
+													}${c.product.image}`}
+													alt={
+														`${
+															import.meta.env
+																.VITE_APP_NAME
+														} - ` + c.product.name
+													}
+												/>
+												<h4 className="semibold">
+													{c.product.name}
+												</h4>
+											</div>
+											<div className="table-body-col">
+												{formatCurrencyRupiah(
+													c.product.price
+												)}
+											</div>
+											<div className="table-body-col">
+												<button
+													className="btn btn-empty btn-quantity no-hover no-pointer"
+													style={{
+														padding: ".5rem",
+													}}
+												>
+													<div
+														className="btn btn-circle btn-tertiary"
+														style={{
+															width: "30px",
+															height: "30px",
+														}}
+														onClick={() =>
+															decrementQuantity(
+																c.id
+															)
+														}
+													>
+														<IconMinus
+															width="8"
+															height="2"
+														/>
+													</div>
+													<p>{c.quantity}</p>
+													<div
+														className="btn btn-circle btn-tertiary"
+														style={{
+															width: "30px",
+															height: "30px",
+														}}
+														onClick={() =>
+															incrementQuantity(
+																c.id
+															)
+														}
+													>
+														<IconPlus
+															width="10"
+															height="10"
+														/>
+													</div>
+												</button>
+											</div>
+											<div className="table-body-col semibold">
+												{formatCurrencyRupiah(
+													c.subtotal
+												)}
+											</div>
+											<div className="table-body-col">
+												<button
+													onClick={() =>
+														removeCartItem(c.id)
+													}
+													className="btn btn-circle btn-empty"
 													style={{
 														width: "30px",
 														height: "30px",
 													}}
-													onClick={() =>
-														decrementQuantity(c.id)
-													}
 												>
-													<IconMinus
-														width="8"
-														height="2"
-													/>
-												</div>
-												<p>{c.quantity}</p>
-												<div
-													className="btn btn-circle btn-tertiary"
-													style={{
-														width: "30px",
-														height: "30px",
-													}}
-													onClick={() =>
-														incrementQuantity(c.id)
-													}
-												>
-													<IconPlus
-														width="10"
-														height="10"
-													/>
-												</div>
-											</button>
+													x
+												</button>
+											</div>
 										</div>
-										<div className="table-body-col semibold">
-											{formatCurrencyRupiah(c.subtotal)}
-										</div>
-										<div className="table-body-col">
-											<button
-												onClick={() =>
-													removeCartItem(c.id)
-												}
-												className="btn btn-circle btn-empty"
-												style={{
-													width: "30px",
-													height: "30px",
-												}}
-											>
-												x
-											</button>
-										</div>
-									</div>
-								);
-							})}
+									);
+								})}
+						</section>
+						<section className="table-footer">
+							<Link to="/shop">
+								<button className="btn btn-tertiary">
+									Return to shop
+								</button>
+							</Link>
+						</section>
 					</section>
-					<section className="table-footer">
-						<Link to="/shop">
-							<button className="btn btn-tertiary">
-								Return to shop
-							</button>
-						</Link>
-					</section>
-				</section>
+				</div>
 
 				<section className="shopping-cart-detail mt-2">
 					<div className="card-coupon card-bordered">

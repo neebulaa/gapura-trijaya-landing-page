@@ -9,8 +9,8 @@ p {
 }
 
 select,
-input[type="text"],
-input[type="number"],
+input,
+input,
 textarea {
 	outline: none;
 	color: var(--gray);
@@ -33,6 +33,45 @@ button {
 	padding: 0;
 	cursor: pointer;
 }
+
+
+/* ***** LOGIN PAGE START ***** */
+#login {
+	display: flex;
+	gap: 4rem;
+	align-items: center;
+}
+
+.login-image {
+	position: relative;
+	aspect-ratio: 1;
+}
+
+.login-image .login-image-main{
+	width: 100%;
+	object-fit: cover;
+}
+
+.login-form {
+	max-width: 400px;
+	margin: auto;
+	width: 100%;
+}
+
+.login-form h1 {
+	text-align: center;
+	font-size: 1.75rem;
+	font-weight: bold;
+}
+
+.login-form p {
+	margin: auto;
+	margin-top: 1rem;
+	font-weight: 500;
+	text-align: center;
+	max-width: 350px;
+}
+/* ***** LOGIN PAGE END ***** */
 
 /* ***** HOME PAGE START ***** */
 /* navbar start */
@@ -963,7 +1002,7 @@ button {
 	flex: 1 1 var(--max-content-width);
 }
 
-.table-content .table-container {
+.table-container {
 	border: 1px solid var(--light-gray);
 	overflow-y: auto;
 	border-radius: 10px;
@@ -977,7 +1016,7 @@ button {
 	border-radius: 10px;
 }
 
-.table-content .table-container table {
+.table-content .table-container table, .table-container .shopping-cart-table {
 	border: none;
 }
 
@@ -1040,6 +1079,7 @@ button {
 .shopping-cart-table {
 	border: 1px solid var(--light-gray);
 	border-radius: 8px;
+	min-width: 700px;
 }
 
 .shopping-cart-table > * {
@@ -1054,7 +1094,7 @@ button {
 	gap: 1rem;
 }
 .shopping-cart-table .table-header h5 {
-	flex: 1;
+	flex: 1 0 80px;
 	text-transform: uppercase;
 	font-weight: 500;
 	color: var(--gray);
@@ -1080,7 +1120,7 @@ button {
 }
 
 .shopping-cart-table .table-body .table-body-col {
-	flex: 1;
+	flex: 1 0 80px;
 	display: flex;
 	align-items: center;
 }
@@ -1109,7 +1149,6 @@ button {
 
 .shopping-cart-table .table-footer {
 	display: flex;
-	justify-content: flex-end;
 }
 /* shopping cart table end */
 
@@ -1149,6 +1188,8 @@ button {
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.4);
+	padding: 1rem;
+	box-sizing: border-box;
 }
 
 .popup-cart h2 {
@@ -1157,6 +1198,7 @@ button {
 }
 
 .popup-cart .popup-cart-content {
+	box-sizing: border-box;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -1199,6 +1241,8 @@ button {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
+	gap: .5rem;
 }
 
 .popup-cart-product-title h3 {

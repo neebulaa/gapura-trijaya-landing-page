@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import ShoppingCart from "./pages/ShoppingCart";
 import Checkout from "./pages/Checkout";
+import Login from "./pages/Login";
 
 function App() {
 	const { pathname } = useLocation();
@@ -36,6 +37,7 @@ function App() {
 					<Route path="/contact" element={<Contact />}></Route>
 					<Route path="/cart" element={<ShoppingCart />}></Route>
 					<Route path="/checkout" element={<Checkout />}></Route>
+					<Route path="/login" element={<Login />}></Route>
 					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</section>
