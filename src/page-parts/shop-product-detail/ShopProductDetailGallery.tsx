@@ -15,8 +15,7 @@ export default function ShopProductDetailGallery({
 	mainProduct,
 	setMainProduct,
 }: ShopProductDetailGalleryProps) {
-	const subProducts = useMemo(() => products, [products]);
-
+	const subProducts = products;
 	const [isMobile, setIsMobile] = useState(() => {
 		return window.innerWidth <= 768;
 	});

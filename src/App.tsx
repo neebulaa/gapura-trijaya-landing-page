@@ -9,6 +9,7 @@ import ShopProductDetail from "./pages/ShopProductDetail";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import ShoppingCart from "./pages/ShoppingCart";
+import Checkout from "./pages/Checkout";
 
 function App() {
 	const { pathname } = useLocation();
@@ -34,6 +35,7 @@ function App() {
 					<Route path="/about" element={<About />}></Route>
 					<Route path="/contact" element={<Contact />}></Route>
 					<Route path="/cart" element={<ShoppingCart />}></Route>
+					<Route path="/checkout" element={<Checkout />}></Route>
 					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</section>

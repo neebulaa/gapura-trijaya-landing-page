@@ -6,14 +6,14 @@ import IconMinus from "../assets/icons/IconMinus";
 import IconPlus from "../assets/icons/IconPlus";
 import IconCoupon from "../assets/icons/IconCoupon";
 import useLocalStorage from "../hooks/useLocalStorage";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function ShoppingCart() {
 	const [cart, setCart] = useLocalStorage("shopping-cart", CartData);
 	const shipping = 0;
 	const cartSubTotal = useMemo(() => {
 		return cart.reduce((acc, c) => acc + c.subtotal, 0);
-	}, cart);
+	}, [cart]);
 	const total = cartSubTotal + shipping;
 
 	function removeCartItem(id: number | string) {
@@ -72,7 +72,7 @@ export default function ShoppingCart() {
 						{cart.length > 0 &&
 							cart.map((c) => {
 								return (
-									<div className="table-body-row">
+									<div className="table-body-row" key={c.id}>
 										<div className="table-body-col">
 											<img
 												src={`${
@@ -213,9 +213,11 @@ export default function ShoppingCart() {
 							<h5>Total: </h5>
 							<p>{formatCurrencyRupiah(total)}</p>
 						</div>
-						<button className="btn btn-full w-100 mt-1-05">
-							Proceed to checkout
-						</button>
+						<Link to="/checkout">
+							<button className="btn btn-full w-100 mt-1-05">
+								Proceed to checkout
+							</button>
+						</Link>
 					</div>
 				</section>
 			</section>

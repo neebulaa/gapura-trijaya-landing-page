@@ -1,12 +1,12 @@
 import { formatCurrencyRupiah } from "../utils/formatCurrency";
 import CartData from "../assets/data/cart.json";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../hooks/useLocalStorage";
 type CartPopupProps = {
 	close: Function;
 };
 export default function CartPopup({ close }: CartPopupProps) {
-	const [cart, setCart] = useState(CartData);
+	const [cart, setCart] = useLocalStorage('shopping-cart', CartData);
 	return (
 		<section className="popup-cart" onClick={(e) => {
 			if(e.target == e.currentTarget){

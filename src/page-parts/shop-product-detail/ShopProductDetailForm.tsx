@@ -52,18 +52,35 @@ export default function ShopPlakatDetailForm({
 
 	function addToBag() {
 		if (quantity <= 0) return;
-		const itemData = {
-			id: uuid(),
-			quantity: quantity,
-			product: {
-				...product,
-			},
-			subtotal: product.price * quantity,
-		};
+		// if product already exists
+		const cartItem = cart.find((c) => c.product.id == product.id);
+		if (cartItem) {
+			setCart((prev) =>
+				prev.map((c) =>
+					c == cartItem
+						? {
+								...c,
+								quantity: c.quantity + quantity,
+						  }
+						: c
+				)
+			);
+		}else {
+			// new
+			const itemData = {
+				id: uuid(),
+				quantity: quantity,
+				product: {
+					...product,
+				},
+				subtotal: product.price * quantity,
+			};
+	
+			setCart((prev) => {
+				return [...prev, itemData];
+			});
+		}
 
-		setCart((prev) => {
-			return [...prev, itemData];
-		});
 
 		setOpenSuccessAddToCartPopup(true);
 	}
@@ -101,39 +118,39 @@ export default function ShopPlakatDetailForm({
 					)}
 				{categoryObject.category == "plakat" &&
 					categoryObject.category_type == "kristal" && (
-						<PlakatKristalForm setData={setData}/>
+						<PlakatKristalForm setData={setData} />
 					)}
 				{categoryObject.category == "plakat" &&
 					categoryObject.category_type == "kalimantan" && (
-						<PlakatKalimantanForm setData={setData}/>
+						<PlakatKalimantanForm setData={setData} />
 					)}
 				{categoryObject.category == "banner" &&
 					categoryObject.category_type == "fixed banner" && (
-						<FixedBannerForm setData={setData}/>
+						<FixedBannerForm setData={setData} />
 					)}
 				{categoryObject.category == "banner" &&
 					categoryObject.category_type == "custom banner" && (
-						<CustomBannerForm setData={setData}/>
+						<CustomBannerForm setData={setData} />
 					)}
 				{categoryObject.category == "stiker" &&
 					categoryObject.category_type == "label nama" && (
-						<LabelNamaForm setData={setData}/>
+						<LabelNamaForm setData={setData} />
 					)}
 				{categoryObject.category == "stiker" &&
 					categoryObject.category_type == "stiker alamat" && (
-						<StikerAlamatForm setData={setData}/>
+						<StikerAlamatForm setData={setData} />
 					)}
 				{categoryObject.category == "stiker" &&
 					categoryObject.category_type == "stiker kromo" && (
-						<StikerKromoForm setData={setData}/>
+						<StikerKromoForm setData={setData} />
 					)}
 				{categoryObject.category == "stiker" &&
 					categoryObject.category_type == "stiker vinyl" && (
-						<StikerVinylForm setData={setData}/>
+						<StikerVinylForm setData={setData} />
 					)}
 				{categoryObject.category == "kartu" &&
 					categoryObject.category_type == "thankyou card" && (
-						<ThankyouCardForm setData={setData}/>
+						<ThankyouCardForm setData={setData} />
 					)}
 
 				<div className="mt-1-05 quantity-and-add-to-bag-button">

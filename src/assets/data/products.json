@@ -38,7 +38,7 @@
 	{
 		"id": 4,
 		"name": "Standing X/Y Banner",
-		"slug": "standing-x/y-banner",
+		"slug": "standing-x-y-banner",
 		"category": "banner",
 		"image": "./images/products/product8.png",
 		"price": 170000,
@@ -278,7 +278,7 @@
 	{
 		"id": 27,
 		"name": "Standing Banner X/Y",
-		"slug": "standin-banner-x/y",
+		"slug": "standin-banner-x-y",
 		"category": "banner",
 		"image": "./images/products/product26.png",
 		"price": 80000,
@@ -314,7 +314,7 @@
 	{
 		"id": 30,
 		"name": "Custom Standing X/Y Banner",
-		"slug": "custom-standing-x/y-banner",
+		"slug": "custom-standing-x-y-banner",
 		"category": "banner",
 		"image": "./images/products/product29.png",
 		"price": 75000,
