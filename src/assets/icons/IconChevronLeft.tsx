@@ -15,9 +15,9 @@ export default function IconChevronLeft({
 			<path
 				d="M11.6665 13.3333L8.33317 9.99998L11.6665 6.66665"
 				stroke="currentColor"
-				stroke-width="1.5"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="1.5"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</svg>
 	);
