@@ -9,8 +9,12 @@ import ShopProductDetail from "./pages/ShopProductDetail";
 import NotFound from "./pages/NotFound";
 import { useEffect } from "react";
 import ShoppingCart from "./pages/ShoppingCart";
-import Checkout from "./pages/Checkout";
+import CheckoutMain from "./pages/Checkout/CheckoutMain";
+import CheckoutBillingInformation from "./pages/Checkout/CheckoutBillingInformation";
+import CheckoutPayment from "./pages/Checkout/CheckoutPayment";
+import CheckoutDelivery from "./pages/Checkout/CheckoutDelivery";
 import Login from "./pages/Login";
+import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 
 function App() {
 	const { pathname } = useLocation();
@@ -36,7 +40,24 @@ function App() {
 					<Route path="/about" element={<About />}></Route>
 					<Route path="/contact" element={<Contact />}></Route>
 					<Route path="/cart" element={<ShoppingCart />}></Route>
-					<Route path="/checkout" element={<Checkout />}></Route>
+					<Route path="/checkout" element={<CheckoutMain />}>
+						<Route
+							path="/checkout/billing-information"
+							element={<CheckoutBillingInformation />}
+						></Route>
+						<Route
+							path="/checkout/delivery"
+							element={<CheckoutDelivery />}
+						></Route>
+						<Route
+							path="/checkout/payment"
+							element={<CheckoutPayment />}
+						></Route>
+						<Route
+							path="/checkout/success"
+							element={<CheckoutSuccess />}
+						></Route>
+					</Route>
 					<Route path="/login" element={<Login />}></Route>
 					<Route path="*" element={<NotFound />}></Route>
 				</Routes>

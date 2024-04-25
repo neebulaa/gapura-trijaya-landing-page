@@ -225,7 +225,7 @@ export default function ShoppingCart() {
 							<h5>Total: </h5>
 							<p>{formatCurrencyRupiah(total)}</p>
 						</div>
-						<Link to="/checkout">
+						<Link to="/checkout/billing-information">
 							<button className="btn btn-full w-100 mt-1-05">
 								Proceed to checkout
 							</button>

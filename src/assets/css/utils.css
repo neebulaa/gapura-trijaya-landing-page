@@ -118,6 +118,14 @@
 	color: var(--bg);
 }
 
+.btn-actor {
+	border-radius: 5px;
+	color: var(--primary);
+	background: transparent;
+	padding: .575rem .85rem;
+	border: 1px solid var(--light-gray);
+}
+
 .btn.btn-secondary {
 	--bg: var(--secondary);
 }
@@ -201,6 +209,10 @@
 	color: var(--primary) !important;
 }
 
+.accent {
+	color: var(--accent) !important;
+}
+
 .bold {
 	font-weight: 700;
 }
@@ -269,8 +281,20 @@
 	margin-top: 1.5rem;
 }
 
+.mb-1-05 {
+	margin-bottom: 1.5rem;
+}
+
+.mb-05 {
+	margin-bottom: .5rem;
+}
+
 .mt-2 {
 	margin-top: 2rem;
+}
+
+.mt-3 {
+	margin-top: 3rem;
 }
 
 .mb-1 {
@@ -287,6 +311,10 @@
 
 .none {
 	display: none;
+}
+
+.pointer {
+	cursor: pointer;
 }
 
 .no-pointer {
