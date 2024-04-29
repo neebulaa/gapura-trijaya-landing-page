@@ -26,6 +26,7 @@ textarea {
 ::placeholder {
 	font-weight: 400;
 	color: #737373;
+	font-size: .875rem;
 }
 
 hr {
@@ -1193,7 +1194,7 @@ button {
 .popup-cart {
 	color: var(--black);
 	position: fixed;
-	z-index: 999999999;
+	z-index: 999999;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -1278,7 +1279,7 @@ button {
 }
 
 .checkout-summary h2 {
-	font-weight: 700;
+	font-weight: 600;
 	font-size: 1.25rem;
 }
 
@@ -1296,10 +1297,17 @@ button {
 	gap: 0.5rem;
 }
 
+.summary-product-info {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	align-items: center;
+	gap: 1rem;
+}
+
 .summary-product p {
-	margin-left: auto;
 	font-size: 0.9rem;
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .summary-product img {
@@ -1312,89 +1320,36 @@ button {
 	flex: 5;
 }
 
-.checkout-content-header {
-	display: flex;
-	gap: 1.5rem;
-	align-items: center;
-	text-align: center;
-}
-
-.checkout-content-header h4 {
-	width: max-content;
-}
-
-.checkout-content-header .line-check {
-	max-width: 100px;
-	color: var(--light-gray);
-}
-
-.checkout-content-header-active,
-.line-check.checkout-content-header-active {
-	color: var(--primary);
-	font-weight: 600;
-}
-
-.line-check {
-	position: relative;
-	width: 100%;
-	z-index: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.line-check .icon {
-	background: white;
-	padding: 0.5rem;
-}
-
-.line-check::after {
-	content: "";
-	position: absolute;
-	width: 100%;
-	height: 2px;
-	background: var(--light-gray);
-	top: 50%;
-	left: 50%;
-	translate: -50% -50%;
-	z-index: -1;
-}
-
-.line-check.checkout-content-header-active::after {
-	background: var(--primary);
-}
-
 .checkout-content-body h2 {
 	font-weight: bold;
 	color: var(--primary);
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 }
 
 /* checkout billing information start */
-#checkout-billing-information .flag-phone {
+.flag-phone {
 	display: flex;
 	border: 1px solid var(--light-gray);
 	align-items: center;
 	border-radius: 5px;
-	padding-left: .8rem;
+	padding-left: 0.8rem;
 }
 
-#checkout-billing-information .flag-phone .flag {
+.flag-phone .flag {
 	height: 20px;
 	border-radius: 2px;
 }
 
-
-#checkout-billing-information .flag-phone select {
+.flag-phone select {
 	border: none;
 }
 /* checkout billing information end */
 
 /* checkout success start */
-#checkout-success h3{
+#checkout-success h3 {
 	font-weight: 700;
 	font-size: 1.15rem;
-}	
+}
 
 /* checkout success end */
 /* CHECKOUT PAGE END */

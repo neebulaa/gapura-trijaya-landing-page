@@ -11,7 +11,6 @@ export default function CheckoutPayment() {
 			>
 				<div className="flex gap-1 items-center">
 					<input
-						checked={true}
 						type="radio"
 						id="paymentMethod-bca"
 						name="paymentMethod"
@@ -37,7 +36,6 @@ export default function CheckoutPayment() {
 			>
 				<div className="flex gap-1 items-center">
 					<input
-						checked={true}
 						type="radio"
 						id="paymentMethod-mandiri"
 						name="paymentMethod"
@@ -63,7 +61,6 @@ export default function CheckoutPayment() {
 			>
 				<div className="flex gap-1 items-center">
 					<input
-						checked={true}
 						type="radio"
 						id="paymentMethod-qris"
 						name="paymentMethod"

@@ -6,7 +6,7 @@ type CartPopupProps = {
 	close: Function;
 };
 export default function CartPopup({ close }: CartPopupProps) {
-	const [cart, setCart] = useLocalStorage('shopping-cart', CartData);
+	const [cart] = useLocalStorage('shopping-cart', CartData);
 	return (
 		<section className="popup-cart" onClick={(e) => {
 			if(e.target == e.currentTarget){

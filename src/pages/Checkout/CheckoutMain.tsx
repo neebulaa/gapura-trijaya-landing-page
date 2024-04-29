@@ -4,7 +4,7 @@ import CartData from "../../assets/data/cart.json";
 import { formatCurrencyRupiah } from "../../utils/formatCurrency";
 import { useState } from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import IconCheck from "../../assets/icons/IconCheck";
+import HeaderProgress from "../../components/HeaderProgress";
 
 export default function CheckoutMain() {
 	const [cart, setCart] = useLocalStorage("shopping-cart", CartData);
@@ -38,64 +38,25 @@ export default function CheckoutMain() {
 				<div className="checkout-content">
 					{(bIActive || dActive || pActive) && (
 						<>
-							<header className="checkout-content-header">
-								<h4
-									className={`icon ${
-										bIActive || dActive || pActive
-											? "checkout-content-header-active"
-											: ""
-									}`}
-								>
-									Billing Information
-								</h4>
-								<div
-									className={`line-check ${
-										dActive || pActive
-											? "checkout-content-header-active"
-											: ""
-									}`}
-								>
-									<div className="icon">
-										<IconCheck width="20" height="20" />
-									</div>
-								</div>
-								<h4
-									className={`icon ${
-										dActive || pActive
-											? "checkout-content-header-active"
-											: ""
-									}`}
-								>
-									Delivery
-								</h4>
-								<div
-									className={`line-check ${
-										pActive
-											? "checkout-content-header-active"
-											: ""
-									}`}
-								>
-									<div className="icon">
-										<IconCheck width="20" height="20" />
-									</div>
-								</div>
-								<h4
-									className={`icon ${
-										pActive
-											? "checkout-content-header-active"
-											: ""
-									}`}
-								>
-									Payment
-								</h4>
-							</header>
+							<HeaderProgress
+								navigations={[
+									"Billing Information",
+									"Delivery",
+									"Payment",
+								]}
+								actives={[
+									bIActive || dActive || pActive,
+									dActive || pActive,
+									pActive,
+								]}
+							/>
 							<hr className="mt-2 mb-2" />
 						</>
 					)}
 					<Outlet />
 				</div>
 				<div className="checkout-summary">
-					{pathname != '/checkout/success' && (
+					{pathname != "/checkout/success" && (
 						<div className="card-bordered">
 							<h2 className="mb-1-05">Order Summary</h2>
 							<div className="summary-products">
@@ -112,7 +73,7 @@ export default function CheckoutMain() {
 												} - ` + c.product.name
 											}
 										/>
-										<div className="flex gap-1 w-100">
+										<div className="summary-product-info">
 											<h5>
 												{c.product.name} x{c.quantity}
 											</h5>
@@ -145,7 +106,7 @@ export default function CheckoutMain() {
 								</p>
 							</div>
 
-							<h2 className="mt-1-05">Shipping Method</h2>
+							{/* <h2 className="mt-1-05">Shipping Method</h2>
 							<div className="flex gap-1 mt-1">
 								<div className="flex gap-05">
 									<input
@@ -176,7 +137,7 @@ export default function CheckoutMain() {
 										In-Store Pickup
 									</label>
 								</div>
-							</div>
+							</div> */}
 
 							<Link to={next}>
 								<button className="btn w-100 mt-2">

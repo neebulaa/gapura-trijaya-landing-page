@@ -179,25 +179,10 @@ export default function ShoppingCart() {
 				<section className="shopping-cart-detail mt-2">
 					<div className="card-coupon card-bordered">
 						<h2>Add new Coupon</h2>
-						<div
-							className="card-bordered flex justify-between items-center flex-wrap"
-							style={{
-								padding: "1rem",
-							}}
-						>
-							<div className="flex items-center gap-05">
-								<IconCoupon width="24" height="24" />
-								<input
-									placeholder="Enter coupon"
-									type="text"
-									style={{
-										border: "none",
-										padding: "initial",
-										color: "var(--black)",
-									}}
-								/>
-							</div>
-							<p className="semibold">Apply</p>
+						<div className="input-icon">
+							<IconCoupon width="24" height="24" />
+							<input placeholder="Enter coupon" type="text" />
+							<p className="semibold ml-auto">Apply</p>
 						</div>
 					</div>
 					<div className="cart-total">

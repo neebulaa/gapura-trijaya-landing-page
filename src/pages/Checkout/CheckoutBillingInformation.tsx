@@ -6,7 +6,7 @@ export default function CheckoutBillingInformation() {
 		>
 			<h2 className="mb-1-05">Contact Details</h2>
 			<form>
-				<div className="flex gap-1">
+				<div className="split-item gap-1">
 					<div className="input-box w-100">
 						<label htmlFor="firstName">
 							First Name <span className="accent">*</span>
@@ -19,7 +19,10 @@ export default function CheckoutBillingInformation() {
 						/>
 					</div>
 					<div className="input-box w-100">
-						<label htmlFor="lastName">Last Name (optional)</label>
+						<label htmlFor="lastName">
+							Last Name{" "}
+							<span className="muted italic">(optional)</span>
+						</label>
 						<input
 							type="text"
 							id="lastName"
@@ -41,10 +44,10 @@ export default function CheckoutBillingInformation() {
 					<label htmlFor="phone">Phone Number (Whatsapp)</label>
 					<div className="flex gap-05">
 						<div className="flag-phone">
-                            <div className="flag">
-                                <div className="red"></div>
-                                <div className="white"></div>
-                            </div>
+							<div className="flag">
+								<div className="red"></div>
+								<div className="white"></div>
+							</div>
 							<select name="countryPhone" id="countryPhone">
 								<option value="indonesia">+62</option>
 								<option value="malaysia">+60</option>
@@ -63,10 +66,10 @@ export default function CheckoutBillingInformation() {
 			</form>
 
 			<h2 className="mt-3 mb-1-05">Additional Info</h2>
-            <div className="input-box w-100">
-                <label htmlFor="orderNote">Order Note (optional)</label>
-                <textarea name="orderNote" id="orderNote" rows={4}></textarea>
-            </div>
+			<div className="input-box w-100">
+				<label htmlFor="orderNote">Order Note (optional)</label>
+				<textarea name="orderNote" id="orderNote" rows={4}></textarea>
+			</div>
 		</section>
 	);
 }
