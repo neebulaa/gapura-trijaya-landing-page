@@ -105,6 +105,11 @@ export default function CheckoutDelivery() {
 				>
 					Change Address
 				</button>
+				{/* map */}
+				{/* <div style={{
+					height: '200px',
+					background: 'lightgray'
+				}}></div> */}
 			</div>
 
 			{shippingMethod == "delivery" && (

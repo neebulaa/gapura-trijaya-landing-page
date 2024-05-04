@@ -71,10 +71,10 @@ export default function Navbar() {
 							</li>
 							<li>
 								<NavLink
-									to="/about"
+									to="my-poin"
 									onClick={() => setOpenSidebar(false)}
 								>
-									About
+									My poin
 								</NavLink>
 							</li>
 							<li>
@@ -117,7 +117,10 @@ export default function Navbar() {
 								)}
 							</li>
 							<li>
-								<Link to="/login">
+								<Link
+									to="/login"
+									onClick={() => setOpenSidebar(false)}
+								>
 									<button className="btn">Login</button>
 								</Link>
 							</li>

@@ -2,12 +2,12 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
-import About from "./pages/About";
+import MyPoin from "./pages/MyPoin";
 import Contact from "./pages/Contact";
 import { Routes, Route, useLocation } from "react-router-dom";
 import ShopProductDetail from "./pages/ShopProductDetail";
 import NotFound from "./pages/NotFound";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ShoppingCart from "./pages/ShoppingCart";
 import CheckoutMain from "./pages/Checkout/CheckoutMain";
 import CheckoutBillingInformation from "./pages/Checkout/CheckoutBillingInformation";
@@ -16,7 +16,7 @@ import CheckoutDelivery from "./pages/Checkout/CheckoutDelivery";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
-
+import AppModal from "./components/AppModal";
 
 function App() {
 	const { pathname } = useLocation();
@@ -24,8 +24,24 @@ function App() {
 		window.scrollTo(0, 0);
 	}, [pathname]);
 
+	const [openCurrentEvent, setOpenCurrentEvent] = useState(true);
+
 	return (
 		<>
+			{openCurrentEvent && (
+				<AppModal
+					title="Special Event"
+					close={() => setOpenCurrentEvent(false)}
+				>
+					<img
+						className="w-100"
+						src={`${
+							import.meta.env.VITE_APP_URL
+						}./images/event.png`}
+						alt={`${import.meta.env.VITE_APP_NAME} - Event`}
+					/>
+				</AppModal>
+			)}
 			<Navbar />
 			<section
 				style={{
@@ -39,7 +55,7 @@ function App() {
 						path="/shop/:category/:category_type/:slug"
 						element={<ShopProductDetail />}
 					/>
-					<Route path="/about" element={<About />}></Route>
+					<Route path="/my-poin" element={<MyPoin />}></Route>
 					<Route path="/contact" element={<Contact />}></Route>
 					<Route path="/cart" element={<ShoppingCart />}></Route>
 					<Route path="/checkout" element={<CheckoutMain />}>
