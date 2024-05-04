@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import IconSearch from "../assets/icons/IconSearch";
-import IconHeart from "../assets/icons/IconHeart";
+import IconHeartOutline from "../assets/icons/IconHeartOutline";
 import IconCart from "../assets/icons/IconCart";
 import CartPopup from "./CartPopup";
 
@@ -47,9 +47,10 @@ export default function Navbar() {
 				}}
 			>
 				<nav className="navbar">
-					<h2 className="nav-logo">
-						{import.meta.env.VITE_APP_NAME}
-					</h2>
+					<img
+						src={`${import.meta.env.VITE_APP_URL}./images/logo.png`}
+						alt={`${import.meta.env.VITE_APP_NAME} - logo`}
+					/>
 					<div className="nav-info">
 						<ul className="nav-links">
 							<li>
@@ -91,7 +92,7 @@ export default function Navbar() {
 								<IconSearch width={"20"} height={"20"} />
 							</li>
 							<li>
-								<IconHeart width={"20"} height={"20"} />
+								<IconHeartOutline width={"20"} height={"20"} />
 							</li>
 							<li>
 								{!isMobile && (

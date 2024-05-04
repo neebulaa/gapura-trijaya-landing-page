@@ -1,23 +1,20 @@
 import { IconPropsType } from "../../dto/IconPropsType";
 
 export default function IconHeart({
-	width = "24",
-	height = "24",
+	width = "21",
+	height = "18",
 }: IconPropsType) {
 	return (
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width={width}
 			height={height}
-			viewBox="0 0 24 24"
+			viewBox="0 0 21 18"
 			fill="none"
 		>
 			<path
-				d="M12 8.19444C10 3.5 3 4 3 10C3 16.0001 12 21 12 21C12 21 21 16.0001 21 10C21 4 14 3.5 12 8.19444Z"
-				stroke="currentColor"
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
+				d="M14.6483 0C12.7135 0 11.0603 1.37908 10.152 2.32985C9.24369 1.37908 7.59415 0 5.66031 0C2.32708 0 0 2.32338 0 5.64923C0 9.31385 2.89015 11.6825 5.68615 13.9735C7.00615 15.0563 8.37231 16.1751 9.42 17.4157C9.59631 17.6234 9.85477 17.7434 10.1262 17.7434H10.1797C10.452 17.7434 10.7095 17.6225 10.8849 17.4157C11.9345 16.1751 13.2997 15.0554 14.6206 13.9735C17.4157 11.6834 20.3077 9.31477 20.3077 5.64923C20.3077 2.32338 17.9806 0 14.6483 0Z"
+				fill="currentColor"
 			/>
 		</svg>
 	);

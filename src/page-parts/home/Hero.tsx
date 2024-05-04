@@ -25,6 +25,9 @@ export default function Hero() {
 					src="./images/hero.png"
 					className="image"
 					alt={`${import.meta.env.VITE_APP_NAME} - Hero Image`}
+					style={{ 
+						height: "550px"
+					 }}
 				/>
 				<img
 					src="./images/shape1.png"

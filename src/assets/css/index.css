@@ -273,7 +273,7 @@ button {
 #hero h1 {
 	font-size: 4rem;
 	line-height: 1.2;
-	font-weight: 800;
+	font-weight: 700;
 }
 
 #hero h2 {
@@ -470,19 +470,9 @@ button {
 	font-size: 0.875rem;
 }
 
-.card .card-content .card-info {
-	margin-top: 1rem;
-}
-
 .card .card-content .card-description {
 	font-weight: 700;
 	color: var(--primary);
-}
-
-.cards-list.list-rows .card-content .card-info {
-	flex-direction: column;
-	flex-wrap: nowrap;
-	height: 100%;
 }
 
 .card .card-content .card-description .product-price {
@@ -494,6 +484,20 @@ button {
 	width: 40px;
 	height: 40px;
 	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card-like {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	background: rgba(255,255,255,.5);
+	color: var(--accent);
+	border-radius: 8px;
+	width: 40px;
+	height: 40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

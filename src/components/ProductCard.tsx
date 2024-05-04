@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { formatCurrencyRupiah } from "./../utils/formatCurrency";
 import { ProductType } from "../dto/ProductType";
-import IconCart from "../assets/icons/IconCart";
+import IconHeart from "../assets/icons/IconHeart";
 type ProductCardProps = ProductType;
 
 export default function ProductCard(props: ProductCardProps) {
@@ -20,17 +20,16 @@ export default function ProductCard(props: ProductCardProps) {
 				<div className="card-content">
 					<h3 className="card-title">{props.name}</h3>
 					<h4 className="card-highlighter">{props.category}</h4>
-					<div className="card-info flex justify-between flex-wrap gap-1">
-						<p className="card-description flex gap-04 items-center">
-							Mulai dari
-							<span className="product-price">
-								{formatCurrencyRupiah(props.price)}
-							</span>
-						</p>
-						<button className="btn card-button no-hover">
-							<IconCart width={"20"} height={"20"} />
-						</button>
-					</div>
+					<p className="mt-1 card-description flex gap-04 items-center">
+						Mulai dari
+						<span className="product-price">
+							{formatCurrencyRupiah(props.price)}
+						</span>
+					</p>
+
+				</div>
+				<div className="card-like">
+					<IconHeart width="21" height="18"/>
 				</div>
 			</article>
 		</Link>
