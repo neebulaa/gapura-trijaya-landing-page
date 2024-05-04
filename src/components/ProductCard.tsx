@@ -26,10 +26,15 @@ export default function ProductCard(props: ProductCardProps) {
 							{formatCurrencyRupiah(props.price)}
 						</span>
 					</p>
-
+					<div className="mt-1 flex gap-05">
+						<div className="accent">
+							<IconHeart width="18" height="15" />
+						</div>
+						disukai oleh 5 orang
+					</div>
 				</div>
 				<div className="card-like">
-					<IconHeart width="21" height="18"/>
+					<IconHeart width="21" height="18" />
 				</div>
 			</article>
 		</Link>
