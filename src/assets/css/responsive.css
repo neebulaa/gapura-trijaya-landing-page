@@ -86,27 +86,32 @@
 }
 
 @media (max-width: 1024px) {
-	/* ***** LOGIN PAGE START ***** */
-	#login {
+	/* ***** LOGIN & REGISTER PAGE START ***** */
+	#login, #register {
 		flex-direction: column;
+		gap: 2rem;
 	}
 
-	.login-image {
+	.login-image, .register-image {
 		max-height: 350px;
+		order: -1;
 	}
 
-	.login-image-1 {
+	.login-image-1, .register-image-1 {
 		top: 20% !important;
 		left: 110% !important;
 		rotate: -30deg;
 	}
 
-	.login-image-2 {
+	.login-image-2, .register-image-2 {
 		top: 0% !important;
 		translate: -140% !important;
 		rotate: 60deg;
 	}
-	/* ***** LOGIN PAGE END ***** */
+	.login-form p, .register-form p {
+		margin-bottom: 2rem;
+	}
+	/* ***** LOGIN & REGISTER PAGE END ***** */
 
 	/* ***** HOME PAGE START ***** */
 	/* navbar start */

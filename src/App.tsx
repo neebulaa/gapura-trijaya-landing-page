@@ -14,7 +14,9 @@ import CheckoutBillingInformation from "./pages/Checkout/CheckoutBillingInformat
 import CheckoutPayment from "./pages/Checkout/CheckoutPayment";
 import CheckoutDelivery from "./pages/Checkout/CheckoutDelivery";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
+
 
 function App() {
 	const { pathname } = useLocation();
@@ -59,6 +61,7 @@ function App() {
 						></Route>
 					</Route>
 					<Route path="/login" element={<Login />}></Route>
+					<Route path="/register" element={<Register />}></Route>
 					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</section>

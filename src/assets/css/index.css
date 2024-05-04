@@ -43,43 +43,46 @@ button {
 	cursor: pointer;
 }
 
-/* ***** LOGIN PAGE START ***** */
-#login {
+/* ***** LOGIN & REGISTER PAGE START ***** */
+#login, #register {
 	display: flex;
 	gap: 4rem;
 	align-items: center;
 }
 
-.login-image {
+#login > *, #register > * {
+	flex: 1;
+}
+
+.login-image, .register-image {
 	position: relative;
 	aspect-ratio: 1;
 }
 
-.login-image .login-image-main {
+.login-image .login-image-main,
+.register-image .register-image-main {
 	width: 100%;
 	object-fit: cover;
 }
 
-.login-form {
-	max-width: 400px;
+.login-form, .register-form {
 	margin: auto;
 	width: 100%;
 }
 
-.login-form h1 {
+.login-form h1, .register-form h1 {
 	text-align: center;
 	font-size: 1.75rem;
 	font-weight: bold;
 }
 
-.login-form p {
+.login-form p, .register-form p {
 	margin: auto;
 	margin-top: 1rem;
 	font-weight: 500;
 	text-align: center;
-	max-width: 350px;
 }
-/* ***** LOGIN PAGE END ***** */
+/* ***** LOGIN & REGISTER PAGE END ***** */
 
 /* ***** HOME PAGE START ***** */
 /* navbar start */
@@ -535,7 +538,7 @@ button {
 #membership::after {
 	content: "";
 	position: absolute;
-	background: #4c6b7f;
+	background: #5c76a4;
 	border-radius: 100px;
 	z-index: -1;
 
