@@ -394,29 +394,6 @@ button {
 	overflow-x: auto;
 }
 
-.cards-action .navigation {
-	display: flex;
-	gap: 1rem;
-}
-
-.cards-action .navigation button {
-	border: 1px solid var(--gray);
-	color: var(--gray);
-	text-transform: capitalize;
-	width: 50px;
-	height: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 1000px;
-	transition: 0.3s;
-}
-
-.cards-action .navigation button:not(.inactive):hover {
-	background: var(--gray);
-	color: white;
-}
-
 .cards-list {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -512,6 +489,49 @@ button {
 	align-items: center;
 }
 /* products section end */
+
+/* testimonial section start */
+.testimonial-cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+}
+
+.testimonial-card {
+	padding: 1rem;
+	box-shadow: 0 0 10px rgba(0,0,0,.1);
+	border-radius: 10px;
+}
+
+.testimonial-card > p {
+	font-size: .875rem;
+	line-height: 1.25;
+}
+
+.testimonial-user {
+	display: flex;
+	gap: 1rem;
+	align-items: center;
+}
+
+.testimonial-about-user {
+	display: flex;
+	flex-direction: column;
+	gap: .2rem;
+}
+
+.testimonial-about-user p {
+	font-size: .87rem;
+}
+
+.testimonial-user img {
+	border-radius: 50%;
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+	object-fit: contain;
+}
+/* testimonial section end */
 
 /* membership section start */
 #membership {

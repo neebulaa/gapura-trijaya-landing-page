@@ -40,11 +40,25 @@
 	background: var(--primary);
 }
 
+.stars {
+	display: flex;
+	gap: .5rem;
+}
+
+.stars-filled {
+	color: #F6C54D;
+}
+
+.stars-empty {
+	color: #D9DBDF;
+}
+
 .section-header {
 	display: flex;
 	width: 100%;
 	gap: 1rem;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .section-header .title {
@@ -383,6 +397,29 @@
 .carding-content p {
 	margin-top: 0.5rem;
 	color: var(--gray);
+}
+
+.navigation-buttons {
+	display: flex;
+	gap: 1rem;
+}
+
+.navigation-buttons button {
+	border: 1px solid var(--gray);
+	color: var(--gray);
+	text-transform: capitalize;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 1000px;
+	transition: 0.3s;
+}
+
+.navigation-buttons button:not(.inactive):hover {
+	background: var(--gray);
+	color: white;
 }
 
 /* class utils */

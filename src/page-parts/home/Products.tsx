@@ -43,7 +43,7 @@ export default function Products() {
 		}
 	}
 
-	function paginateProducts() {
+	function paginatedProducts() {
 		const firstIndex = (currentSlide - 1) * productsPerPage;
 		const lastIndex = firstIndex + productsPerPage;
 		return products.slice(firstIndex, lastIndex);
@@ -102,7 +102,7 @@ export default function Products() {
 						</button>
 					))}
 				</div>
-				<div className="navigation">
+				<div className="navigation-buttons">
 					<button
 						onClick={() => setSlide("previous")}
 						className={`${currentSlide == 1 ? "inactive" : ""}`}
@@ -122,7 +122,7 @@ export default function Products() {
 				</div>
 			</section>
 			<section className="cards-list">
-				{paginateProducts().map((product) => (
+				{paginatedProducts().map((product) => (
 					<ProductCard key={product.id} {...product} />
 				))}
 			</section>

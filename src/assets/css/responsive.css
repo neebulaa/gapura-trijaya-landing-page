@@ -302,12 +302,12 @@
 		justify-content: center;
 	}
 
-	.cards-action .navigation button {
+	.navigation-buttons button {
 		width: 100px;
 		height: 40px;
 	}
 
-	.cards-action .navigation {
+	.navigation-buttons {
 		justify-content: space-between;
 	}
 
@@ -471,6 +471,7 @@
 
 	.section-header .title {
 		align-items: center;
+		text-align: center;
 	}
 
 	.section-header h3 {
