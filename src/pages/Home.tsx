@@ -5,6 +5,7 @@ import Membership from "../page-parts/home/Membership";
 import OrderSteps from "../page-parts/home/OrderSteps";
 import About from "../page-parts/home/About";
 import Testimonial from "../page-parts/home/Testimonial";
+import YourVoucher from "../page-parts/home/YourVoucher";
 export default function Home() {
 	return (
 		<>
@@ -13,6 +14,7 @@ export default function Home() {
 			<Products />
 			<Testimonial />
 			<Membership />
+			<YourVoucher />
 			<OrderSteps />
 			<About />
 		</>

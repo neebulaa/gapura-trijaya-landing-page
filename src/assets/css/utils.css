@@ -4,18 +4,9 @@
 	margin: 0 auto;
 }
 
-.container-sidebar-header {
+.container-sidebar {
 	display: flex;
-	align-items: center;
 	gap: 2rem;
-}
-
-.container-sidebar-header-left {
-	flex: 2;
-}
-
-.container-sidebar-header-right {
-	flex: 6;
 }
 
 .container-sidebar-content {

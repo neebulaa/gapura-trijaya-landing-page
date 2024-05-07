@@ -202,6 +202,20 @@
 	/* membership section end */
 	/* ***** HOME PAGE END ***** */
 
+	/* ***** MY POIN PAGE START ***** */
+	#my-poin {
+		flex-direction: column;
+	}
+
+	.my-poin-profile {
+		margin-top: 1rem;
+	}
+
+	.my-poin-profile {
+		max-width: 300px;
+	}
+	/* ***** MY POIN PAGE END ***** */
+
 	/* ***** SHOP PAGE START ***** */
 	/* dropdown filter start */
 	.dropdown-filter:first-child {
@@ -308,7 +322,7 @@
 	}
 
 	.navigation-buttons {
-		justify-content: space-between;
+		justify-content: center;
 	}
 
 	.card .card-content .card-highlight {
@@ -331,6 +345,16 @@
 		font-size: 0.9rem;
 	}
 	/* products section end */
+
+	/* testimonial section start */
+	#testimonials .section-header {
+		flex-direction: column;
+	}
+
+	#testimonials .section-header .title {
+		text-align: center;
+	}
+	/* testimonial section end */
 
 	/* membership section start */
 	.membership-content h2 {

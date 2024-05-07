@@ -493,7 +493,7 @@ button {
 /* testimonial section start */
 .testimonial-cards {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	gap: 2rem;
 }
 
@@ -505,7 +505,7 @@ button {
 
 .testimonial-card > p {
 	font-size: .875rem;
-	line-height: 1.25;
+	line-height: 1.5;
 }
 
 .testimonial-user {
@@ -602,6 +602,55 @@ button {
 	max-height: 400px;
 }
 /* membership section end */
+
+/* your voucher section start */
+.voucher-cards {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2rem;
+}
+
+.voucher-card {
+	border-radius: 10px;
+	overflow: hidden;
+	background: white;
+	padding: 1.5rem;
+	box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+.voucher-card h3 {
+	font-weight: 700;
+	font-size: 1.75rem;
+}
+
+.voucher-card h4 {
+	text-transform: uppercase;
+	font-size: .875rem;
+	font-weight: 600;
+}
+
+.voucher-copy {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+ 
+.voucher-copy > p {
+	color: #163ED4;
+	font-weight: 500;
+}
+
+.voucher-card ul {
+	list-style: disc;
+	margin-left: 40px;
+	color: #8B94B2;
+	line-height: 1.25rem;
+}
+
+.voucher-card ul li {
+	margin-top: .25rem;
+}
+/* your voucher section end */
 
 /* order steps section start */
 .steps {
@@ -712,7 +761,10 @@ button {
 
 .footer-info {
 	margin-block: 3rem;
-	max-width: 500px;
+	display: flex;
+	gap: 3rem 1rem;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .footer-info h3 {
@@ -722,7 +774,29 @@ button {
 	color: white;
 }
 
-.footer-info p {
+.footer-info-right {
+	max-width: 310px;
+	width: 100%;
+}
+
+.footer-info-right .content-split {
+	gap: .5rem;
+}
+
+.footer-info-right .content-split h5 {
+	max-width: 200px;
+}
+
+.footer-info-right .content-split > * {
+	max-width: max-content;
+	color: var(--white) !important;
+}
+
+.footer-info-left {
+	max-width: 300px;
+}
+
+.footer-info-left p {
 	margin-top: 0.8rem;
 	font-size: 0.875rem;
 }
@@ -1137,6 +1211,7 @@ button {
 
 /* ***** MY POIN PAGE START ***** */
 .my-poin-profile {
+	margin-top: 1.85rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -1180,6 +1255,7 @@ button {
 }
 
 .my-poin-history-cards {
+	margin-top: 1rem;
 	border: 1px solid var(--light-gray);
 	border-radius: 8px;
 	overflow: hidden;
