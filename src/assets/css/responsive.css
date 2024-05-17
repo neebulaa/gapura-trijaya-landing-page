@@ -202,6 +202,12 @@
 	/* membership section end */
 	/* ***** HOME PAGE END ***** */
 
+	/* ***** CONTACT PAGE START ***** */
+	#contact {
+		flex-direction: column;
+	}
+	/* ***** CONTACT PAGE END ***** */
+
 	/* ***** MY POIN PAGE START ***** */
 	#my-poin {
 		flex-direction: column;

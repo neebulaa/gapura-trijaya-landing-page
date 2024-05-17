@@ -413,6 +413,40 @@
 	color: white;
 }
 
+.toggle-checkbox {
+	display: block;
+	width: 40px;
+	height: 20px;
+	border-radius: 1000px;
+	border: 1px solid var(--primary);
+	position: relative;
+	transition: .3s;
+}
+
+.toggle-checkbox .circle {
+	position: absolute;
+	top: 50%;
+	left: 2px;
+	border-radius: 50%;
+	background: var(--primary);
+	width: 15px;
+	height: 15px;
+	translate: 0 -50%;
+	transition: .3s;
+}
+
+.toggle-checkbox:has(input[type='checkbox']:checked) {
+	background: var(--primary);
+}
+
+.toggle-checkbox:has(input[type='checkbox']:checked) .circle {
+	background: var(--white);
+}
+
+.toggle-checkbox input[type='checkbox']:checked + .circle {
+	left: calc(100% - 15px - 2px);
+}
+
 /* class utils */
 
 .split-item {

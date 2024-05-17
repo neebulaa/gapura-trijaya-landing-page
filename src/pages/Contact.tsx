@@ -6,8 +6,7 @@ export default function Contact() {
 			<section className="container" id="contact">
 				<div className="contact-info">
 					<h1>
-						Let's Chat, <br />
-						Reach Out to Us
+						Let's Chat, Reach Out to Us
 					</h1>
 					<p className="mt-1">
 						Have questions or feedback? We’re Here to help. Send us

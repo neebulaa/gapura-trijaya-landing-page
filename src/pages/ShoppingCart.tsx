@@ -7,6 +7,8 @@ import IconPlus from "../assets/icons/IconPlus";
 import IconCoupon from "../assets/icons/IconCoupon";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { Link } from "react-router-dom";
+import IconPoin from "../assets/icons/IconPoin";
+import ToggleCheckboxButton from "../components/ToggleCheckboxButton";
 
 export default function ShoppingCart() {
 	const [cart, setCart] = useLocalStorage("shopping-cart", CartData);
@@ -177,14 +179,27 @@ export default function ShoppingCart() {
 				</div>
 
 				<section className="shopping-cart-detail mt-2">
-					<div className="card-coupon card-bordered">
-						<h2>Add new Coupon</h2>
-						<div className="input-icon">
-							<IconCoupon width="24" height="24" />
-							<input placeholder="Enter coupon" type="text" />
-							<p className="semibold ml-auto">Apply</p>
+					<div className="card-coupon flex flex-col gap-1">
+						<div className="card-bordered">
+							<h2>Add new voucher</h2>
+							<div className="input-icon">
+								<IconCoupon width="24" height="24" />
+								<input placeholder="Enter Voucher" type="text" />
+								<p className="semibold ml-auto">Apply</p>
+							</div>
+						</div>
+						<div className="card-bordered">
+							<h2>Apply your coin</h2>
+							<div className="input-icon">
+								<IconPoin width="24" height="24" />
+								<p>8022 Poins</p>
+								<p className="ml-auto">
+									<ToggleCheckboxButton />
+								</p>
+							</div>
 						</div>
 					</div>
+
 					<div className="cart-total">
 						<h2>Card Total</h2>
 						<div className="content-split mt-1-05 justify-between">

@@ -1206,6 +1206,8 @@ button {
 .contact-info h1 {
 	font-weight: 700;
 	font-size: 3rem;
+	max-width: 360px;
+	line-height: 1.25;
 }
 /* ***** CONTACT PAGE END ***** */
 
