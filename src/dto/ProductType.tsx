@@ -32,4 +32,6 @@ export interface ProductType extends APIObjectType {
 	status: boolean | number;
 	categories?: CategoryType[];
 	images?: ProductImageType[];
+    like_count?: number | string;
+    is_favourite?: number | boolean;
 }

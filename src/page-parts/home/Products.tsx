@@ -1,41 +1,41 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
+import productsData from "../../assets/data/products.json";
 import ProductCard from "../../components/ProductCard";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import IconChevronDown from "../../assets/icons/IconChevronDown";
 import { ProductType } from "../../dto/ProductType";
+import AppApi from "../../config/AppApi";
+import { CategoryType } from "../../dto/CategoryType";
 // import productsData from "../../assets/data/products.json";
-
 
 export default function Products() {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [productsPerPage] = useState(4);
+	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentSlide, setCurrentSlide] = useState(1);
-	const maxSlide = Math.ceil(products.length / productsPerPage);
 
-	const categories = useMemo(
-		() => [
-			"all",
-			...productsData.reduce<string[]>((acc, curr) => {
-				if (!acc.includes(curr.category)) {
-					acc.push(curr.category);
-				}
-				return acc;
-			}, []),
-		],
-		[productsData]
-	);
+	useEffect(() => {
+		getProducts();
+		getCategories();
+	}, []);
 
 	useEffect(() => {
 		setCurrentSlide(1);
-		filter();
-		getProducts();
 	}, [currentCategory]);
 
 	async function getProducts() {
-		
+		const response = await AppApi.get(`products`);
+		const productsData = response.data.data.data;
+		setProducts(productsData);
+	}
+
+	async function getCategories() {
+		const response = await AppApi.get(`categories`);
+		const categoriesData = response.data.data.data;
+		setCategories(categoriesData);
 	}
 
 	function setCategory(category: string) {
@@ -50,27 +50,30 @@ export default function Products() {
 		}
 	}
 
-	function paginatedProducts() {
+	function filteredProducts() {
+		const filterdByCategory = filterProductsByCategory();
 		const firstIndex = (currentSlide - 1) * productsPerPage;
 		const lastIndex = firstIndex + productsPerPage;
-		return products.slice(firstIndex, lastIndex);
+		return filterdByCategory.slice(firstIndex, lastIndex);
 	}
 
-	function filter() {
-		filterByCategory();
-	}
-
-	function filterByCategory() {
-		setProducts(() => {
-			const data =
-				currentCategory == "all"
-					? productsData
-					: productsData.filter(
-							(product) => product.category == currentCategory
-					  );
-			return data;
+	function filterProductsByCategory() {
+		return products.filter((product) => {
+			const primaryCategory =
+				product.categories && product.categories.length == 0
+					? ({} as CategoryType)
+					: product.categories!.find((category) => category.primary);
+			return (
+				currentCategory == "all" ||
+				primaryCategory!.name == currentCategory
+			);
 		});
 	}
+
+	const maxSlide = Math.max(
+		1,
+		Math.ceil(filterProductsByCategory().length / productsPerPage)
+	);
 
 	return (
 		<section
@@ -94,18 +97,26 @@ export default function Products() {
 			</header>
 			<section className="cards-action">
 				<div className="filters">
+					<button
+						onClick={() => setCategory("all")}
+						className={`btn-link flex items-center ${
+							"all" == currentCategory ? "current" : ""
+						}`}
+					>
+						All
+						<IconChevronDown width={"20"} height={"20"} />
+					</button>
 					{categories.map((category, i) => (
 						<button
-							onClick={() => setCategory(category)}
+							onClick={() => setCategory(category.name)}
 							key={i}
 							className={`btn-link flex items-center ${
-								category == currentCategory ? "current" : ""
+								category.name == currentCategory
+									? "current"
+									: ""
 							}`}
 						>
-							{category}{" "}
-							{category == "all" && (
-								<IconChevronDown width={"20"} height={"20"} />
-							)}
+							{category.name}{" "}
 						</button>
 					))}
 				</div>
@@ -129,9 +140,11 @@ export default function Products() {
 				</div>
 			</section>
 			<section className="cards-list">
-				{paginatedProducts().map((product) => (
-					<ProductCard key={product.id} {...product} />
-				))}
+				{filteredProducts().length == 0
+					? `Currently no products with category ${currentCategory}`
+					: filteredProducts().map((product) => (
+							<ProductCard key={product.id} {...product} />
+					  ))}
 			</section>
 		</section>
 	);
