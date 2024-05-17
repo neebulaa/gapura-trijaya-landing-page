@@ -28,8 +28,8 @@ export default function YourVoucher() {
 				</button>
 			</header>
 			<section className="voucher-cards mt-3">
-				{vouchers.map((voucher) => (
-					<div className="voucher-card">
+				{vouchers.map((voucher, j) => (
+					<div className="voucher-card" key={j}>
 						<h3>{voucher.name}</h3>
 						<h4 className="mt-1">FOR {voucher.for}</h4>
 
@@ -41,8 +41,8 @@ export default function YourVoucher() {
 							</div>
 						</div>
 						<ul className="mt-1">
-							{voucher.description.map((desc) => (
-								<li>{desc}</li>
+							{voucher.description.map((desc, i) => (
+								<li key={i}>{desc}</li>
 							))}
 						</ul>
 					</div>

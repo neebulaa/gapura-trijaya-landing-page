@@ -57,13 +57,13 @@ export default function Testimonial() {
 				</div>
 			</header>
 			<section className="testimonial-cards mt-3">
-				{paginatedTestimonials().map((testimonial) => (
-					<div className="testimonial-card">
+				{paginatedTestimonials().map((testimonial, i) => (
+					<div className="testimonial-card" key={i}>
 						<div className="stars">
 							{Array(testimonial.rating)
 								.fill(0)
-								.map((_) => (
-									<span className="stars-filled">
+								.map((_, j) => (
+									<span className="stars-filled" key={j}>
 										<IconStarFilled
 											width="20"
 											height="20"
@@ -72,8 +72,8 @@ export default function Testimonial() {
 								))}
 							{Array(5 - testimonial.rating)
 								.fill(0)
-								.map((_) => (
-									<span className="stars-empty">
+								.map((_, j) => (
+									<span className="stars-empty" key={j}>
 										<IconStarFilled
 											width="20"
 											height="20"
@@ -93,7 +93,9 @@ export default function Testimonial() {
 								}
 							/>
 							<div className="testimonial-about-user">
-								<h5 className="semibold">{testimonial.user.name}</h5>
+								<h5 className="semibold">
+									{testimonial.user.name}
+								</h5>
 								<p>{testimonial.user.occupation}</p>
 							</div>
 						</div>

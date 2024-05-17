@@ -8,6 +8,7 @@ import IconChevronDown from "../../assets/icons/IconChevronDown";
 import { ProductType } from "../../dto/ProductType";
 import AppApi from "../../config/AppApi";
 import { CategoryType } from "../../dto/CategoryType";
+import { APIHeaderParamsType } from "../../dto/APIHeaderParamsType";
 // import productsData from "../../assets/data/products.json";
 
 export default function Products() {
@@ -15,21 +16,31 @@ export default function Products() {
 	const [productsPerPage] = useState(4);
 	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [currentCategory, setCurrentCategory] = useState("all");
-	const [currentSlide, setCurrentSlide] = useState(1);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [maxPage, setMaxPage] = useState(1);
 
 	useEffect(() => {
-		getProducts();
 		getCategories();
 	}, []);
 
 	useEffect(() => {
-		setCurrentSlide(1);
-	}, [currentCategory]);
+		getProducts();
+	}, [currentPage, currentCategory]);
 
 	async function getProducts() {
-		const response = await AppApi.get(`products`);
-		const productsData = response.data.data.data;
-		setProducts(productsData);
+		const params: APIHeaderParamsType = {
+			per_page: productsPerPage,
+			page: currentPage,
+		};
+		if (currentCategory != "all") {
+			params.category = currentCategory;
+		}
+		const response = await AppApi.get(`products`, {
+			params,
+		});
+		const data = response.data.data;
+		setMaxPage(data.meta.last_page);
+		setProducts(data.data);
 	}
 
 	async function getCategories() {
@@ -40,40 +51,16 @@ export default function Products() {
 
 	function setCategory(category: string) {
 		setCurrentCategory(category);
+		setCurrentPage(1);
 	}
 
-	function setSlide(to: string) {
-		if (to == "next" && currentSlide < maxSlide) {
-			setCurrentSlide((prev) => prev + 1);
-		} else if (to == "previous" && currentSlide > 1) {
-			setCurrentSlide((prev) => prev - 1);
+	function setPage(to: string) {
+		if (to == "next" && currentPage < maxPage) {
+			setCurrentPage((prev) => prev + 1);
+		} else if (to == "previous" && currentPage > 1) {
+			setCurrentPage((prev) => prev - 1);
 		}
 	}
-
-	function filteredProducts() {
-		const filterdByCategory = filterProductsByCategory();
-		const firstIndex = (currentSlide - 1) * productsPerPage;
-		const lastIndex = firstIndex + productsPerPage;
-		return filterdByCategory.slice(firstIndex, lastIndex);
-	}
-
-	function filterProductsByCategory() {
-		return products.filter((product) => {
-			const primaryCategory =
-				product.categories && product.categories.length == 0
-					? ({} as CategoryType)
-					: product.categories!.find((category) => category.primary);
-			return (
-				currentCategory == "all" ||
-				primaryCategory!.name == currentCategory
-			);
-		});
-	}
-
-	const maxSlide = Math.max(
-		1,
-		Math.ceil(filterProductsByCategory().length / productsPerPage)
-	);
 
 	return (
 		<section
@@ -122,27 +109,27 @@ export default function Products() {
 				</div>
 				<div className="navigation-buttons">
 					<button
-						onClick={() => setSlide("previous")}
-						className={`${currentSlide == 1 ? "inactive" : ""}`}
-						disabled={currentSlide == 1}
+						onClick={() => setPage("previous")}
+						className={`${currentPage == 1 ? "inactive" : ""}`}
+						disabled={currentPage == 1}
 					>
 						<IconChevronLeft width={"25"} height={"25"} />
 					</button>
 					<button
-						onClick={() => setSlide("next")}
+						onClick={() => setPage("next")}
 						className={`${
-							currentSlide == maxSlide ? "inactive" : ""
+							currentPage == maxPage ? "inactive" : ""
 						}`}
-						disabled={currentSlide == maxSlide}
+						disabled={currentPage == maxPage}
 					>
 						<IconChevronRight width={"25"} height={"25"} />
 					</button>
 				</div>
 			</section>
 			<section className="cards-list">
-				{filteredProducts().length == 0
+				{products.length == 0
 					? `Currently no products with category ${currentCategory}`
-					: filteredProducts().map((product) => (
+					: products.map((product) => (
 							<ProductCard key={product.id} {...product} />
 					  ))}
 			</section>

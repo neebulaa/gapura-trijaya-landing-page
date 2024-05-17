@@ -52,7 +52,7 @@ function App() {
 					<Route path="/" element={<Home />}></Route>
 					<Route path="/shop" element={<Shop />} />
 					<Route
-						path="/shop/:category/:category_type/:slug"
+						path="/shop/:category/:slug"
 						element={<ShopProductDetail />}
 					/>
 					<Route path="/my-poin" element={<MyPoin />}></Route>

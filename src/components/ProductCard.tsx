@@ -7,14 +7,15 @@ import IconHeartOutline from "../assets/icons/IconHeartOutline";
 type ProductCardProps = ProductType;
 
 export default function ProductCard(props: ProductCardProps) {
-	const primaryCategory =
+	const primaryCategory: CategoryType =
 		props.categories && props.categories.length == 0
 			? ({} as CategoryType)
-			: props.categories!.find((category) => category.primary);
+			: props.categories!.find((category) => category.primary) ??
+			  ({} as CategoryType);
 
 	return (
 		<Link
-			to={`/shop/${props.category}/${props.category_type}/${props.slug}`}
+			to={`/shop/${primaryCategory.slug}/${props.slug}`}
 			className="card-as-link"
 		>
 			<article className="card">
@@ -45,7 +46,9 @@ export default function ProductCard(props: ProductCardProps) {
 					</div>
 				</div>
 				<div className="card-like">
-					{props.is_favourite == true && <IconHeart width="21" height="18" />}
+					{props.is_favourite == true && (
+						<IconHeart width="21" height="18" />
+					)}
 					{!props.is_favourite && (
 						<IconHeartOutline width="24" height="24" />
 					)}

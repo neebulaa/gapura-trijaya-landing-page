@@ -22,7 +22,7 @@ export interface ProductType extends APIObjectType {
 	type: "simple" | "configurable";
 	name: string;
 	slug: string;
-	price: null | number | string;
+	price: null | number;
 	weight: null | number | string;
 	width: null | number | string;
 	height: null | number | string;

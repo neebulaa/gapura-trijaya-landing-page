@@ -5,103 +5,128 @@ import DropdownFilter from "../../components/DropdownFilter";
 import { ProductType } from "../../dto/ProductType";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
+import { CategoryType } from "../../dto/CategoryType";
+import AppApi from "../../config/AppApi";
+import { APIHeaderParamsType } from "../../dto/APIHeaderParamsType";
 
 const MAX_PAGE_ON_PAGINATION = 5;
 
 export default function Catalog() {
 	const [gridSystem, setGridSystem] = useState("columns");
-	const [products, setProducts] = useState(productsData);
+	const [products, setProducts] = useState<ProductType[]>([]);
+	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [productsPerPage, setProductsPerPage] = useState(10);
 	const [currentCategory, setCurrentCategory] = useState("all");
-	const [currentColors, setCurrentColors] = useState<string[]>([]);
-	const [currentSize, setCurrentSize] = useState("all");
-	const [currentPriceRange, setCurrentPriceRange] = useState("all");
-	const [currentMaterials, setCurrentMaterials] = useState<string[]>([]);
 	const [currentPage, setCurrentPage] = useState(1);
-	const maxPage = Math.ceil(products.length / productsPerPage);
+	const [maxPage, setMaxPage] = useState(1);
 
-	const categories = useMemo(
-		() => [
-			"all",
-			...productsData.reduce<string[]>((acc, curr) => {
-				if (!acc.includes(curr.category)) {
-					acc.push(curr.category);
-				}
-				return acc;
-			}, []),
-		],
-		[productsData]
-	);
-
-	const sizes = useMemo(
-		() => [
-			"all",
-			...productsData.reduce<string[]>((acc, curr) => {
-				if (!acc.includes(curr.size)) {
-					acc.push(curr.size);
-				}
-				return acc;
-			}, []),
-		],
-		[productsData]
-	);
-
-	const colors = useMemo(
-		() =>
-			productsData.reduce<string[]>((acc, curr) => {
-				curr.colors.forEach((color) => {
-					if (!acc.includes(color)) {
-						acc.push(color);
-					}
-				});
-				return acc;
-			}, []),
-		[productsData]
-	);
-
-	const materials = useMemo(
-		() =>
-			productsData.reduce<string[]>((acc, curr) => {
-				curr.materials.forEach((color) => {
-					if (!acc.includes(color)) {
-						acc.push(color);
-					}
-				});
-				return acc;
-			}, []),
-		[productsData]
-	);
+	// const [currentColors, setCurrentColors] = useState<string[]>([]);
+	// const [currentSize, setCurrentSize] = useState("all");
+	const [currentPriceRange, setCurrentPriceRange] = useState("all");
+	// const [currentMaterials, setCurrentMaterials] = useState<string[]>([]);
 
 	useEffect(() => {
-		setCurrentPage(1);
-		filter();
-	}, [
-		currentCategory,
-		currentColors,
-		currentPriceRange,
-		currentMaterials,
-		currentSize,
-	]);
+		getCategories();
+	}, []);
+
+	useEffect(() => {
+		getProducts();
+	}, [currentPage, currentCategory, productsPerPage, currentPriceRange]);
+
+	async function getProducts() {
+		const params: APIHeaderParamsType = {
+			per_page: productsPerPage,
+			page: currentPage,
+		};
+		if (currentCategory != "all") {
+			params.category = currentCategory;
+		}
+		const response = await AppApi.get(`products`, {
+			params,
+		});
+		const data = response.data.data;
+		// const products = filterByPriceRange(data.data);
+		// setMaxPage(Math.max(1, Math.ceil(products.length / productsPerPage)));
+		setMaxPage(data.meta.last_page);
+		setProducts(data.data);
+	}
+
+	async function getCategories() {
+		const response = await AppApi.get(`categories`);
+		const categoriesData = response.data.data.data;
+		setCategories(categoriesData);
+	}
+
+	// const sizes = useMemo(
+	// 	() => [
+	// 		"all",
+	// 		...productsData.reduce<string[]>((acc, curr) => {
+	// 			if (!acc.includes(curr.size)) {
+	// 				acc.push(curr.size);
+	// 			}
+	// 			return acc;
+	// 		}, []),
+	// 	],
+	// 	[productsData]
+	// );
+
+	// const colors = useMemo(
+	// 	() =>
+	// 		productsData.reduce<string[]>((acc, curr) => {
+	// 			curr.colors.forEach((color) => {
+	// 				if (!acc.includes(color)) {
+	// 					acc.push(color);
+	// 				}
+	// 			});
+	// 			return acc;
+	// 		}, []),
+	// 	[productsData]
+	// );
+
+	// const materials = useMemo(
+	// 	() =>
+	// 		productsData.reduce<string[]>((acc, curr) => {
+	// 			curr.materials.forEach((color) => {
+	// 				if (!acc.includes(color)) {
+	// 					acc.push(color);
+	// 				}
+	// 			});
+	// 			return acc;
+	// 		}, []),
+	// 	[productsData]
+	// );
+
+	// useEffect(() => {
+	// 	filter();
+	// }, [
+	// 	currentCategory,
+	// 	currentColors,
+	// 	currentPriceRange,
+	// 	currentMaterials,
+	// 	currentSize,
+	// ]);
 
 	function setCategory(category: string) {
 		setCurrentCategory(category);
+		setCurrentPage(1);
 	}
 
-	function setSize(size: string) {
-		setCurrentSize(size);
-	}
+	// function setSize(size: string) {
+	// 	setCurrentSize(size);
+	// }
 
-	function setColors(colors: string[]) {
-		setCurrentColors(colors);
-	}
+	// function setColors(colors: string[]) {
+	// 	setCurrentColors(colors);
+	// }
 
 	function setPriceRange(priceRange: string) {
 		setCurrentPriceRange(priceRange);
+		setCurrentPage(1);
 	}
 
-	function setMaterials(materials: string[]) {
-		setCurrentMaterials(materials);
-	}
+	// function setMaterials(materials: string[]) {
+	// 	setCurrentMaterials(materials);
+	// }
 
 	function setPage(to: string | number) {
 		if (typeof to == "number") {
@@ -122,42 +147,26 @@ export default function Catalog() {
 		setCurrentPage(1);
 	}
 
-	function paginateProducts() {
-		const firstIndex = (currentPage - 1) * productsPerPage;
-		const lastIndex = firstIndex + productsPerPage;
-		return products.slice(firstIndex, lastIndex);
-	}
+	// function filter() {
+	// 	filterByColors();
+	// 	filterByPriceRange();
+	// 	filterBySize();
+	// 	filterByMaterials();
+	// }
 
-	function filter() {
-		filterByCategory();
-		filterByColors();
-		filterByPriceRange();
-		filterBySize();
-		filterByMaterials();
-	}
+	// function filterBySize() {
+	// 	setProducts((latestProducts) => {
+	// 		return currentSize == "all"
+	// 			? latestProducts
+	// 			: latestProducts.filter(
+	// 					(product) => product.size == currentSize
+	// 			  );
+	// 	});
+	// }
 
-	function filterByCategory() {
-		setProducts(() => {
-			return currentCategory == "all"
-				? productsData
-				: productsData.filter(
-						(product) => product.category == currentCategory
-				  );
-		});
-	}
-
-	function filterBySize() {
-		setProducts((latestProducts) => {
-			return currentSize == "all"
-				? latestProducts
-				: latestProducts.filter(
-						(product) => product.size == currentSize
-				  );
-		});
-	}
-
-	function filterByPriceRange() {
+	function filterByPriceRange(products: ProductType[]) {
 		function getPriceRangeCheck(product: ProductType) {
+			if (product.price == null) return;
 			const priceRangeCheckOptions = {
 				all: true,
 				"0 - 50K": product.price >= 0 && product.price <= 50000,
@@ -171,52 +180,50 @@ export default function Catalog() {
 			];
 		}
 
-		setProducts((latestProducts) => {
-			return currentPriceRange == "all"
-				? latestProducts
-				: latestProducts.filter((product) =>
-						getPriceRangeCheck(product)
-				  );
-		});
+		if (currentPriceRange != "all") {
+			return products.filter((product) => getPriceRangeCheck(product));
+		}
+
+		return products;
 	}
 
-	function filterByColors() {
-		setProducts((latestProducts) => {
-			if (currentColors.length == 0) return latestProducts;
-			return latestProducts.filter((product) => {
-				let valid = false;
-				currentColors.every((color) => {
-					if (product.colors.includes(color)) {
-						valid = true;
-						return true;
-					} else {
-						valid = false;
-						return false;
-					}
-				});
-				return valid;
-			});
-		});
-	}
+	// function filterByColors() {
+	// 	setProducts((latestProducts) => {
+	// 		if (currentColors.length == 0) return latestProducts;
+	// 		return latestProducts.filter((product) => {
+	// 			let valid = false;
+	// 			currentColors.every((color) => {
+	// 				if (product.colors.includes(color)) {
+	// 					valid = true;
+	// 					return true;
+	// 				} else {
+	// 					valid = false;
+	// 					return false;
+	// 				}
+	// 			});
+	// 			return valid;
+	// 		});
+	// 	});
+	// }
 
-	function filterByMaterials() {
-		setProducts((latestProducts) => {
-			if (currentMaterials.length == 0) return latestProducts;
-			return latestProducts.filter((product) => {
-				let valid = false;
-				currentMaterials.every((material) => {
-					if (product.materials.includes(material)) {
-						valid = true;
-						return true;
-					} else {
-						valid = false;
-						return false;
-					}
-				});
-				return valid;
-			});
-		});
-	}
+	// function filterByMaterials() {
+	// 	setProducts((latestProducts) => {
+	// 		if (currentMaterials.length == 0) return latestProducts;
+	// 		return latestProducts.filter((product) => {
+	// 			let valid = false;
+	// 			currentMaterials.every((material) => {
+	// 				if (product.materials.includes(material)) {
+	// 					valid = true;
+	// 					return true;
+	// 				} else {
+	// 					valid = false;
+	// 					return false;
+	// 				}
+	// 			});
+	// 			return valid;
+	// 		});
+	// 	});
+	// }
 
 	function sortProducts(e: ChangeEvent<HTMLSelectElement>) {
 		const sortBy = e.target.value;
@@ -284,19 +291,19 @@ export default function Catalog() {
 				<section className="catalog-filters-vertical">
 					<DropdownFilter
 						title="Kategori Produk"
-						items={categories}
+						items={["all", ...categories.map((cat) => cat.name)]}
 						type="link"
 						onFilter={setCategory}
 						currentItem={currentCategory}
 						open={true}
 					/>
-					<DropdownFilter
+					{/* <DropdownFilter
 						title="Warna"
 						items={colors}
 						type="checkbox"
 						onFilter={setColors}
 						currentItem={currentColors}
-					/>
+					/> */}
 					<DropdownFilter
 						title="Harga"
 						items={[
@@ -310,20 +317,20 @@ export default function Catalog() {
 						onFilter={setPriceRange}
 						currentItem={currentPriceRange}
 					/>
-					<DropdownFilter
+					{/* <DropdownFilter
 						title="Ukuran"
 						items={sizes}
 						type="radio"
 						onFilter={setSize}
 						currentItem={currentSize}
-					/>
-					<DropdownFilter
+					/> */}
+					{/* <DropdownFilter
 						title="Bahan"
 						items={materials}
 						type="checkbox"
 						onFilter={setMaterials}
 						currentItem={currentMaterials}
-					/>
+					/> */}
 				</section>
 			</aside>
 			<section className="catalog-products">
@@ -381,9 +388,11 @@ export default function Catalog() {
 						gridSystem == "rows" ? "list-rows" : ""
 					}`}
 				>
-					{paginateProducts().map((product) => (
-						<ProductCard key={product.id} {...product} />
-					))}
+					{products.length == 0
+						? `Currently no products with category ${currentCategory}`
+						: products.map((product) => (
+								<ProductCard key={product.id} {...product} />
+						  ))}
 				</section>
 				<section className="catalog-pagination">
 					<select
