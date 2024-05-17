@@ -1,13 +1,15 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
-import productsData from "../../assets/data/products.json";
 import ProductCard from "../../components/ProductCard";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import IconChevronDown from "../../assets/icons/IconChevronDown";
+import { ProductType } from "../../dto/ProductType";
+// import productsData from "../../assets/data/products.json";
+
 
 export default function Products() {
-	const [products, setProducts] = useState(productsData);
+	const [products, setProducts] = useState<ProductType[]>([]);
 	const [productsPerPage] = useState(4);
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentSlide, setCurrentSlide] = useState(1);
@@ -29,7 +31,12 @@ export default function Products() {
 	useEffect(() => {
 		setCurrentSlide(1);
 		filter();
+		getProducts();
 	}, [currentCategory]);
+
+	async function getProducts() {
+		
+	}
 
 	function setCategory(category: string) {
 		setCurrentCategory(category);
