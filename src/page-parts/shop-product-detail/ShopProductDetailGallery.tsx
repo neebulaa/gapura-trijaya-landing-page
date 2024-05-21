@@ -1,21 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ProductType } from "../../dto/ProductType";
+import { ProductImageType } from "../../dto/ProductImageType";
 import { getElementProperty } from "../../utils/getElementProperty";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 
 type ShopProductDetailGalleryProps = {
-	products: ProductType[];
-	mainProduct: ProductType;
-	setMainProduct: (item: ProductType) => void;
+	images: ProductImageType[];
 };
 
 export default function ShopProductDetailGallery({
-	products = [],
-	mainProduct,
-	setMainProduct,
+	images = [],
 }: ShopProductDetailGalleryProps) {
-	const subProducts = products;
+	const [highlightedImage, setHighlightedImage] = useState<ProductImageType>(
+		() => (images.length ? images[0] : ({} as ProductImageType))
+	);
 	const [isMobile, setIsMobile] = useState(() => {
 		return window.innerWidth <= 768;
 	});
@@ -24,6 +22,7 @@ export default function ShopProductDetailGallery({
 		function handleResize() {
 			setIsMobile(window.innerWidth <= 768);
 		}
+
 		addEventListener("resize", handleResize);
 	}, []);
 
@@ -32,20 +31,18 @@ export default function ShopProductDetailGallery({
 
 	const [index, setIndex] = useState(0);
 	const maxIndex = useMemo(() => {
-		const n = subProducts.length;
+		const n = images.length;
 		return n <= subsCount ? 0 : Math.ceil((n - subsCount) / 2);
-	}, [subProducts, gallery]);
+	}, [images, gallery]);
 
 	return (
 		<>
 			<section className="shop-product-detail-gallery" ref={gallery}>
 				<div className="main">
 					<img
-						src={`${import.meta.env.VITE_APP_URL}${
-							mainProduct.image
-						}`}
+						src={`${highlightedImage.path}`}
 						alt={`${import.meta.env.VITE_APP_NAME} - ${
-							mainProduct.name
+							highlightedImage.path
 						}`}
 					/>
 				</div>
@@ -91,7 +88,7 @@ export default function ShopProductDetailGallery({
 												)) /
 												Math.floor(subsCount / 2)) *
 												index -
-										  (subProducts.length % 2 === 1 &&
+										  (images.length % 2 === 1 &&
 										  index == maxIndex
 												? 1 *
 												  ((parseInt(
@@ -111,32 +108,31 @@ export default function ShopProductDetailGallery({
 								}px`,
 							}}
 						>
-							{Array(Math.ceil(subProducts.length / subsCount))
+							{Array(Math.ceil(images.length / subsCount))
 								.fill(0)
 								.map((_, i) => (
 									<div className="subs" key={i}>
-										{subProducts
+										{images
 											.slice(
 												i * subsCount,
 												(i + 1) * subsCount
 											)
-											.map((product) => (
+											.map((image) => (
 												<div
-													key={product.id}
+													key={image.id}
 													className="sub"
 													onClick={() =>
-														setMainProduct(product)
+														setHighlightedImage(
+															image
+														)
 													}
 												>
 													<img
-														src={`${
-															import.meta.env
-																.VITE_APP_URL
-														}${product.image}`}
+														src={`${image.path}`}
 														alt={`${
 															import.meta.env
 																.VITE_APP_NAME
-														} - ${product.name}`}
+														} - ${image.id}`}
 													/>
 												</div>
 											))}
@@ -147,20 +143,17 @@ export default function ShopProductDetailGallery({
 
 					{isMobile && (
 						<div className="container-content mobile">
-							{subProducts.map((product) => (
+							{images.map((image) => (
 								<div
-									key={product.id}
+									key={image.id}
 									className="sub"
-									onClick={() => setMainProduct(product)}
+									onClick={() => setHighlightedImage(image)}
 								>
 									<img
-										src={`${import.meta.env.VITE_APP_URL}${
-											product.image
-										}`}
+										src={`${image.path}`}
 										alt={`${
 											import.meta.env.VITE_APP_NAME
-										}import IconChevronLeft from './../assets/icons/IconChevronLeft';
- - ${product.name}`}
+										} - ${image.id}`}
 									/>
 								</div>
 							))}

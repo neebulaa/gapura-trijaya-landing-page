@@ -1,14 +1,13 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import productsData from "../../assets/data/products.json";
 import ProductCard from "../../components/ProductCard";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import IconChevronDown from "../../assets/icons/IconChevronDown";
 import { ProductType } from "../../dto/ProductType";
-import AppApi from "../../config/AppApi";
 import { CategoryType } from "../../dto/CategoryType";
 import { APIHeaderParamsType } from "../../dto/APIHeaderParamsType";
+import fetching from "../../utils/fetching";
 // import productsData from "../../assets/data/products.json";
 
 export default function Products() {
@@ -35,7 +34,7 @@ export default function Products() {
 		if (currentCategory != "all") {
 			params.category = currentCategory;
 		}
-		const response = await AppApi.get(`products`, {
+		const response = await fetching("get", `products`, {
 			params,
 		});
 		const data = response.data.data;
@@ -44,7 +43,7 @@ export default function Products() {
 	}
 
 	async function getCategories() {
-		const response = await AppApi.get(`categories`);
+		const response = await fetching('get', `categories`);
 		const categoriesData = response.data.data.data;
 		setCategories(categoriesData);
 	}

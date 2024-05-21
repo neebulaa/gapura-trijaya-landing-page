@@ -1,13 +1,13 @@
-import { useMemo, useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import ProductCard from "../../components/ProductCard";
-import productsData from "../../assets/data/products.json";
 import DropdownFilter from "../../components/DropdownFilter";
 import { ProductType } from "../../dto/ProductType";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import { CategoryType } from "../../dto/CategoryType";
-import AppApi from "../../config/AppApi";
 import { APIHeaderParamsType } from "../../dto/APIHeaderParamsType";
+import fetching from "../../utils/fetching";
+// import productsData from "../../assets/data/products.json";
 
 const MAX_PAGE_ON_PAGINATION = 5;
 
@@ -16,13 +16,14 @@ export default function Catalog() {
 	const [products, setProducts] = useState<ProductType[]>([]);
 	const [categories, setCategories] = useState<CategoryType[]>([]);
 	const [productsPerPage, setProductsPerPage] = useState(10);
+	const [currentProductType, setCurrentProductType] = useState("all");
 	const [currentCategory, setCurrentCategory] = useState("all");
 	const [currentPage, setCurrentPage] = useState(1);
 	const [maxPage, setMaxPage] = useState(1);
 
+	const [currentPriceRange, setCurrentPriceRange] = useState("all");
 	// const [currentColors, setCurrentColors] = useState<string[]>([]);
 	// const [currentSize, setCurrentSize] = useState("all");
-	const [currentPriceRange, setCurrentPriceRange] = useState("all");
 	// const [currentMaterials, setCurrentMaterials] = useState<string[]>([]);
 
 	useEffect(() => {
@@ -31,7 +32,13 @@ export default function Catalog() {
 
 	useEffect(() => {
 		getProducts();
-	}, [currentPage, currentCategory, productsPerPage, currentPriceRange]);
+	}, [
+		currentPage,
+		currentCategory,
+		productsPerPage,
+		currentPriceRange,
+		currentProductType,
+	]);
 
 	async function getProducts() {
 		const params: APIHeaderParamsType = {
@@ -41,18 +48,17 @@ export default function Catalog() {
 		if (currentCategory != "all") {
 			params.category = currentCategory;
 		}
-		const response = await AppApi.get(`products`, {
+		const response = await fetching("get", `products`, {
 			params,
 		});
 		const data = response.data.data;
-		// const products = filterByPriceRange(data.data);
-		// setMaxPage(Math.max(1, Math.ceil(products.length / productsPerPage)));
 		setMaxPage(data.meta.last_page);
-		setProducts(data.data);
+		const filteredProducts = filter(data.data);
+		setProducts(filteredProducts);
 	}
 
 	async function getCategories() {
-		const response = await AppApi.get(`categories`);
+		const response = await fetching("get", `categories`);
 		const categoriesData = response.data.data.data;
 		setCategories(categoriesData);
 	}
@@ -111,6 +117,11 @@ export default function Catalog() {
 		setCurrentPage(1);
 	}
 
+	function setProductType(type: string) {
+		setCurrentProductType(type);
+		setCurrentPage(1);
+	}
+
 	// function setSize(size: string) {
 	// 	setCurrentSize(size);
 	// }
@@ -147,12 +158,14 @@ export default function Catalog() {
 		setCurrentPage(1);
 	}
 
-	// function filter() {
-	// 	filterByColors();
-	// 	filterByPriceRange();
-	// 	filterBySize();
-	// 	filterByMaterials();
-	// }
+	function filter(products: ProductType[]) {
+		let result = filterByProductType(products);
+		result = filterByPriceRange(result);
+		// filterByColors();
+		// filterBySize();
+		// filterByMaterials();
+		return result;
+	}
 
 	// function filterBySize() {
 	// 	setProducts((latestProducts) => {
@@ -163,6 +176,18 @@ export default function Catalog() {
 	// 			  );
 	// 	});
 	// }
+
+	function filterByProductType(products: ProductType[]) {
+		return products.filter((product) => {
+			if (currentProductType == "Produk Jadi") {
+				return product.type == "simple";
+			} else if (currentProductType == "Produk Custom") {
+				return product.type == "configurable";
+			}
+			// if currentProductType == 'all'
+			return product;
+		});
+	}
 
 	function filterByPriceRange(products: ProductType[]) {
 		function getPriceRangeCheck(product: ProductType) {
@@ -179,12 +204,8 @@ export default function Catalog() {
 				currentPriceRange as keyof typeof priceRangeCheckOptions
 			];
 		}
-
-		if (currentPriceRange != "all") {
-			return products.filter((product) => getPriceRangeCheck(product));
-		}
-
-		return products;
+		if (currentPriceRange == "all") return products;
+		return products.filter((product) => getPriceRangeCheck(product));
 	}
 
 	// function filterByColors() {
@@ -255,10 +276,10 @@ export default function Catalog() {
 		} else if (sortBy == "pl-ph") {
 			setProducts((latestProducts) => {
 				return [...latestProducts].sort((a, b) => {
-					if (a.price < b.price) {
+					if (a.price! < b.price!) {
 						return -1;
 					}
-					if (a.price > b.price) {
+					if (a.price! > b.price!) {
 						return 1;
 					}
 					return 0;
@@ -267,10 +288,10 @@ export default function Catalog() {
 		} else if (sortBy == "ph-pl") {
 			setProducts((latestProducts) => {
 				return [...latestProducts].sort((a, b) => {
-					if (a.price < b.price) {
+					if (a.price! < b.price!) {
 						return 1;
 					}
-					if (a.price > b.price) {
+					if (a.price! > b.price!) {
 						return -1;
 					}
 					return 0;
@@ -289,6 +310,14 @@ export default function Catalog() {
 					</div>
 				</header>
 				<section className="catalog-filters-vertical">
+					<DropdownFilter
+						title="Jenis Produk"
+						items={["all", "Produk Jadi", "Produk Custom"]}
+						type="link"
+						onFilter={setProductType}
+						currentItem={currentProductType}
+						open={true}
+					/>
 					<DropdownFilter
 						title="Kategori Produk"
 						items={["all", ...categories.map((cat) => cat.name)]}

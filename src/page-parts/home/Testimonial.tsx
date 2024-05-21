@@ -1,14 +1,26 @@
-import { useState } from "react";
-import testimonialsData from "../../assets/data/testimonials.json";
+import { useEffect, useState } from "react";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
 import IconStarFilled from "../../assets/icons/IconStarFilled";
+import fetching from "../../utils/fetching";
+import { TestimonialType } from "../../dto/TestimonialType";
+// import testimonialsData from "../../assets/data/testimonials.json";
 
 export default function Testimonial() {
-	const [testimonials, setTestimonials] = useState(testimonialsData);
+	const [testimonials, setTestimonials] = useState<TestimonialType[]>([]);
 	const [testimonialsPerPage] = useState(3);
 	const [currentSlide, setCurrentSlide] = useState(1);
 	const maxSlide = Math.ceil(testimonials.length / testimonialsPerPage);
+
+	useEffect(() => {
+		getTestimonies();
+	}, []);
+
+	async function getTestimonies() {
+		const response = await fetching("get", "testimonies");
+		console.log(response);
+		setTestimonials(response.data.data);
+	}
 
 	function setSlide(to: string) {
 		if (to == "next" && currentSlide < maxSlide) {
@@ -70,7 +82,7 @@ export default function Testimonial() {
 										/>
 									</span>
 								))}
-							{Array(5 - testimonial.rating)
+							{Array(5 - +testimonial.rating)
 								.fill(0)
 								.map((_, j) => (
 									<span className="stars-empty" key={j}>
@@ -81,22 +93,18 @@ export default function Testimonial() {
 									</span>
 								))}
 						</div>
-						<p className="mt-05">{testimonial.body}</p>
+						<p className="mt-05">{testimonial.text}</p>
 						<div className="testimonial-user mt-05">
 							<img
-								src={`${import.meta.env.VITE_APP_URL}${
-									testimonial.user.image
-								}`}
+								src={`${testimonial.avatar}`}
 								alt={
 									`${import.meta.env.VITE_APP_NAME} - ` +
-									testimonial.user.name
+									testimonial.name
 								}
 							/>
 							<div className="testimonial-about-user">
-								<h5 className="semibold">
-									{testimonial.user.name}
-								</h5>
-								<p>{testimonial.user.occupation}</p>
+								<h5 className="semibold">{testimonial.name}</h5>
+								<p>{testimonial.occupation}</p>
 							</div>
 						</div>
 					</div>

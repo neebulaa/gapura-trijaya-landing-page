@@ -8,11 +8,14 @@ import "./assets/css/keyframes.css";
 import "./assets/css/index.css";
 import "./assets/css/responsive.css";
 import { BrowserRouter } from "react-router-dom";
+import AuthProvider from "./provider/AuthProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<AuthProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</AuthProvider>
 	</React.StrictMode>
 );

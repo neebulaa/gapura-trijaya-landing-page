@@ -4,8 +4,10 @@ import IconSearch from "../assets/icons/IconSearch";
 import IconHeartOutline from "../assets/icons/IconHeartOutline";
 import IconCart from "../assets/icons/IconCart";
 import CartPopup from "./CartPopup";
+import { useAuth } from "../provider/AuthProvider";
 
 export default function Navbar() {
+	const { user } = useAuth();
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [openCartPopup, setOpenCartPopup] = useState(false);
@@ -69,14 +71,16 @@ export default function Navbar() {
 									Shop
 								</NavLink>
 							</li>
-							<li>
-								<NavLink
-									to="my-poin"
-									onClick={() => setOpenSidebar(false)}
-								>
-									My poin
-								</NavLink>
-							</li>
+							{user && (
+								<li>
+									<NavLink
+										to="my-poin"
+										onClick={() => setOpenSidebar(false)}
+									>
+										My poin
+									</NavLink>
+								</li>
+							)}
 							<li>
 								<NavLink
 									to="/contact"
@@ -117,12 +121,15 @@ export default function Navbar() {
 								)}
 							</li>
 							<li>
-								<Link
-									to="/login"
-									onClick={() => setOpenSidebar(false)}
-								>
-									<button className="btn">Login</button>
-								</Link>
+								{user && <p>User: {user.name}</p>}
+								{!user && (
+									<Link
+										to="/login"
+										onClick={() => setOpenSidebar(false)}
+									>
+										<button className="btn">Login</button>
+									</Link>
+								)}
 							</li>
 							<li className="flag-selection">
 								<div className="flag">

@@ -19,11 +19,11 @@
 	font-size: 1.5rem;
 }
 
-.container-sidebar .container-sidebar-left{
+.container-sidebar .container-sidebar-left {
 	flex: 2;
 }
 
-.container-sidebar .container-sidebar-right{
+.container-sidebar .container-sidebar-right {
 	flex: 6;
 }
 
@@ -33,15 +33,15 @@
 
 .stars {
 	display: flex;
-	gap: .5rem;
+	gap: 0.5rem;
 }
 
 .stars-filled {
-	color: #F6C54D;
+	color: #f6c54d;
 }
 
 .stars-empty {
-	color: #D9DBDF;
+	color: #d9dbdf;
 }
 
 .section-header {
@@ -420,7 +420,7 @@
 	border-radius: 1000px;
 	border: 1px solid var(--primary);
 	position: relative;
-	transition: .3s;
+	transition: 0.3s;
 }
 
 .toggle-checkbox .circle {
@@ -432,19 +432,39 @@
 	width: 15px;
 	height: 15px;
 	translate: 0 -50%;
-	transition: .3s;
+	transition: 0.3s;
 }
 
-.toggle-checkbox:has(input[type='checkbox']:checked) {
+.toggle-checkbox:has(input[type="checkbox"]:checked) {
 	background: var(--primary);
 }
 
-.toggle-checkbox:has(input[type='checkbox']:checked) .circle {
+.toggle-checkbox:has(input[type="checkbox"]:checked) .circle {
 	background: var(--white);
 }
 
-.toggle-checkbox input[type='checkbox']:checked + .circle {
+.toggle-checkbox input[type="checkbox"]:checked + .circle {
 	left: calc(100% - 15px - 2px);
+}
+
+.alert {
+	padding: 1rem;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.alert.primary {
+	background: #d6e5fd
+}
+
+.alert.warning {
+	background: #fff3d0;
+}
+
+.alert.danger {
+	background: #ffe1e0;
 }
 
 /* class utils */

@@ -1,51 +1,42 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ProductType } from "../../dto/ProductType";
 import { formatCurrencyRupiah } from "../../utils/formatCurrency";
-import PlakatAkrilikForm from "./PlakatForm/PlakatAkrilikForm";
-import PlakatKalimantanForm from "./PlakatForm/PlakatKalimantanForm";
-import PlakatKristalForm from "./PlakatForm/PlakatKristalForm";
-import CategoryType from "../../assets/data/categoryType.json";
-import FixedBannerForm from "./BannerForm/FixedBannerForm";
-import CustomBannerForm from "./BannerForm/CustomBannerForm";
-import LabelNamaForm from "./StikerForm/LabelNamaForm";
-import StikerAlamatForm from "./StikerForm/StikerAlamatForm";
-import StikerKromoForm from "./StikerForm/StikerKromoForm";
-import StikerVinylForm from "./StikerForm/StikerVinylForm";
-import ThankyouCardForm from "./CardForm/ThankyouCardForm";
 import IconMinus from "../../assets/icons/IconMinus";
 import IconPlus from "../../assets/icons/IconPlus";
 import IconBag from "../../assets/icons/IconBag";
 import SuccessAddToCartPopup from "../../components/SuccessAddToCartPopup";
-import CartData from "../../assets/data/cart.json";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { v4 as uuid } from "uuid";
 import { CartItemType } from "../../dto/CartItemType";
+import { AttributeType } from "../../dto/AttributeType";
+import { CategoryType } from "../../dto/CategoryType";
 
 type ShopPlakatDetailFormType = {
-	product: ProductType;
-	category: string;
-	category_type: string;
+	product: ProductType & {
+		attributes: AttributeType[];
+	};
+	category: CategoryType;
 };
 
 export default function ShopPlakatDetailForm({
 	product,
 	category,
-	category_type,
 }: ShopPlakatDetailFormType) {
-	const [categoryObject, setCategoryObject] = useState(() => {
-		return CategoryType.find(
-			(cat) =>
-				cat.category == category && cat.category_type == category_type
-		);
-	});
-
-	if (!categoryObject) return;
-
 	const [cart, setCart] = useLocalStorage<CartItemType[]>(
 		"shopping-cart",
-		CartData
+		[] as CartItemType[]
 	);
-	const [data, setData] = useState({});
+	const [data, setData] = useState<{ [key: string]: any }>(() => {
+		const formData: { [key: string]: any } = {};
+		// `${attribute.id}-${attribute.name}`
+		product.attributes.forEach((attribute) => {
+			formData[`${attribute.id}-${attribute.name}`] =
+				attribute.options[0].id;
+		});
+
+		return formData;
+	});
+
 	const [openSuccessAddToCartPopup, setOpenSuccessAddToCartPopup] =
 		useState(false);
 	const [quantity, setQuantity] = useState(0);
@@ -65,7 +56,7 @@ export default function ShopPlakatDetailForm({
 						: c
 				)
 			);
-		}else {
+		} else {
 			// new
 			const itemData = {
 				id: uuid(),
@@ -73,14 +64,13 @@ export default function ShopPlakatDetailForm({
 				product: {
 					...product,
 				},
-				subtotal: product.price * quantity,
+				subtotal: Number(product.price!) * quantity,
 			};
-	
+
 			setCart((prev) => {
 				return [...prev, itemData];
 			});
 		}
-
 
 		setOpenSuccessAddToCartPopup(true);
 	}
@@ -92,6 +82,16 @@ export default function ShopPlakatDetailForm({
 	function decrementQuantity() {
 		if (quantity <= 0) return;
 		setQuantity((prev) => prev - 1);
+	}
+
+	function handleDataChange(
+		e: ChangeEvent<HTMLSelectElement | HTMLInputElement>
+	) {
+		const key = e.target.id;
+		setData((prev) => ({
+			...prev,
+			[key]: e.target.value,
+		}));
 	}
 
 	return (
@@ -106,52 +106,51 @@ export default function ShopPlakatDetailForm({
 
 			<h1 className="product-name">{product.name}</h1>
 			<h2 className="product-price">
-				{formatCurrencyRupiah(product.price)}
+				{formatCurrencyRupiah(product.price!)}
 			</h2>
-			<p className="product-description">{categoryObject.description}</p>
+			<p className="product-description">{product.short_description}</p>
 			<hr className="mt-1 mb-1" />
-
 			<form>
-				{categoryObject.category == "plakat" &&
-					categoryObject.category_type == "akrilik" && (
-						<PlakatAkrilikForm setData={setData} />
-					)}
-				{categoryObject.category == "plakat" &&
-					categoryObject.category_type == "kristal" && (
-						<PlakatKristalForm setData={setData} />
-					)}
-				{categoryObject.category == "plakat" &&
-					categoryObject.category_type == "kalimantan" && (
-						<PlakatKalimantanForm setData={setData} />
-					)}
-				{categoryObject.category == "banner" &&
-					categoryObject.category_type == "fixed banner" && (
-						<FixedBannerForm setData={setData} />
-					)}
-				{categoryObject.category == "banner" &&
-					categoryObject.category_type == "custom banner" && (
-						<CustomBannerForm setData={setData} />
-					)}
-				{categoryObject.category == "stiker" &&
-					categoryObject.category_type == "label nama" && (
-						<LabelNamaForm setData={setData} />
-					)}
-				{categoryObject.category == "stiker" &&
-					categoryObject.category_type == "stiker alamat" && (
-						<StikerAlamatForm setData={setData} />
-					)}
-				{categoryObject.category == "stiker" &&
-					categoryObject.category_type == "stiker kromo" && (
-						<StikerKromoForm setData={setData} />
-					)}
-				{categoryObject.category == "stiker" &&
-					categoryObject.category_type == "stiker vinyl" && (
-						<StikerVinylForm setData={setData} />
-					)}
-				{categoryObject.category == "kartu" &&
-					categoryObject.category_type == "thankyou card" && (
-						<ThankyouCardForm setData={setData} />
-					)}
+				{product.attributes.map((attribute) => (
+					<>
+						{attribute.type == "select" && (
+							<div className="input-box">
+								<label
+									htmlFor={`${attribute.id}-${attribute.name}`}
+								>
+									{attribute.name} - {category.name}
+								</label>
+								<select
+									name={`${attribute.id}-${attribute.name}`}
+									id={`${attribute.id}-${attribute.name}`}
+									value={
+										data[
+											`${attribute.id}-${attribute.name}`
+										]
+									}
+									onChange={handleDataChange}
+								>
+									{attribute.options.map((option) => (
+										<option value={option.id}>
+											{option.name}
+										</option>
+									))}
+								</select>
+							</div>
+						)}
+					</>
+				))}
+
+				<div className="input-box mt-1">
+					<label htmlFor="keterangan">Keterangan</label>
+					<input
+						value={data.keterangan}
+						onChange={handleDataChange}
+						type="text"
+						name="keterangan"
+						id="keterangan"
+					/>
+				</div>
 
 				<div className="mt-1-05 quantity-and-add-to-bag-button">
 					<button

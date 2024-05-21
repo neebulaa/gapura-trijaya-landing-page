@@ -17,6 +17,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 import AppModal from "./components/AppModal";
+import PrivateRoute from "./components/Route/PrivateRoute";
+import GuestRoute from "./components/Route/GuestRoute";
 
 function App() {
 	const { pathname } = useLocation();
@@ -24,7 +26,7 @@ function App() {
 		window.scrollTo(0, 0);
 	}, [pathname]);
 
-	const [openCurrentEvent, setOpenCurrentEvent] = useState(true);
+	const [openCurrentEvent, setOpenCurrentEvent] = useState(false);
 
 	return (
 		<>
@@ -55,29 +57,36 @@ function App() {
 						path="/shop/:category/:slug"
 						element={<ShopProductDetail />}
 					/>
-					<Route path="/my-poin" element={<MyPoin />}></Route>
 					<Route path="/contact" element={<Contact />}></Route>
-					<Route path="/cart" element={<ShoppingCart />}></Route>
-					<Route path="/checkout" element={<CheckoutMain />}>
-						<Route
-							path="/checkout/billing-information"
-							element={<CheckoutBillingInformation />}
-						></Route>
-						<Route
-							path="/checkout/delivery"
-							element={<CheckoutDelivery />}
-						></Route>
-						<Route
-							path="/checkout/payment"
-							element={<CheckoutPayment />}
-						></Route>
-						<Route
-							path="/checkout/success"
-							element={<CheckoutSuccess />}
-						></Route>
+
+					<Route element={<PrivateRoute />}>
+						<Route path="/my-poin" element={<MyPoin />}></Route>
+						<Route path="/cart" element={<ShoppingCart />}></Route>
+						<Route path="/checkout" element={<CheckoutMain />}>
+							<Route
+								path="/checkout/billing-information"
+								element={<CheckoutBillingInformation />}
+							></Route>
+							<Route
+								path="/checkout/delivery"
+								element={<CheckoutDelivery />}
+							></Route>
+							<Route
+								path="/checkout/payment"
+								element={<CheckoutPayment />}
+							></Route>
+							<Route
+								path="/checkout/success"
+								element={<CheckoutSuccess />}
+							></Route>
+						</Route>
 					</Route>
-					<Route path="/login" element={<Login />}></Route>
-					<Route path="/register" element={<Register />}></Route>
+
+					<Route element={<GuestRoute />}>
+						<Route path="/login" element={<Login />}></Route>
+						<Route path="/register" element={<Register />}></Route>
+					</Route>
+					
 					<Route path="*" element={<NotFound />}></Route>
 				</Routes>
 			</section>
