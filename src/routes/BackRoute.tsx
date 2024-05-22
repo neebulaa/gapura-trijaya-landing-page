@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
-import BackOfficeLayout from '../components/Layout/BackOfficeLayout'
-import Dashboard from '../pages/App/Dashboard'
+import BackOfficeLayout from '@/components/Layout/BackOfficeLayout'
+import Dashboard from '@/pages/App/Dashboard'
 
 export default function BackRoute() {
     return (

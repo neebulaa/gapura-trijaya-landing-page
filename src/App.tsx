@@ -1,5 +1,5 @@
-import BackRoute from './routes/BackRoute'
-import FrontRoute from './routes/FrontRoute'
+import BackRoute from '@/routes/BackRoute'
+import FrontRoute from '@/routes/FrontRoute'
 
 function App() {
     return (
