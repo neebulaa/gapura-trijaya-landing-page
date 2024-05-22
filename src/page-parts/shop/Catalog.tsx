@@ -281,7 +281,7 @@ export default function Catalog() {
 						<h2>Katalog Produk</h2>
 					</div>
 				</header>
-				<section className="catalog-filters-vertical">
+				<section className="catalog-filters-vertical dropdown-filters">
 					<DropdownFilter
 						title="Kategori Produk"
 						items={categories}

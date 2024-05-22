@@ -1,50 +1,25 @@
-import IconTrophy from "../assets/icons/IconTrophy";
 import SearchBar from "../components/SearchBar";
 
-export default function MyPoin() {
+export default function Profile() {
 	return (
-		<section className="container container-sidebar" id="my-poin">
+		<section className="container container-sidebar" id="my-profile">
 			<div className="container-sidebar-left my-poin-reward">
 				<h2 className="container-sidebar-header-left container-sidebar-title">
-					Reward
+					My Profile
 				</h2>
-				<div className="card-bordered my-poin-profile">
-					<div className="my-poin-profile-image">
-						<img
-							src={`${
-								import.meta.env.VITE_APP_URL
-							}./images/people/people1.png`}
-							alt={`${import.meta.env.VITE_APP_NAME} - people`}
-						/>
-						<div className="icon">
-							<IconTrophy width="14" height="14" />
-						</div>
-					</div>
-					<h3 className="mt-1 mb-1">Edwin H.</h3>
-					<p className="medium">Your Balance</p>
-					<div className="poin flex gap-05 items-center">
-						<img
-							src={`${
-								import.meta.env.VITE_APP_URL
-							}./images/poin.png`}
-							alt={`${import.meta.env.VITE_APP_NAME} - poin`}
-						/>
-						<p className="secondary bold">8228</p>
-					</div>
-					<p
-						className="mt-1 text-center"
-						style={{
-							width: "150px",
-							fontSize: ".8rem",
-						}}
-					>
-						Available points will Expires in 24 April 2025
-					</p>
+				<div className="card-bordered my-profile-profile">
+					<img
+						src={`${
+							import.meta.env.VITE_APP_URL
+						}./images/people/people1.png`}
+						alt={`${import.meta.env.VITE_APP_NAME} - people`}
+					/>
+                    <div></div>
 				</div>
 			</div>
 			<div className="container-sidebar-right my-poin-history">
 				<div className="flex gap-1 justify-between flex-wrap">
-					<h2 className="container-sidebar-title">History</h2>
+					<h2 className="container-sidebar-title"></h2>
 					<SearchBar placeholder="Search" padding=".5rem" />
 				</div>
 				<div className="my-poin-history-cards">

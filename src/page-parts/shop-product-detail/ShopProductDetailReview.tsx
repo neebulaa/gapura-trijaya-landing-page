@@ -119,6 +119,7 @@ export default function ShopProductDetailReview() {
 				});
 			});
 		}
+		setCurrentPage(1);
 	}
 
 	return (
@@ -163,10 +164,11 @@ export default function ShopProductDetailReview() {
 							))}
 					</div>
 				</div>
-				<div className="flex mt-2 gap-1">
+				<div className="flex flex-wrap mt-2 gap-1">
 					<select
 						style={{
-							width: "100%",
+							flex: "2",
+							flexBasis: '250px'
 						}}
 						onChange={(e) => setSortBy(e.target.value)}
 					>
@@ -177,30 +179,32 @@ export default function ShopProductDetailReview() {
 						className="btn"
 						onClick={() => sortReviews()}
 						style={{
-							width: "100%",
-							maxWidth: "200px",
+							flex: "1",
+							flexBasis: '150px'
 						}}
 					>
 						Filter
 					</button>
 				</div>
 
-				<DropdownFilter
-					open={true}
-					title="Rating"
-					items={ratings}
-					type="checkbox"
-					onFilter={setCurrentRatings}
-					currentItem={currentRatings}
-				/>
-				<DropdownFilter
-					open={true}
-					title="Dengan Media"
-					items={medias}
-					type="checkbox"
-					onFilter={setCurrentMedias}
-					currentItem={currentMedias}
-				/>
+				<div className="dropdown-filters">
+					<DropdownFilter
+						open={true}
+						title="Rating"
+						items={ratings}
+						type="checkbox"
+						onFilter={setCurrentRatings}
+						currentItem={currentRatings}
+					/>
+					<DropdownFilter
+						open={true}
+						title="Dengan Media"
+						items={medias}
+						type="checkbox"
+						onFilter={setCurrentMedias}
+						currentItem={currentMedias}
+					/>
+				</div>
 			</section>
 			<section className="chosen-review">
 				<h2 className="mb-2">Ulasan Pilihan</h2>

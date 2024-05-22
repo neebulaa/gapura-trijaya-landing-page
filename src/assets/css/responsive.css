@@ -87,28 +87,33 @@
 
 @media (max-width: 1024px) {
 	/* ***** LOGIN & REGISTER PAGE START ***** */
-	#login, #register {
+	#login,
+	#register {
 		flex-direction: column;
 		gap: 2rem;
 	}
 
-	.login-image, .register-image {
+	.login-image,
+	.register-image {
 		max-height: 350px;
 		order: -1;
 	}
 
-	.login-image-1, .register-image-1 {
+	.login-image-1,
+	.register-image-1 {
 		top: 20% !important;
 		left: 110% !important;
 		rotate: -30deg;
 	}
 
-	.login-image-2, .register-image-2 {
+	.login-image-2,
+	.register-image-2 {
 		top: 0% !important;
 		translate: -140% !important;
 		rotate: 60deg;
 	}
-	.login-form p, .register-form p {
+	.login-form p,
+	.register-form p {
 		margin-bottom: 2rem;
 	}
 	/* ***** LOGIN & REGISTER PAGE END ***** */
@@ -242,10 +247,13 @@
 		flex-direction: column;
 	}
 
-	.catalog-filters-vertical {
+	.dropdown-filters {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.catalog-filters-vertical {
 		margin-top: 1.5rem;
 	}
 	/* catalog section end */
@@ -263,6 +271,20 @@
 	.add-to-bag-button {
 		flex: 3;
 	}
+
+	.shop-product-detail-review {
+		flex-direction: column;
+		gap: 4rem;
+	}
+
+	.shop-product-detail-review .product-review {
+		max-width: 100%;
+	}
+
+	.chosen-review {
+		max-width: 100%;
+	}
+
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
 
@@ -661,6 +683,19 @@
 
 	.add-to-bag-button {
 		flex: 4;
+	}
+
+	.product-review-total-rating {
+		flex-direction: column;
+	}
+
+	.product-review-total-rating .rating-desc {
+		padding: initial;
+		border: initial;
+		margin: initial;
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid var(--light-gray);
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
