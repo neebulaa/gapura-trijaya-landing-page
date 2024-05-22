@@ -1,0 +1,80 @@
+[
+	{
+		"id": 1,
+		"text": "Pengirimannya lama banget!",
+		"rating": 2,
+		"user": {
+			"name": "Balu",
+			"profile_image": "./images/people/people1.png"
+		},
+		"medias": [
+			{
+				"id": 1,
+				"image": "./images/products/product1.png"
+			},
+			{
+				"id": 2,
+				"image": "./images/products/product2.png"
+			},
+			{
+				"id": 3,
+				"image": "./images/products/product3.png"
+			}
+		],
+		"created_at": "20 Nov 2023"
+	},
+	{
+		"id": 2,
+		"text": "Proses dan konfirmasi design lama, Tidak gratis ongkir 😪",
+		"rating": 1,
+		"user": {
+			"name": "Karen",
+			"profile_image": "./images/people/people2.png"
+		},
+		"medias": [
+			{
+				"id": 1,
+				"image": "./images/products/product12.png"
+			}
+		],
+		"created_at": "20 Nov 2023"
+	},
+	{
+		"id": 3,
+		"text": "Paketnya udah sampai. Thank you sangat2 sesuai ekspetasi wkwk. Makasih banyak kak",
+		"rating": 5,
+		"user": {
+			"name": "Michelle S",
+			"profile_image": "./images/people/people3.png"
+		},
+		"medias": [],
+		"created_at": "20 Nov 2023"
+	},
+	{
+		"id": 4,
+		"text": "Suka bgt beneran cantik.. Pdhal jauh tp cepet bgt sampenya.. Bisa di quest gambarnya",
+		"rating": 4,
+		"user": {
+			"name": "Daniel",
+			"profile_image": "./images/people/people1.png"
+		},
+		"medias": [],
+		"created_at": "20 Nov 2023"
+	},
+	{
+		"id": 5,
+		"text": "Bagus dan Murah, pengiriman juga cepat. Thanks seller",
+		"rating": 5,
+		"user": {
+			"name": "Edwin Hendly",
+			"profile_image": "./images/people/people4.png"
+		},
+		"medias": [
+			{
+				"id": 1,
+				"image": "./images/products/product10.png"
+			}
+		],
+		"created_at": "20 Nov 2023"
+	}
+]

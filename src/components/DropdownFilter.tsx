@@ -1,5 +1,5 @@
-import { useState, useId } from "react";
-import IconChevronDown from './../assets/icons/IconChevronDown';
+import { useState, useId, useMemo } from "react";
+import IconChevronDown from "./../assets/icons/IconChevronDown";
 
 type DropdownFilterProps = {
 	title: string;
@@ -8,7 +8,7 @@ type DropdownFilterProps = {
 	type?: string;
 	onFilter: Function;
 	currentItem: string | string[];
-	open?:boolean;
+	open?: boolean;
 };
 const FilterType = ["link", "checkbox", "radio"];
 export default function DropdownFilter({
@@ -18,7 +18,7 @@ export default function DropdownFilter({
 	type = "link",
 	onFilter,
 	currentItem,
-	open = false
+	open = false,
 }: DropdownFilterProps) {
 	if (!FilterType.includes(type)) {
 		type = "link";
@@ -27,31 +27,24 @@ export default function DropdownFilter({
 	const [openDropdown, setOpenDropdown] = useState(open);
 	const [openAll, setOpenAll] = useState(false);
 
-	const [itemValue, setItemValue] = useState(() => {
-		if (type == "checkbox") {
-			return [] as string[];
-		}
-		return "";
-	});
+	const itemValue = useMemo(() => currentItem, [currentItem]);
 
 	function setItem(item: string) {
 		let storeItemValue = itemValue;
 		if (type == "checkbox") {
-			setItemValue((prevItem) => {
-				if (prevItem.includes(item)) {
-					storeItemValue = (prevItem as string[]).filter(
-						(pI) => pI != item
-					);
-					return storeItemValue;
-				}
-				storeItemValue = [...prevItem, item];
-				return storeItemValue;
-			});
+			if (itemValue.includes(item)) {
+				storeItemValue = (itemValue as string[]).filter(
+					(pI) => pI != item
+				);
+				onFilter(storeItemValue);
+				return;
+			}
+			storeItemValue = [...itemValue, item];
+			onFilter(storeItemValue);
 		} else {
 			storeItemValue = item;
-			setItemValue(storeItemValue);
+			onFilter(storeItemValue);
 		}
-		onFilter(storeItemValue);
 	}
 
 	function toggleOpenAll() {
@@ -69,7 +62,7 @@ export default function DropdownFilter({
 				onClick={toggleOpenDropdown}
 			>
 				<h4>{title}</h4>
-				<IconChevronDown width={'20'} height={'20'} color={'#737373'}/>
+				<IconChevronDown width={"20"} height={"20"} color={"#737373"} />
 			</header>
 			<section
 				className={`dropdown-filter-items ${
@@ -94,7 +87,8 @@ export default function DropdownFilter({
 
 						return (
 							<label
-								key={`${componentId} - ${index}`}
+								key={`${componentId}-${index}`}
+								htmlFor={`${componentId}-${item}`}
 								className="btn-link flex items-center gap-05"
 							>
 								{type == "checkbox" && (
@@ -106,7 +100,7 @@ export default function DropdownFilter({
 												height: "15px",
 											}}
 											onChange={() => setItem(item)}
-											checked={currentItem.includes(item)}
+											checked={itemValue.includes(item)}
 											id={`${componentId}-${item}`}
 										/>
 										<span className="btn-link">{item}</span>

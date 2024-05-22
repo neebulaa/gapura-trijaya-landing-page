@@ -7,6 +7,7 @@ import ShopProductDetailGallery from "../page-parts/shop-product-detail/ShopProd
 import ShopProductDetailForm from "../page-parts/shop-product-detail/ShopProductDetailForm";
 import { ProductType } from "../dto/ProductType";
 import ShopProductDetailTable from "../page-parts/shop-product-detail/ShopProductDetailTable";
+import ShopProductDetailReview from "../page-parts/shop-product-detail/ShopProductDetailReview";
 
 export default function ShopPlakatDetail() {
 	const navigator = useNavigate();
@@ -37,8 +38,7 @@ export default function ShopPlakatDetail() {
 		}
 	}, [mainProduct, navigator]);
 
-
-	if(!mainProduct.slug) return;
+	if (!mainProduct.slug) return;
 	return (
 		<>
 			<PageHeaderNav
@@ -65,6 +65,15 @@ export default function ShopPlakatDetail() {
 						category_type={mainProduct.category_type}
 					/>
 				</section>
+
+				<section
+					style={{
+						marginTop: "5rem",
+					}}
+				>
+					<ShopProductDetailReview />
+				</section>
+
 				<section
 					style={{
 						marginTop: "5rem",

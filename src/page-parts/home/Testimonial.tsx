@@ -2,7 +2,7 @@ import { useState } from "react";
 import testimonialsData from "../../assets/data/testimonials.json";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronLeft from "../../assets/icons/IconChevronLeft";
-import IconStarFilled from "../../assets/icons/IconStarFilled";
+import RatingStars from "../../components/RatingStars";
 
 export default function Testimonial() {
 	const [testimonials, setTestimonials] = useState(testimonialsData);
@@ -58,29 +58,8 @@ export default function Testimonial() {
 			</header>
 			<section className="testimonial-cards mt-3">
 				{paginatedTestimonials().map((testimonial) => (
-					<div className="testimonial-card">
-						<div className="stars">
-							{Array(testimonial.rating)
-								.fill(0)
-								.map((_) => (
-									<span className="stars-filled">
-										<IconStarFilled
-											width="20"
-											height="20"
-										/>
-									</span>
-								))}
-							{Array(5 - testimonial.rating)
-								.fill(0)
-								.map((_) => (
-									<span className="stars-empty">
-										<IconStarFilled
-											width="20"
-											height="20"
-										/>
-									</span>
-								))}
-						</div>
+					<div className="testimonial-card" key={testimonial.id}>
+						<RatingStars rating={testimonial.rating} />
 						<p className="mt-05">{testimonial.body}</p>
 						<div className="testimonial-user mt-05">
 							<img
@@ -93,7 +72,9 @@ export default function Testimonial() {
 								}
 							/>
 							<div className="testimonial-about-user">
-								<h5 className="semibold">{testimonial.user.name}</h5>
+								<h5 className="semibold">
+									{testimonial.user.name}
+								</h5>
 								<p>{testimonial.user.occupation}</p>
 							</div>
 						</div>

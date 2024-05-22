@@ -499,12 +499,12 @@ button {
 
 .testimonial-card {
 	padding: 1rem;
-	box-shadow: 0 0 10px rgba(0,0,0,.1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
 }
 
 .testimonial-card > p {
-	font-size: .875rem;
+	font-size: 0.875rem;
 	line-height: 1.5;
 }
 
@@ -517,11 +517,11 @@ button {
 .testimonial-about-user {
 	display: flex;
 	flex-direction: column;
-	gap: .2rem;
+	gap: 0.2rem;
 }
 
 .testimonial-about-user p {
-	font-size: .87rem;
+	font-size: 0.87rem;
 }
 
 .testimonial-user img {
@@ -615,7 +615,7 @@ button {
 	overflow: hidden;
 	background: white;
 	padding: 1.5rem;
-	box-shadow: 0 0 10px rgba(0,0,0,.1);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .voucher-card h3 {
@@ -625,7 +625,7 @@ button {
 
 .voucher-card h4 {
 	text-transform: uppercase;
-	font-size: .875rem;
+	font-size: 0.875rem;
 	font-weight: 600;
 }
 
@@ -634,21 +634,21 @@ button {
 	align-items: center;
 	justify-content: space-between;
 }
- 
+
 .voucher-copy > p {
-	color: #163ED4;
+	color: #163ed4;
 	font-weight: 500;
 }
 
 .voucher-card ul {
 	list-style: disc;
 	margin-left: 40px;
-	color: #8B94B2;
+	color: #8b94b2;
 	line-height: 1.25rem;
 }
 
 .voucher-card ul li {
-	margin-top: .25rem;
+	margin-top: 0.25rem;
 }
 /* your voucher section end */
 
@@ -780,7 +780,7 @@ button {
 }
 
 .footer-info-right .content-split {
-	gap: .5rem;
+	gap: 0.5rem;
 }
 
 .footer-info-right .content-split h5 {
@@ -887,7 +887,7 @@ button {
 	margin-top: 2rem;
 }
 
-.catalog-pagination {
+.pagination-tools-watcher {
 	display: flex;
 	gap: 1rem;
 	justify-content: flex-end;
@@ -1042,6 +1042,136 @@ button {
 	background: white;
 	z-index: 1;
 	clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.product-review {
+	max-width: 500px;
+}
+
+.chosen-review {
+	max-width: 600px;
+}
+
+.shop-product-detail-review {
+	display: flex;
+	gap: 2rem;
+	justify-content: space-between;
+}
+
+.shop-product-detail-review > * {
+	flex: 1;
+}
+
+.shop-product-detail-review > * h2 {
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+
+.product-review-total-rating {
+	display: flex;
+}
+
+.product-review-total-rating .rating-desc {
+	flex: 2;
+	display: flex;
+	gap: 0.5rem;
+	flex-direction: column;
+	align-items: center;
+	padding-right: 1rem;
+	border-right: 1px solid var(--light-gray);
+}
+
+.product-review-total-rating .rating-desc h3 {
+	font-weight: bold;
+	font-size: 3rem;
+}
+
+.product-review-total-rating .rating-progresses {
+	flex: 3;
+	padding-left: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.product-review-total-rating .rating-progress {
+	display: flex;
+	align-items: center;
+	gap: 0.2rem;
+}
+
+.product-review-total-rating .rating-progress .rating-progress-bar {
+	width: 100%;
+	height: 5px;
+	background: var(--light-gray);
+	border-radius: 100px;
+	overflow: hidden;
+	position: relative;
+	z-index: 1;
+}
+
+.product-review-total-rating .rating-progress-bar::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: calc(var(--progress-percentage) * 1%);
+	height: 100%;
+	background: var(--primary);
+	z-index: 10;
+	border-radius: 100px;
+}
+
+.product-review-total-rating .rating-progress p {
+	width: 100%;
+	max-width: 20px;
+	text-align: center;
+}
+
+.review-card:not(:last-child) {
+	padding-bottom: 1rem;
+	border-bottom: 1px solid var(--light-gray);
+}
+
+.review-card + .review-card {
+	padding-top: 1rem;
+}
+
+.review-card-user {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.review-card-user-profile {
+	width: 52px;
+	height: 52px;
+}
+
+.review-card-user h4 {
+	font-weight: 600;
+}
+
+.review-card-published-at {
+	margin-left: auto;
+}
+
+.review-card-medias {
+	display: flex;
+	gap: 1rem;
+}
+
+.review-card-medias > div {
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.review-card-medias > div img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .hover-box img {
