@@ -5,9 +5,16 @@ export default function MyPoin() {
 	return (
 		<section className="container container-sidebar" id="my-poin">
 			<div className="container-sidebar-left my-poin-reward">
-				<h2 className="container-sidebar-header-left container-sidebar-title">
-					Reward
-				</h2>
+				<div
+					className="flex items-center"
+					style={{
+						height: "43.59px",
+					}}
+				>
+					<h2 className="container-sidebar-header-left container-sidebar-title">
+						Reward
+					</h2>
+				</div>
 				<div className="card-bordered my-poin-profile">
 					<div className="my-poin-profile-image">
 						<img
@@ -43,9 +50,9 @@ export default function MyPoin() {
 				</div>
 			</div>
 			<div className="container-sidebar-right my-poin-history">
-				<div className="flex gap-1 justify-between flex-wrap">
+				<div className="flex gap-1 justify-between flex-wrap items-center">
 					<h2 className="container-sidebar-title">History</h2>
-					<SearchBar placeholder="Search" padding=".5rem" />
+					<SearchBar placeholder="Search" />
 				</div>
 				<div className="my-poin-history-cards">
 					<div className="my-poin-history-card">

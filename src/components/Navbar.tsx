@@ -4,9 +4,11 @@ import IconSearch from "../assets/icons/IconSearch";
 import IconHeartOutline from "../assets/icons/IconHeartOutline";
 import IconCart from "../assets/icons/IconCart";
 import CartPopup from "./CartPopup";
+import IconChevronDown from "../assets/icons/IconChevronDown";
 
 export default function Navbar() {
 	const [openSidebar, setOpenSidebar] = useState(false);
+	const [openNavProfileDropdown, setOpenNavProfileDropdown] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [openCartPopup, setOpenCartPopup] = useState(false);
 	const [isMobile, setIsMobile] = useState(() => {
@@ -124,19 +126,40 @@ export default function Navbar() {
 									<button className="btn">Login</button>
 								</Link>
 							</li>
-							<li className="flag-selection">
-								<div className="flag">
-									<div className="red"></div>
-									<div className="white"></div>
-								</div>
-								<select id="country">
-									<option value="IDN">IDN</option>
-									<option value="EN">EN</option>
-								</select>
+							<li
+								className="nav-profile"
+								onClick={() =>
+									setOpenNavProfileDropdown((prev) => !prev)
+								}
+							>
+								<img
+									src={`${
+										import.meta.env.VITE_APP_URL
+									}./images/people/people1.png`}
+									alt={`${
+										import.meta.env.VITE_APP_NAME
+									} - people 1`}
+								/>
+								<p>Edwin Hendly</p>
+								<IconChevronDown width="20" height="20" />
+
+								{openNavProfileDropdown && (
+									<div
+										className="nav-profile-dropdown"
+										style={{
+											top: isMobile ? "-500%" : "120%",
+											left: "0",
+										}}
+									>
+										<Link to="/profile">Profile</Link>
+										<a href="">Dashboard</a>{" "}
+										{/* for admin */}
+										<a href="">Logout</a>
+									</div>
+								)}
 							</li>
 						</ul>
 					</div>
-
 					<div
 						className={`burger ${openSidebar ? "open" : ""}`}
 						onClick={() => setOpenSidebar((prev) => !prev)}

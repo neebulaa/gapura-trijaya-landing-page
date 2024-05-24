@@ -1,5 +1,4 @@
 import { useState } from "react";
-import testimonialsData from "../../assets/data/testimonials.json";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import vouchersData from "../../assets/data/vouchers.json";
 import { Link } from "react-router-dom";
@@ -35,8 +34,8 @@ export default function YourVoucher() {
 
 						<div className="voucher-copy mt-1">
 							<p>Code: {voucher.code}</p>
-							<div className="flex gap-05 semibold">
-								<IconCopy width="16" height="16" />
+							<div className="flex items-center gap-05 semibold">
+								<IconCopy width="20" height="22" />
 								<p>Copy</p>
 							</div>
 						</div>

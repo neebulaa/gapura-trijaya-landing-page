@@ -86,6 +86,13 @@
 }
 
 @media (max-width: 1024px) {
+	.container-sidebar-left {
+		position: static;
+		top: initial;
+		height: max-content;
+		z-index: initial;
+	}
+
 	/* ***** LOGIN & REGISTER PAGE START ***** */
 	#login,
 	#register {
@@ -218,13 +225,14 @@
 		flex-direction: column;
 	}
 
-	.my-poin-profile {
-		margin-top: 1rem;
+	#my-profile {
+		flex-direction: column;
 	}
 
 	.my-poin-profile {
 		max-width: 300px;
 	}
+
 	/* ***** MY POIN PAGE END ***** */
 
 	/* ***** SHOP PAGE START ***** */
@@ -498,6 +506,31 @@
 
 	/* shopping cart detail end */
 	/* SHOPPING CART PAGE END */
+
+	/* MY PROFILE PAGE START */
+	.profile-orders-content-card + .profile-orders-content-card {
+		margin-top: 3rem;
+		border-top: 1px solid var(--light-gray);
+	}
+
+	.profile-orders-content-card-product {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.profile-orders-content-card-product-desc {
+		text-align: center;
+	}
+
+	.profile-orders-content-card-product-action {
+		margin-left: initial;
+		flex-direction: row;
+	}
+
+	.profile-orders-content-card-status {
+		flex-direction: column;
+	}
+	/* MY PROFILE PAGE END */
 }
 
 @media (max-width: 600px) {

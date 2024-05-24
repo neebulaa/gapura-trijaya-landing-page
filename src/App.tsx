@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import MyPoin from "./pages/MyPoin";
 import Contact from "./pages/Contact";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import ShopProductDetail from "./pages/ShopProductDetail";
 import NotFound from "./pages/NotFound";
 import { useEffect, useState } from "react";
@@ -18,6 +18,10 @@ import Register from "./pages/Register";
 import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 import AppModal from "./components/AppModal";
 import Profile from "./pages/Profile";
+import ProfilePersonalInformation from "./pages/Profile/ProfilePersonalInformation";
+import ProfileOrders from "./pages/Profile/ProfileOrders";
+import ProfileSettings from "./pages/Profile/ProfileSettings";
+import ProfileManageAddresses from "./pages/Profile/ProfileManageAddresses";
 
 function App() {
 	const { pathname } = useLocation();
@@ -77,7 +81,30 @@ function App() {
 							element={<CheckoutSuccess />}
 						></Route>
 					</Route>
-					<Route path="/profile" element={<Profile />}></Route>
+					<Route element={<Profile />}>
+						<Route
+							path="/profile/personal-information"
+							element={<ProfilePersonalInformation />}
+						/>
+						<Route
+							path="/profile"
+							element={
+								<Navigate to="/profile/personal-information" />
+							}
+						/>
+						<Route
+							path="/profile/orders"
+							element={<ProfileOrders />}
+						/>
+						<Route
+							path="/profile/manage-addresses"
+							element={<ProfileManageAddresses />}
+						/>
+						<Route
+							path="/profile/settings"
+							element={<ProfileSettings />}
+						/>
+					</Route>
 					<Route path="/login" element={<Login />}></Route>
 					<Route path="/register" element={<Register />}></Route>
 					<Route path="*" element={<NotFound />}></Route>

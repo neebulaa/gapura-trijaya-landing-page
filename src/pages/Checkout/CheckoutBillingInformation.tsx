@@ -31,7 +31,7 @@ export default function CheckoutBillingInformation() {
 						/>
 					</div>
 				</div>
-				<div className="input-box w-100 mt-1">
+				<div className="input-box w-100 mt-1-05">
 					<label htmlFor="email">Email (optional)</label>
 					<input
 						type="email"
@@ -40,7 +40,7 @@ export default function CheckoutBillingInformation() {
 						placeholder="edwinhendly@gmail.com"
 					/>
 				</div>
-				<div className="input-box w-100 mt-1">
+				<div className="input-box w-100 mt-1-05">
 					<label htmlFor="phone">Phone Number (Whatsapp)</label>
 					<div className="flex gap-05">
 						<div className="flag-phone">

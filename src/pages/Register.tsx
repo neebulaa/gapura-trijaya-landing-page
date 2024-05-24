@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import IconEye from "../assets/icons/IconEye";
 export default function Register() {
 	return (
 		<section className="container" id="register">
@@ -9,8 +10,7 @@ export default function Register() {
 					<div className="split-item gap-1">
 						<div className="input-box w-100">
 							<label htmlFor="name">
-								First name{" "}
-								<span className="accent">*</span>
+								First name <span className="accent">*</span>
 							</label>
 							<input
 								type="text"
@@ -21,7 +21,8 @@ export default function Register() {
 						</div>
 						<div className="input-box w-100">
 							<label htmlFor="label">
-								Last name <span className="muted italic">(optional)</span>
+								Last name{" "}
+								<span className="muted italic">(optional)</span>
 							</label>
 							<input
 								type="text"
@@ -32,14 +33,15 @@ export default function Register() {
 						</div>
 					</div>
 
-					<div className="input-box w-100 mt-1">
+					<div className="input-box w-100 mt-1-05">
 						<label htmlFor="Address">
-							Email <span className="muted italic">(optional)</span>
+							Email{" "}
+							<span className="muted italic">(optional)</span>
 						</label>
 						<input type="text" id="Address" name="Address" />
 					</div>
 
-					<div className="input-box w-100 mt-1">
+					<div className="input-box w-100 mt-1-05">
 						<label htmlFor="phone">Phone Number (Whatsapp)</label>
 						<div className="flex gap-05">
 							<div className="flag-phone">
@@ -63,11 +65,18 @@ export default function Register() {
 						</div>
 					</div>
 
-					<div className="input-box w-100 mt-1">
+					<div className="input-box w-100 mt-1-05">
 						<label htmlFor="password">
 							New Password <span className="accent">*</span>
 						</label>
-						<input type="password" id="password" name="password" />
+						<div className="input-icon">
+							<input
+								id="password"
+								name="password"
+								type="password"
+							/>
+							<IconEye width="24" height="24" className="mr-05" />
+						</div>
 					</div>
 
 					<button type="button" className="btn w-100 mt-1-05">
