@@ -4,6 +4,7 @@ import fetching from "../utils/fetching";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../provider/AuthProvider";
 
+import IconEye from "../assets/icons/IconEye";
 export default function Register() {
 	const { setUser } = useAuth();
 	const navigator = useNavigate();
@@ -76,7 +77,7 @@ export default function Register() {
 						))}
 
 					<div className="input-box w-100 mt-1">
-						<label htmlFor="email">
+						<label htmlFor="Address">
 							Email{" "}
 							<span className="muted italic">(optional)</span>
 						</label>
@@ -126,17 +127,20 @@ export default function Register() {
 							<p className="accent mt-05">{error}</p>
 						))}
 
-					<div className="input-box w-100 mt-1">
+					<div className="input-box w-100 mt-1-05">
 						<label htmlFor="password">
 							New Password <span className="accent">*</span>
 						</label>
-						<input
-							type="password"
-							id="password"
-							name="password"
-							value={data.password}
-							onChange={handleUpdateData}
-						/>
+						<div className="input-icon">
+							<input
+								id="password"
+								name="password"
+								type="password"
+								value={data.password}
+								onChange={handleUpdateData}
+							/>
+							<IconEye width="24" height="24" className="mr-05" />
+						</div>
 					</div>
 					{errors.password &&
 						errors.password.map((error: string) => (

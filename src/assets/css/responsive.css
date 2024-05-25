@@ -86,29 +86,41 @@
 }
 
 @media (max-width: 1024px) {
+	.container-sidebar-left {
+		position: static;
+		top: initial;
+		height: max-content;
+		z-index: initial;
+	}
+
 	/* ***** LOGIN & REGISTER PAGE START ***** */
-	#login, #register {
+	#login,
+	#register {
 		flex-direction: column;
 		gap: 2rem;
 	}
 
-	.login-image, .register-image {
+	.login-image,
+	.register-image {
 		max-height: 350px;
 		order: -1;
 	}
 
-	.login-image-1, .register-image-1 {
+	.login-image-1,
+	.register-image-1 {
 		top: 20% !important;
 		left: 110% !important;
 		rotate: -30deg;
 	}
 
-	.login-image-2, .register-image-2 {
+	.login-image-2,
+	.register-image-2 {
 		top: 0% !important;
 		translate: -140% !important;
 		rotate: 60deg;
 	}
-	.login-form p, .register-form p {
+	.login-form p,
+	.register-form p {
 		margin-bottom: 2rem;
 	}
 	/* ***** LOGIN & REGISTER PAGE END ***** */
@@ -213,13 +225,14 @@
 		flex-direction: column;
 	}
 
-	.my-poin-profile {
-		margin-top: 1rem;
+	#my-profile {
+		flex-direction: column;
 	}
 
 	.my-poin-profile {
 		max-width: 300px;
 	}
+
 	/* ***** MY POIN PAGE END ***** */
 
 	/* ***** SHOP PAGE START ***** */
@@ -232,7 +245,7 @@
 		flex: 1 0 250px;
 	}
 
-	.catalog-pagination {
+	.pagination-tools-watcher {
 		justify-content: center;
 	}
 	/* dropdown filter end */
@@ -242,10 +255,13 @@
 		flex-direction: column;
 	}
 
-	.catalog-filters-vertical {
+	.dropdown-filters {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.catalog-filters-vertical {
 		margin-top: 1.5rem;
 	}
 	/* catalog section end */
@@ -263,6 +279,20 @@
 	.add-to-bag-button {
 		flex: 3;
 	}
+
+	.shop-product-detail-review {
+		flex-direction: column;
+		gap: 4rem;
+	}
+
+	.shop-product-detail-review .product-review {
+		max-width: 100%;
+	}
+
+	.chosen-review {
+		max-width: 100%;
+	}
+
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */
 
@@ -476,6 +506,31 @@
 
 	/* shopping cart detail end */
 	/* SHOPPING CART PAGE END */
+
+	/* MY PROFILE PAGE START */
+	.profile-orders-content-card + .profile-orders-content-card {
+		margin-top: 3rem;
+		border-top: 1px solid var(--light-gray);
+	}
+
+	.profile-orders-content-card-product {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.profile-orders-content-card-product-desc {
+		text-align: center;
+	}
+
+	.profile-orders-content-card-product-action {
+		margin-left: initial;
+		flex-direction: row;
+	}
+
+	.profile-orders-content-card-status {
+		flex-direction: column;
+	}
+	/* MY PROFILE PAGE END */
 }
 
 @media (max-width: 600px) {
@@ -661,6 +716,19 @@
 
 	.add-to-bag-button {
 		flex: 4;
+	}
+
+	.product-review-total-rating {
+		flex-direction: column;
+	}
+
+	.product-review-total-rating .rating-desc {
+		padding: initial;
+		border: initial;
+		margin: initial;
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid var(--light-gray);
 	}
 	/* shop product detail end */
 	/* ***** SHOP PAGE END ***** */

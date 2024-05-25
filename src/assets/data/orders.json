@@ -1,0 +1,68 @@
+[
+	{
+		"id": 1,
+		"status": "delivered",
+		"total": 420000,
+		"product": {
+			"id": 1,
+			"name": "Plakat Akrilik Original",
+			"slug": "plakat-akrilik-original",
+			"category": "plakat",
+			"image": "./images/products/product1.png",
+			"price": 80000,
+			"size": "kecil",
+			"colors": ["merah"],
+			"materials": ["akrilik"],
+			"category_type": "akrilik"
+		},
+		"attributes": {
+			"ketebalan": "5 mm",
+			"ukuran": "15 x 10 cm",
+			"jenis_kaki": "Kaki Kotak",
+			"box_plakat_buldru": "Ya",
+			"keterangan": "Warna box bebas"
+		}
+	},
+	{
+		"id": 2,
+		"status": "in-progress",
+		"total": 170000,
+		"product": {
+			"id": 5,
+			"name": "Stand Banner Stainless",
+			"slug": "stand-banner-stainless",
+			"category": "banner",
+			"image": "./images/products/product11.png",
+			"price": 500000,
+			"size": "sangat besar",
+			"colors": ["putih"],
+			"materials": ["stainless steel"],
+			"category_type": "fixed banner"
+		},
+		"attributes": {
+			"ketebalan": "5 mm",
+			"ukuran": "15 x 10 cm"
+		}
+	},
+	{
+		"id": 3,
+		"status": "cancelled",
+		"total": 200000,
+		"product": {
+			"id": 18,
+			"name": "Plakat Kristal Rainbow",
+			"slug": "plakat-kristal-rainbow",
+			"category": "plakat",
+			"image": "./images/products/product17.png",
+			"price": 200000,
+			"size": "sedang",
+			"colors": ["merah", "putih", "kuning", "hijau"],
+			"materials": ["kristal"],
+			"category_type": "kristal"
+		},
+		"attributes": {
+			"ketebalan": "5 mm",
+			"ukuran": "15 x 10 cm"
+		}
+	}
+]

@@ -1,16 +1,12 @@
-import IconLocation from "./../../assets/icons/IconLocation";
 import { useState } from "react";
-import AppModal from "./../../components/AppModal";
+import IconCheck from "../../assets/icons/IconCheck";
+import IconLocation from "../../assets/icons/IconLocation";
+import AppModal from "../../components/AppModal";
 import SearchBar from "../../components/SearchBar";
-import IconCheck from "./../../assets/icons/IconCheck";
-import HeaderProgress from "./../../components/HeaderProgress";
+import HeaderProgress from "../../components/HeaderProgress";
 
-export default function CheckoutDelivery() {
+export default function ProfileManageAddresses() {
 	const [changeAddressFlow, setChangeAddressFlow] = useState({
-		"change-address": {
-			title: "Chang Address",
-			active: false,
-		},
 		"new-address": {
 			title: "New Address",
 			active: false,
@@ -39,206 +35,71 @@ export default function CheckoutDelivery() {
 		}));
 	}
 
-	const [shippingMethod, setShippingMethod] = useState("delivery");
-	const [expedition, setExpedition] = useState(() => {
-		if (shippingMethod == "delivery") return "jnt";
-		return "";
-	});
-
 	return (
-		<section className="checkout-content-body" id="checkout-delivery">
-			<h2 className="mb-1-05">Shipping Method</h2>
-			<label
-				htmlFor="shippingMethod-delivery"
-				className="card-bordered flex items-center justify-between pointer"
+		<>
+			<h2 className="mb-1-05">Manage Adress</h2>
+			<SearchBar placeholder="Find the name of the destination address/city/subdistrict for delivery." />
+			<button
+				className="btn mt-1 btn-outline w-100"
+				onClick={() => {
+					changingAddressFlow("new-address", true);
+				}}
 			>
-				<div className="flex gap-1 items-center">
-					<input
-						checked={shippingMethod == "delivery"}
-						type="radio"
-						id="shippingMethod-delivery"
-						name="shippingMethod"
-						onChange={() => {
-							setShippingMethod("delivery");
-							setExpedition("jnt");
-						}}
-					/>
-					<span>Delivery</span>
-				</div>
-				<p className="highlight semibold">Free</p>
-			</label>
-			<label
-				htmlFor="shippingMethod-inStorePickup"
-				className="mt-05 card-bordered flex items-center justify-between pointer"
+				Add New Address
+			</button>
+
+			{/* card container */}
+			<div
+				style={{
+					overflowY: "auto",
+					maxHeight: "400px",
+				}}
 			>
-				<div className="flex gap-1 items-center">
-					<input
-						checked={shippingMethod == "inStorePickup"}
-						type="radio"
-						id="shippingMethod-inStorePickup"
-						name="shippingMethod"
-						onChange={() => setShippingMethod("inStorePickup")}
-					/>
-					<span>In-store pickup</span>
-				</div>
-				<p className="highlight semibold">Free</p>
-			</label>
-			<div className="flex mt-3 mb-1-05 justify-between items-center">
-				<h2>Delivery Address</h2>
-				<button className="highlight semibold">+ New Address</button>
-			</div>
-			<div className="card-bordered mt-1">
-				<div className="flex gap-05">
-					<div className="highlight">
-						<IconLocation width="20" height="20" />
+				<div className="card-bordered active mt-1 flex items-center gap-05">
+					<div>
+						<div className="flex gap-05">
+							<div className="highlight">
+								<IconLocation width="20" height="20" />
+							</div>
+							<p className="semibold">Rumah Michelle</p>
+						</div>
+						<p className="mt-05">
+							Sungai Jawi, Kec. Pontianak Kota, Kota Pontianak,
+							Kalimantan Barat , Pontianak Kota, Kota Pontianak,
+							Kalimantan Barat, 628983167799
+						</p>
+						<button className="btn btn-actor btn-pill mt-1">
+							Change Address
+						</button>
 					</div>
-					<p className="semibold">Rumah Michelle</p>
+					<div>
+						<IconCheck width="32" height="32" />
+					</div>
 				</div>
-				<p className="mt-05">
-					Sungai Jawi, Kec. Pontianak Kota, Kota Pontianak, Kalimantan
-					Barat , Pontianak Kota, Kota Pontianak, Kalimantan Barat,
-					628983167799
-				</p>
-				<button
-					className="btn btn-actor mt-1"
-					onClick={() => changingAddressFlow("change-address", true)}
-				>
-					Change Address
-				</button>
-				{/* map */}
-				{/* <div style={{
-					height: '200px',
-					background: 'lightgray'
-				}}></div> */}
+
+				<div className="card-bordered mt-1 flex items-center gap-05">
+					<div>
+						<div className="flex gap-05">
+							<div className="highlight">
+								<IconLocation width="20" height="20" />
+							</div>
+							<p className="semibold">Rumah Michelle</p>
+						</div>
+						<p className="mt-05">
+							Sungai Jawi, Kec. Pontianak Kota, Kota Pontianak,
+							Kalimantan Barat , Pontianak Kota, Kota Pontianak,
+							Kalimantan Barat, 628983167799
+						</p>
+						<button className="btn btn-actor btn-pill mt-1">
+							Change Address
+						</button>
+					</div>
+					<div>
+						<button className="btn btn-actor mt-1">Select</button>
+					</div>
+				</div>
 			</div>
 
-			{shippingMethod == "delivery" && (
-				<>
-					<h2 className="mt-3 mb-1-05">Select Expedition</h2>
-					<label
-						htmlFor="expedition-jnt"
-						className="mt-05 card-bordered flex items-center justify-between pointer"
-					>
-						<div className="flex gap-1 items-center">
-							<input
-								checked={expedition == "jnt"}
-								onChange={() => setExpedition("jnt")}
-								type="radio"
-								id="expedition-jnt"
-								name="expedition"
-							/>
-							<span>JNT</span>
-						</div>
-						<p className="highlight semibold">Rp 36.000,00</p>
-					</label>
-					<label
-						htmlFor="expedition-jne"
-						className="mt-05 card-bordered flex items-center justify-between pointer"
-					>
-						<div className="flex gap-1 items-center">
-							<input
-								type="radio"
-								id="expedition-jne"
-								name="expedition"
-								checked={expedition == "jne"}
-								onChange={() => setExpedition("jne")}
-							/>
-							<span>JNE</span>
-						</div>
-						<p className="highlight semibold">Rp 42.000,00</p>
-					</label>
-					<label
-						htmlFor="expedition-local"
-						className="mt-05 card-bordered flex items-center justify-between pointer"
-					>
-						<div className="flex gap-1 items-center">
-							<input
-								type="radio"
-								checked={expedition == "local"}
-								onChange={() => setExpedition("local")}
-								id="expedition-local"
-								name="expedition"
-							/>
-							<span>Local Expedition</span>
-						</div>
-						<p className="highlight semibold">Rp 30.000,00</p>
-					</label>
-				</>
-			)}
-
-			{changeAddressFlow["change-address"].active && (
-				<AppModal
-					title="Change Address"
-					close={() => changingAddressFlow("change-address", false)}
-				>
-					<SearchBar placeholder="Find the name of the destination address/city/subdistrict for delivery." />
-					<button
-						className="btn mt-1 btn-outline w-100"
-						onClick={() => {
-							changingAddressFlow("change-address", false);
-							changingAddressFlow("new-address", true);
-						}}
-					>
-						Add New Address
-					</button>
-
-					{/* card container */}
-					<div
-						style={{
-							overflowY: "auto",
-							maxHeight: "400px",
-						}}
-					>
-						<div className="card-bordered active mt-1 flex items-center gap-05">
-							<div>
-								<div className="flex gap-05">
-									<div className="highlight">
-										<IconLocation width="20" height="20" />
-									</div>
-									<p className="semibold">Rumah Michelle</p>
-								</div>
-								<p className="mt-05">
-									Sungai Jawi, Kec. Pontianak Kota, Kota
-									Pontianak, Kalimantan Barat , Pontianak
-									Kota, Kota Pontianak, Kalimantan Barat,
-									628983167799
-								</p>
-								<button className="btn btn-actor btn-pill mt-1">
-									Change Address
-								</button>
-							</div>
-							<div>
-								<IconCheck width="32" height="32" />
-							</div>
-						</div>
-
-						<div className="card-bordered mt-1 flex items-center gap-05">
-							<div>
-								<div className="flex gap-05">
-									<div className="highlight">
-										<IconLocation width="20" height="20" />
-									</div>
-									<p className="semibold">Rumah Michelle</p>
-								</div>
-								<p className="mt-05">
-									Sungai Jawi, Kec. Pontianak Kota, Kota
-									Pontianak, Kalimantan Barat , Pontianak
-									Kota, Kota Pontianak, Kalimantan Barat,
-									628983167799
-								</p>
-								<button className="btn btn-actor btn-pill mt-1">
-									Change Address
-								</button>
-							</div>
-							<div>
-								<button className="btn btn-actor mt-1">
-									Select
-								</button>
-							</div>
-						</div>
-					</div>
-				</AppModal>
-			)}
 			{(changeAddressFlow["new-address"].active ||
 				changeAddressFlow["new-address-pinpoint"].active ||
 				changeAddressFlow["new-address-detail"].active) && (
@@ -615,7 +476,7 @@ export default function CheckoutDelivery() {
 							<p
 								style={{
 									padding: ".8rem",
-									paddingLeft: '.2rem',
+									paddingLeft: ".2rem",
 								}}
 							>
 								You haven't pinpointed yet.{" "}
@@ -659,6 +520,6 @@ export default function CheckoutDelivery() {
 					</form>
 				</AppModal>
 			)}
-		</section>
+		</>
 	);
 }

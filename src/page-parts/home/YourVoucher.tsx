@@ -1,5 +1,4 @@
 import { useState } from "react";
-import testimonialsData from "../../assets/data/testimonials.json";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import vouchersData from "../../assets/data/vouchers.json";
 import { Link } from "react-router-dom";
@@ -28,15 +27,15 @@ export default function YourVoucher() {
 				</button>
 			</header>
 			<section className="voucher-cards mt-3">
-				{vouchers.map((voucher, j) => (
-					<div className="voucher-card" key={j}>
+				{vouchers.map((voucher) => (
+					<div className="voucher-card" key={voucher.id}>
 						<h3>{voucher.name}</h3>
 						<h4 className="mt-1">FOR {voucher.for}</h4>
 
 						<div className="voucher-copy mt-1">
 							<p>Code: {voucher.code}</p>
-							<div className="flex gap-05 semibold">
-								<IconCopy width="16" height="16" />
+							<div className="flex items-center gap-05 semibold">
+								<IconCopy width="20" height="22" />
 								<p>Copy</p>
 							</div>
 						</div>

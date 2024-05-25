@@ -2,31 +2,39 @@ import PageHeader from "../../components/PageHeader";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import CartData from "../../assets/data/cart.json";
 import { formatCurrencyRupiah } from "../../utils/formatCurrency";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
 import HeaderProgress from "../../components/HeaderProgress";
+import AppModal from "../../components/AppModal";
 
 export default function CheckoutMain() {
 	const [cart, setCart] = useLocalStorage("shopping-cart", CartData);
-	const [shippingMethod, setShippingMethod] = useState("delivery");
+	const [openModalConfirmationOrder, setOpenModalConfirmationOrder] =
+		useState(false);
 	const { pathname } = useLocation();
 
-	const bIActive = pathname == "/checkout/billing-information";
-	const dActive = pathname == "/checkout/delivery";
-	const pActive = pathname == "/checkout/payment";
+	const bIActive = useMemo(
+		() => pathname == "/checkout/billing-information",
+		[pathname]
+	);
+	const dActive = useMemo(() => pathname == "/checkout/delivery", [pathname]);
+	const pActive = useMemo(() => pathname == "/checkout/payment", [pathname]);
 
-	let next = "";
-	switch (true) {
-		case bIActive:
-			next = "/checkout/delivery";
-			break;
-		case dActive:
-			next = "/checkout/payment";
-			break;
-		case pActive:
-			next = "/checkout/success";
-			break;
-	}
+	const [next, setNext] = useState("");
+
+	useEffect(() => {
+		switch (true) {
+			case bIActive:
+				setNext("/checkout/delivery");
+				break;
+			case dActive:
+				setNext("/checkout/payment");
+				break;
+			case pActive:
+				setNext("/checkout/success");
+				break;
+		}
+	}, [bIActive, dActive, pActive]);
 
 	return (
 		<>
@@ -106,44 +114,65 @@ export default function CheckoutMain() {
 								</p>
 							</div>
 
-							{/* <h2 className="mt-1-05">Shipping Method</h2>
-							<div className="flex gap-1 mt-1">
-								<div className="flex gap-05">
-									<input
-										type="radio"
-										name="shipping-method"
-										id="delivery"
-										checked={shippingMethod == "delivery"}
-										onChange={() =>
-											setShippingMethod("delivery")
-										}
-									/>
-									<label htmlFor="delivery">Delivery</label>
-								</div>
+							{openModalConfirmationOrder && (
+								<AppModal
+									title={"Confirmation Order"}
+									close={() =>
+										setOpenModalConfirmationOrder(false)
+									}
+								>
+									<div className="flex items-center justify-center">
+										<img
+											src={`${
+												import.meta.env.VITE_APP_URL
+											}./images/confirmation-order.png`}
+											alt={`${
+												import.meta.env.VITE_APP_NAME
+											} - confirmation order`}
+										/>
+									</div>
+									<h3 className="text-center fs-1-250 bold">
+										Confirmation Order
+									</h3>
+									<p className="text-center mt-05">
+										Thank you for your purchase. Please note
+										that once you check out, the order
+										cannot be cancelled. We appreciate your
+										understanding.
+									</p>
+									<hr className="mt-2 mb-2" />
+									<div className="flex gap-1">
+										<Link to="/shop" className="w-100">
+											<button className="btn btn-outline w-100">
+												Back to shop
+											</button>
+										</Link>
+										<Link to={next} className="w-100">
+											<button className="btn w-100">
+												Place Order
+											</button>
+										</Link>
+									</div>
+								</AppModal>
+							)}
 
-								<div className="flex gap-05">
-									<input
-										type="radio"
-										name="shipping-method"
-										id="in-store-pickup"
-										checked={
-											shippingMethod == "in-store-pickup"
-										}
-										onChange={() =>
-											setShippingMethod("in-store-pickup")
-										}
-									/>
-									<label htmlFor="in-store-pickup">
-										In-Store Pickup
-									</label>
-								</div>
-							</div> */}
-
-							<Link to={next}>
-								<button className="btn w-100 mt-2">
+							{pathname != "/checkout/payment" && (
+								<Link to={next}>
+									<button className="btn w-100 mt-2">
+										Place Order
+									</button>
+								</Link>
+							)}
+							{pathname == "/checkout/payment" && (
+								<button
+									className="btn w-100 mt-2"
+									onClick={() => {
+										setOpenModalConfirmationOrder(true);
+									}}
+								>
 									Place Order
 								</button>
-							</Link>
+							)}
 						</div>
 					)}
 
@@ -172,10 +201,16 @@ export default function CheckoutMain() {
 								</p>
 							</div>
 							<hr className="mt-1 mb-1" />
-							<button className="btn w-100">Back to shop</button>
-							<button className="btn mt-1 btn-outline w-100">
-								Tracking Order Status
-							</button>
+							<Link to="/shop">
+								<button className="btn w-100">
+									Back to shop
+								</button>
+							</Link>
+							<Link to="/profile/orders">
+								<button className="btn mt-1 btn-outline w-100">
+									Tracking Order Status
+								</button>
+							</Link>
 						</div>
 					)}
 				</div>

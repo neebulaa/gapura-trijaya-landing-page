@@ -6,6 +6,7 @@ import ShopProductDetailGallery from "../page-parts/shop-product-detail/ShopProd
 import ShopProductDetailForm from "../page-parts/shop-product-detail/ShopProductDetailForm";
 import { ProductType } from "../dto/ProductType";
 import ShopProductDetailTable from "../page-parts/shop-product-detail/ShopProductDetailTable";
+import ShopProductDetailReview from "../page-parts/shop-product-detail/ShopProductDetailReview";
 import { AttributeType } from "../dto/AttributeType";
 
 export default function ShopPlakatDetail() {

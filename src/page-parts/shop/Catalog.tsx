@@ -2,14 +2,13 @@ import { useState, useEffect, ChangeEvent } from "react";
 import ProductCard from "../../components/ProductCard";
 import DropdownFilter from "../../components/DropdownFilter";
 import { ProductType } from "../../dto/ProductType";
-import IconChevronRight from "../../assets/icons/IconChevronRight";
-import IconChevronLeft from "../../assets/icons/IconChevronLeft";
+import PaginationToolsWatcher from "../../components/PaginationToolsWatcher";
 import { CategoryType } from "../../dto/CategoryType";
 import { APIHeaderParamsType } from "../../dto/APIHeaderParamsType";
 import fetching from "../../utils/fetching";
-// import productsData from "../../assets/data/products.json";
 
 const MAX_PAGE_ON_PAGINATION = 5;
+const DEFAULT_ITEMS_PER_PAGE = 6;
 
 export default function Catalog() {
 	const [gridSystem, setGridSystem] = useState("columns");
@@ -167,16 +166,6 @@ export default function Catalog() {
 		return result;
 	}
 
-	// function filterBySize() {
-	// 	setProducts((latestProducts) => {
-	// 		return currentSize == "all"
-	// 			? latestProducts
-	// 			: latestProducts.filter(
-	// 					(product) => product.size == currentSize
-	// 			  );
-	// 	});
-	// }
-
 	function filterByProductType(products: ProductType[]) {
 		return products.filter((product) => {
 			if (currentProductType == "Produk Jadi") {
@@ -309,7 +298,7 @@ export default function Catalog() {
 						<h2>Katalog Produk</h2>
 					</div>
 				</header>
-				<section className="catalog-filters-vertical">
+				<section className="catalog-filters-vertical dropdown-filters">
 					<DropdownFilter
 						title="Jenis Produk"
 						items={["all", "Produk Jadi", "Produk Custom"]}
@@ -423,72 +412,15 @@ export default function Catalog() {
 								<ProductCard key={product.id} {...product} />
 						  ))}
 				</section>
-				<section className="catalog-pagination">
-					<select
-						id="catalog-perpage"
-						onChange={setTotalProductsPerPage}
-						value={productsPerPage}
-					>
-						<option value={10}>Show 10</option>
-						<option value={20}>Show 20</option>
-						<option value={50}>Show 50</option>
-						<option value={100}>Show 100</option>
-					</select>
-					<section className="btn-split">
-						<button
-							onClick={() => setPage("previous")}
-							className={`${currentPage == 1 ? "inactive" : ""}`}
-							disabled={currentPage == 1}
-						>
-							<IconChevronLeft width={"25"} height={"25"} />
-						</button>
-						{new Array(
-							MAX_PAGE_ON_PAGINATION > maxPage
-								? maxPage
-								: MAX_PAGE_ON_PAGINATION
-						)
-							.fill(0)
-							.map((_, i) => {
-								let page = i + 1;
-								const pageMinThreshold =
-									MAX_PAGE_ON_PAGINATION -
-									Math.floor(MAX_PAGE_ON_PAGINATION / 2);
-								const pageMaxThreshold =
-									maxPage -
-									Math.floor(MAX_PAGE_ON_PAGINATION / 2);
-								let currentPageToWatch = currentPage;
-								if (currentPageToWatch >= pageMaxThreshold) {
-									currentPageToWatch = pageMaxThreshold;
-								}
-
-								if (currentPageToWatch > pageMinThreshold) {
-									page +=
-										currentPageToWatch - pageMinThreshold;
-								}
-
-								return (
-									<button
-										onClick={() => setPage(page)}
-										key={i}
-										className={`${
-											page == currentPage ? "active" : ""
-										}`}
-									>
-										{page}
-									</button>
-								);
-							})}
-						<button
-							onClick={() => setPage("next")}
-							disabled={currentPage == maxPage}
-							className={`${
-								currentPage == maxPage ? "inactive" : ""
-							}`}
-						>
-							<IconChevronRight width={"25"} height={"25"} />
-						</button>
-					</section>
-				</section>
+				<PaginationToolsWatcher
+					MAX_PAGE_ON_PAGINATION={MAX_PAGE_ON_PAGINATION}
+					DEFAULT_ITEMS_PER_PAGE={DEFAULT_ITEMS_PER_PAGE}
+					setTotalItemsPerPage={setTotalProductsPerPage}
+					itemsPerPage={productsPerPage}
+					setPage={setPage}
+					currentPage={currentPage}
+					maxPage={maxPage}
+				/>
 			</section>
 		</section>
 	);

@@ -4,6 +4,6 @@ export interface TestimonialType extends APIObjectType {
 	avatar: null | string;
 	name: string;
 	occupation: string;
-	rating: string | number;
+	rating: number;
 	text: string;
 }

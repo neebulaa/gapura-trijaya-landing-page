@@ -1,6 +1,6 @@
 import PageHeader from "../components/PageHeader";
 import CartData from "../assets/data/cart.json";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { formatCurrencyRupiah } from "../utils/formatCurrency";
 import IconMinus from "../assets/icons/IconMinus";
 import IconPlus from "../assets/icons/IconPlus";
@@ -9,13 +9,20 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { Link } from "react-router-dom";
 import IconPoin from "../assets/icons/IconPoin";
 import ToggleCheckboxButton from "../components/ToggleCheckboxButton";
+import AppModal from "../components/AppModal";
+import SearchBar from "../components/SearchBar";
+import IconCopy from "../assets/icons/IconCopy";
+import vouchersData from "../assets/data/vouchers.json";
+import IconArrowRight from "../assets/icons/IconArrowRight";
 
 export default function ShoppingCart() {
+	const [vouchers, setVouchers] = useState(() => vouchersData.slice(0, 3));
 	const [cart, setCart] = useLocalStorage("shopping-cart", CartData);
 	const shipping = 0;
 	const cartSubTotal = useMemo(() => {
 		return cart.reduce((acc, c) => acc + c.subtotal, 0);
 	}, [cart]);
+	const [openMyCouponModal, setOpenMyCouponModal] = useState(false);
 	const total = cartSubTotal + shipping;
 
 	function removeCartItem(id: number | string) {
@@ -181,19 +188,44 @@ export default function ShoppingCart() {
 				<section className="shopping-cart-detail mt-2">
 					<div className="card-coupon flex flex-col gap-1">
 						<div className="card-bordered">
-							<h2>Add new voucher</h2>
+							<div className="flex items-center justify-between mb-1">
+								<h2>Add new coupon</h2>
+								<p
+									className="pointer highlight semibold"
+									onClick={() => setOpenMyCouponModal(true)}
+								>
+									My coupons
+								</p>
+							</div>
 							<div className="input-icon">
-								<IconCoupon width="24" height="24" />
-								<input placeholder="Enter Voucher" type="text" />
-								<p className="semibold ml-auto">Apply</p>
+								{/* Applied coupon */}
+								{/* <div className="mt-05 mb-05 ml-05 mr-05 semibold badge badge-primary badge-border word-nowrap">
+									TRJ00001 (-5%)
+								</div> */}
+								<IconCoupon
+									width="24"
+									height="24"
+									className="ml-1"
+								/>
+								<input
+									placeholder="Enter Voucher"
+									type="text"
+								/>
+								<p className="highlight semibold ml-auto mr-1">
+									Apply
+								</p>
 							</div>
 						</div>
 						<div className="card-bordered">
-							<h2>Apply your coin</h2>
+							<h2 className="mb-1">Apply your coin</h2>
 							<div className="input-icon">
-								<IconPoin width="24" height="24" />
-								<p>8022 Poins</p>
-								<p className="ml-auto">
+								<IconPoin
+									width="24"
+									height="24"
+									className="ml-1"
+								/>
+								<p className="input">8022 Poins</p>
+								<p className="ml-auto mr-1">
 									<ToggleCheckboxButton />
 								</p>
 							</div>
@@ -233,6 +265,35 @@ export default function ShoppingCart() {
 					</div>
 				</section>
 			</section>
+
+			{/* modal */}
+			{openMyCouponModal && (
+				<AppModal
+					title="My Coupons"
+					close={() => setOpenMyCouponModal(false)}
+				>
+					<SearchBar placeholder="Find ur coupons" />
+					{vouchers.map((voucher) => (
+						<div className="voucher-card mt-1" key={voucher.id}>
+							<h3>{voucher.name}</h3>
+							<h4 className="mt-1">FOR {voucher.for}</h4>
+
+							<div className="voucher-copy mt-1">
+								<p>Code: {voucher.code}</p>
+								<div className="flex items-center gap-05 semibold">
+									<IconArrowRight width="24" height="24" />
+									<p>Apply</p>
+								</div>
+							</div>
+							<ul className="mt-1">
+								{voucher.description.map((desc, i) => (
+									<li key={i}>{desc}</li>
+								))}
+							</ul>
+						</div>
+					))}
+				</AppModal>
+			)}
 		</>
 	);
 }

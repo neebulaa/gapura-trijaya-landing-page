@@ -1,17 +1,25 @@
 import { useId } from "react";
+type ToggleCheckboxButtonType = {
+	className?: string;
+};
 
-export default function ToggleCheckboxButton() {
+export default function ToggleCheckboxButton({
+	className = "",
+}: ToggleCheckboxButtonType) {
 	const id = useId();
 	return (
-		<label htmlFor={`check - ${id}`} className="toggle-checkbox">
+		<label
+			htmlFor={`check-${id}`}
+			className={`toggle-checkbox ${className}`}
+		>
 			<input
 				type="checkbox"
 				style={{
 					display: "none",
 				}}
-				id={`check - ${id}`}
+				id={`check-${id}`}
 			/>
-			<div className="circle"></div>
+			<span className="circle"></span>
 		</label>
 	);
 }

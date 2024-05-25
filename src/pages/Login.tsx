@@ -5,6 +5,7 @@ import Alert from "../components/Alert";
 import ErrorMessages from "../components/ErrorMessages";
 import { useAuth } from "../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import IconEye from "../assets/icons/IconEye";
 export default function Login() {
 	const { setUser } = useAuth();
 	const navigator = useNavigate();
@@ -117,13 +118,14 @@ export default function Login() {
 					<ErrorMessages messages={errors.email} />
 					<div className="input-box mt-1">
 						<label htmlFor="password">Password</label>
-						<input
-							type="password"
-							id="password"
-							name="password"
-							value={data.password}
-							onChange={handleUpdateData}
-						/>
+						<div className="input-icon">
+							<input
+								id="password"
+								name="password"
+								type="password"
+							/>
+							<IconEye width="24" height="24" className="mr-05" />
+						</div>
 					</div>
 					<ErrorMessages messages={errors.password} />
 					<button className="btn w-100 mt-1-05">Login</button>
