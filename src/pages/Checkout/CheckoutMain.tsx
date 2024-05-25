@@ -201,10 +201,16 @@ export default function CheckoutMain() {
 								</p>
 							</div>
 							<hr className="mt-1 mb-1" />
-							<button className="btn w-100">Back to shop</button>
-							<button className="btn mt-1 btn-outline w-100">
-								Tracking Order Status
-							</button>
+							<Link to="/shop">
+								<button className="btn w-100">
+									Back to shop
+								</button>
+							</Link>
+							<Link to="/profile/orders">
+								<button className="btn mt-1 btn-outline w-100">
+									Tracking Order Status
+								</button>
+							</Link>
 						</div>
 					)}
 				</div>
