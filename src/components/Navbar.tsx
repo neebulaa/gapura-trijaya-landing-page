@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import IconSearch from "../assets/icons/IconSearch";
-import IconHeartOutline from "../assets/icons/IconHeartOutline";
 import IconCart from "../assets/icons/IconCart";
 import CartPopup from "./CartPopup";
 import IconChevronDown from "../assets/icons/IconChevronDown";
 import { useAuth } from "../provider/AuthProvider";
+import fetching from "../utils/fetching";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+	const navigator = useNavigate();
+	const { setUser } = useAuth();
 	const { user } = useAuth();
 	const [openSidebar, setOpenSidebar] = useState(false);
 	const [openNavProfileDropdown, setOpenNavProfileDropdown] = useState(false);
@@ -38,6 +41,17 @@ export default function Navbar() {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
+	async function logout() {
+		const response = await fetching("post", "auth/logout");
+		if (response.status == 200) {
+			localStorage.removeItem(
+				`${import.meta.env.VITE_APP_NAME}-authtoken`
+			);
+			setUser(response.data.user);
+			navigator("/login");
+		}
+	}
 
 	return (
 		<section
@@ -98,9 +112,6 @@ export default function Navbar() {
 								<IconSearch width={"20"} height={"20"} />
 							</li>
 							<li>
-								<IconHeartOutline width={"20"} height={"20"} />
-							</li>
-							<li>
 								{!isMobile && (
 									<div onClick={() => setOpenCartPopup(true)}>
 										<IconCart width={"20"} height={"20"} />
@@ -122,49 +133,56 @@ export default function Navbar() {
 									</Link>
 								)}
 							</li>
-							<li>
-								{user && <p>User: {user.name}</p>}
-								{!user && (
+							{!user && (
+								<li>
 									<Link
 										to="/login"
 										onClick={() => setOpenSidebar(false)}
 									>
 										<button className="btn">Login</button>
 									</Link>
-								)}
-							</li>
-							<li
-								className="nav-profile"
-								onClick={() =>
-									setOpenNavProfileDropdown((prev) => !prev)
-								}
-							>
-								<img
-									src={`${
-										import.meta.env.VITE_APP_URL
-									}./images/people/people1.png`}
-									alt={`${
-										import.meta.env.VITE_APP_NAME
-									} - people 1`}
-								/>
-								<p>Edwin Hendly</p>
-								<IconChevronDown width="20" height="20" />
+								</li>
+							)}
+							{user && (
+								<li
+									className="nav-profile"
+									onClick={() =>
+										setOpenNavProfileDropdown(
+											(prev) => !prev
+										)
+									}
+								>
+									<img
+										src={`${
+											import.meta.env.VITE_APP_URL
+										}./images/people/people1.png`}
+										alt={`${
+											import.meta.env.VITE_APP_NAME
+										} - people 1`}
+									/>
+									<p>{user.name}</p>
+									<IconChevronDown width="20" height="20" />
 
-								{openNavProfileDropdown && (
-									<div
-										className="nav-profile-dropdown"
-										style={{
-											top: isMobile ? "-500%" : "120%",
-											left: "0",
-										}}
-									>
-										<Link to="/profile">Profile</Link>
-										<a href="">Dashboard</a>{" "}
-										{/* for admin */}
-										<a href="">Logout</a>
-									</div>
-								)}
-							</li>
+									{openNavProfileDropdown && (
+										<div
+											className="nav-profile-dropdown"
+											style={{
+												top: isMobile
+													? "-500%"
+													: "120%",
+												left: "0",
+											}}
+										>
+											<Link to="/profile">Profile</Link>
+											<a href="">Dashboard</a>{" "}
+											{/* for admin */}
+											<button onClick={logout}>
+												Logout
+											</button>
+										</div>
+									)}
+								</li>
+							)}
 						</ul>
 					</div>
 					<div

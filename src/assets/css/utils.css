@@ -147,7 +147,10 @@
 	width: 100%;
 	border: none;
 	color: var(--black);
-	padding-left: initial !important;
+}
+.input-icon input:not(:first-child),
+.input-icon .input:not(:first-child) {
+	padding-left: 0.4rem !important;
 }
 
 .input-icon > *:not(input) {
@@ -507,7 +510,7 @@
 }
 
 .alert.primary {
-	background: #d6e5fd
+	background: #d6e5fd;
 }
 
 .alert.warning {

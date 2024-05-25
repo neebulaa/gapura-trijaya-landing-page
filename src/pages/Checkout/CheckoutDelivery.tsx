@@ -85,7 +85,15 @@ export default function CheckoutDelivery() {
 			</label>
 			<div className="flex mt-3 mb-1-05 justify-between items-center">
 				<h2>Delivery Address</h2>
-				<button className="highlight semibold">+ New Address</button>
+				<button
+					className="highlight semibold"
+					onClick={() => {
+						changingAddressFlow("change-address", false);
+						changingAddressFlow("new-address", true);
+					}}
+				>
+					+ New Address
+				</button>
 			</div>
 			<div className="card-bordered mt-1">
 				<div className="flex gap-05">
@@ -615,7 +623,7 @@ export default function CheckoutDelivery() {
 							<p
 								style={{
 									padding: ".8rem",
-									paddingLeft: '.2rem',
+									paddingLeft: ".2rem",
 								}}
 							>
 								You haven't pinpointed yet.{" "}

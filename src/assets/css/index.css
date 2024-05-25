@@ -262,6 +262,7 @@ button {
 }
 
 .nav-profile p {
+	min-width: 80px;
 	font-weight: 600;
 	max-width: 100px;
 	white-space: nowrap;
@@ -288,18 +289,22 @@ button {
 	overflow: hidden;
 }
 
-.nav-profile-dropdown a {
+.nav-profile-dropdown a,
+.nav-profile-dropdown button {
 	padding: 1rem;
 	background: white;
-	transition: .3s;
+	transition: 0.3s;
+	font-size: 1rem;
+	text-align: left;
 }
 
-.nav-profile-dropdown a:hover{
+.nav-profile-dropdown a:hover,
+.nav-profile-dropdown button:hover {
 	background: var(--primary);
 	color: white;
 }
 
-.nav-profile-dropdown a:not(:last-child){
+.nav-profile-dropdown > *:not(:last-child) {
 	border-bottom: 1px solid var(--light-gray);
 }
 
@@ -549,7 +554,7 @@ button {
 
 .testimonial-card {
 	display: flex;
-	gap: .5rem;
+	gap: 0.5rem;
 	flex-direction: column;
 	padding: 1rem;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -1631,7 +1636,7 @@ button {
 .detail-order-progress li .detail-order-status {
 	display: flex;
 	align-items: center;
-	gap: .5rem;
+	gap: 0.5rem;
 }
 
 /* MY PROFILE PAGE END */

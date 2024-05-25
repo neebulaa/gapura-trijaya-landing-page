@@ -123,6 +123,8 @@ export default function Login() {
 								id="password"
 								name="password"
 								type="password"
+								value={data.password}
+								onChange={handleUpdateData}
 							/>
 							<IconEye width="24" height="24" className="mr-05" />
 						</div>
