@@ -1,7 +1,8 @@
 import RouteLoader from '@/commons/components/RouteLoader';
+import { CategoryRoutes } from '@/routes/Admin/Category/Category';
+import { ProductRoutes } from '@/routes/Admin/Product/Product';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { CategoryRoutes } from './Category/Category';
 
 const AdminDashboard = lazy(
   () => import('@/pages/Admin/Dashboard/DashboardIndex')
@@ -24,6 +25,7 @@ export const AdminRoutes: RouteObject[] = [
       },
       // NOTE: add more routes here | Array of RouteObject
       ...CategoryRoutes,
+      ...ProductRoutes,
       {
         path: '*',
         element: (
