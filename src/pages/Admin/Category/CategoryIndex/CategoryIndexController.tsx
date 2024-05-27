@@ -92,7 +92,7 @@ export default function useCategoryIndexController() {
   /**
    * Table: columns
    */
-  const CategoryTableProps: ColumnType<ICategory>[] = [
+  const CategoryTableProps: ColumnType<ICategory>[] | any = [
     {
       title: 'No',
       dataIndex: 'id',
