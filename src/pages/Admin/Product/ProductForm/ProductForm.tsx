@@ -1,4 +1,17 @@
-import { Breadcrumb, Button, Card, Col, Form, Input, Row, Space } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Space,
+  TreeSelect,
+} from 'antd';
 import useProductFormController from '@/pages/Admin/Product/ProductForm/ProductFormController.tsx';
 import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
@@ -27,22 +40,144 @@ export default function ProductForm(props: IFormProps) {
       <Breadcrumb items={breadcrumbItem} />
       <Form form={form} autoComplete="off" layout="vertical">
         <Card>
+          <Divider orientation="left" plain orientationMargin="0">
+            General
+          </Divider>
           <Row gutter={24}>
+            <ResponsiveCol>
+              <Form.Item label="SKU" name="sku" rules={[{ required: true }]}>
+                <Input placeholder="SKU" />
+              </Form.Item>
+            </ResponsiveCol>
             <ResponsiveCol>
               <Form.Item label="Name" name="name" rules={[{ required: true }]}>
                 <Input placeholder="Name" />
               </Form.Item>
             </ResponsiveCol>
+          </Row>
+          <Row gutter={24}>
             <ResponsiveCol>
-              <Form.Item
-                label="Description"
-                name="description"
-                rules={[{ required: false }]}
-              >
-                <Input.TextArea placeholder="Description" />
+              <Form.Item label="Price" name="price" rules={[{ required: true }]}>
+                <Input placeholder="Price" />
+              </Form.Item>
+            </ResponsiveCol>
+            <ResponsiveCol>
+              <Form.Item label="Category" name="category" rules={[{ required: true }]}>
+                {/* <Input placeholder="Category" /> */}
+                <TreeSelect
+                  showSearch
+                  style={{ width: '100%' }}
+                  value={[]}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="Category select"
+                  allowClear
+                  treeDefaultExpandAll
+                  // onChange={onChange}
+                  // treeData={treeData}
+                  // onPopupScroll={onPopupScroll}
+                />
               </Form.Item>
             </ResponsiveCol>
           </Row>
+          <Divider orientation="left" plain orientationMargin="0">
+            Dimension
+          </Divider>
+          <Row gutter={24}>
+            <ResponsiveCol>
+              <Form.Item label="Weight" name="weight" rules={[{ required: true }]}>
+                <InputNumber
+                  min={0}
+                  max={100}
+                  defaultValue={0}
+                  placeholder="Weight"
+                  className="w-full"
+                />
+              </Form.Item>
+            </ResponsiveCol>
+            <ResponsiveCol>
+              <Form.Item label="Width" name="width" rules={[{ required: true }]}>
+                <InputNumber
+                  min={0}
+                  max={100}
+                  defaultValue={0}
+                  placeholder="Width"
+                  className="w-full"
+                />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+          <Row gutter={24}>
+            <ResponsiveCol>
+              <Form.Item label="Height" name="height" rules={[{ required: true }]}>
+                <InputNumber
+                  min={0}
+                  max={100}
+                  defaultValue={0}
+                  placeholder="Height"
+                  className="w-full"
+                />
+              </Form.Item>
+            </ResponsiveCol>
+            <ResponsiveCol>
+              <Form.Item label="Length" name="length" rules={[{ required: true }]}>
+                <InputNumber
+                  min={0}
+                  max={100}
+                  defaultValue={0}
+                  placeholder="Length"
+                  className="w-full"
+                />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+          <Divider orientation="left" plain orientationMargin="0">
+            Description
+          </Divider>
+          <Row gutter={24}>
+            <ResponsiveCol lg={24}>
+              <Form.Item
+                label="Short Description"
+                name="shortDescription"
+                rules={[{ required: false }]}
+              >
+                <Input.TextArea placeholder="shortDescription" rows={3} />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+          <Row gutter={24}>
+            <ResponsiveCol lg={24}>
+              <Form.Item label="Description" name="description" rules={[{ required: false }]}>
+                <Input.TextArea placeholder="Description" rows={5} />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+          <Divider orientation="left" plain orientationMargin="0">
+            Configuration
+          </Divider>
+          <Row gutter={24}>
+            <ResponsiveCol lg={24}>
+              <Form.Item label="Type" name="type" rules={[{ required: true }]}>
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
+                  value={[
+                    {
+                      value: '1',
+                      label: 'Type 1',
+                    },
+                    {
+                      value: '2',
+                      label: 'Type 2',
+                    }
+                  ]}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="Type select"
+                  allowClear
+                />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+
           <Row gutter={24} className="mt-2">
             <Col md={24}>
               <Space>
