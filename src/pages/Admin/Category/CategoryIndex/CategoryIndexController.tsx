@@ -1,19 +1,19 @@
 import ActionButton from '@/commons/components/Button/ActionButton';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
-import {
-  useDeleteCategory,
-  useGetCategories,
-} from '@/services/queries/admin/category.query.ts';
+import { useDeleteCategory, useGetCategories } from '@/services/queries/admin/category.query.ts';
 import { QueryParams, sortBy } from '@/types/base';
 import { ICategory } from '@/types/category';
+import { OutletContextInterface } from '@/types/global/outletContext';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
-import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
+import { URLSearchParamsInit, useOutletContext, useSearchParams } from 'react-router-dom';
 
 export default function useCategoryIndexController() {
+  const { openNotification } = useOutletContext<OutletContextInterface>();
+
   /**
    * State
    */
@@ -34,10 +34,8 @@ export default function useCategoryIndexController() {
     refetch: categoryDataRefetch,
   } = useGetCategories(queryParams);
 
-  const {
-    mutateAsync: mutateDeleteCategory,
-    isPending: mutateDeleteCategoryIsLoading,
-  } = useDeleteCategory();
+  const { mutateAsync: mutateDeleteCategory, isPending: mutateDeleteCategoryIsLoading } =
+    useDeleteCategory();
 
   /**
    * Effects
@@ -86,7 +84,13 @@ export default function useCategoryIndexController() {
    * Handle Delete
    */
   const deleteCategory = async (id: string) => {
-    await mutateDeleteCategory(id);
+    mutateDeleteCategory(id).then((res) => {
+      openNotification({
+        type: 'success',
+        title: 'Success',
+        message: res?.message as string,
+      });
+    });
   };
 
   /**

@@ -41,6 +41,7 @@ export type MetaDto = {
 };
 
 export interface SuccessResponse<T> {
+  response?: any;
   data: T;
   message?: string;
 }
