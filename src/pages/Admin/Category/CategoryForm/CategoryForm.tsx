@@ -1,4 +1,14 @@
-import { Breadcrumb, Button, Card, Col, Form, Input, Row, Space } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  Space,
+} from 'antd';
 import useCategoryFormController from '@/pages/Admin/Category/CategoryForm/CategoryFormController.tsx';
 import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
@@ -11,15 +21,17 @@ export default function CategoryForm(props: IFormProps) {
   usePageEffect({
     index: false,
     title: `${formType == FormType.CREATE ? 'Add' : 'Edit'} Category`,
-    prevRoute: -1
+    prevRoute: -1,
   });
 
   const {
     form,
     breadcrumbItem,
+    categoryParentData,
+    handleCategoryParentSearch,
     handleSubmit,
     mutateCreateCategoryIsLoading,
-    mutateUpdateCategoryIsLoading
+    mutateUpdateCategoryIsLoading,
   } = useCategoryFormController(props);
 
   return (
@@ -34,8 +46,22 @@ export default function CategoryForm(props: IFormProps) {
               </Form.Item>
             </ResponsiveCol>
             <ResponsiveCol>
-              <Form.Item label="Parent" name="parent" rules={[{ required: false }]}>
-                <Input placeholder="Parent" />
+              <Form.Item
+                label="Parent"
+                name="parent"
+                rules={[{ required: false }]}
+              >
+                <Select
+                  showSearch
+                  placeholder="Parent"
+                  filterOption={false}
+                  optionLabelProp="label"
+                  onSearch={handleCategoryParentSearch}
+                  options={(categoryParentData?.data || []).map((d) => ({
+                    value: d.id,
+                    label: d.name,
+                  }))}
+                />
               </Form.Item>
             </ResponsiveCol>
           </Row>

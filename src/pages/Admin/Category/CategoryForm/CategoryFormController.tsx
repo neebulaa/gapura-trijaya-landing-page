@@ -1,12 +1,15 @@
-import { Form } from 'antd';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FormType, IFormProps } from '@/types/global/form.ts';
+import { debounce } from '@/commons/utils/Debounce';
 import {
   useCreateCategory,
+  useGetCategories,
   useGetCategory,
   useUpdateCategory,
 } from '@/services/queries/admin/category.query.ts';
-import { useEffect } from 'react';
+import { QueryParams } from '@/types/base';
+import { FormType, IFormProps } from '@/types/global/form.ts';
+import { Form } from 'antd';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function useCategoryFormController(props: IFormProps) {
   const { formType } = props;
@@ -15,6 +18,16 @@ export default function useCategoryFormController(props: IFormProps) {
    * Params
    */
   const { id } = useParams();
+
+  /**
+   * Get Category Parent
+   */
+  const [categoryParentQuery, setCategoryParentQuery] = useState<QueryParams>({
+    page: 1,
+    limit: 50,
+  });
+
+  const { data: categoryParentData } = useGetCategories(categoryParentQuery);
 
   /**
    * State
@@ -28,20 +41,24 @@ export default function useCategoryFormController(props: IFormProps) {
     enabled: formType == FormType.UPDATE,
   });
 
-  const {
-    mutateAsync: mutateCreateCategory,
-    isPending: mutateCreateCategoryIsLoading,
-  } = useCreateCategory();
+  const { mutateAsync: mutateCreateCategory, isPending: mutateCreateCategoryIsLoading } =
+    useCreateCategory();
 
-  const {
-    mutateAsync: mutateUpdateCategory,
-    isPending: mutateUpdateCategoryIsLoading,
-  } = useUpdateCategory(id!);
+  const { mutateAsync: mutateUpdateCategory, isPending: mutateUpdateCategoryIsLoading } =
+    useUpdateCategory(id!);
+
+  /**
+   * Handle Category Parent Search
+   */
+  const handleCategoryParentSearch = debounce((value: string) => {
+    setCategoryParentQuery((prevState) => {
+      return { ...prevState, search: value };
+    });
+  });
 
   /**
    * Handle Submit
    */
-  // console.log(categoryData);
   const handleSubmit = async () => {
     await form.validateFields();
 
@@ -86,6 +103,8 @@ export default function useCategoryFormController(props: IFormProps) {
   return {
     form,
     breadcrumbItem,
+    categoryParentData,
+    handleCategoryParentSearch,
     handleSubmit,
     mutateCreateCategoryIsLoading,
     mutateUpdateCategoryIsLoading,
