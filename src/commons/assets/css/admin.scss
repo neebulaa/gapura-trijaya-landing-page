@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/**
+* Sidebar
+*/
+.ant-layout-sider.not-collapsed .ant-layout-sider-trigger {
+    width: 260px !important;
+}
+
+.ant-layout-sider.collapsed .ant-layout-sider-trigger {
+    width: 80px !important;
+}
+
+.ant-layout-sider.not-collapsed {
+    flex-basis: 260px !important;
+    max-width: 260px !important;
+    min-width: 260px !important;
+    width: 260px !important;
+}
+
+.ant-layout-sider.collapsed {
+    flex-basis: 80px !important;
+    max-width: 80px !important;
+    min-width: 80px !important;
+    width: 80px !important;
+}
+
+.ant-layout-sider.sider-layout {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 48px;
+    height: calc(100vh - 65px) !important;
+}
+
+.ant-layout-sider.sider-layout .menu-wrapper {
+    overflow: auto;
+    height: 100%;
+    margin-bottom: 200px;
+}
+
+.ant-layout .ant-layout-sider-children>ul {
+    padding-bottom: 150px !important;
+}
+
+.ant-layout-sider-children .logo-vertical {
+    background-color: #002140;
+    color: #fff;
+    border-right: 1px solid #000;
+    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    z-index: 99999 !important;
+}
+
+.ant-layout-sider-children .logo-vertical.collapsed {
+    width: 80px;
+    transition: all 0.2s ease;
+}
+
+.ant-layout-sider-children .logo-vertical.not-collapsed {
+    width: 260px;
+    transition: all 0.2s ease;
+}
+
+.ant-menu-light .ant-menu-item-selected,
+.ant-menu-light>.ant-menu .ant-menu-item-selected {
+    background-color: #e9e9e9;
+}
+
+/**
+* Header
+*/
+.ant-layout header {
+    position: fixed;
+    width: 100%;
+    background-color: #002140;
+    right: 0px;
+    top: 0px;
+    z-index: 999 !important;
+}
+
+// .ant-layout header.collapsed {
+// width: calc(100% - 10px);
+// padding: 0 100px 0 0px;
+// padding-left: 80px;
+// }
+
+.ant-layout header .logo-horizontal {
+    border-right: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 260px !important;
+    max-width: 260px !important;
+    min-width: 260px !important;
+    width: 260px !important;
+    animation: "slide 0.5s ease-in-out";
+    transition: all 0.3s ease-in-out;
+}
+
+.ant-layout header .logo-horizontal.collapsed {
+    border-right: 1px solid #000;
+    flex-basis: 80px !important;
+    max-width: 80px !important;
+    min-width: 80px !important;
+    width: 80px !important;
+    animation: "slide 0.5s ease-in-out";
+    transition: all 0.3s ease-in-out;
+}
+
+.ant-layout header .right-top {
+    padding: 0 16px 0 0;
+}
+
+/**
+* Content
+*/
+.ant-layout.layout-wrapper {
+    margin-left: 260px !important;
+    overflow: initial !important;
+    // animation-delay: "slide 0.3s ease-in-out";
+    transition: all 0.3s ease-in-out;
+    animation: "slide 0.3s ease-in-out";
+}
+
+.ant-layout.layout-wrapper.collapsed {
+    margin-left: 80px !important;
+    overflow: initial !important;
+}
+
+.ant-layout main {
+    // margin: 64px 16px 0 !important;
+    margin: 80px 16px 0 !important;
+}
+
+/**
+* Custom: Content Layout 
+*/
+.full-layout {
+    background-color: #f0f2f5 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/**
+* Custom: BreadCrumb
+*/
+.ant-layout main nav {
+    padding: 0 4px 10px !important;
+}
