@@ -1,10 +1,12 @@
 import RouteLoader from '@/commons/components/RouteLoader';
-import { Suspense, lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
+import { FormType } from '@/types/global/form.ts';
 
 const CategoryIndex = lazy(
   () => import('@/pages/Admin/Category/CategoryIndex/CategoryIndex')
 );
+const CategoryForm = lazy(() => import('@/pages/Admin/Category/CategoryForm/CategoryForm'));
 
 export const CategoryRoutes: RouteObject[] = [
   {
@@ -16,7 +18,7 @@ export const CategoryRoutes: RouteObject[] = [
           <Suspense fallback={<RouteLoader />}>
             <CategoryIndex />
           </Suspense>
-        ),
+        )
       },
       // {
       //   path: "deleted",
@@ -30,18 +32,18 @@ export const CategoryRoutes: RouteObject[] = [
         path: 'create',
         element: (
           <Suspense fallback={<RouteLoader />}>
-            <h1>Category Create</h1>
+            <CategoryForm formType={FormType.CREATE} />
           </Suspense>
-        ),
+        )
       },
       {
         path: ':id/edit',
         element: (
           <Suspense fallback={<RouteLoader />}>
-            <h1>Category Edit</h1>
+            <CategoryForm formType={FormType.UPDATE} />
           </Suspense>
-        ),
-      },
-    ],
-  },
+        )
+      }
+    ]
+  }
 ];
