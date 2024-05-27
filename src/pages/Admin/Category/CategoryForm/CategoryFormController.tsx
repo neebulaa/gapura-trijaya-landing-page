@@ -7,13 +7,17 @@ import {
 } from '@/services/queries/admin/category.query.ts';
 import { QueryParams } from '@/types/base';
 import { FormType, IFormProps } from '@/types/global/form.ts';
+import { OutletContextInterface } from '@/types/global/outletContext';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 export default function useCategoryFormController(props: IFormProps) {
   const { formType } = props;
   const navigate = useNavigate();
+
+  const { openNotification } = useOutletContext<OutletContextInterface>();
+
   /**
    * Params
    */
@@ -61,18 +65,47 @@ export default function useCategoryFormController(props: IFormProps) {
    */
   const handleSubmit = async () => {
     await form.validateFields();
-
     const values = form.getFieldsValue();
 
     if (formType == FormType.CREATE) {
-      // console.log('Create Category', values);
-      await mutateCreateCategory(values);
-      navigate('/admin/categories');
+      mutateCreateCategory(values)
+        .then((res) => {
+          openNotification({
+            type: 'success',
+            title: 'Success',
+            message: res.message as string,
+            // message: 'Category has been created successfully.',
+          });
+          navigate('/admin/categories');
+        })
+        .catch((err) => {
+          openNotification({
+            type: 'error',
+            title: 'Error',
+            message: err?.response.data.message,
+          });
+        });
       return;
     }
 
-    await mutateUpdateCategory(values);
-    navigate('/admin/categories');
+    mutateUpdateCategory(values)
+      .then((res) => {
+        openNotification({
+          type: 'success',
+          title: 'Success',
+          message: res.message as string,
+          // message: 'Category has been created successfully.',
+        });
+        navigate('/admin/categories');
+      })
+      .catch((err) => {
+        openNotification({
+          type: 'error',
+          title: 'Error',
+          message: err?.response.data.message,
+        });
+      });
+    // navigate('/admin/categories');
     return;
   };
 
@@ -84,6 +117,17 @@ export default function useCategoryFormController(props: IFormProps) {
       form.setFieldsValue(categoryData.data);
     }
   }, [categoryData]);
+
+  useEffect(() => {
+    // console.log('Error Create Category: ', mutateCreateCategoryError);
+    // console.log('Status Create Category: ', mutateCreateCategoryStatus);
+    // const { openNotification } = useOutletContext<OutletContextInterface>();
+    // openNotification({
+    //   type: 'error',
+    //   title: 'Error',
+    //   message: 'Oops! Something went wrong. Please try again.',
+    // });
+  }, []);
 
   /**
    * Breadcrumb

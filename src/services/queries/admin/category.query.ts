@@ -7,17 +7,16 @@ import {
 } from '@/services/api/admin/api.service.ts';
 import { QueryParams } from '@/types/base';
 import { ICategory } from '@/types/category';
+import { OutletContextInterface } from '@/types/global/outletContext';
 import { QueryOptions } from '@/types/global/queryOptions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useOutletContext } from 'react-router-dom';
 
 export const useGetCategories = (params: QueryParams) => {
   return useQuery({
     queryKey: ['categories', { params }],
     queryFn: async () => {
-      return await axiosGetAll<QueryParams, ICategory>(
-        `/v1/admin/categories`,
-        params
-      );
+      return await axiosGetAll<QueryParams, ICategory>(`/v1/admin/categories`, params);
     },
   });
 };
@@ -43,10 +42,7 @@ export const useCreateCategory = () => {
 export const useUpdateCategory = (id: string) => {
   return useMutation({
     mutationFn: async (updatedCategory: any) => {
-      return await axiosPut<any, any>(
-        `/v1/admin/categories/${id}`,
-        updatedCategory
-      );
+      return await axiosPut<any, any>(`/v1/admin/categories/${id}`, updatedCategory);
     },
   });
 };
