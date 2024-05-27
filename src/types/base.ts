@@ -40,7 +40,7 @@ export type MetaDto = {
   // totalPages: number;
 };
 
-export interface Response<T> {
+export interface SuccessResponse<T> {
   data: T;
   message?: string;
 }

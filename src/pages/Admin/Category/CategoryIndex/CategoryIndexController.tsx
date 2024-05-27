@@ -1,14 +1,14 @@
-import ActionButton from '@/commons/components/Button/ActionButton';
-import { debounce } from '@/commons/utils/Debounce';
-import ToggleableLink from '@/commons/utils/ToggleableLink';
-import { useCategoryQuery } from '@/services/queries/admin/category.query';
-import { QueryParams, sortBy } from '@/types/base';
-import { ICategory } from '@/types/category';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
-import { ColumnType, TablePaginationConfig } from 'antd/es/table';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import ActionButton from '@/commons/components/Button/ActionButton'
+import { debounce } from '@/commons/utils/Debounce'
+import ToggleableLink from '@/commons/utils/ToggleableLink'
+import { useGetCategories } from '@/services/queries/admin/category.query.tsx'
+import { QueryParams, sortBy } from '@/types/base'
+import { ICategory } from '@/types/category'
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { Popconfirm } from 'antd'
+import { ColumnType, TablePaginationConfig } from 'antd/es/table'
+import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 export default function useCategoryIndexController() {
   /**
@@ -29,7 +29,7 @@ export default function useCategoryIndexController() {
     data: categoryData,
     isFetching: categoryDataIsFetching,
     refetch: categoryDataRefetch,
-  } = useCategoryQuery(queryParams);
+  } = useGetCategories(queryParams);
 
   const handleTableChange = (newPagination: TablePaginationConfig) => {
     setQueryParams({
