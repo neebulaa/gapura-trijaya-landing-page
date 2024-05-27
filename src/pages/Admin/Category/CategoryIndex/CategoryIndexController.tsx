@@ -1,14 +1,17 @@
-import ActionButton from '@/commons/components/Button/ActionButton'
-import { debounce } from '@/commons/utils/Debounce'
-import ToggleableLink from '@/commons/utils/ToggleableLink'
-import { useGetCategories } from '@/services/queries/admin/category.query.tsx'
-import { QueryParams, sortBy } from '@/types/base'
-import { ICategory } from '@/types/category'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Popconfirm } from 'antd'
-import { ColumnType, TablePaginationConfig } from 'antd/es/table'
-import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import ActionButton from '@/commons/components/Button/ActionButton';
+import { debounce } from '@/commons/utils/Debounce';
+import ToggleableLink from '@/commons/utils/ToggleableLink';
+import {
+  useDeleteCategory,
+  useGetCategories,
+} from '@/services/queries/admin/category.query.ts';
+import { QueryParams, sortBy } from '@/types/base';
+import { ICategory } from '@/types/category';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
+import { ColumnType, TablePaginationConfig } from 'antd/es/table';
+import { useEffect, useState } from 'react';
+import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
 export default function useCategoryIndexController() {
   /**
@@ -23,7 +26,7 @@ export default function useCategoryIndexController() {
   });
 
   /**
-   * Handle: Table Change/Get Category Data
+   * Model
    */
   const {
     data: categoryData,
@@ -31,6 +34,39 @@ export default function useCategoryIndexController() {
     refetch: categoryDataRefetch,
   } = useGetCategories(queryParams);
 
+  const {
+    mutateAsync: mutateDeleteCategory,
+    isPending: mutateDeleteCategoryIsLoading,
+  } = useDeleteCategory();
+
+  /**
+   * Effects
+   */
+  useEffect(() => {
+    if (
+      categoryData &&
+      categoryData.meta.total < (queryParams.page ?? 1) &&
+      categoryData.meta.total !== 0
+    ) {
+      setQueryParams({
+        ...queryParams,
+        page: categoryData.meta.total,
+      });
+    }
+  }, [categoryData]);
+
+  useEffect(() => {
+    setSearchParams(queryParams as URLSearchParamsInit);
+  }, [queryParams]);
+
+  /**
+   * Breadcrumb
+   */
+  const breadcrumbItem = [{ title: 'Home' }, { title: 'Category' }];
+
+  /**
+   * Handle: Table Change/Get Category Data
+   */
   const handleTableChange = (newPagination: TablePaginationConfig) => {
     setQueryParams({
       ...queryParams,
@@ -47,15 +83,11 @@ export default function useCategoryIndexController() {
   }, 500);
 
   /**
-   * Breadcrumb
+   * Handle Delete
    */
-  const breadcrumbItem = [{ title: 'Home' }, { title: 'Category' }];
-
-  //   const categoryDataRefetch = () => {
-  //     // queryClient.invalidateQueries('category');
-  //   };
-
-  //   const categoryDataIsFetching = false;
+  const deleteCategory = async (id: string) => {
+    await mutateDeleteCategory(id);
+  };
 
   /**
    * Table: columns
@@ -99,7 +131,7 @@ export default function useCategoryIndexController() {
 
           <Popconfirm
             title="Yakin Untuk Menghapus?"
-            onConfirm={() => console.log(record.id!)}
+            onConfirm={() => deleteCategory(record.id!)}
             placement="left"
           >
             <ActionButton
@@ -108,6 +140,7 @@ export default function useCategoryIndexController() {
               status="danger"
               type="default"
               danger={true}
+              loading={mutateDeleteCategoryIsLoading}
             />
           </Popconfirm>
         </>
@@ -118,8 +151,6 @@ export default function useCategoryIndexController() {
   return {
     breadcrumbItem,
     handleSearch,
-    // categoryDataRefetch,
-    // categoryDataIsFetching,
     CategoryTableProps,
     categoryData,
     categoryDataIsFetching,
