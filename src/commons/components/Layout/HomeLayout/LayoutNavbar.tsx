@@ -2,7 +2,7 @@ import IconCart from '@/commons/assets/icons/IconCart';
 import IconChevronDown from '@/commons/assets/icons/IconChevronDown';
 import IconSearch from '@/commons/assets/icons/IconSearch';
 import { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default function LayoutNavbar() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
@@ -88,6 +88,7 @@ export default function LayoutNavbar() {
                     </div>
                   )}
 
+                  {openCartPopup}
                   {/* {openCartPopup && <CartPopup close={() => setOpenCartPopup(false)} />} */}
 
                   {isMobile && (

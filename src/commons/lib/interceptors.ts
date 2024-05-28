@@ -1,12 +1,7 @@
-import { removeItem } from '@/commons/lib/localStorage';
-import axios, {
-  type AxiosError,
-  type AxiosResponse,
-  type InternalAxiosRequestConfig,
-} from 'axios';
+import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 import { redirect } from 'react-router-dom';
-import { getCookie, removeCookie, setCookie } from './cookieStorage';
-import useAuthStore from '../store/useAuthStore';
+import useAuthStore from '@/commons/store/useAuthStore';
+import { getCookie, removeCookie } from './cookieStorage';
 
 export interface ConsoleError {
   status: number;

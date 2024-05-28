@@ -137,7 +137,7 @@ export default function useCategoryIndexController() {
       width: '15%',
       align: 'center',
       fixed: 'right',
-      render: (_, record: any) => (
+      render: (_: any, record: any) => (
         <>
           <ToggleableLink to={`/admin/categories/${record.id!}/edit`}>
             <ActionButton

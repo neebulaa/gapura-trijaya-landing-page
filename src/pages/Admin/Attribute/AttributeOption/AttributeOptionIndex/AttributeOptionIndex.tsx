@@ -8,13 +8,13 @@ export default function AttributeOptionIndex() {
   usePageEffect({
     index: false,
     title: `Attribute Options`,
-    prevRoute: -1,
+    prevRoute: '/admin/attributes',
   });
 
   const {
     breadcrumbItem,
     AttributeOptionTableProps,
-    attributeId,
+    // attributeId,
     attributeOptionData,
     attributeOptionDataIsFetching,
     attributeOptionDataRefetch,
@@ -28,12 +28,12 @@ export default function AttributeOptionIndex() {
       <Card>
         <Row className="mb-4">
           <Col md={6} sm={4}>
-            <Input placeholder="Search" onChange={(e) => console.log(e.target.value)} />
+            <Input placeholder="Search" onChange={(e) => handleSearch(e.target.value)} />
           </Col>
           <Col md={12} className="px-2">
             <Space>
-              <Button type="primary" onClick={() => console.log('refetch data')}>
-                <RedoOutlined spin={false} />
+              <Button type="primary" onClick={() => attributeOptionDataRefetch()}>
+                <RedoOutlined spin={attributeOptionDataIsFetching} />
               </Button>
             </Space>
           </Col>

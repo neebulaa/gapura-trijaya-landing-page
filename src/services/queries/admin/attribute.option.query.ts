@@ -10,12 +10,12 @@ import { QueryParams, SuccessResponse } from '@/types/base';
 import { QueryOptions } from '@/types/global/queryOptions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useGetAttributeOptions = (params: QueryParams) => {
+export const useGetAttributeOptions = (params: QueryParams, attributeId: string | any) => {
   return useQuery({
     queryKey: ['attributeOptions', { params }],
     queryFn: async () => {
       return await axiosGetAll<QueryParams, IAttributeOption>(
-        `/v1/admin/attributes/${params.attributeId}/options`,
+        `/v1/admin/attributes/${attributeId}/options`,
         params
       );
     },

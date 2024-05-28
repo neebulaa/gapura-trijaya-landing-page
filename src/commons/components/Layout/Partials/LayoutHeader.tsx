@@ -1,7 +1,7 @@
 import { removeCookie } from '@/commons/lib/cookieStorage';
 import useAuthStore from '@/commons/store/useAuthStore';
 import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Image, Layout, MenuProps, Space, message } from 'antd';
+import { Button, Dropdown, Layout, MenuProps, Space, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;

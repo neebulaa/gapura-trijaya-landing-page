@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react';
 import {
   Link,
   URLSearchParamsInit,
-  useNavigate,
   useParams,
-  useSearchParams,
+  useSearchParams
 } from 'react-router-dom';
 
 export default function useAttributeOptionIndexController() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   /**
    * Params
    */
@@ -28,7 +28,7 @@ export default function useAttributeOptionIndexController() {
     limit: +(searchParams.get('limit') ?? 10),
     orderBy: 'id',
     sortBy: sortBy.DESC,
-    attributeId: attributeId,
+    // attributeId: attributeId,
   });
 
   /**
@@ -38,7 +38,7 @@ export default function useAttributeOptionIndexController() {
     data: attributeOptionData,
     isFetching: attributeOptionDataIsFetching,
     refetch: attributeOptionDataRefetch,
-  } = useGetAttributeOptions(queryParams);
+  } = useGetAttributeOptions(queryParams, attributeId);
 
   //   const { mutateAsync: mutateDeleteAttribute, isPending: mutateDeleteAttributeIsLoading } =
   //     useDeleteAttribute();

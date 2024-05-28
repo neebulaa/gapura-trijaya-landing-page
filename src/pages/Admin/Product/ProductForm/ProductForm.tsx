@@ -1,3 +1,8 @@
+import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
+import usePageEffect from '@/commons/hooks/usePageEffect.tsx';
+import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
+import useProductFormController from '@/pages/Admin/Product/ProductForm/ProductFormController.tsx';
+import { FormType, IFormProps } from '@/types/global/form.ts';
 import {
   Breadcrumb,
   Button,
@@ -10,18 +15,9 @@ import {
   Row,
   Select,
   Space,
-  TreeSelect,
 } from 'antd';
-import useProductFormController from '@/pages/Admin/Product/ProductForm/ProductFormController.tsx';
-import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
-import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
-import { FormType, IFormProps } from '@/types/global/form.ts';
-import usePageEffect from '@/commons/hooks/usePageEffect.tsx';
-import { IProduct } from '@/types/product';
 import { useState } from 'react';
 import ProductConfigurableForm from '../components/reusable/ProductConfigurableForm';
-
-const { Option } = Select;
 
 export default function ProductForm(props: IFormProps) {
   const { formType } = props;
@@ -37,7 +33,7 @@ export default function ProductForm(props: IFormProps) {
   const {
     form,
     breadcrumbItem,
-    productData,
+    // productData,
     categoryData,
     handleCategorySearch,
     handleSubmit,

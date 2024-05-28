@@ -12,8 +12,8 @@ export default function Login() {
   const { isAuthenticated, setIsAuthenticated } = useAuthStore((state) => state);
   const { mutateAsync: login, isError, error } = useLoginQuery();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    // e.preventDefault();
     await form.validateFields();
     const values = form.getFieldsValue();
     try {

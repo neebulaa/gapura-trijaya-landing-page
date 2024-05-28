@@ -120,7 +120,7 @@ export default function useAttributeIndexController() {
       width: '20%',
       align: 'center',
       fixed: 'right',
-      render: (_, record: any) => (
+      render: (_: any, record: any) => (
         <>
           <ToggleableLink to={`/admin/attributes/${record.id!}/edit`}>
             <ActionButton
