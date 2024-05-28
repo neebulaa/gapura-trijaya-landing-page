@@ -74,7 +74,7 @@ export default function Login() {
             }}
           />
         </div>
-        <div className="login-form px-20">
+        <div className="login-form">
           <h1>Login</h1>
           <p className="text-center mt-1">Hey, enter your details to get sign in to your account</p>
 

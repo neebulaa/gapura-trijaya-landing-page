@@ -1,6 +1,6 @@
 import RouteLoader from '@/commons/components/RouteLoader';
-import { CategoryRoutes } from '@/routes/Admin/Category/Category';
-import { ProductRoutes } from '@/routes/Admin/Product/Product';
+import { CategoryRoutes } from '@/routes/Admin/CategoryRoute';
+import { ProductRoutes } from '@/routes/Admin/ProductRoute';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 import { AttributeRoutes } from './AttributeRoute';

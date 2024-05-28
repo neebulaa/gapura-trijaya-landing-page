@@ -7,10 +7,8 @@ import {
 } from '@/services/api/admin/api.service.ts';
 import { QueryParams } from '@/types/base';
 import { ICategory } from '@/types/category';
-import { OutletContextInterface } from '@/types/global/outletContext';
 import { QueryOptions } from '@/types/global/queryOptions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useOutletContext } from 'react-router-dom';
 
 export const useGetCategories = (params: QueryParams) => {
   return useQuery({
