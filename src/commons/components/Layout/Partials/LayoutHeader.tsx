@@ -1,8 +1,10 @@
-import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from "@ant-design/icons"
-import { Button, Dropdown, Layout, MenuProps, Space, message } from "antd"
-import { useNavigate } from "react-router-dom"
+import { removeCookie } from '@/commons/lib/cookieStorage';
+import useAuthStore from '@/commons/store/useAuthStore';
+import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Image, Layout, MenuProps, Space, message } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
 
-const { Header } = Layout
+const { Header } = Layout;
 
 // type collapsedType = boolean;
 
@@ -16,7 +18,7 @@ const HeaderMenuItems: MenuProps['items'] = [
     key: 'profile',
     icon: <UserOutlined />,
     onClick: () => {
-      message.info('Click on Profile')
+      message.info('Click on Profile');
     },
   },
   {
@@ -24,55 +26,63 @@ const HeaderMenuItems: MenuProps['items'] = [
     key: 'logout',
     icon: <LogoutOutlined />,
     onClick: () => {
-      message.info('Click on Logout')
+      message.info('You have been logged out');
+      removeCookie('token');
+      removeCookie('isAuthenticated');
+
+      const { setIsAuthenticated } = useAuthStore.getState();
+      setIsAuthenticated(false, null);
     },
   },
-]
+];
 
 /**
  * Type
  */
 type HeaderProps = {
-  collapsed: boolean
-  index: boolean
-  logo?: React.ReactNode
-  title: string
-  prevRoute: string | undefined
-}
+  collapsed: boolean;
+  index: boolean;
+  logo?: React.ReactNode;
+  title: string;
+  prevRoute: string | undefined;
+};
 
 export default function LayoutHeader(props: HeaderProps) {
-  const { collapsed, index, logo, title, prevRoute } = props
-  const navigate = useNavigate()
+  const { collapsed, index, logo, title, prevRoute } = props;
+  const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(prevRoute!)
-  }
+    navigate(prevRoute!);
+  };
+
+  const logoBrand = () => {
+    return collapsed ? (
+      <img src="/favicon.png" alt="logo" />
+    ) : (
+      <img src="/images/logo.png" alt="logo" />
+    );
+  };
 
   return (
     <Header
-      className={`flex justify-between w-full text-white px-0 ${
-        collapsed ? 'collapsed' : ''
-      }`}
+      className={`flex justify-between w-full text-white px-0 ${collapsed ? 'collapsed' : ''}`}
     >
       <div className={`logo-horizontal ${collapsed ? 'collapsed' : ''}`}>
-        <strong>{collapsed ? 'LOGO' : 'LOGO AWESOME APP'}</strong>
+        {/* <strong>{collapsed ? 'LOGO' : 'LOGO AWESOME APP'}</strong> */}
+        <strong>
+          <Link to="/" className="flex items-center">
+            {logoBrand()}
+          </Link>
+        </strong>
       </div>
       <div className="right-top w-full flex justify-between">
         <div className="flex">
           {!index && (
-            <Button
-              type="text"
-              className="h-[64px] leading-none"
-              onClick={handleNavigate}
-            >
-              {!logo && (
-                <ArrowLeftOutlined style={{ fontSize: 16, color: '#f3f3f3' }} />
-              )}
+            <Button type="text" className="h-[64px] leading-none" onClick={handleNavigate}>
+              {!logo && <ArrowLeftOutlined style={{ fontSize: 16, color: '#f3f3f3' }} />}
             </Button>
           )}
-          <div className="text-[16px] leading-1 ps-5 font-semibold">
-            {title}
-          </div>
+          <div className="text-[16px] leading-1 ps-5 font-semibold">{title}</div>
         </div>
         <Dropdown
           menu={{ items: HeaderMenuItems }}
@@ -89,5 +99,5 @@ export default function LayoutHeader(props: HeaderProps) {
         </Dropdown>
       </div>
     </Header>
-  )
+  );
 }

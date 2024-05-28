@@ -77,8 +77,8 @@ export default function RootLayout() {
           </motion.div>
         </Content>
         <Footer style={{ textAlign: 'center' }}>
-          Awesome App ©{new Date().getFullYear()} Created by
-          <span className="text-blue-900"> BU Developer</span>
+          {import.meta.env.VITE_APP_NAME} v0.0.1 | ©{new Date().getFullYear()}
+          <span className="text-blue-900"> Gapura Digital Indonesia</span>
         </Footer>
       </Layout>
     </Layout>
