@@ -3,10 +3,11 @@ import { lazy, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
 import { FormType } from '@/types/global/form.ts';
 
-const AttributeIndex = lazy(
-  () => import('@/pages/Admin/Attribute/AttributeIndex/AttributeIndex')
-);
+const AttributeIndex = lazy(() => import('@/pages/Admin/Attribute/AttributeIndex/AttributeIndex'));
 const AttributeForm = lazy(() => import('@/pages/Admin/Attribute/AttributeForm/AttributeForm'));
+const AttributeOptionIndex = lazy(
+  () => import('@/pages/Admin/Attribute/AttributeOption/AttributeOptionIndex/AttributeOptionIndex')
+);
 
 export const AttributeRoutes: RouteObject[] = [
   {
@@ -18,7 +19,7 @@ export const AttributeRoutes: RouteObject[] = [
           <Suspense fallback={<RouteLoader />}>
             <AttributeIndex />
           </Suspense>
-        )
+        ),
       },
       // {
       //   path: "deleted",
@@ -34,7 +35,7 @@ export const AttributeRoutes: RouteObject[] = [
           <Suspense fallback={<RouteLoader />}>
             <AttributeForm formType={FormType.CREATE} />
           </Suspense>
-        )
+        ),
       },
       {
         path: ':id/edit',
@@ -42,8 +43,20 @@ export const AttributeRoutes: RouteObject[] = [
           <Suspense fallback={<RouteLoader />}>
             <AttributeForm formType={FormType.UPDATE} />
           </Suspense>
-        )
-      }
-    ]
-  }
+        ),
+      },
+
+      /**
+       * Attribute Option
+       */
+      {
+        path: ':attributeId/options',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <AttributeOptionIndex />
+          </Suspense>
+        ),
+      },
+    ],
+  },
 ];

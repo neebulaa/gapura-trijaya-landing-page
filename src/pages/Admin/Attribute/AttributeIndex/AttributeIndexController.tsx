@@ -5,7 +5,7 @@ import ToggleableLink from '@/commons/utils/ToggleableLink';
 import { useDeleteAttribute, useGetAttributes } from '@/services/queries/admin/attribute.query';
 import { IAttribute } from '@/types/attribute';
 import { QueryParams, sortBy } from '@/types/base';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
@@ -117,7 +117,7 @@ export default function useAttributeIndexController() {
       title: 'Action',
       key: 'action',
       dataIndex: 'key',
-      width: '15%',
+      width: '20%',
       align: 'center',
       fixed: 'right',
       render: (_, record: any) => (
@@ -127,6 +127,15 @@ export default function useAttributeIndexController() {
               icon={<EditOutlined />}
               hoverMessage="Edit"
               status="warning"
+              type="default"
+            />
+          </ToggleableLink>
+
+          <ToggleableLink to={`/admin/attributes/${record.id!}/options`}>
+            <ActionButton
+              icon={<UnorderedListOutlined />}
+              hoverMessage="Options"
+              status="success"
               type="default"
             />
           </ToggleableLink>
