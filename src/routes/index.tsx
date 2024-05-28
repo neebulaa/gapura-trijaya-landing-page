@@ -6,6 +6,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdminRoutes } from './Admin';
 import PrivateRoute from './PrivateRoute';
+import PublicLayout from '@/commons/components/Layout/PublicLayout';
 
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Login = lazy(() => import('@/pages/Login/Login'));
@@ -13,7 +14,8 @@ const Login = lazy(() => import('@/pages/Login/Login'));
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <DefaultLayout />,
+    // element: <DefaultLayout />,
+    element: <PublicLayout />,
     children: [
       {
         index: true,
@@ -50,10 +52,7 @@ const router = createBrowserRouter([
         path: '*',
         element: (
           <>
-            <Suspense
-              fallback={<RouteLoader />}
-              children={<h1>Not Found</h1>}
-            />
+            <Suspense fallback={<RouteLoader />} children={<h1>Not Found</h1>} />
           </>
         ),
       },
@@ -62,9 +61,7 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     // element: <AdminLayout />,
-    element: (
-      <PrivateRoute children={<AdminLayout/>}/>
-    ),
+    element: <PrivateRoute children={<AdminLayout />} />,
     children: [
       // NOTE: AdminRoutes is an array of RouteObject
       ...AdminRoutes,
