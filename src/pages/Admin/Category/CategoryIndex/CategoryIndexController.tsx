@@ -101,7 +101,7 @@ export default function useCategoryIndexController() {
       title: 'No',
       dataIndex: 'id',
       key: 'id',
-      width: '4%',
+      width: '8%',
       align: 'center',
       fixed: 'left',
       render: (_text: any, _record: any, index: number) => {

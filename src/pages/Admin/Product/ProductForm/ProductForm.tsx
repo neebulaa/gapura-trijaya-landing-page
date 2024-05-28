@@ -30,6 +30,10 @@ export default function ProductForm(props: IFormProps) {
   const {
     form,
     breadcrumbItem,
+    //Category
+    categoryData,
+    handleCategorySearch,
+    //Product
     handleSubmit,
     mutateCreateProductIsLoading,
     mutateUpdateProductIsLoading,
@@ -38,7 +42,7 @@ export default function ProductForm(props: IFormProps) {
   return (
     <>
       <Breadcrumb items={breadcrumbItem} />
-      <Form form={form} autoComplete="off" layout="vertical">
+      <Form form={form} autoComplete="off" layout="vertical" className="mb-10">
         <Card>
           <Divider orientation="left" plain orientationMargin="0">
             General
@@ -62,16 +66,21 @@ export default function ProductForm(props: IFormProps) {
               </Form.Item>
             </ResponsiveCol>
             <ResponsiveCol>
-              <Form.Item label="Category" name="category" rules={[{ required: true }]}>
-                {/* <Input placeholder="Category" /> */}
-                <TreeSelect
+              <Form.Item label="Categories" name="categories" rules={[{ required: true }]}>
+                <Select
+                  mode="multiple"
                   showSearch
-                  style={{ width: '100%' }}
-                  value={[]}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                   placeholder="Category select"
+                  filterOption={false}
+                  optionLabelProp="label"
+                  style={{ width: '100%' }}
+                  dropdownStyle={{ maxHeight: 600, overflow: 'auto' }}
+                  onSearch={handleCategorySearch}
+                  options={(categoryData?.data || []).map((d) => ({
+                    value: d.id,
+                    label: d.name,
+                  }))}
                   allowClear
-                  treeDefaultExpandAll
                   // onChange={onChange}
                   // treeData={treeData}
                   // onPopupScroll={onPopupScroll}
@@ -160,18 +169,51 @@ export default function ProductForm(props: IFormProps) {
                 <Select
                   showSearch
                   style={{ width: '100%' }}
-                  value={[
+                  // filterOption={false}
+                  // optionLabelProp="label"
+                  defaultValue="simple"
+                  options={[
                     {
-                      value: '1',
-                      label: 'Type 1',
+                      value: 'simple',
+                      label: 'Simple',
                     },
                     {
-                      value: '2',
-                      label: 'Type 2',
-                    }
+                      value: 'configurable',
+                      label: 'Configurable',
+                    },
                   ]}
                   dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                   placeholder="Type select"
+                  allowClear
+                />
+              </Form.Item>
+            </ResponsiveCol>
+          </Row>
+          {/* TODO: form attributes for configurable product */}
+          {/*  */}
+          <Row gutter={24}>
+            <ResponsiveCol lg={24}>
+              <Form.Item label="Status" name="status" rules={[{ required: true }]}>
+                <Select
+                  showSearch
+                  style={{ width: '100%' }}
+                  defaultValue={1}
+                  options={[
+                    {
+                      value: 0,
+                      label: 'Draft',
+                    },
+                    {
+                      value: 1,
+                      label: 'Active',
+                    },
+                    {
+                      value: 2,
+                      label: 'Inactive',
+                    },
+                  ]}
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="Status select"
                   allowClear
                 />
               </Form.Item>
