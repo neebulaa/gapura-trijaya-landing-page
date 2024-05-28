@@ -1,4 +1,4 @@
-import { IconPropsType } from "../../dto/IconPropsType";
+import { IconPropsType } from "@/types/global/icon";
 
 export default function IconCheckCircle({
 	width = "20",

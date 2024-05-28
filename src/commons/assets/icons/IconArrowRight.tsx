@@ -1,4 +1,5 @@
-import { IconPropsType } from "../../dto/IconPropsType";
+import { IconPropsType } from "@/types/global/icon";
+
 export default function IconEye({
 	width = "24",
 	height = "24",

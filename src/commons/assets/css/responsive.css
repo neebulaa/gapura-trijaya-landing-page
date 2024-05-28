@@ -1,0 +1,871 @@
+@media (max-width: 1200px) {
+	/* ***** HOME PAGE START ***** */
+	/* hero section start */
+	#hero {
+		flex-direction: column;
+	}
+
+	#hero::after {
+		bottom: 0;
+		top: initial;
+		right: initial;
+		left: 0;
+		width: 100%;
+		height: 50%;
+	}
+
+	.hero-content {
+		text-align: center;
+		max-width: 600px;
+	}
+	/* hero section end */
+
+	/* membership section start */
+	#membership {
+		flex-direction: column;
+		height: max-content;
+		padding: 4rem 2rem;
+		padding-bottom: 0;
+		gap: 2rem;
+	}
+
+	#membership::before {
+		width: 1400px;
+		height: 600px;
+		rotate: -20deg;
+		top: -30%;
+		left: -12%;
+	}
+
+	#membership::after {
+		width: 1200px;
+		height: 600px;
+		rotate: -22deg;
+		bottom: -55%;
+		right: -12%;
+	}
+
+	.membership-content {
+		text-align: center;
+	}
+
+	.membership-content button {
+		margin-inline: auto;
+	}
+	/* membership section end */
+
+	/* about section start */
+	#about {
+		flex-direction: column;
+	}
+
+	.about-thumb {
+		flex: initial;
+	}
+
+	.about-content {
+		flex: initial;
+		text-align: center;
+		max-width: 600px;
+	}
+	/* about section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* shop product detail start */
+	#shop-product-detail {
+		--gallery-width: 480px;
+		--gallery-gap: 16px;
+	}
+
+	.table-content > * {
+		--max-content-width: 450px;
+	}
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+}
+
+@media (max-width: 1024px) {
+	.container-sidebar-left {
+		position: static;
+		top: initial;
+		height: max-content;
+		z-index: initial;
+	}
+
+	/* ***** LOGIN & REGISTER PAGE START ***** */
+	#login,
+	#register {
+		flex-direction: column;
+		gap: 2rem;
+	}
+
+	.login-image,
+	.register-image {
+		max-height: 350px;
+		order: -1;
+	}
+
+	.login-image-1,
+	.register-image-1 {
+		top: 20% !important;
+		left: 110% !important;
+		rotate: -30deg;
+	}
+
+	.login-image-2,
+	.register-image-2 {
+		top: 0% !important;
+		translate: -140% !important;
+		rotate: 60deg;
+	}
+	.login-form p,
+	.register-form p {
+		margin-bottom: 2rem;
+	}
+	/* ***** LOGIN & REGISTER PAGE END ***** */
+
+	/* ***** HOME PAGE START ***** */
+	/* navbar start */
+	.burger {
+		display: flex;
+		margin-left: auto;
+		cursor: pointer;
+	}
+
+	.nav-info {
+		flex-direction: column;
+		align-items: start;
+		justify-content: space-between;
+		padding: 2rem;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 1000;
+		position: fixed;
+		background: white;
+		width: 60vw;
+		box-shadow: 0 0 0 0vmax rgba(0, 0, 0, 0);
+		translate: 100%;
+		transition: 0.3s;
+	}
+
+	.navbar:has(.burger.open) .nav-info {
+		box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+		translate: 0;
+	}
+
+	.nav-links {
+		font-size: 2rem;
+		gap: 2rem;
+		flex-direction: column;
+	}
+
+	.nav-action {
+		flex-wrap: wrap;
+		align-items: center;
+		/* margin-top: auto; */
+		margin-left: initial;
+	}
+	/* navbar end */
+
+	/* benefits section start */
+	#benefits-bg {
+		height: max-content;
+	}
+
+	#benefits {
+		gap: 6rem;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.benefit h2 {
+		font-size: 2.5rem;
+	}
+
+	.first-benefit {
+		align-items: center;
+		text-align: center;
+	}
+
+	.second-benefit {
+		align-items: center;
+		text-align: center;
+	}
+	/* benefits section end */
+
+	/* membership section start */
+	#membership::before {
+		width: 1400px;
+		height: 600px;
+		rotate: -15deg;
+		top: -32%;
+		left: -15%;
+	}
+
+	#membership::after {
+		width: 1200px;
+		height: 600px;
+		rotate: -15deg;
+		bottom: -57%;
+		right: -12%;
+	}
+	/* membership section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** CONTACT PAGE START ***** */
+	#contact {
+		flex-direction: column;
+	}
+	/* ***** CONTACT PAGE END ***** */
+
+	/* ***** MY POIN PAGE START ***** */
+	#my-poin {
+		flex-direction: column;
+	}
+
+	#my-profile {
+		flex-direction: column;
+	}
+
+	.my-poin-profile {
+		max-width: 300px;
+	}
+
+	/* ***** MY POIN PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* dropdown filter start */
+	.dropdown-filter:first-child {
+		margin-top: 1.5rem;
+	}
+
+	.dropdown-filter {
+		flex: 1 0 250px;
+	}
+
+	.pagination-tools-watcher {
+		justify-content: center;
+	}
+	/* dropdown filter end */
+
+	/* catalog section start */
+	#catalog {
+		flex-direction: column;
+	}
+
+	.dropdown-filters {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.catalog-filters-vertical {
+		margin-top: 1.5rem;
+	}
+	/* catalog section end */
+
+	/* shop product detail start */
+	#shop-product-detail {
+		--gallery-width: 350px;
+		gap: 2rem;
+	}
+
+	.quantity-button {
+		flex: 2;
+	}
+
+	.add-to-bag-button {
+		flex: 3;
+	}
+
+	.shop-product-detail-review {
+		flex-direction: column;
+		gap: 4rem;
+	}
+
+	.shop-product-detail-review .product-review {
+		max-width: 100%;
+	}
+
+	.chosen-review {
+		max-width: 100%;
+	}
+
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	/* shopping cart detail start */
+	.shopping-cart-detail {
+		gap: 2rem;
+	}
+	/* shopping cart detail end */
+	/* SHOPPING CART PAGE END */
+
+	/* CHECKOUT PAGE START */
+	#checkout {
+		flex-direction: column;
+		gap: 3rem;
+	}
+
+	.header-progress {
+		justify-content: center;
+	}
+
+	/* CHECKOUT PAGE END */
+}
+
+@media (max-width: 768px) {
+	html {
+		font-size: 15px;
+	}
+
+	.page-header {
+		height: 300px !important;
+	}
+
+	.btn:not(.btn-circle) {
+		padding: 0.775rem 1.5rem;
+	}
+
+	.card-bordered {
+		padding: 1rem;
+	}
+
+	/* ***** HOME PAGE START ***** */
+	/* benefits section start */
+	.benefit h2 {
+		font-size: 2.2rem;
+	}
+	/* benefits section end */
+
+	/* products section start */
+	.cards-action {
+		flex-direction: column;
+		margin-top: 3rem;
+		gap: 2rem;
+	}
+
+	.cards-action .filters {
+		justify-content: center;
+	}
+
+	.navigation-buttons button {
+		width: 100px;
+		height: 40px;
+	}
+
+	.navigation-buttons {
+		justify-content: center;
+	}
+
+	.card .card-content .card-highlight {
+		font-size: 1rem;
+	}
+
+	.cards-list.list-rows .card {
+		gap: 2rem;
+	}
+
+	.cards-list.list-rows .card .card-thumb {
+		height: 150px;
+	}
+
+	.cards-list.list-rows .card-title {
+		font-size: 1.1rem;
+	}
+
+	.cards-list.list-rows .card-highlighter {
+		font-size: 0.9rem;
+	}
+	/* products section end */
+
+	/* testimonial section start */
+	#testimonials .section-header {
+		flex-direction: column;
+	}
+
+	#testimonials .section-header .title {
+		text-align: center;
+	}
+	/* testimonial section end */
+
+	/* membership section start */
+	.membership-content h2 {
+		font-size: 3rem;
+	}
+	.membership-content h3 {
+		text-wrap: wrap;
+		font-size: 1.9rem;
+	}
+
+	.membership-content p {
+		max-width: max-content;
+	}
+
+	#membership::before {
+		border-radius: 80px;
+		width: 1400px;
+		height: 600px;
+		rotate: -10deg;
+		top: -40%;
+		left: -15%;
+	}
+
+	#membership::after {
+		border-radius: 80px;
+		width: 1200px;
+		height: 600px;
+		rotate: -10deg;
+		bottom: -60%;
+		right: -12%;
+	}
+	/* membership section end */
+
+	/* order steps section start */
+	.steps {
+		flex-direction: column;
+		flex-wrap: nowrap;
+	}
+
+	.step {
+		flex: 1 0 auto;
+	}
+	/* order steps section end */
+
+	/* about section start */
+	.about-thumb {
+		height: 400px;
+	}
+	.about-thumb img {
+		width: 100%;
+	}
+	/* about section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* dropdown filter start */
+	.dropdown-filter {
+		flex: 1 0 200px;
+	}
+	/* dropdown filter end */
+
+	/* catalog section start */
+	.catalog-filters-horizontal {
+		flex-wrap: wrap;
+		justify-content: space-between;
+		row-gap: 2rem;
+	}
+
+	.catalog-filters-horizontal p {
+		width: 100%;
+	}
+
+	#catalog-sort {
+		margin-left: initial;
+	}
+	/* catalog section end */
+
+	/* shop product detail start */
+	#shop-product-detail {
+		flex-direction: column;
+		align-items: center;
+		--gallery-gap: 8px;
+		--gallery-width: 80%;
+		margin-top: 0;
+	}
+
+	.shop-product-detail-gallery {
+		position: static;
+	}
+
+	.quantity-button {
+		flex: 2;
+	}
+
+	.add-to-bag-button {
+		flex: 5;
+	}
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	/* shopping cart table start */
+	.shopping-cart-table .table-body .table-body-col:first-child img {
+		width: 65px;
+		height: 65px;
+	}
+	/* shopping cart table end */
+
+	/* shopping cart detail start */
+	.shopping-cart-detail {
+		flex-direction: column;
+	}
+
+	/* shopping cart detail end */
+	/* SHOPPING CART PAGE END */
+
+	/* MY PROFILE PAGE START */
+	.profile-orders-content-card + .profile-orders-content-card {
+		margin-top: 3rem;
+		border-top: 1px solid var(--light-gray);
+	}
+
+	.profile-orders-content-card-product {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.profile-orders-content-card-product-desc {
+		text-align: center;
+	}
+
+	.profile-orders-content-card-product-action {
+		margin-left: initial;
+		flex-direction: row;
+	}
+
+	.profile-orders-content-card-status {
+		flex-direction: column;
+	}
+	/* MY PROFILE PAGE END */
+}
+
+@media (max-width: 600px) {
+	#shop-product-detail {
+		--gallery-width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	html {
+		font-size: 14px;
+	}
+
+	.container {
+		padding-inline: 1.5rem;
+	}
+
+	.section-header {
+		align-items: center;
+		gap: 2rem;
+		flex-direction: column;
+	}
+
+	.section-header .title {
+		align-items: center;
+		text-align: center;
+	}
+
+	.section-header h3 {
+		font-size: 1.1rem;
+	}
+
+	.section-header h2 {
+		font-size: 1.7rem;
+	}
+
+	.page-header {
+		height: 250px !important;
+	}
+
+	/* ***** HOME PAGE START ***** */
+	/* navbar start */
+	.nav-links {
+		font-size: 1.6rem;
+		gap: 2rem;
+	}
+	/* navbar end */
+
+	/* hero section start */
+	.shape1 {
+		top: -2%;
+	}
+
+	.shape2 {
+		display: none;
+	}
+
+	#hero {
+		gap: 4rem;
+	}
+
+	#hero::after {
+		bottom: 0;
+		top: initial;
+		right: initial;
+		left: 0;
+		width: 100%;
+		height: 45%;
+	}
+
+	#hero h1 {
+		font-size: 3.5rem;
+	}
+
+	#hero h2 {
+		font-size: 2.85rem;
+		line-height: 1.3;
+	}
+	/* hero section end */
+
+	/* products section start */
+	.cards-list.list-rows .card {
+		flex-direction: column;
+		align-items: center;
+		padding: 2rem;
+		text-align: center;
+	}
+
+	.cards-list.list-rows .card .card-content {
+		align-items: center;
+		padding: 0;
+	}
+
+	.cards-list.list-rows .card-content .card-info {
+		align-items: center;
+	}
+	/* products section end */
+
+	/* membership section start */
+	.membership-content h2 {
+		font-size: 2.85rem;
+		line-height: 1.2;
+	}
+
+	.membership-content h3 {
+		line-height: 1.3;
+		font-size: 1.5rem;
+	}
+
+	.membership-content p {
+		margin-top: 1.2rem;
+	}
+
+	.membership-thumb {
+		max-height: 350px;
+	}
+
+	#membership::before {
+		border-radius: 80px;
+		width: 1400px;
+		height: 600px;
+		rotate: -10deg;
+		top: -40%;
+		left: -15%;
+	}
+
+	#membership::after {
+		border-radius: 80px;
+		width: 1200px;
+		height: 600px;
+		rotate: -10deg;
+		bottom: -80%;
+		right: -12%;
+	}
+	/* membership section end */
+
+	/* about section start */
+	.about-content h2 {
+		font-size: 2.85rem;
+	}
+	.about-thumb {
+		width: 100%;
+		height: 250px;
+	}
+
+	.about-thumb img {
+		width: 100%;
+		object-position: top;
+	}
+	/* about section end */
+
+	/* footer section start */
+	.footer-links {
+		flex-direction: column;
+		align-items: center;
+		gap: 2rem;
+	}
+	.footer-links .social-medias {
+		font-size: 1.2rem;
+		gap: 1.5rem;
+	}
+
+	.footer-copyright {
+		flex-direction: column;
+	}
+	/* footer section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* catalog section start  */
+	.catalog-filters-horizontal p {
+		font-size: 1.1rem;
+	}
+	/* catalog section end  */
+
+	/* shop product detail start */
+	.container-content.mobile .sub {
+		width: 80px;
+	}
+	.quantity-button {
+		flex: 2;
+	}
+
+	.add-to-bag-button {
+		flex: 4;
+	}
+
+	.product-review-total-rating {
+		flex-direction: column;
+	}
+
+	.product-review-total-rating .rating-desc {
+		padding: initial;
+		border: initial;
+		margin: initial;
+		padding-bottom: 2rem;
+		margin-bottom: 2rem;
+		border-bottom: 1px solid var(--light-gray);
+	}
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+
+	/* SHOPPING CART PAGE START */
+	.popup-cart .popup-cart-content {
+		width: 100%;
+	}
+	/* SHOPPING CART PAGE END */
+
+	/* CHECKOUT PAGE START */
+	.header-progress {
+		flex-direction: column;
+	}
+
+	.line-check::after {
+		content: "";
+		position: absolute;
+		width: 2px;
+		height: 60px;
+		background: var(--light-gray);
+		top: 50%;
+		left: 50%;
+		translate: -50% -50%;
+		z-index: -1;
+	}
+
+	.split-item {
+		flex-direction: column;
+	}
+	/* CHECKOUT PAGE END */
+}
+
+@media (max-width: 400px) {
+	/* ***** SHOP PAGE START ***** */
+	/* shop product detail start */
+	.shop-product-detail-form .hover-box {
+		width: 150px;
+		padding: 1rem 1.5rem;
+		border-radius: 10px;
+		bottom: 2rem;
+		right: -150px;
+	}
+
+	.shop-product-detail-form .hover-box::after {
+		left: 1.5rem;
+		translate: 30%;
+	}
+
+	.quantity-and-add-to-bag-button {
+		flex-direction: column;
+	}
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+
+	/* ***** CHECKOUT PAGE START ***** */
+	.summary-product-info {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	/* ***** CHECKOUT PAGE END ***** */
+}
+
+@media (max-width: 375px) {
+	/* ***** HOME PAGE START ***** */
+	/* hero section start */
+	.shape1 {
+		top: -5%;
+	}
+
+	#hero::after {
+		bottom: 0;
+		top: initial;
+		right: initial;
+		left: 0;
+		width: 100%;
+		height: 38%;
+	}
+	/* hero section end */
+
+	/* product section start */
+	.card .card-thumb {
+		height: 200px;
+	}
+
+	.card .card-content .card-title {
+		font-size: 1rem;
+	}
+	/* product section end */
+
+	/* membership section start */
+	#membership::before {
+		border-radius: 80px;
+		width: 1400px;
+		height: 600px;
+		rotate: -10deg;
+		top: -30%;
+		left: -20%;
+	}
+
+	.membership-thumb {
+		max-height: 300px;
+	}
+
+	#membership::after {
+		border-radius: 80px;
+		width: 1200px;
+		height: 600px;
+		rotate: -10deg;
+		bottom: -80%;
+		right: -20%;
+	}
+	/* membership section end */
+	/* ***** HOME PAGE END ***** */
+
+	/* ***** SHOP PAGE START ***** */
+	/* catalog section start  */
+	.catalog-filters-horizontal {
+		gap: 1.5rem;
+	}
+
+	#catalog-sort {
+		width: 100%;
+	}
+	/* catalog section end */
+
+	/* shop product detail start */
+	.shop-product-detail-form .hover-box {
+		border-radius: 10px;
+		left: 50%;
+		translate: -50%;
+	}
+
+	.shop-product-detail-form .hover-box::after {
+		left: 50%;
+		translate: -50%;
+	}
+	/* shop product detail end */
+	/* ***** SHOP PAGE END ***** */
+}
