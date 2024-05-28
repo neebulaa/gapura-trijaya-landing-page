@@ -17,9 +17,16 @@ import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
 import { FormType, IFormProps } from '@/types/global/form.ts';
 import usePageEffect from '@/commons/hooks/usePageEffect.tsx';
+import { IProduct } from '@/types/product';
+import { useState } from 'react';
+import ProductConfigurableForm from '../components/reusable/ProductConfigurableForm';
+
+const { Option } = Select;
 
 export default function ProductForm(props: IFormProps) {
   const { formType } = props;
+
+  const [isConfigurable, setIsConfigurable] = useState<boolean>(false);
 
   usePageEffect({
     index: false,
@@ -30,10 +37,9 @@ export default function ProductForm(props: IFormProps) {
   const {
     form,
     breadcrumbItem,
-    //Category
+    productData,
     categoryData,
     handleCategorySearch,
-    //Product
     handleSubmit,
     mutateCreateProductIsLoading,
     mutateUpdateProductIsLoading,
@@ -70,6 +76,7 @@ export default function ProductForm(props: IFormProps) {
                 <Select
                   mode="multiple"
                   showSearch
+                  allowClear
                   placeholder="Category select"
                   filterOption={false}
                   optionLabelProp="label"
@@ -80,10 +87,6 @@ export default function ProductForm(props: IFormProps) {
                     value: d.id,
                     label: d.name,
                   }))}
-                  allowClear
-                  // onChange={onChange}
-                  // treeData={treeData}
-                  // onPopupScroll={onPopupScroll}
                 />
               </Form.Item>
             </ResponsiveCol>
@@ -168,9 +171,12 @@ export default function ProductForm(props: IFormProps) {
               <Form.Item label="Type" name="type" rules={[{ required: true }]}>
                 <Select
                   showSearch
+                  allowClear
                   style={{ width: '100%' }}
                   // filterOption={false}
-                  // optionLabelProp="label"
+                  optionLabelProp="label"
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="Type select"
                   defaultValue="simple"
                   options={[
                     {
@@ -182,14 +188,23 @@ export default function ProductForm(props: IFormProps) {
                       label: 'Configurable',
                     },
                   ]}
-                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                  placeholder="Type select"
-                  allowClear
+                  onChange={(e) => {
+                    if (e == 'configurable') {
+                      setIsConfigurable(true);
+                    } else {
+                      setIsConfigurable(false);
+                    }
+                  }}
                 />
               </Form.Item>
             </ResponsiveCol>
           </Row>
           {/* TODO: form attributes for configurable product */}
+          {isConfigurable && (
+            <>
+              <ProductConfigurableForm />
+            </>
+          )}
           {/*  */}
           <Row gutter={24}>
             <ResponsiveCol lg={24}>

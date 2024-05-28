@@ -49,7 +49,7 @@ export default function ProductIndex() {
         <Row>
           <Col span={24}>
             <Table
-              scroll={{ x: 500}}
+              scroll={{ x: 700}}
               bordered={true}
               size="small"
               rowKey={(record) => record.id!}

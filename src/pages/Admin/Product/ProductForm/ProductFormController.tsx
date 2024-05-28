@@ -6,6 +6,7 @@ import {
   useUpdateProduct,
 } from '@/services/queries/admin/product.query.ts';
 import { QueryParams } from '@/types/base';
+import { ICategory } from '@/types/category';
 import { FormType, IFormProps } from '@/types/global/form.ts';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
@@ -80,7 +81,10 @@ export default function useProductFormController(props: IFormProps) {
    */
   useEffect(() => {
     if (productData && formType == FormType.UPDATE) {
-      form.setFieldsValue(productData.data);
+      form.setFieldsValue({
+        ...productData.data,
+        categories: productData?.data?.categories?.map((d: ICategory) => d.id),
+      });
     }
   }, [productData]);
 
@@ -102,10 +106,9 @@ export default function useProductFormController(props: IFormProps) {
   return {
     form,
     breadcrumbItem,
-    //Category
+    productData,
     categoryData,
     handleCategorySearch,
-    //Product
     handleSubmit,
     mutateCreateProductIsLoading,
     mutateUpdateProductIsLoading,

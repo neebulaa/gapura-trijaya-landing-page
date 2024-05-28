@@ -5,7 +5,7 @@ import {
   axiosPost,
   axiosPut,
 } from '@/services/api/admin/api.service.ts';
-import { QueryParams } from '@/types/base';
+import { QueryParams, SuccessResponse } from '@/types/base';
 import { QueryOptions } from '@/types/global/queryOptions';
 import { IProduct } from '@/types/product';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -23,7 +23,7 @@ export const useGetProducts = (params: QueryParams) => {
 };
 
 export const useGetProduct = (id: string, { enabled }: QueryOptions = {}) => {
-  return useQuery({
+  return useQuery<SuccessResponse<IProduct>>({
     queryKey: ['product', id],
     queryFn: async () => {
       return axiosGet(`/v1/admin/products/${id}`);
