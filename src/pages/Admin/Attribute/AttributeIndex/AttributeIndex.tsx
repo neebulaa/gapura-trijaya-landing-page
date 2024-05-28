@@ -1,23 +1,23 @@
 import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
-import useProductIndexController from '@/pages/Admin/Product/ProductIndex/ProductIndexController';
+import useAttributeIndexController from '@/pages/Admin/Attribute/AttributeIndex/AttributeIndexController';
 import { RedoOutlined } from '@ant-design/icons';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
 import usePageEffect from '@/commons/hooks/usePageEffect';
 
-export default function ProductIndex() {
+export default function AttributeIndex() {
   const {
     breadcrumbItem,
     handleSearch,
-    productDataRefetch,
-    productData,
-    productDataIsFetching,
-    ProductTableProps,
-    handleTableChange
-  } = useProductIndexController();
+    attributeDataRefetch,
+    attributeData,
+    attributeDataIsFetching,
+    AttributeTableProps,
+    handleTableChange,
+  } = useAttributeIndexController();
 
   usePageEffect({
     index: true,
-    title: `Product List`,
+    title: `Attribute List`,
   });
 
   return (
@@ -26,22 +26,19 @@ export default function ProductIndex() {
       <Card>
         <Row className="mb-4">
           <Col md={6} sm={4}>
-            <Input
-              placeholder="Search"
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+            <Input placeholder="Search" onChange={(e) => handleSearch(e.target.value)} />
           </Col>
           <Col md={12} className="px-2">
             <Space>
-              <Button type="primary" onClick={() => productDataRefetch()}>
-                <RedoOutlined spin={productDataIsFetching} />
+              <Button type="primary" onClick={() => attributeDataRefetch()}>
+                <RedoOutlined spin={attributeDataIsFetching} />
               </Button>
             </Space>
           </Col>
           <Col sm={6} md={6} className={'justify-end flex'}>
-            <ToggleableLink to={'/admin/products/create'} disabled={false}>
+            <ToggleableLink to={'/admin/attributes/create'} disabled={false}>
               <Button type="primary" disabled={false}>
-                Add Product
+                Add Attribute
               </Button>
             </ToggleableLink>
           </Col>
@@ -53,17 +50,17 @@ export default function ProductIndex() {
               bordered={true}
               size="small"
               rowKey={(record) => record.id!}
-              columns={ProductTableProps}
-              dataSource={productData?.data}
+              columns={AttributeTableProps}
+              dataSource={attributeData?.data}
               pagination={{
-                total: productData?.meta.total,
-                current: productData?.meta.currentPage,
+                total: attributeData?.meta.total,
+                current: attributeData?.meta.currentPage,
                 showSizeChanger: true,
                 showTotal: (total) => `Total ${total} items`,
                 size: 'default',
               }}
               onChange={handleTableChange}
-              loading={productDataIsFetching}
+              loading={attributeDataIsFetching}
             />
           </Col>
         </Row>

@@ -1,10 +1,8 @@
 import ActionButton from '@/commons/components/Button/ActionButton';
+import { separator } from '@/commons/utils/Currency/Currency';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
-import {
-  useDeleteProduct,
-  useGetProducts,
-} from '@/services/queries/admin/product.query.ts';
+import { useDeleteProduct, useGetProducts } from '@/services/queries/admin/product.query.ts';
 import { QueryParams, sortBy } from '@/types/base';
 import { IProduct } from '@/types/product';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -12,6 +10,7 @@ import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
 import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
+import ProductStatusNode from '../components/reusable/ProductStatusNode';
 
 export default function useProductIndexController() {
   /**
@@ -34,10 +33,8 @@ export default function useProductIndexController() {
     refetch: productDataRefetch,
   } = useGetProducts(queryParams);
 
-  const {
-    mutateAsync: mutateDeleteProduct,
-    isPending: mutateDeleteProductIsLoading,
-  } = useDeleteProduct();
+  const { mutateAsync: mutateDeleteProduct, isPending: mutateDeleteProductIsLoading } =
+    useDeleteProduct();
 
   /**
    * Effects
@@ -107,18 +104,49 @@ export default function useProductIndexController() {
       },
     },
     {
+      title: 'SKU',
+      dataIndex: 'sku',
+      key: 'sku',
+      width: '10%',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+      width: '10%',
+      align: 'center',
+    },
+    {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      width: '20%',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      width: '10%',
+      render: (_: any, record: any) => (
+        <span>{record.price ? `Rp. ${separator(record.price)}` : '-'}</span>
+      ),
+    },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      width: '10%',
+      align: 'center',
+      render: (_: any, record: any) => <ProductStatusNode status={record.status} />,
     },
     {
       title: 'Action',
       key: 'action',
       dataIndex: 'key',
-      width: '15%',
+      width: '10%',
       align: 'center',
       fixed: 'right',
-      render: (_, record: any) => (
+      render: (_: any, record: any) => (
         <>
           <ToggleableLink to={`/admin/products/${record.id!}/edit`}>
             <ActionButton

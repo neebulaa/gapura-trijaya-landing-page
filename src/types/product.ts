@@ -19,3 +19,6 @@ export interface IProduct extends BaseModel {
   categories: ICategory[];
   images: any[];
 }
+
+export interface CreateProductDto extends IProduct {}
+export interface UpdateProductDto extends IProduct {}

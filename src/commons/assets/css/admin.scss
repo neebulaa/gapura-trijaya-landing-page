@@ -148,8 +148,35 @@
 }
 
 /**
-* Custom: BreadCrumb
+* Custom: BreadCrumb, divider, button primary
 */
 .ant-layout main nav {
     padding: 0 4px 10px !important;
+}
+
+.ant-layout .ant-divider-inner-text {
+    color: #878787 !important;
+}
+
+.ant-layout .ant-btn-primary {
+    // box-shadow: 0 2px 0 rgba(0, 15, 24, 0.55);
+    box-shadow: none !important;
+}
+
+.ant-btn-primary .btn-danger {
+    background-color: #ff4d4f !important;
+    border-color: #ff4d4f !important;
+    color: #fff !important;
+}
+
+.ant-btn-primary .btn-warning {
+    background-color: #faad14 !important;
+    border-color: #faad14 !important;
+    color: #fff !important;
+}
+
+.ant-btn-primary .btn-success {
+    background-color: #52c41a !important;
+    border-color: #52c41a !important;
+    color: #fff !important;
 }

@@ -1,24 +1,26 @@
+import usePageEffect from '@/commons/hooks/usePageEffect';
+import useAttributeOptionIndexController from './AttributeOptionIndexController';
 import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
-import useProductIndexController from '@/pages/Admin/Product/ProductIndex/ProductIndexController';
 import { RedoOutlined } from '@ant-design/icons';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
-import usePageEffect from '@/commons/hooks/usePageEffect';
 
-export default function ProductIndex() {
+export default function AttributeOptionIndex() {
+  usePageEffect({
+    index: false,
+    title: `Attribute Options`,
+    prevRoute: -1,
+  });
+
   const {
     breadcrumbItem,
+    AttributeOptionTableProps,
+    attributeId,
+    attributeOptionData,
+    attributeOptionDataIsFetching,
+    attributeOptionDataRefetch,
+    handleTableChange,
     handleSearch,
-    productDataRefetch,
-    productData,
-    productDataIsFetching,
-    ProductTableProps,
-    handleTableChange
-  } = useProductIndexController();
-
-  usePageEffect({
-    index: true,
-    title: `Product List`,
-  });
+  } = useAttributeOptionIndexController();
 
   return (
     <>
@@ -26,22 +28,19 @@ export default function ProductIndex() {
       <Card>
         <Row className="mb-4">
           <Col md={6} sm={4}>
-            <Input
-              placeholder="Search"
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+            <Input placeholder="Search" onChange={(e) => console.log(e.target.value)} />
           </Col>
           <Col md={12} className="px-2">
             <Space>
-              <Button type="primary" onClick={() => productDataRefetch()}>
-                <RedoOutlined spin={productDataIsFetching} />
+              <Button type="primary" onClick={() => console.log('refetch data')}>
+                <RedoOutlined spin={false} />
               </Button>
             </Space>
           </Col>
           <Col sm={6} md={6} className={'justify-end flex'}>
-            <ToggleableLink to={'/admin/products/create'} disabled={false}>
+            <ToggleableLink to={'/admin/attributes/create'} disabled={false}>
               <Button type="primary" disabled={false}>
-                Add Product
+                Add Option
               </Button>
             </ToggleableLink>
           </Col>
@@ -49,21 +48,21 @@ export default function ProductIndex() {
         <Row>
           <Col span={24}>
             <Table
-              scroll={{ x: 700}}
+              scroll={{ x: 700 }}
               bordered={true}
               size="small"
               rowKey={(record) => record.id!}
-              columns={ProductTableProps}
-              dataSource={productData?.data}
+              columns={AttributeOptionTableProps}
+              dataSource={attributeOptionData?.data}
               pagination={{
-                total: productData?.meta.total,
-                current: productData?.meta.currentPage,
+                total: attributeOptionData?.meta.total,
+                current: attributeOptionData?.meta.currentPage,
                 showSizeChanger: true,
                 showTotal: (total) => `Total ${total} items`,
                 size: 'default',
               }}
               onChange={handleTableChange}
-              loading={productDataIsFetching}
+              loading={attributeOptionDataIsFetching}
             />
           </Col>
         </Row>

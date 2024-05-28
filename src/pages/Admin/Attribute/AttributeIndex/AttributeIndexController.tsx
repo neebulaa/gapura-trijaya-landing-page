@@ -1,19 +1,17 @@
 import ActionButton from '@/commons/components/Button/ActionButton';
+import { renderIndexColumn } from '@/commons/lib/helper';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
-import { useDeleteCategory, useGetCategories } from '@/services/queries/admin/category.query.ts';
+import { useDeleteAttribute, useGetAttributes } from '@/services/queries/admin/attribute.query';
+import { IAttribute } from '@/types/attribute';
 import { QueryParams, sortBy } from '@/types/base';
-import { ICategory } from '@/types/category';
-import { OutletContextInterface } from '@/types/global/outletContext';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
-import { URLSearchParamsInit, useOutletContext, useSearchParams } from 'react-router-dom';
+import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
 
-export default function useCategoryIndexController() {
-  const { openNotification } = useOutletContext<OutletContextInterface>();
-
+export default function useAttributeIndexController() {
   /**
    * State
    */
@@ -29,29 +27,29 @@ export default function useCategoryIndexController() {
    * Model
    */
   const {
-    data: categoryData,
-    isFetching: categoryDataIsFetching,
-    refetch: categoryDataRefetch,
-  } = useGetCategories(queryParams);
+    data: attributeData,
+    isFetching: attributeDataIsFetching,
+    refetch: attributeDataRefetch,
+  } = useGetAttributes(queryParams);
 
-  const { mutateAsync: mutateDeleteCategory, isPending: mutateDeleteCategoryIsLoading } =
-    useDeleteCategory();
+  const { mutateAsync: mutateDeleteAttribute, isPending: mutateDeleteAttributeIsLoading } =
+    useDeleteAttribute();
 
   /**
    * Effects
    */
   useEffect(() => {
     if (
-      categoryData &&
-      categoryData.meta.total < (queryParams.page ?? 1) &&
-      categoryData.meta.total !== 0
+      attributeData &&
+      attributeData.meta.total < (queryParams.page ?? 1) &&
+      attributeData.meta.total !== 0
     ) {
       setQueryParams({
         ...queryParams,
-        page: categoryData.meta.total,
+        page: attributeData.meta.total,
       });
     }
-  }, [categoryData]);
+  }, [attributeData]);
 
   useEffect(() => {
     setSearchParams(queryParams as URLSearchParamsInit);
@@ -60,10 +58,10 @@ export default function useCategoryIndexController() {
   /**
    * Breadcrumb
    */
-  const breadcrumbItem = [{ title: 'Home' }, { title: 'Category' }];
+  const breadcrumbItem = [{ title: 'Home' }, { title: 'Attribute' }];
 
   /**
-   * Handle: Table Change/Get Category Data
+   * Handle: Table Change/Get Attribute Data
    */
   const handleTableChange = (newPagination: TablePaginationConfig) => {
     setQueryParams({
@@ -83,20 +81,14 @@ export default function useCategoryIndexController() {
   /**
    * Handle Delete
    */
-  const deleteCategory = async (id: string) => {
-    mutateDeleteCategory(id).then((res) => {
-      openNotification({
-        type: 'success',
-        title: 'Success',
-        message: res?.message as string,
-      });
-    });
+  const deleteAttribute = async (id: string) => {
+    await mutateDeleteAttribute(id);
   };
 
   /**
    * Table: columns
    */
-  const CategoryTableProps: ColumnType<ICategory>[] | any = [
+  const AttributeTableProps: ColumnType<IAttribute>[] | any = [
     {
       title: 'No',
       dataIndex: 'id',
@@ -104,11 +96,12 @@ export default function useCategoryIndexController() {
       width: '8%',
       align: 'center',
       fixed: 'left',
-      render: (_text: any, _record: any, index: number) => {
-        const page = queryParams?.page ?? 1;
-        const limit = queryParams?.limit ?? 10;
-        return (page - 1) * limit + index + 1;
-      },
+      render: renderIndexColumn(queryParams),
+    },
+    {
+      title: 'Code',
+      dataIndex: 'code',
+      key: 'code',
     },
     {
       title: 'Name',
@@ -116,30 +109,20 @@ export default function useCategoryIndexController() {
       key: 'name',
     },
     {
-      title: 'Slug',
-      dataIndex: 'slug',
-      key: 'slug',
-      width: '35%',
-    },
-    {
-      title: 'Parent',
-      dataIndex: 'parent',
-      key: 'parent',
-      render: (parent: any) => parent?.name,
-      // render: (childs: any) => {
-      //   return childs?.map((child: any) => child.name).join(', ');
-      // },
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
     },
     {
       title: 'Action',
       key: 'action',
       dataIndex: 'key',
-      width: '15%',
+      width: '20%',
       align: 'center',
       fixed: 'right',
       render: (_, record: any) => (
         <>
-          <ToggleableLink to={`/admin/categories/${record.id!}/edit`}>
+          <ToggleableLink to={`/admin/attributes/${record.id!}/edit`}>
             <ActionButton
               icon={<EditOutlined />}
               hoverMessage="Edit"
@@ -148,9 +131,18 @@ export default function useCategoryIndexController() {
             />
           </ToggleableLink>
 
+          <ToggleableLink to={`/admin/attributes/${record.id!}/options`}>
+            <ActionButton
+              icon={<UnorderedListOutlined />}
+              hoverMessage="Options"
+              status="success"
+              type="default"
+            />
+          </ToggleableLink>
+
           <Popconfirm
             title="Yakin Untuk Menghapus?"
-            onConfirm={() => deleteCategory(record.id!)}
+            onConfirm={() => deleteAttribute(record.id!)}
             placement="left"
           >
             <ActionButton
@@ -159,7 +151,7 @@ export default function useCategoryIndexController() {
               status="danger"
               type="default"
               danger={true}
-              loading={mutateDeleteCategoryIsLoading}
+              loading={mutateDeleteAttributeIsLoading}
             />
           </Popconfirm>
         </>
@@ -170,10 +162,10 @@ export default function useCategoryIndexController() {
   return {
     breadcrumbItem,
     handleSearch,
-    CategoryTableProps,
-    categoryData,
-    categoryDataIsFetching,
-    categoryDataRefetch,
+    AttributeTableProps,
+    attributeData,
+    attributeDataIsFetching,
+    attributeDataRefetch,
     handleTableChange,
   };
 }
