@@ -148,8 +148,17 @@
 }
 
 /**
-* Custom: BreadCrumb
+* Custom: BreadCrumb, divider, button primary
 */
 .ant-layout main nav {
     padding: 0 4px 10px !important;
+}
+
+.ant-layout .ant-divider-inner-text {
+    color: #878787 !important;
+}
+
+.ant-layout .ant-btn-primary {
+    // box-shadow: 0 2px 0 rgba(0, 15, 24, 0.55);
+    box-shadow: none !important;
 }

@@ -32,6 +32,7 @@ export const NavigationItems: MenuItem[] = [
     // ]),
     getItem('Category', 'categories', null),
     getItem('Product', 'products', null),
+    getItem('Attribute', 'attributes', null),
   ]),
   getItem('User', 'user', <UserOutlined />),
 ];
