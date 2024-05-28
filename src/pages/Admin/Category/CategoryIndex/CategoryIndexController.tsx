@@ -116,6 +116,21 @@ export default function useCategoryIndexController() {
       key: 'name',
     },
     {
+      title: 'Slug',
+      dataIndex: 'slug',
+      key: 'slug',
+      width: '35%',
+    },
+    {
+      title: 'Parent',
+      dataIndex: 'parent',
+      key: 'parent',
+      render: (parent: any) => parent?.name,
+      // render: (childs: any) => {
+      //   return childs?.map((child: any) => child.name).join(', ');
+      // },
+    },
+    {
       title: 'Action',
       key: 'action',
       dataIndex: 'key',

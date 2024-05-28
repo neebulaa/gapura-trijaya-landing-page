@@ -48,7 +48,7 @@ export default function CategoryForm(props: IFormProps) {
             <ResponsiveCol>
               <Form.Item
                 label="Parent"
-                name="parent"
+                name="parentId"
                 rules={[{ required: false }]}
               >
                 <Select
