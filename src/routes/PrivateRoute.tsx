@@ -13,10 +13,10 @@ export default function PrivateRoute({ children }: Props) {
   //   console.log(isAuthenticated, token);
   try {
     me().then((res) => {
-      console.log(res);
+      console.log('PrivateRoute: ', res);
     });
   } catch (err) {
-    console.log(err);
+    console.log('PrivateRoute Err: ', err);
   }
 
   return isAuthenticated ? children : <Navigate to="/login" />;

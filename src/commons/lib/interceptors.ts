@@ -1,5 +1,5 @@
 import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
-import { redirect } from 'react-router-dom';
+// import { redirect } from 'react-router-dom';
 import useAuthStore from '@/commons/store/useAuthStore';
 import { getCookie, removeCookie } from './cookieStorage';
 
@@ -36,7 +36,7 @@ export const errorInterceptor = async (error: AxiosError): Promise<void> => {
     setIsAuthenticated(false, null);
 
     await Promise.reject(error);
-    redirect('/login');
+    // redirect('/login');
   } else {
     if (error.response) {
       const errorMessage: ConsoleError = {

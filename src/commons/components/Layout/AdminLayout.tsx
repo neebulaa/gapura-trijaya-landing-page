@@ -1,5 +1,6 @@
 import '@/commons/assets/css/admin.scss';
 import { pageTransition, pageVariants } from '@/commons/lib/framer-motion/fade';
+import useAuthStore from '@/commons/store/useAuthStore';
 import { INotification } from '@/types/global/notification';
 import { App, Layout } from 'antd';
 import { motion } from 'framer-motion';
@@ -40,47 +41,53 @@ export default function RootLayout() {
     setPrevRoute(data);
   };
 
+  const { isAuthenticated, token } = useAuthStore((state) => state);
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <LayoutHeader collapsed={collapsed} index={index} title={title!} prevRoute={prevRoute} />
-      <Sider
-        className={`site-layout-background sider-layout ${
-          collapsed ? 'collapsed' : 'not-collapsed'
-        }`}
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
-        <div className={`menu-wrapper overflow-y-auto`}>
-          <NavigationRender />
-        </div>
-      </Sider>
-      <Layout className={`layout-wrapper ${collapsed ? 'collapsed' : ''}`}>
-        <Content className={`content-wrapper overflow-y-auto ${collapsed ? 'collapsed' : ''}`}>
-          <motion.div
-            key={location.pathname}
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
+    <>
+      {isAuthenticated && token && (
+        <Layout style={{ minHeight: '100vh' }}>
+          <LayoutHeader collapsed={collapsed} index={index} title={title!} prevRoute={prevRoute} />
+          <Sider
+            className={`site-layout-background sider-layout ${
+              collapsed ? 'collapsed' : 'not-collapsed'
+            }`}
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
           >
-            <Outlet
-              context={{
-                openNotification: (notificationDto: INotification) =>
-                  openNotification(notificationDto),
-                handleIndex: (status: boolean) => handleIndex(status),
-                handleTitle: (title: string) => handleTitle(title),
-                handlePrevRoute: (data: string) => handlePrevRoute(data),
-              }}
-            />
-          </motion.div>
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          {import.meta.env.VITE_APP_NAME} v0.0.1 | ©{new Date().getFullYear()}
-          <span className="text-blue-900"> Gapura Digital Indonesia</span>
-        </Footer>
-      </Layout>
-    </Layout>
+            <div className={`menu-wrapper overflow-y-auto`}>
+              <NavigationRender />
+            </div>
+          </Sider>
+          <Layout className={`layout-wrapper ${collapsed ? 'collapsed' : ''}`}>
+            <Content className={`content-wrapper overflow-y-auto ${collapsed ? 'collapsed' : ''}`}>
+              <motion.div
+                key={location.pathname}
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+              >
+                <Outlet
+                  context={{
+                    openNotification: (notificationDto: INotification) =>
+                      openNotification(notificationDto),
+                    handleIndex: (status: boolean) => handleIndex(status),
+                    handleTitle: (title: string) => handleTitle(title),
+                    handlePrevRoute: (data: string) => handlePrevRoute(data),
+                  }}
+                />
+              </motion.div>
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              {import.meta.env.VITE_APP_NAME} v0.0.1 | ©{new Date().getFullYear()}
+              <span className="text-blue-900"> Gapura Digital Indonesia</span>
+            </Footer>
+          </Layout>
+        </Layout>
+      )}
+    </>
   );
 }
