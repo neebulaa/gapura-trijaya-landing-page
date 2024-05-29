@@ -4,12 +4,7 @@ import { IAttributeOption } from '@/types/attributeOption';
 import { QueryParams, sortBy } from '@/types/base';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
-import {
-  Link,
-  URLSearchParamsInit,
-  useParams,
-  useSearchParams
-} from 'react-router-dom';
+import { Link, URLSearchParamsInit, useParams, useSearchParams } from 'react-router-dom';
 
 export default function useAttributeOptionIndexController() {
   // const navigate = useNavigate();
@@ -28,7 +23,6 @@ export default function useAttributeOptionIndexController() {
     limit: +(searchParams.get('limit') ?? 10),
     orderBy: 'id',
     sortBy: sortBy.DESC,
-    // attributeId: attributeId,
   });
 
   /**
