@@ -33,12 +33,17 @@ export const useGetAttributeOption = (id: string, { enabled }: QueryOptions = {}
 };
 
 export const useCreateAttributeOption = (attributeId: string) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (newAttributeOption: any) => {
       return await axiosPost<any, any>(
         `/v1/admin/attributes/options/${attributeId}`,
         newAttributeOption
       );
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      queryClient.invalidateQueries('attributeOptions').then((r) => null);
     },
   });
 };

@@ -1,8 +1,8 @@
 import usePageEffect from '@/commons/hooks/usePageEffect';
-import useAttributeOptionIndexController from './AttributeOptionIndexController';
-import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
 import { RedoOutlined } from '@ant-design/icons';
-import ToggleableLink from '@/commons/utils/ToggleableLink';
+import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
+import AttributeOptionFormModal from '../AttributeOptionFormModal/AttributeOptionFormModal';
+import useAttributeOptionIndexController from './AttributeOptionIndexController';
 
 export default function AttributeOptionIndex() {
   usePageEffect({
@@ -20,6 +20,12 @@ export default function AttributeOptionIndex() {
     attributeOptionDataRefetch,
     handleTableChange,
     handleSearch,
+    modalState,
+    handleModalOpen,
+    handleModalClose,
+    handleModalOk,
+    mutateCreateAttributeOptionIsLoading,
+    mutateDeleteAttributeOptionIsLoading,
   } = useAttributeOptionIndexController();
 
   return (
@@ -38,11 +44,9 @@ export default function AttributeOptionIndex() {
             </Space>
           </Col>
           <Col sm={6} md={6} className={'justify-end flex'}>
-            <ToggleableLink to={'/admin/attributes/create'} disabled={false}>
-              <Button type="primary" disabled={false}>
-                Add Option
-              </Button>
-            </ToggleableLink>
+            <Button type="primary" disabled={false} onClick={() => handleModalOpen('Create')}>
+              Add Option
+            </Button>
           </Col>
         </Row>
         <Row>
@@ -67,6 +71,13 @@ export default function AttributeOptionIndex() {
           </Col>
         </Row>
       </Card>
+
+      <AttributeOptionFormModal
+        modalState={modalState}
+        handleOk={handleModalOk}
+        handleCancel={handleModalClose}
+        confirmLoading={mutateCreateAttributeOptionIsLoading}
+      />
     </>
   );
 }

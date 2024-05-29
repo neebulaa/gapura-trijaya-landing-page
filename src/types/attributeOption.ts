@@ -2,7 +2,10 @@ import { IAttribute } from '@/types/attribute';
 import { BaseModel } from '@/types/base';
 
 export interface IAttributeOption extends BaseModel {
-  attributeId: string;
+  attributeId?: string;
   name: string;
-  attribute: IAttribute;
+  attribute?: IAttribute;
 }
+
+export interface CreateAttributeOptionDto extends IAttributeOption {}
+export interface UpdateAttributeOptionDto extends IAttributeOption {}

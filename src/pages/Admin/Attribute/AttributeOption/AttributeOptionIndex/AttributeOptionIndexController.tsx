@@ -1,13 +1,34 @@
+import ActionButton from '@/commons/components/Button/ActionButton';
+import { renderIndexColumn } from '@/commons/lib/helper';
 import { debounce } from '@/commons/utils/Debounce';
-import { useGetAttributeOptions } from '@/services/queries/admin/attribute.option.query';
-import { IAttributeOption } from '@/types/attributeOption';
+import {
+  useCreateAttributeOption,
+  useDeleteAttributeOption,
+  useGetAttributeOptions,
+} from '@/services/queries/admin/attribute.option.query';
+import {
+  CreateAttributeOptionDto,
+  IAttributeOption,
+  UpdateAttributeOptionDto,
+} from '@/types/attributeOption';
 import { QueryParams, sortBy } from '@/types/base';
+import { OutletContextInterface } from '@/types/global/outletContext';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
-import { Link, URLSearchParamsInit, useParams, useSearchParams } from 'react-router-dom';
+import {
+  Link,
+  URLSearchParamsInit,
+  useOutletContext,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
+import { IAttributeOptionModalState } from '../interface/attributeOptionModal.interface';
 
 export default function useAttributeOptionIndexController() {
   // const navigate = useNavigate();
+  const { openNotification } = useOutletContext<OutletContextInterface>();
 
   /**
    * Params
@@ -24,9 +45,13 @@ export default function useAttributeOptionIndexController() {
     orderBy: 'id',
     sortBy: sortBy.DESC,
   });
+  const [modalState, setModalState] = useState<IAttributeOptionModalState>({
+    isOpen: false,
+    formMode: 'Create',
+  });
 
   /**
-   * Model
+   * Query Model: Get Attribute Option Data
    */
   const {
     data: attributeOptionData,
@@ -34,8 +59,21 @@ export default function useAttributeOptionIndexController() {
     refetch: attributeOptionDataRefetch,
   } = useGetAttributeOptions(queryParams, attributeId);
 
-  //   const { mutateAsync: mutateDeleteAttribute, isPending: mutateDeleteAttributeIsLoading } =
-  //     useDeleteAttribute();
+  /**
+   * Query Model: Delete Attribute Option
+   */
+  const {
+    mutateAsync: mutateDeleteAttributeOption,
+    isPending: mutateDeleteAttributeOptionIsLoading,
+  } = useDeleteAttributeOption();
+
+  /**
+   * Query Model: Create Attribute Option
+   */
+  const {
+    mutateAsync: mutateCreateAttributeOption,
+    isPending: mutateCreateAttributeOptionIsLoading,
+  } = useCreateAttributeOption(attributeId!);
 
   /**
    * Effects
@@ -85,6 +123,61 @@ export default function useAttributeOptionIndexController() {
   }, 500);
 
   /**
+   * Handle Delete: Attribute Option
+   */
+  const handleDelete = (id: string) => {
+    mutateDeleteAttributeOption(id).then((res) => {
+      openNotification({
+        type: 'success',
+        title: 'Success',
+        message: res?.message as string,
+      });
+    });
+  };
+
+  /**
+   * Handle Modal: Open
+   */
+  const handleModalOpen = (type: 'Create' | 'Edit' = 'Create', id?: number) => {
+    console.log('id: ', id);
+
+    // setIsModalOpen(true);
+    setModalState({
+      isOpen: true,
+      formMode: type,
+    });
+  };
+
+  /**
+   * Handle Modal: Close
+   */
+  const handleModalClose = () => {
+    // setIsModalOpen(false);
+    setModalState({
+      isOpen: false,
+      formMode: 'Create',
+    });
+  };
+
+  /**
+   * Handle Modal: Ok
+   */
+  const handleModalOk = (data: CreateAttributeOptionDto | UpdateAttributeOptionDto) => {
+    mutateCreateAttributeOption(data)
+      .then((res) => {
+        console.log('res: ', res);
+        openNotification({
+          type: 'success',
+          title: 'Success',
+          message: res?.message as string,
+        });
+      })
+      .then(() => {
+        handleModalClose();
+      });
+  };
+
+  /**
    * Table: columns
    */
   const AttributeOptionTableProps: ColumnType<IAttributeOption>[] | any = [
@@ -95,16 +188,46 @@ export default function useAttributeOptionIndexController() {
       width: '8%',
       align: 'center',
       fixed: 'left',
-      render: (_text: any, _record: any, index: number) => {
-        const page = queryParams?.page ?? 1;
-        const limit = queryParams?.limit ?? 10;
-        return (page - 1) * limit + index + 1;
-      },
+      render: renderIndexColumn(queryParams),
     },
     {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      dataIndex: 'key',
+      width: '20%',
+      align: 'center',
+      fixed: 'right',
+      render: (_: any, record: any) => (
+        <>
+          <ActionButton
+            icon={<EditOutlined />}
+            hoverMessage="Edit"
+            status="warning"
+            type="default"
+            onClick={() => handleModalOpen('Edit', record.id)}
+          />
+
+          <Popconfirm
+            title="Yakin Untuk Menghapus?"
+            onConfirm={() => handleDelete(record.id!)}
+            placement="left"
+          >
+            <ActionButton
+              icon={<DeleteOutlined />}
+              hoverMessage="Delete"
+              status="danger"
+              type="default"
+              danger={true}
+              loading={mutateDeleteAttributeOptionIsLoading}
+            />
+          </Popconfirm>
+        </>
+      ),
     },
   ];
 
@@ -117,5 +240,11 @@ export default function useAttributeOptionIndexController() {
     attributeOptionDataRefetch,
     handleTableChange,
     handleSearch,
+    modalState,
+    handleModalOpen,
+    handleModalClose,
+    handleModalOk,
+    mutateCreateAttributeOptionIsLoading,
+    mutateDeleteAttributeOptionIsLoading,
   };
 }
