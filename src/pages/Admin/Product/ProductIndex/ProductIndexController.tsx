@@ -121,6 +121,13 @@ export default function useProductIndexController() {
       dataIndex: 'name',
       key: 'name',
       width: '20%',
+      render: (_: any, record: IProduct) => {
+        if (record.parentId === null) {
+          return <span className="font-bold">{record.name}</span>;
+        } else {
+          return <span>{record.name}</span>;
+        }
+      },
     },
     {
       title: 'Price',

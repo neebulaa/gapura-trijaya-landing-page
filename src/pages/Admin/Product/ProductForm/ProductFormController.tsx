@@ -1,4 +1,5 @@
 import { debounce } from '@/commons/utils/Debounce';
+import { useGetAttributes } from '@/services/queries/admin/attribute.query';
 import { useGetCategories } from '@/services/queries/admin/category.query';
 import {
   useCreateProduct,
@@ -8,6 +9,7 @@ import {
 import { QueryParams } from '@/types/base';
 import { ICategory } from '@/types/category';
 import { FormType, IFormProps } from '@/types/global/form.ts';
+import { ProductQueryParams } from '@/types/product';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -34,9 +36,14 @@ export default function useProductFormController(props: IFormProps) {
    * State
    */
   const [form] = Form.useForm();
+  const [attributeQuery, setAttributeQuery] = useState<ProductQueryParams>({
+    page: 1,
+    // limit: 50,
+    isConfigurable: true,
+  });
 
   /**
-   * Model
+   * Model Query: Product
    */
   const { data: productData } = useGetProduct(id!, {
     enabled: formType == FormType.UPDATE,
@@ -47,6 +54,11 @@ export default function useProductFormController(props: IFormProps) {
 
   const { mutateAsync: mutateUpdateProduct, isPending: mutateUpdateProductIsLoading } =
     useUpdateProduct(id!);
+
+  /**
+   * Model Query: Attribute
+   */
+  const { data: attributeData } = useGetAttributes(attributeQuery);
 
   /**
    * Handle Category Parent Search
@@ -66,7 +78,10 @@ export default function useProductFormController(props: IFormProps) {
     const values = form.getFieldsValue();
 
     if (formType == FormType.CREATE) {
-      await mutateCreateProduct(values);
+      await mutateCreateProduct({
+        ...values,
+        status: values.status ? values.status : 0, // 0=draft, 1=publish
+      });
       navigate('/admin/products');
       return;
     }
@@ -112,5 +127,6 @@ export default function useProductFormController(props: IFormProps) {
     handleSubmit,
     mutateCreateProductIsLoading,
     mutateUpdateProductIsLoading,
+    attributeData,
   };
 }

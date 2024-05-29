@@ -1,4 +1,4 @@
-import { BaseModel } from '@/types/base';
+import { BaseModel, QueryParams } from '@/types/base';
 import { ICategory } from '@/types/category';
 
 export interface IProduct extends BaseModel {
@@ -22,3 +22,7 @@ export interface IProduct extends BaseModel {
 
 export interface CreateProductDto extends IProduct {}
 export interface UpdateProductDto extends IProduct {}
+
+export interface ProductQueryParams extends QueryParams {
+  isConfigurable?: boolean;
+}
