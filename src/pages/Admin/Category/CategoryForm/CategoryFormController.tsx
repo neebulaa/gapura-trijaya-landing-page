@@ -133,15 +133,9 @@ export default function useCategoryFormController(props: IFormProps) {
    * Breadcrumb
    */
   const breadcrumbItem = [
-    {
-      title: 'Home',
-    },
-    {
-      title: <Link to="/app/category">Category</Link>,
-    },
-    {
-      title: `${formType == FormType.CREATE ? 'Add' : 'Edit'} Category`,
-    },
+    { title: 'Home' },
+    { title: <Link to="/admin/categories">Category</Link> },
+    { title: `${formType == FormType.CREATE ? 'Add' : 'Edit'} Category` },
   ];
 
   return {

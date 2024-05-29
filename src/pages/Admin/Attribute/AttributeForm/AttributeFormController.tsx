@@ -127,7 +127,7 @@ export function useAttributeFormController(props: IFormProps) {
       title: 'Home',
     },
     {
-      title: <Link to="/admin/attribute">Attribute</Link>,
+      title: <Link to="/admin/attributes">Attribute</Link>,
     },
     {
       title: `${formType == FormType.CREATE ? 'Add' : 'Edit'} Attribute`,
