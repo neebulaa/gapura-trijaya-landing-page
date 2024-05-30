@@ -49,9 +49,14 @@ export const useCreateAttributeOption = (attributeId: string) => {
 };
 
 export const useUpdateAttributeOption = (id: string) => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (updatedAttributeOption: any) => {
       return await axiosPut<any, any>(`/v1/admin/attributes/options/${id}`, updatedAttributeOption);
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      queryClient.invalidateQueries('attributeOptions').then((r) => null);
     },
   });
 };

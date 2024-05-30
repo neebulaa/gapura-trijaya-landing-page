@@ -25,7 +25,8 @@ export default function AttributeOptionIndex() {
     handleModalClose,
     handleModalOk,
     mutateCreateAttributeOptionIsLoading,
-    mutateDeleteAttributeOptionIsLoading,
+    mutateUpdateAttributeOptionIsLoading,
+    // mutateDeleteAttributeOptionIsLoading,
   } = useAttributeOptionIndexController();
 
   return (
@@ -76,7 +77,8 @@ export default function AttributeOptionIndex() {
         modalState={modalState}
         handleOk={handleModalOk}
         handleCancel={handleModalClose}
-        confirmLoading={mutateCreateAttributeOptionIsLoading}
+        confirmLoading={mutateCreateAttributeOptionIsLoading || mutateUpdateAttributeOptionIsLoading}
+        attributeOption={modalState?.attributeOption}
       />
     </>
   );

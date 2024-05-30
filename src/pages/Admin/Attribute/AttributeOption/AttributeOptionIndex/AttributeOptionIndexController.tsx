@@ -5,6 +5,7 @@ import {
   useCreateAttributeOption,
   useDeleteAttributeOption,
   useGetAttributeOptions,
+  useUpdateAttributeOption,
 } from '@/services/queries/admin/attribute.option.query';
 import {
   CreateAttributeOptionDto,
@@ -76,6 +77,14 @@ export default function useAttributeOptionIndexController() {
   } = useCreateAttributeOption(attributeId!);
 
   /**
+   * Query Model: Update Attribute Option
+   */
+  const {
+    mutateAsync: mutateUpdateAttributeOption,
+    isPending: mutateUpdateAttributeOptionIsLoading,
+  } = useUpdateAttributeOption(modalState.attributeOption?.id!);
+
+  /**
    * Effects
    */
   useEffect(() => {
@@ -139,12 +148,14 @@ export default function useAttributeOptionIndexController() {
    * Handle Modal: Open
    */
   const handleModalOpen = (type: 'Create' | 'Edit' = 'Create', id?: number) => {
-    console.log('id: ', id);
+    // console.log('id: ', id);
 
+    // form.resetFields();
     // setIsModalOpen(true);
     setModalState({
       isOpen: true,
       formMode: type,
+      attributeOption: attributeOptionData?.data.find((item) => item.id === id),
     });
   };
 
@@ -163,9 +174,27 @@ export default function useAttributeOptionIndexController() {
    * Handle Modal: Ok
    */
   const handleModalOk = (data: CreateAttributeOptionDto | UpdateAttributeOptionDto) => {
-    mutateCreateAttributeOption(data)
+    // console.log('data: ', data);
+
+    if (modalState.formMode === 'Create') {
+      // console.log('create', data);
+      mutateCreateAttributeOption(data)
+        .then((res) => {
+          console.log('res: ', res);
+          openNotification({
+            type: 'success',
+            title: 'Success',
+            message: res?.message as string,
+          });
+        })
+        .then(() => {
+          handleModalClose();
+        });
+      return;
+    }
+    // console.log('update: ', modalState.attributeOption);
+    mutateUpdateAttributeOption(data)
       .then((res) => {
-        console.log('res: ', res);
         openNotification({
           type: 'success',
           title: 'Success',
@@ -175,6 +204,7 @@ export default function useAttributeOptionIndexController() {
       .then(() => {
         handleModalClose();
       });
+    return;
   };
 
   /**
@@ -245,6 +275,7 @@ export default function useAttributeOptionIndexController() {
     handleModalClose,
     handleModalOk,
     mutateCreateAttributeOptionIsLoading,
+    mutateUpdateAttributeOptionIsLoading,
     mutateDeleteAttributeOptionIsLoading,
   };
 }
