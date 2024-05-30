@@ -4,15 +4,18 @@ import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
 import { useDeleteProduct, useGetProducts } from '@/services/queries/admin/product.query.ts';
 import { QueryParams, sortBy } from '@/types/base';
+import { OutletContextInterface } from '@/types/global/outletContext';
 import { IProduct } from '@/types/product';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
-import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
+import { URLSearchParamsInit, useOutletContext, useSearchParams } from 'react-router-dom';
 import ProductStatusNode from '../components/reusable/ProductStatusNode';
 
 export default function useProductIndexController() {
+  const { openNotification } = useOutletContext<OutletContextInterface>();
+
   /**
    * State
    */
@@ -25,7 +28,7 @@ export default function useProductIndexController() {
   });
 
   /**
-   * Model
+   * Query: Get Product Data
    */
   const {
     data: productData,
@@ -33,6 +36,9 @@ export default function useProductIndexController() {
     refetch: productDataRefetch,
   } = useGetProducts(queryParams);
 
+  /**
+   * Query: Delete Product
+   */
   const { mutateAsync: mutateDeleteProduct, isPending: mutateDeleteProductIsLoading } =
     useDeleteProduct();
 
@@ -83,7 +89,21 @@ export default function useProductIndexController() {
    * Handle Delete
    */
   const deleteProduct = async (id: string) => {
-    await mutateDeleteProduct(id);
+    await mutateDeleteProduct(id)
+      .then((res) => {
+        openNotification({
+          type: 'success',
+          title: 'Success',
+          message: res.message as string,
+        });
+      })
+      .catch((err) => {
+        openNotification({
+          type: 'error',
+          title: 'Error',
+          message: err?.response.data.message,
+        });
+      });
   };
 
   /**

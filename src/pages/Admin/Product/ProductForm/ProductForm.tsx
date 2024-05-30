@@ -3,11 +3,11 @@ import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
 import usePageEffect from '@/commons/hooks/usePageEffect.tsx';
 import ToggleableLink from '@/commons/utils/ToggleableLink.tsx';
 import useProductFormController from '@/pages/Admin/Product/ProductForm/ProductFormController.tsx';
+import ProductConfigurableForm from '@/pages/Admin/Product/components/reusable/ProductConfigurableForm';
+import ProductSimpleForm from '@/pages/Admin/Product/components/reusable/ProductSimpleFrom';
 import { FormType, IFormProps } from '@/types/global/form.ts';
 import { Breadcrumb, Button, Card, Col, Divider, Form, Input, Row, Select, Space } from 'antd';
 import { useState } from 'react';
-import ProductSimpleForm from '../components/reusable/ProductSimpleFrom';
-import ProductConfigurableForm from '../components/reusable/ProductConfigurableForm';
 
 export default function ProductForm(props: IFormProps) {
   const { formType } = props;
@@ -125,7 +125,7 @@ export default function ProductForm(props: IFormProps) {
                 </ResponsiveCol>
               </Row>
               {/* TODO: form attributes for configurable product */}
-              {isConfigurable && (
+              {isConfigurable && formType !== FormType.UPDATE && (
                 <>
                   <Divider orientation="left" plain orientationMargin="0">
                     Configurable Attributes
@@ -159,7 +159,10 @@ export default function ProductForm(props: IFormProps) {
               {formType === FormType.UPDATE && (
                 <>
                   {productData?.data?.type === 'configurable' ? (
-                    <ProductConfigurableForm validationErrors={validationErrors} productData={productData?.data}/>
+                    <ProductConfigurableForm
+                      validationErrors={validationErrors}
+                      productData={productData?.data}
+                    />
                   ) : (
                     <ProductSimpleForm validationErrors={validationErrors} />
                   )}

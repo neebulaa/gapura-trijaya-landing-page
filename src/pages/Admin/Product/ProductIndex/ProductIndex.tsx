@@ -1,8 +1,8 @@
-import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
+import usePageEffect from '@/commons/hooks/usePageEffect';
+import ToggleableLink from '@/commons/utils/ToggleableLink';
 import useProductIndexController from '@/pages/Admin/Product/ProductIndex/ProductIndexController';
 import { RedoOutlined } from '@ant-design/icons';
-import ToggleableLink from '@/commons/utils/ToggleableLink';
-import usePageEffect from '@/commons/hooks/usePageEffect';
+import { Breadcrumb, Button, Card, Col, Input, Row, Space, Table } from 'antd';
 
 export default function ProductIndex() {
   const {
@@ -12,7 +12,7 @@ export default function ProductIndex() {
     productData,
     productDataIsFetching,
     ProductTableProps,
-    handleTableChange
+    handleTableChange,
   } = useProductIndexController();
 
   usePageEffect({
@@ -26,10 +26,7 @@ export default function ProductIndex() {
       <Card>
         <Row className="mb-4">
           <Col md={6} sm={4}>
-            <Input
-              placeholder="Search"
-              onChange={(e) => handleSearch(e.target.value)}
-            />
+            <Input placeholder="Search" onChange={(e) => handleSearch(e.target.value)} />
           </Col>
           <Col md={12} className="px-2">
             <Space>
@@ -49,7 +46,7 @@ export default function ProductIndex() {
         <Row>
           <Col span={24}>
             <Table
-              scroll={{ x: 700}}
+              scroll={{ x: 700 }}
               bordered={true}
               size="small"
               rowKey={(record) => record.id!}
