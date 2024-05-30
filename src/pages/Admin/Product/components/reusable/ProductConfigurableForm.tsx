@@ -16,8 +16,8 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
       <Divider orientation="left" plain orientationMargin="0">
         <span className="text-blue-700">Product Variants</span>
       </Divider>
-      {productData?.variants?.map((variant, _index: number) => (
-        <Row gutter={24}>
+      {productData?.variants?.map((variant, index: number) => (
+        <Row gutter={24} key={index}>
           <FormItem
             label="SKU"
             name={`variants[${variant.id}][id]`}
@@ -54,7 +54,13 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
               rules={[{ required: true }]}
               validationErrors={validationErrors}
             >
-              <Input placeholder="Price" />
+              <InputNumber
+                min={0}
+                // max={10}
+                defaultValue={0}
+                placeholder="Price"
+                className="w-full"
+              />
             </FormItem>
           </ResponsiveCol>
           <ResponsiveCol span={24} md={3}>

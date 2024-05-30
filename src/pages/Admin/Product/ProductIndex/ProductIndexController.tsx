@@ -2,8 +2,9 @@ import ActionButton from '@/commons/components/Button/ActionButton';
 import { separator } from '@/commons/utils/Currency/Currency';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
+import ProductStatusNode from '@/pages/Admin/Product/components/reusable/ProductStatusNode';
 import { useDeleteProduct, useGetProducts } from '@/services/queries/admin/product.query.ts';
-import { QueryParams, sortBy } from '@/types/base';
+import { QueryParams } from '@/types/base';
 import { OutletContextInterface } from '@/types/global/outletContext';
 import { IProduct } from '@/types/product';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
@@ -11,7 +12,6 @@ import { Popconfirm } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
 import { URLSearchParamsInit, useOutletContext, useSearchParams } from 'react-router-dom';
-import ProductStatusNode from '../components/reusable/ProductStatusNode';
 
 export default function useProductIndexController() {
   const { openNotification } = useOutletContext<OutletContextInterface>();
@@ -23,8 +23,8 @@ export default function useProductIndexController() {
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: +(searchParams.get('page') ?? 1),
     limit: +(searchParams.get('limit') ?? 10),
-    orderBy: 'name',
-    sortBy: sortBy.ASC,
+    // orderBy: 'id',
+    // sortBy: sortBy.DESC,
   });
 
   /**
@@ -128,6 +128,9 @@ export default function useProductIndexController() {
       dataIndex: 'sku',
       key: 'sku',
       width: '10%',
+      render: (_: any, record: IProduct) => {
+        return <span className={`${record.parentId === null && 'font-bold'}`}>{record.sku}</span>;
+      },
     },
     {
       title: 'Type',
@@ -142,11 +145,7 @@ export default function useProductIndexController() {
       key: 'name',
       width: '20%',
       render: (_: any, record: IProduct) => {
-        if (record.parentId === null) {
-          return <span className="font-bold">{record.name}</span>;
-        } else {
-          return <span>{record.name}</span>;
-        }
+        return <span className={`${record.parentId === null && 'font-bold'}`}>{record.name}</span>;
       },
     },
     {
