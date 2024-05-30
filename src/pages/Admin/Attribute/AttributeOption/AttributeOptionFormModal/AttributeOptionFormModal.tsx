@@ -9,8 +9,6 @@ export default function AttributeOptionFormModal(props: IAttributeOptionModal) {
    */
   const { modalState, confirmLoading } = props;
 
-  // console.log('props', props);
-
   /**
    * Controller
    */

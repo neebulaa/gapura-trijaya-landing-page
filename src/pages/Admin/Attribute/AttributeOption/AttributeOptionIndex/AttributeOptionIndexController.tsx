@@ -148,10 +148,7 @@ export default function useAttributeOptionIndexController() {
    * Handle Modal: Open
    */
   const handleModalOpen = (type: 'Create' | 'Edit' = 'Create', id?: number) => {
-    // console.log('id: ', id);
-
     // form.resetFields();
-    // setIsModalOpen(true);
     setModalState({
       isOpen: true,
       formMode: type,
@@ -163,7 +160,6 @@ export default function useAttributeOptionIndexController() {
    * Handle Modal: Close
    */
   const handleModalClose = () => {
-    // setIsModalOpen(false);
     setModalState({
       isOpen: false,
       formMode: 'Create',
@@ -174,10 +170,8 @@ export default function useAttributeOptionIndexController() {
    * Handle Modal: Ok
    */
   const handleModalOk = (data: CreateAttributeOptionDto | UpdateAttributeOptionDto) => {
-    // console.log('data: ', data);
-
+    // Create
     if (modalState.formMode === 'Create') {
-      // console.log('create', data);
       mutateCreateAttributeOption(data)
         .then((res) => {
           console.log('res: ', res);
@@ -192,7 +186,7 @@ export default function useAttributeOptionIndexController() {
         });
       return;
     }
-    // console.log('update: ', modalState.attributeOption);
+    // Update
     mutateUpdateAttributeOption(data)
       .then((res) => {
         openNotification({
