@@ -1,12 +1,102 @@
-import { Divider } from 'antd';
+import FormItem from '@/commons/components/Form/FormItem';
+import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
+import { Divider, Form, Input, InputNumber, Row } from 'antd';
 
-export default function ProductSimpleForm() {
+interface IProductSimpleFormProps {
+  validationErrors?: any;
+}
+
+export default function ProductSimpleForm(props: IProductSimpleFormProps) {
+  const { validationErrors } = props;
+
   return (
     <>
       <Divider orientation="left" plain orientationMargin="0">
-        Variants
+        Product Detail
       </Divider>
-      <h1>Product Simple Form</h1>
+      <Row gutter={24}>
+        <ResponsiveCol span={24} md={8}>
+          <FormItem
+            label="Price"
+            name="price"
+            rules={[{ required: true }]}
+            validationErrors={validationErrors}
+          >
+            <InputNumber
+              min={0}
+              // max={10}
+              step={0.1}
+              defaultValue={0}
+              placeholder="Weight"
+              className="w-full"
+              stringMode
+            />
+          </FormItem>
+        </ResponsiveCol>
+        <ResponsiveCol span={24} md={8}>
+          <Form.Item label="Weight" name="weight" rules={[{ required: true }]}>
+            <InputNumber
+              min={0}
+              max={10}
+              step={0.1}
+              defaultValue={0}
+              placeholder="Weight"
+              className="w-full"
+              stringMode
+            />
+          </Form.Item>
+        </ResponsiveCol>
+        <ResponsiveCol span={24} md={8}>
+          <Form.Item label="Qty Stock" name="qty" rules={[{ required: true }]}>
+            <InputNumber
+              min={0}
+              // max={10}
+              defaultValue={0}
+              placeholder="Weight"
+              className="w-full"
+              stringMode
+            />
+          </Form.Item>
+        </ResponsiveCol>
+      </Row>
+      <Row gutter={24}>
+        <ResponsiveCol span={24} md={8}>
+          <Form.Item label="Length" name="length" rules={[{ required: false }]}>
+            <InputNumber
+              min={0}
+              max={10}
+              step={0.1}
+              defaultValue={0}
+              placeholder="Length"
+              className="w-full"
+            />
+          </Form.Item>
+        </ResponsiveCol>
+        <ResponsiveCol span={24} md={8}>
+          <Form.Item label="Width" name="width" rules={[{ required: false }]}>
+            <InputNumber
+              min={0}
+              max={10}
+              step={0.1}
+              defaultValue={0}
+              placeholder="Width"
+              className="w-full"
+            />
+          </Form.Item>
+        </ResponsiveCol>
+        <ResponsiveCol span={24} md={8}>
+          <Form.Item label="Height" name="height" rules={[{ required: false }]}>
+            <InputNumber
+              min={0}
+              max={10}
+              step={0.1}
+              defaultValue={0}
+              placeholder="Height"
+              className="w-full"
+            />
+          </Form.Item>
+        </ResponsiveCol>
+      </Row>
     </>
   );
 }

@@ -20,8 +20,8 @@ export default function useProductIndexController() {
   const [queryParams, setQueryParams] = useState<QueryParams>({
     page: +(searchParams.get('page') ?? 1),
     limit: +(searchParams.get('limit') ?? 10),
-    orderBy: 'id',
-    sortBy: sortBy.DESC,
+    orderBy: 'name',
+    sortBy: sortBy.ASC,
   });
 
   /**

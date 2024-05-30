@@ -45,3 +45,11 @@ export interface SuccessResponse<T> {
   data: T;
   message?: string;
 }
+
+/**
+ * validation errors
+ */
+export interface IValidationErrors {
+  message: string;
+  errors: {} | any;
+}
