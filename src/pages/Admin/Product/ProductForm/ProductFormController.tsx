@@ -166,7 +166,7 @@ export default function useProductFormController(props: IFormProps) {
           variantsData[`variants[${variant.id}][sku]`] = variant.sku;
           variantsData[`variants[${variant.id}][name]`] = variant.name;
           variantsData[`variants[${variant.id}][price]`] = variant.price;
-          variantsData[`variants[${variant.id}][qty]`] = variant.qty;
+          variantsData[`variants[${variant.id}][qty]`] = variant?.productInventory?.qty;
           variantsData[`variants[${variant.id}][weight]`] = variant.weight;
         });
 

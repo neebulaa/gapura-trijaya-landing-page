@@ -67,6 +67,14 @@ export default function AttributeForm(props: IFormProps) {
                   options={(Object.values(AttributeTypeEnum) as string[]).map((type) => ({
                     value: type,
                     label: type.charAt(0).toUpperCase() + type.slice(1),
+                    disabled:
+                      type === AttributeTypeEnum.Datetime ||
+                      type === AttributeTypeEnum.Boolean ||
+                      type === AttributeTypeEnum.Price ||
+                      type === AttributeTypeEnum.Date ||
+                      type === AttributeTypeEnum.Datetime ||
+                      type === AttributeTypeEnum.Textarea ||
+                      type === AttributeTypeEnum.Text,
                   }))}
                 />
               </Form.Item>

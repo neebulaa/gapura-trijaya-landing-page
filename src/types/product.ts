@@ -13,13 +13,13 @@ export interface IProduct extends BaseModel {
   width: null;
   height: null;
   length: null;
-  qty?: null;
   shortDescription: string;
   description: string;
   status: number;
   categories: ICategory[];
   images: any[];
   variants?: IProduct[];
+  productInventory?: IProductInventory | any;
 }
 
 export interface CreateProductDto extends IProduct {}
@@ -29,12 +29,16 @@ export interface ProductQueryParams extends QueryParams {
   isConfigurable?: boolean;
 }
 
-export interface IProductVariant {
-  id: string;
+export interface IProductVariant extends BaseModel {
   sku: string;
   name: string;
   price: number;
-  qty: number;
   weight: number;
   status: number;
+}
+
+export interface IProductInventory extends BaseModel {
+  qty: number;
+  productId: string;
+  variantId: string;
 }
