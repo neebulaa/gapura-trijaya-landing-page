@@ -2,7 +2,7 @@ import ActionButton from '@/commons/components/Button/ActionButton';
 import { separator } from '@/commons/utils/Currency/Currency';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
-import ProductStatusNode from '@/pages/Admin/Product/components/reusable/ProductStatusNode';
+import ProductStatusNode from '@/pages/Admin/Product/ProductForm/components/reusable/ProductStatusNode';
 import { useDeleteProduct, useGetProducts } from '@/services/queries/admin/product.query.ts';
 import { QueryParams } from '@/types/base';
 import { OutletContextInterface } from '@/types/global/outletContext';
