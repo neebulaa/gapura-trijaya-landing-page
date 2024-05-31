@@ -2,6 +2,8 @@ import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } 
 // import { redirect } from 'react-router-dom';
 import useAuthStore from '@/commons/store/useAuthStore';
 import { getCookie, removeCookie } from './cookieStorage';
+import { removeItem } from './localStorage';
+import useUserStore from '../store/useUserStore';
 
 export interface ConsoleError {
   status: number;
@@ -28,12 +30,18 @@ export const successInterceptor = (response: AxiosResponse): AxiosResponse => {
 };
 
 export const errorInterceptor = async (error: AxiosError): Promise<void> => {
+  // NOTE: Redirect to login page if token is expired
+  // 401: Unauthorized
   if (error.response?.status === 401) {
+    const { setIsAuthenticated } = useAuthStore.getState();
+    const { setUserData } = useUserStore.getState();
+
+    setIsAuthenticated(false, null);
+    setUserData(null);
+
     removeCookie('token');
     removeCookie('isAuthenticated');
-
-    const { setIsAuthenticated } = useAuthStore.getState();
-    setIsAuthenticated(false, null);
+    removeItem('userData');
 
     await Promise.reject(error);
     // redirect('/login');

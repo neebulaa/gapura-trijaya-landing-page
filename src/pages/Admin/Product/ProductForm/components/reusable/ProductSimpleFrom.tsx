@@ -1,6 +1,6 @@
 import FormItem from '@/commons/components/Form/FormItem';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
-import { Divider, Form, Input, InputNumber, Row } from 'antd';
+import { Divider, Form, InputNumber, Row } from 'antd';
 
 interface IProductSimpleFormProps {
   validationErrors?: any;

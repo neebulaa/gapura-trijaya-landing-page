@@ -11,7 +11,8 @@ import { AdminRoutes } from '@/routes/Admin';
 import PrivateRoute from '@/routes/PrivateRoute';
 
 const Home = lazy(() => import('@/pages/Home/Home'));
-const Login = lazy(() => import('@/pages/Login/Login'));
+const Login = lazy(() => import('@/pages/Auth/Login'));
+const Register = lazy(() => import('@/pages/Auth/Register'));
 const Shop = lazy(() => import('@/pages/Shop/Shop'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 
@@ -34,6 +35,16 @@ const router = createBrowserRouter([
           <>
             {/* <PublicRoute> */}
             <Suspense fallback={<RouteLoaderV2 />} children={<Login />} />
+            {/* </PublicRoute> */}
+          </>
+        ),
+      },
+      {
+        path: '/register',
+        element: (
+          <>
+            {/* <PublicRoute> */}
+            <Suspense fallback={<RouteLoaderV2 />} children={<Register />} />
             {/* </PublicRoute> */}
           </>
         ),
