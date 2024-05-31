@@ -1,10 +1,23 @@
 import IconCart from '@/commons/assets/icons/IconCart';
 import IconChevronDown from '@/commons/assets/icons/IconChevronDown';
 import IconSearch from '@/commons/assets/icons/IconSearch';
+import CartPopUp from '@/commons/components/Public/CartPopUp';
+import { removeCookie } from '@/commons/lib/cookieStorage';
+import { removeItem } from '@/commons/lib/localStorage';
+import useAuthStore from '@/commons/store/useAuthStore';
+import useUserStore from '@/commons/store/useUserStore';
+import { isSuperAdmin } from '@/commons/utils/Abilities/UserPersistent';
+import { logout } from '@/services/api/auth.service';
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 export default function LayoutNavbar() {
+  const navigate = useNavigate();
+
+  /**
+   * State
+   */
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
   const [openNavProfileDropdown, setOpenNavProfileDropdown] = useState<boolean>(false);
@@ -13,8 +26,31 @@ export default function LayoutNavbar() {
     return window.innerWidth <= 768;
   });
 
-  const user = null;
+  /**
+   * State Store
+   */
+  const { userData, setUserData } = useUserStore((state) => state);
+  const { setIsAuthenticated } = useAuthStore((state) => state);
 
+  /**
+   * Handle Logout
+   */
+  const handleLogout = () => {
+    logout().then((_res) => {
+      message.info('You have been logged out');
+      removeCookie('token');
+      removeCookie('isAuthenticated');
+      removeItem('userData');
+
+      setUserData(null);
+      setIsAuthenticated(false, null);
+      navigate('/');
+    });
+  };
+
+  /**
+   * Effects
+   */
   useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 0) {
@@ -63,7 +99,7 @@ export default function LayoutNavbar() {
                     Shop
                   </NavLink>
                 </li>
-                {user && (
+                {userData && (
                   <li>
                     <NavLink to="my-poin" onClick={() => setOpenSidebar(false)}>
                       My poin
@@ -88,8 +124,8 @@ export default function LayoutNavbar() {
                     </div>
                   )}
 
-                  {openCartPopup}
-                  {/* {openCartPopup && <CartPopup close={() => setOpenCartPopup(false)} />} */}
+                  {/* {openCartPopup} */}
+                  {openCartPopup && <CartPopUp close={() => setOpenCartPopup(false)} />}
 
                   {isMobile && (
                     <Link to="/cart" onClick={() => setOpenSidebar(false)}>
@@ -97,14 +133,14 @@ export default function LayoutNavbar() {
                     </Link>
                   )}
                 </li>
-                {!user && (
+                {!userData && (
                   <li>
                     <Link to="/login" onClick={() => setOpenSidebar(false)}>
                       <button className="btn">Login</button>
                     </Link>
                   </li>
                 )}
-                {user && (
+                {userData && (
                   <li
                     className="nav-profile"
                     onClick={() => setOpenNavProfileDropdown((prev) => !prev)}
@@ -125,8 +161,14 @@ export default function LayoutNavbar() {
                         }}
                       >
                         <Link to="/profile">Profile</Link>
-                        <a href="">Dashboard</a> {/* for admin */}
-                        <button onClick={() => console.log('logout')}>Logout</button>
+                        {/* Admin Dashboard */}
+                        {/* {userData?.roles?.includes('SuperAdmin') && (
+                          <Link to="/admin">Dashboard</Link>
+                        )} */}
+                        {isSuperAdmin() && <Link to="/admin">Dashboard</Link>}
+                        <button className="pl-0" onClick={handleLogout}>
+                          Logout
+                        </button>
                       </div>
                     )}
                   </li>

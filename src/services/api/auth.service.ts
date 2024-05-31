@@ -10,3 +10,8 @@ export const me = async (): Promise<any> => {
   const response = await api.post<any>('/v1/auth/me');
   return response.data;
 };
+
+export const logout = async (): Promise<any> => {
+  const response = await api.post<any>('/v1/auth/logout');
+  return response.data;
+};

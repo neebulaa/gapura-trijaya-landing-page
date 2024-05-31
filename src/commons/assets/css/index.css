@@ -294,18 +294,22 @@ button {
 	overflow: hidden;
 }
 
-.nav-profile-dropdown a {
+.nav-profile-dropdown a,
+.nav-profile-dropdown button {
 	padding: 1rem;
 	background: white;
 	transition: .3s;
+	text-align: start;
 }
 
-.nav-profile-dropdown a:hover {
+.nav-profile-dropdown a:hover,
+.nav-profile-dropdown button:hover {
 	background: var(--primary);
 	color: white;
 }
 
-.nav-profile-dropdown a:not(:last-child) {
+.nav-profile-dropdown a:not(:last-child),
+.nav-profile-dropdown button:not(:last-child) {
 	border-bottom: 1px solid var(--light-gray);
 }
 
@@ -1922,3 +1926,15 @@ button {
 
 /* checkout success end */
 /* CHECKOUT PAGE END */
+
+/** ANT OVERRIDE **/
+.login-form .ant-btn-primary {
+	/* box-shadow: 0 2px 0 rgba(0, 15, 24, 0.55); */
+	box-shadow: none !important;
+}
+
+/** CUSTOM **/
+.nav-info ul li:nth-child(2):hover {
+	color: rgb(59 130 246 / 0.5);
+	cursor: pointer;
+}

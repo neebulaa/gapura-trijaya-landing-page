@@ -1,5 +1,7 @@
 import { removeCookie } from '@/commons/lib/cookieStorage';
+import { removeItem } from '@/commons/lib/localStorage';
 import useAuthStore from '@/commons/store/useAuthStore';
+import useUserStore from '@/commons/store/useUserStore';
 import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Layout, MenuProps, Space, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -29,9 +31,13 @@ const HeaderMenuItems: MenuProps['items'] = [
       message.info('You have been logged out');
       removeCookie('token');
       removeCookie('isAuthenticated');
+      removeItem('userData');
 
       const { setIsAuthenticated } = useAuthStore.getState();
       setIsAuthenticated(false, null);
+
+      const { setUserData } = useUserStore.getState();
+      setUserData(null);
     },
   },
 ];
