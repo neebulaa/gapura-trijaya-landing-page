@@ -46,6 +46,11 @@ export default function Login() {
     } catch (err: any) {
       if (err?.response && err?.response.status === 422) {
         setValidationErrors(err.response.data);
+        return;
+      }
+      if (err?.response && err?.response.status === 401) {
+        setErrorResponse(err.response.data.message);
+        return;
       }
       message.error('Oops! Something went wrong. Please try again.');
       console.log('error auth: ', err);
