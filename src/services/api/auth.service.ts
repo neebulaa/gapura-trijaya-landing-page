@@ -1,5 +1,5 @@
 import { api } from '@/commons/lib/api';
-import { AuthDto } from '@/types/auth';
+import { AuthDto, RegisterDto } from '@/types/auth';
 
 export const login = async (authDto: AuthDto): Promise<any> => {
   const response = await api.post<any>('/v1/auth/login', authDto);
@@ -8,6 +8,11 @@ export const login = async (authDto: AuthDto): Promise<any> => {
 
 export const me = async (): Promise<any> => {
   const response = await api.post<any>('/v1/auth/me');
+  return response.data;
+};
+
+export const register= async (registerDto: RegisterDto): Promise<any> => {
+  const response = await api.post<any>('/v1/auth/register', registerDto);
   return response.data;
 };
 

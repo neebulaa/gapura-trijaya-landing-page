@@ -149,7 +149,7 @@ export default function LayoutNavbar() {
                       src={`${import.meta.env.VITE_APP_URL}./images/people/people1.png`}
                       alt={`${import.meta.env.VITE_APP_NAME} - people 1`}
                     />
-                    <p>{`Username`}</p>
+                    <p>{`${userData?.name}`}</p>
                     <IconChevronDown width="20" height="20" />
 
                     {openNavProfileDropdown && (

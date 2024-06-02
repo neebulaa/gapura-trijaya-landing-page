@@ -10,19 +10,19 @@ p {
 	line-height: 1.2;
 }
 
-/* select,
-input,
-textarea,
-.input {
+.tj select,
+.tj input,
+.tj textarea,
+.tj .input {
 	outline: none;
 	color: var(--gray);
 	border-radius: 5px;
 	padding: 0.8rem !important;
 	border: 1px solid var(--light-gray);
 	font-size: 0.9rem;
-} */
+}
 
-textarea {
+.tj textarea {
 	resize: none;
 }
 
@@ -1928,10 +1928,13 @@ button {
 /* CHECKOUT PAGE END */
 
 /** ANT OVERRIDE **/
+.register-form .ant-btn-primary,
 .login-form .ant-btn-primary {
 	/* box-shadow: 0 2px 0 rgba(0, 15, 24, 0.55); */
 	box-shadow: none !important;
 }
+
+/* END OF ANT OVERRIDE */
 
 /** CUSTOM **/
 .nav-info ul li:nth-child(2):hover {
