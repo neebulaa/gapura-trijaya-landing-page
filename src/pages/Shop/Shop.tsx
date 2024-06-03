@@ -1,9 +1,11 @@
+import PageHeader from '@/commons/components/Layout/HomeLayout/PageHeader';
+import Catalog from '@/pages/Shop/Catalog/Catalog';
+
 export default function Shop() {
   return (
     <>
-      <section className="container">
-        <h1 className="text-2xl">Shop</h1>
-      </section>
+      <PageHeader title="Katalog" navigations={['Home', 'Shop']} />
+      <Catalog />
     </>
   );
 }

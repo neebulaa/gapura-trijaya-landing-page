@@ -5,15 +5,16 @@ import NotFound from '@/commons/components/Public/NotFound';
 import RouteLoader from '@/commons/components/RouteLoader';
 import RouteLoaderV2 from '@/commons/components/RouteLoaderV2';
 import Dashboard from '@/pages/Dashboard/Dashboard';
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdminRoutes } from '@/routes/Admin';
 import PrivateRoute from '@/routes/PrivateRoute';
+import { lazy, Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const Home = lazy(() => import('@/pages/Home/Home'));
 const Login = lazy(() => import('@/pages/Auth/Login'));
 const Register = lazy(() => import('@/pages/Auth/Register'));
 const Shop = lazy(() => import('@/pages/Shop/Shop'));
+const ShopDetail = lazy(() => import('@/pages/Shop/ShopDetail/ShopDetail'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 
 const router = createBrowserRouter([
@@ -54,6 +55,14 @@ const router = createBrowserRouter([
         element: (
           <>
             <Suspense fallback={<RouteLoaderV2 />} children={<Shop />} />
+          </>
+        ),
+      },
+      {
+        path: '/shop/:slug',
+        element: (
+          <>
+            <Suspense fallback={<RouteLoaderV2 />} children={<ShopDetail />} />
           </>
         ),
       },
