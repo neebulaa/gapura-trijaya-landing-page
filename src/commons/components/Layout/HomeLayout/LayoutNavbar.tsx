@@ -162,9 +162,10 @@ export default function LayoutNavbar() {
                       >
                         <Link to="/profile">Profile</Link>
                         {/* Admin Dashboard */}
-                        {/* {userData?.roles?.includes('SuperAdmin') && (
+                        {userData?.roles?.includes('SuperAdmin') ||
+                        userData?.roles?.includes('Admin') ? (
                           <Link to="/admin">Dashboard</Link>
-                        )} */}
+                        ) : null}
                         {isSuperAdmin() && <Link to="/admin">Dashboard</Link>}
                         <button className="pl-0" onClick={handleLogout}>
                           Logout
