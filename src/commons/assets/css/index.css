@@ -1929,6 +1929,7 @@ button {
 
 /** ANT OVERRIDE **/
 .register-form .ant-btn-primary,
+.contact-form .ant-btn-primary,
 .login-form .ant-btn-primary {
 	/* box-shadow: 0 2px 0 rgba(0, 15, 24, 0.55); */
 	box-shadow: none !important;

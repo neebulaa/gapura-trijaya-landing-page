@@ -13,7 +13,7 @@ import { OutletContextInterface } from '@/types/global/outletContext';
 import { IProduct, ProductQueryParams } from '@/types/product';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import { useNavigate, useOutletContext, useParams } from 'react-router-dom';
 
 export default function useProductDetailFormController(props: IFormProps) {
   const { formType } = props;

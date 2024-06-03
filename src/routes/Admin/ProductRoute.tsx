@@ -1,10 +1,9 @@
 import RouteLoader from '@/commons/components/RouteLoader';
+import { FormType } from '@/types/global/form.ts';
 import { lazy, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { FormType } from '@/types/global/form.ts';
 
 const ProductIndex = lazy(() => import('@/pages/Admin/Product/ProductIndex/ProductIndex'));
-const ProductForm = lazy(() => import('@/pages/Admin/Product/ProductForm/components/ProductDetailForm/ProductDetailForm'));
 const ProductTabMenu = lazy(() => import('@/pages/Admin/Product/ProductForm/ProductForm'));
 
 export const ProductRoutes: RouteObject[] = [
@@ -31,7 +30,6 @@ export const ProductRoutes: RouteObject[] = [
         path: 'create',
         element: (
           <Suspense fallback={<RouteLoader />}>
-            {/* <ProductForm formType={FormType.CREATE} /> */}
             <ProductTabMenu formType={FormType.CREATE} />
           </Suspense>
         ),
@@ -40,7 +38,6 @@ export const ProductRoutes: RouteObject[] = [
         path: ':id/edit',
         element: (
           <Suspense fallback={<RouteLoader />}>
-            {/* <ProductForm formType={FormType.UPDATE} /> */}
             <ProductTabMenu formType={FormType.UPDATE} />
           </Suspense>
         ),
