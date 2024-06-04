@@ -1,7 +1,8 @@
 import {
-    FolderOutlined,
-    PieChartOutlined,
-    UserOutlined
+  FolderOutlined,
+  PieChartOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { MenuProps } from 'antd';
 
@@ -34,5 +35,9 @@ export const NavigationItems: MenuItem[] = [
     getItem('Category', 'categories', null),
     getItem('Attribute', 'attributes', null),
   ]),
-  getItem('User', 'user', <UserOutlined />),
+  getItem('Order', 'order', <ShoppingCartOutlined />, [
+    getItem('Order', 'order', null),
+    getItem('Shipment', 'shipment', null),
+  ]),
+  getItem('User', 'users', <UserOutlined />),
 ];

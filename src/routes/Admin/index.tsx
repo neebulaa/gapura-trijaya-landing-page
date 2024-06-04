@@ -1,9 +1,10 @@
 import RouteLoader from '@/commons/components/RouteLoader';
+import { AttributeRoutes } from '@/routes/Admin/AttributeRoute';
 import { CategoryRoutes } from '@/routes/Admin/CategoryRoute';
 import { ProductRoutes } from '@/routes/Admin/ProductRoute';
+import { UserRoutes } from '@/routes/Admin/UserRoute';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
-import { AttributeRoutes } from './AttributeRoute';
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard/DashboardIndex'));
 
@@ -23,6 +24,7 @@ export const AdminRoutes: RouteObject[] = [
       ...CategoryRoutes,
       ...ProductRoutes,
       ...AttributeRoutes,
+      ...UserRoutes,
       {
         path: '*',
         element: (
