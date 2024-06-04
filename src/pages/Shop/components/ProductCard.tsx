@@ -1,11 +1,12 @@
 import IconHeart from '@/commons/assets/icons/IconHeart';
 import IconHeartOutline from '@/commons/assets/icons/IconHeartOutline';
+import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import { IProduct } from '@/types/product';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function ProductCard(props?: IProduct) {
+export default function ProductCard(props: IProduct) {
   const { id, name, price, slug, images } = props;
 
   /**
@@ -19,9 +20,9 @@ export default function ProductCard(props?: IProduct) {
       <Link to={`/shop/${props?.slug}`} className="card-as-link">
         <article className="card">
           <div className="card-thumb">
-            {props.images ? (
+            {images && images.length ? (
               <img
-                src={`${props?.images && props.images.length && props.images[0].path}`}
+                src={`${ApiImgUrl(images[0].medium)}`}
                 alt={`${import.meta.env.VITE_APP_NAME} - ` + props?.name}
               />
             ) : (

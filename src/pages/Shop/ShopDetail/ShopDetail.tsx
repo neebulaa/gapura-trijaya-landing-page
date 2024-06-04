@@ -1,20 +1,25 @@
 import PageHeaderNav from '@/commons/components/Layout/HomeLayout/PageHeaderNav';
-import { useParams } from 'react-router-dom';
-import ShopDetailForm from '@/pages/Shop/ShopDetailForm/ShopDetailForm';
-import ShopDetailGallery from '@/pages/Shop/ShopDetailGallery/ShopDetailGallery';
+import ShopDetailForm from '@/pages/Shop/ShopDetail/components/ShopDetailForm/ShopDetailForm';
+import ShopDetailGallery from '@/pages/Shop/ShopDetail/components/ShopDetailGallery/ShopDetailGallery';
+import useShopDetailController from './ShopDetailController';
 
 export default function ShopDetail() {
-  const { category = 'Pelakat', slug = '' } = useParams();
+  const { productDetailData, productDetailDataIsFetching, productDetailDataIsRefetch } =
+    useShopDetailController();
 
   return (
     <>
-      <PageHeaderNav navigations={['Home', 'Shop', category, 'Product ABC']} />
+      <PageHeaderNav navigations={['Home', 'Shop', 'Product ABC']} />
       <section className="container mt-1">
         <section id="shop-product-detail">
           {/* <ShopProductDetailGallery images={product.images!} />
           <ShopProductDetailForm product={product} category={category} /> */}
-          <ShopDetailGallery images={[`/noimg.png`]} />
-          <ShopDetailForm />
+          <ShopDetailGallery images={productDetailData?.data?.images} />
+          <ShopDetailForm
+            productDetailData={productDetailData?.data!}
+            isPending={productDetailDataIsFetching}
+            refetch={productDetailDataIsRefetch}
+          />
         </section>
         <section
           style={{

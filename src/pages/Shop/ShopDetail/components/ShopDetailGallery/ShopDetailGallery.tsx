@@ -1,12 +1,14 @@
+// ShopDetailGallery.tsx
 import IconChevronLeft from '@/commons/assets/icons/IconChevronLeft';
 import IconChevronRight from '@/commons/assets/icons/IconChevronRight';
+import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { BaseModel } from '@/types/base';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import useShopDetailGalleryController from '@/pages/Shop/ShopDetail/components/ShopDetailGallery/ShopDetailGalleryController';
 
 export interface ImageType extends BaseModel {
   productId: null | string | number;
-  path: null | string;
-  secondary: number | boolean;
+  path: string;
+  secondary: boolean;
   extraLarge: null | string;
   large: null | string;
   medium: null | string;
@@ -18,42 +20,24 @@ type ShopDetailGalleryProps = {
 };
 
 export default function ShopDetailGallery({ images = [] }: ShopDetailGalleryProps) {
-  const [highlightedImage, setHighlightedImage] = useState<ImageType>(() =>
-    images.length ? images[0] : ({} as ImageType)
-  );
-  const [isMobile, setIsMobile] = useState(() => {
-    return window.innerWidth <= 768;
-  });
-
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= 768);
-    }
-
-    addEventListener('resize', handleResize);
-  }, []);
-
-  /** Get Element Prodpertgy */
-  const getElementProperty = (el: HTMLElement, prop: string) => {
-    const value = getComputedStyle(el).getPropertyValue(prop);
-    return value;
-  };
-
-  const gallery = useRef<HTMLElement>(null);
-  const subsCount = 4;
-
-  const [index, setIndex] = useState(0);
-  const maxIndex = useMemo(() => {
-    const n = images.length;
-    return n <= subsCount ? 0 : Math.ceil((n - subsCount) / 2);
-  }, [images, gallery]);
+  const {
+    highlightedImage,
+    setHighlightedImage,
+    isMobile,
+    gallery,
+    subsCount,
+    index,
+    setIndex,
+    maxIndex,
+    getElementProperty,
+  } = useShopDetailGalleryController(images);
 
   return (
     <>
       <section className="shop-product-detail-gallery" ref={gallery}>
         <div className="main">
           <img
-            src={`/noimg.png`}
+            src={ApiImgUrl(highlightedImage.path)}
             alt={`${import.meta.env.VITE_APP_NAME} - ${highlightedImage.path}`}
           />
         </div>
@@ -105,11 +89,11 @@ export default function ShopDetailGallery({ images = [] }: ShopDetailGalleryProp
                     {images.slice(i * subsCount, (i + 1) * subsCount).map((image) => (
                       <div
                         key={image.id}
-                        className="sub"
+                        className="sub cursor-pointer"
                         onClick={() => setHighlightedImage(image)}
                       >
                         <img
-                          src={`/noimg.png`}
+                          src={ApiImgUrl(image.path)}
                           alt={`${import.meta.env.VITE_APP_NAME} - ${image.id}`}
                         />
                       </div>
@@ -124,7 +108,7 @@ export default function ShopDetailGallery({ images = [] }: ShopDetailGalleryProp
               {images.map((image) => (
                 <div key={image.id} className="sub" onClick={() => setHighlightedImage(image)}>
                   <img
-                    src={`/noimg.png`}
+                    src={ApiImgUrl(image.path)}
                     alt={`${import.meta.env.VITE_APP_NAME} - ${image.id}`}
                   />
                 </div>

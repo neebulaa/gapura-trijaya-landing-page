@@ -1,7 +1,7 @@
 import IconGrid from '@/commons/assets/icons/IconGrid';
 import IconList from '@/commons/assets/icons/IconList';
-import useCatalogController from './CatalogController';
-import ProductCard from '../components/ProductCard';
+import useCatalogController from '@/pages/Shop/Catalog/CatalogController';
+import ProductCard from '@/pages/Shop/components/ProductCard';
 import { Pagination } from 'antd';
 
 // const MAX_PAGE_ON_PAGINATION = 5;
