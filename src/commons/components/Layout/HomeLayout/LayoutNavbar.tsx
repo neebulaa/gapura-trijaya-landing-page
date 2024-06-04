@@ -6,7 +6,6 @@ import { removeCookie } from '@/commons/lib/cookieStorage';
 import { removeItem } from '@/commons/lib/localStorage';
 import useAuthStore from '@/commons/store/useAuthStore';
 import useUserStore from '@/commons/store/useUserStore';
-import { isSuperAdmin } from '@/commons/utils/Abilities/UserPersistent';
 import { logout } from '@/services/api/auth.service';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';

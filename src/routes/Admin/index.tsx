@@ -7,6 +7,7 @@ import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard/DashboardIndex'));
+const Profile = lazy(() => import('@/pages/Admin/Profile/ProfileIndex'));
 
 export const AdminRoutes: RouteObject[] = [
   {
@@ -25,6 +26,14 @@ export const AdminRoutes: RouteObject[] = [
       ...ProductRoutes,
       ...AttributeRoutes,
       ...UserRoutes,
+      {
+        path: 'profile',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <Profile />
+          </Suspense>
+        ),
+      },
       {
         path: '*',
         element: (

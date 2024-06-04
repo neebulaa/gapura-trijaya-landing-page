@@ -14,34 +14,6 @@ const { Header } = Layout;
 //   message.info(`Click on item ${key}`);
 // };
 
-const HeaderMenuItems: MenuProps['items'] = [
-  {
-    label: 'Profile',
-    key: 'profile',
-    icon: <UserOutlined />,
-    onClick: () => {
-      message.info('Click on Profile');
-    },
-  },
-  {
-    label: 'Logout',
-    key: 'logout',
-    icon: <LogoutOutlined />,
-    onClick: () => {
-      message.info('You have been logged out');
-      removeCookie('token');
-      removeCookie('isAuthenticated');
-      removeItem('userData');
-
-      const { setIsAuthenticated } = useAuthStore.getState();
-      setIsAuthenticated(false, null);
-
-      const { setUserData } = useUserStore.getState();
-      setUserData(null);
-    },
-  },
-];
-
 /**
  * Type
  */
@@ -57,6 +29,41 @@ export default function LayoutHeader(props: HeaderProps) {
   const { collapsed, index, logo, title, prevRoute } = props;
   const navigate = useNavigate();
 
+  /**
+   * Header Menu Items
+   */
+  const HeaderMenuItems: MenuProps['items'] = [
+    {
+      label: 'Profile',
+      key: 'profile',
+      icon: <UserOutlined />,
+      onClick: () => {
+        // message.info('Click on Profile');
+        navigate('/admin/profile');
+      },
+    },
+    {
+      label: 'Logout',
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      onClick: () => {
+        message.info('You have been logged out');
+        removeCookie('token');
+        removeCookie('isAuthenticated');
+        removeItem('userData');
+
+        const { setIsAuthenticated } = useAuthStore.getState();
+        setIsAuthenticated(false, null);
+
+        const { setUserData } = useUserStore.getState();
+        setUserData(null);
+      },
+    },
+  ];
+
+  /**
+   * Handlers
+   */
   const handleNavigate = () => {
     navigate(prevRoute!);
   };

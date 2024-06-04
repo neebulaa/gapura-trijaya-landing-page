@@ -1,6 +1,6 @@
-import { create } from 'zustand';
+import { getItem, setItem } from '@/commons/lib/localStorage';
 import { logger } from '@/commons/store/logger';
-import { setItem } from '@/commons/lib/localStorage';
+import { create } from 'zustand';
 
 interface UserDataStore {
   userData: any;
@@ -12,10 +12,15 @@ interface UserDataStore {
 //   setUserData: (userData) => set(() => ({ userData })),
 // }));
 
+const initialState: Pick<UserDataStore, keyof UserDataStore> = {
+  userData: getItem('userData') ?? null,
+  setUserData: () => {},
+};
+
 const useUserStore = create<UserDataStore>()(
   logger<UserDataStore>(
     (set) => ({
-      userData: null,
+      ...initialState,
       setUserData: (userData) => {
         set(() => ({ userData }));
         setItem('userData', userData);
