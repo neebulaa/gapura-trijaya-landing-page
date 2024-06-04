@@ -2,10 +2,8 @@ import IconCart from '@/commons/assets/icons/IconCart';
 import IconChevronDown from '@/commons/assets/icons/IconChevronDown';
 import IconSearch from '@/commons/assets/icons/IconSearch';
 import CartPopUp from '@/commons/components/Public/CartPopUp';
-import { removeCookie } from '@/commons/lib/cookieStorage';
-import { removeItem } from '@/commons/lib/localStorage';
-import useAuthStore from '@/commons/store/useAuthStore';
 import useUserStore from '@/commons/store/useUserStore';
+import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
 import { logout } from '@/services/api/auth.service';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -24,12 +22,7 @@ export default function LayoutNavbar() {
   const [isMobile, setIsMobile] = useState(() => {
     return window.innerWidth <= 768;
   });
-
-  /**
-   * State Store
-   */
-  const { userData, setUserData } = useUserStore((state) => state);
-  const { setIsAuthenticated } = useAuthStore((state) => state);
+  const { userData } = useUserStore((state) => state);
 
   /**
    * Handle Logout
@@ -37,12 +30,7 @@ export default function LayoutNavbar() {
   const handleLogout = () => {
     logout().then((_res) => {
       message.info('You have been logged out');
-      removeCookie('token');
-      removeCookie('isAuthenticated');
-      removeItem('userData');
-
-      setUserData(null);
-      setIsAuthenticated(false, null);
+      LogoutUserSession();
       navigate('/');
     });
   };

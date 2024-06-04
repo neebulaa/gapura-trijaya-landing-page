@@ -3,20 +3,32 @@ import { removeItem } from '@/commons/lib/localStorage';
 import useAuthStore from '@/commons/store/useAuthStore';
 import useUserStore from '@/commons/store/useUserStore';
 
-export function UserSessionPersistent() {
-  const { setUserData } = useUserStore((state) => state);
-  const { setIsAuthenticated } = useAuthStore((state) => state);
+// export function UserSessionPersistent() {
+//   const { setUserData } = useUserStore((state) => state);
+//   const { setIsAuthenticated } = useAuthStore((state) => state);
 
-  const LogoutUser = () => {
-    removeCookie('token');
-    removeCookie('isAuthenticated');
-    removeItem('userData');
+//   const LogoutUser = () => {
+//     removeCookie('token');
+//     removeCookie('isAuthenticated');
+//     removeItem('userData');
 
-    setUserData(null);
-    setIsAuthenticated(false, null);
-  };
+//     setUserData(null);
+//     setIsAuthenticated(false, null);
+//   };
 
-  return {
-    LogoutUser,
-  };
+//   return {
+//     LogoutUser,
+//   };
+// }
+
+export function LogoutUserSession() {
+  const { setIsAuthenticated } = useAuthStore.getState();
+  const { setUserData } = useUserStore.getState();
+
+  setIsAuthenticated(false, null);
+  setUserData(null);
+
+  removeCookie('token');
+  removeCookie('isAuthenticated');
+  removeItem('userData');
 }

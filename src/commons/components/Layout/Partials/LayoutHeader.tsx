@@ -1,7 +1,4 @@
-import { removeCookie } from '@/commons/lib/cookieStorage';
-import { removeItem } from '@/commons/lib/localStorage';
-import useAuthStore from '@/commons/store/useAuthStore';
-import useUserStore from '@/commons/store/useUserStore';
+import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
 import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Layout, MenuProps, Space, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -48,15 +45,7 @@ export default function LayoutHeader(props: HeaderProps) {
       icon: <LogoutOutlined />,
       onClick: () => {
         message.info('You have been logged out');
-        removeCookie('token');
-        removeCookie('isAuthenticated');
-        removeItem('userData');
-
-        const { setIsAuthenticated } = useAuthStore.getState();
-        setIsAuthenticated(false, null);
-
-        const { setUserData } = useUserStore.getState();
-        setUserData(null);
+        LogoutUserSession();
       },
     },
   ];
