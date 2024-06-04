@@ -166,7 +166,6 @@ export default function LayoutNavbar() {
                         userData?.roles?.includes('Admin') ? (
                           <Link to="/admin">Dashboard</Link>
                         ) : null}
-                        {isSuperAdmin() && <Link to="/admin">Dashboard</Link>}
                         <button className="pl-0" onClick={handleLogout}>
                           Logout
                         </button>

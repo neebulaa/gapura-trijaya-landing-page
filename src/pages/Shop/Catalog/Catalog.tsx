@@ -19,6 +19,7 @@ export default function Catalog() {
     productsData,
     productsDataIsFetching,
     getProducts,
+    handleProductCatalogPageChange,
   } = useCatalogController();
 
   return (
@@ -80,9 +81,13 @@ export default function Catalog() {
       <section className="catalog-products">
         <section className="catalog-filters-horizontal flex gap-1 items-center">
           <p>
-            Showing page {1} - {5} of {30} results
+            Showing page {productQueryParams?.page} - {productQueryParams?.limit} of {productsData?.meta?.total} results
           </p>
-          <select id="catalog-sort" className="tj" onChange={() => console.log('sort product')}>
+          <select
+            id="catalog-sort"
+            className="p-[.6rem] rounded-lg"
+            onChange={() => console.log('sort product')}
+          >
             <option value="a-z">Alphabetical - A to Z</option>
             <option value="z-a">Alphabetical - Z to A</option>
             <option value="pl-ph">Price - Low to High</option>
@@ -110,9 +115,13 @@ export default function Catalog() {
             : productsData.data!.map((product) => <ProductCard key={product.id} {...product} />)}
         </section>
         {/* Pagination */}
-        <div className="my-5 float-end">
-          <Pagination defaultCurrent={1} total={50} />
-        </div>
+        <Pagination
+          className="my-5 float-end"
+          defaultCurrent={productsData?.meta.currentPage}
+          total={productsData?.meta.total}
+          pageSize={productQueryParams.limit}
+          onChange={handleProductCatalogPageChange}
+        />
       </section>
     </section>
   );

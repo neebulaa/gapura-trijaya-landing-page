@@ -10,10 +10,10 @@ p {
 	line-height: 1.2;
 }
 
-.tj select,
-.tj input,
-.tj textarea,
-.tj .input {
+.tj-select,
+.tj-input,
+.tj-textarea,
+.tj-input {
 	outline: none;
 	color: var(--gray);
 	border-radius: 5px;
@@ -22,7 +22,7 @@ p {
 	font-size: 0.9rem;
 }
 
-.tj textarea {
+.tj-textarea {
 	resize: none;
 }
 

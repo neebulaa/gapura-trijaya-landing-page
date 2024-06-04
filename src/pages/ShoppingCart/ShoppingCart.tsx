@@ -9,7 +9,6 @@ import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckbox
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
 
 export default function ShoppingCart() {
-
   const {} = useShoppingCartController();
 
   return (
@@ -105,17 +104,17 @@ export default function ShoppingCart() {
 									TRJ00001 (-5%)
 								</div> */}
                 <IconCoupon width="24" height="24" className="ml-1" />
-                <input placeholder="Enter Voucher" type="text" />
-                <p className="highlight semibold ml-auto mr-1">Apply</p>
+                <input placeholder="Enter Voucher" type="text" className="tj-input" />
+                <p className="highlight semibold ml-auto mr-1 cursor-pointer">Apply</p>
               </div>
             </div>
             <div className="card-bordered">
               <h2 className="mb-1">Apply your coin</h2>
               <div className="input-icon">
                 <IconPoin width="24" height="24" className="ml-1" />
-                <p className="tj-input">8022 Poins</p>
+                <p className="tj-input border-none">8022 Poins</p>
                 <p className="ml-auto mr-1">
-                  <ToggleCheckboxButton />
+                  <ToggleCheckboxButton className="cursor-pointer" />
                 </p>
               </div>
             </div>
