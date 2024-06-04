@@ -2,8 +2,11 @@ import useCartStore from '@/commons/store/useCartStore';
 import { IProduct } from '@/types/product';
 import { Form } from 'antd';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function useShopDetailFormController(productDetailData: IProduct) {
+  const navigate = useNavigate();
+
   /**
    * State
    */
@@ -33,6 +36,12 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     });
   };
 
+  const handleChangeVariant = (value: string) => {
+    // const slug = productDetailData?.variants?.find((variant) => variant.id === value)?.slug;
+    // navigate(`/shop/${slug}`, { replace: true });
+    console.log('variant: ', value);
+  };
+
   /**
    * Effects
    */
@@ -50,5 +59,6 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleSubmit,
+    handleChangeVariant
   };
 }

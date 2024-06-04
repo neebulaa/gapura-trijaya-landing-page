@@ -11,7 +11,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
       id: 1,
       product: {
         name: 'Product Name',
-        image: '/images/product.png',
+        image: '/noimg.png',
       },
       quantity: 2,
       subtotal: 50000,
@@ -20,7 +20,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
       id: 2,
       product: {
         name: 'Product Name',
-        image: '/images/product.png',
+        image: '/noimg.png',
       },
       quantity: 3,
       subtotal: 75000,

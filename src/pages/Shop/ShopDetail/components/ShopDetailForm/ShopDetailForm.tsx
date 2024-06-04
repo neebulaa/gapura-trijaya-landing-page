@@ -25,6 +25,7 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleSubmit,
+    handleChangeVariant
   } = useShopDetailFormController(productDetailData);
 
   return (
@@ -63,6 +64,7 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
                     value: d.id,
                     label: d.name,
                   }))}
+                  onChange={handleChangeVariant}
                 />
               </Form.Item>
 
