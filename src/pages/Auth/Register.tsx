@@ -32,7 +32,12 @@ export default function Register() {
   /**
    * Query
    */
-  const { mutateAsync: queryRegister, isError, error } = useRegisterQuery();
+  const {
+    mutateAsync: queryRegister,
+    isPending: queryRegisterIsFetching,
+    isError,
+    error,
+  } = useRegisterQuery();
 
   /**
    * Handle Register Submit
@@ -152,6 +157,7 @@ export default function Register() {
             onClick={handleRegister}
             className="w-full bg-color-[#18428F]"
             size="large"
+            loading={queryRegisterIsFetching}
             style={{
               backgroundColor: '#18428F',
               borderColor: '#18428F',

@@ -26,7 +26,12 @@ export default function Login() {
    */
   const { isAuthenticated, setIsAuthenticated } = useAuthStore((state) => state);
   const { setUserData } = useUserStore((state) => state);
-  const { mutateAsync: queryLogin, isError, error } = useLoginQuery();
+  const {
+    mutateAsync: queryLogin,
+    isPending: queryLoginIsFetching,
+    isError,
+    error,
+  } = useLoginQuery();
 
   /**
    * Handle Login Submit
@@ -137,6 +142,7 @@ export default function Login() {
               onClick={handleSubmit}
               className="w-full bg-color-[#18428F]"
               size="large"
+              loading={queryLoginIsFetching}
               style={{
                 backgroundColor: '#18428F',
                 borderColor: '#18428F',
