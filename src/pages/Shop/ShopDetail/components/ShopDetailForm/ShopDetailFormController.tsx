@@ -12,7 +12,7 @@ export default function useShopDetailFormController(productDetailData: IProduct)
    */
   const [quantity, setQuantity] = useState<number>(1);
   const [form] = Form.useForm();
-  const { addItem } = useCartStore((state) => state);
+  const { setItem: addItem } = useCartStore((state) => state);
 
   /**
    * Handlers

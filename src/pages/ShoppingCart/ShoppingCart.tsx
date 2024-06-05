@@ -3,13 +3,25 @@ import IconMinus from '@/commons/assets/icons/IconMinus';
 import IconPlus from '@/commons/assets/icons/IconPlus';
 import IconPoin from '@/commons/assets/icons/IconPoin';
 import PageHeader from '@/commons/components/Layout/HomeLayout/PageHeader';
+import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
-import { Link } from 'react-router-dom';
-import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckboxButton';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
+import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckboxButton';
+import { ICartItem } from '@/types/cart';
+import { Skeleton } from 'antd';
+import { Link } from 'react-router-dom';
 
 export default function ShoppingCart() {
-  const {} = useShoppingCartController();
+  const {
+    cartDataState,
+    setCartDataState,
+    cartData,
+    cartDataIsFetching,
+    cartDataIsRefetch,
+    handleIncrementQuantity,
+    handleDecrementQuantity,
+    handleRemoveItem,
+  } = useShoppingCartController();
 
   return (
     <>
@@ -26,56 +38,83 @@ export default function ShoppingCart() {
             </header>
             <section className="table-body">
               {/* Looping cart here */}
-              <div className="table-body-row">
-                <div className="table-body-col">
-                  <img src={`/noimg.png`} alt={``} />
-                  <h4 className="semibold">{`Lorem ipsum dolor sit, amet consectetur.`}</h4>
-                </div>
-                <div className="table-body-col">{`Rp ${separator(20000)}`}</div>
-                <div className="table-body-col">
-                  <button
-                    className="btn btn-empty btn-quantity no-hover no-pointer"
-                    style={{
-                      padding: '.5rem',
-                    }}
-                  >
-                    <div
-                      className="btn btn-circle btn-tertiary"
-                      style={{
-                        width: '30px',
-                        height: '30px',
-                      }}
-                      // onClick={() => console.log(c.id)}
-                    >
-                      <IconMinus width="8" height="2" />
+              {cartDataIsFetching ? (
+                <Skeleton />
+              ) : (
+                <>
+                  {cartData?.data!.items!.length === 0 ? (
+                    <div className="table-body-row">
+                      <h4 className="semibold">No items in cart</h4>
                     </div>
-                    <p>{`5`}</p>
-                    <div
-                      className="btn btn-circle btn-tertiary"
-                      style={{
-                        width: '30px',
-                        height: '30px',
-                      }}
-                      // onClick={() => console.log('')}
-                    >
-                      <IconPlus width="10" height="10" />
-                    </div>
-                  </button>
-                </div>
-                <div className="table-body-col semibold">{`Rp ${separator(4000)}`}</div>
-                <div className="table-body-col">
-                  <button
-                    // onClick={() => removeCartItem(c.id)}
-                    className="btn btn-circle btn-empty"
-                    style={{
-                      width: '30px',
-                      height: '30px',
-                    }}
-                  >
-                    x
-                  </button>
-                </div>
-              </div>
+                  ) : (
+                    <>
+                      {cartData?.data!.items!.map((cart: ICartItem) => (
+                        <div className="table-body-row" key={cart.id}>
+                          <div className="table-body-col">
+                            {cart?.product.images?.length ? (
+                              <img
+                                src={ApiImgUrl(cart?.product.images[0].path)}
+                                alt={cart?.product.name}
+                              />
+                            ) : (
+                              <img src={`/noimg.png`} alt={cart?.product.name} />
+                            )}
+                            <h4 className="semibold">
+                              <Link to={`/shop/${cart?.product.slug}`}>{cart?.product.name}</Link>
+                            </h4>
+                          </div>
+                          <div className="table-body-col">{`Rp ${separator(
+                            cart?.product.price
+                          )}`}</div>
+                          <div className="table-body-col">
+                            <button
+                              className="btn btn-empty btn-quantity no-hover no-pointer"
+                              style={{
+                                padding: '.5rem',
+                              }}
+                            >
+                              <div
+                                className="btn btn-circle btn-tertiary"
+                                style={{
+                                  width: '30px',
+                                  height: '30px',
+                                }}
+                                onClick={() => handleDecrementQuantity(cart.id!, cart.quantity!)}
+                              >
+                                <IconMinus width="8" height="2" />
+                              </div>
+                              <p>{cart?.quantity}</p>
+                              <div
+                                className="btn btn-circle btn-tertiary"
+                                style={{
+                                  width: '30px',
+                                  height: '30px',
+                                }}
+                                onClick={() => handleIncrementQuantity(cart.id!, cart.quantity!)}
+                              >
+                                <IconPlus width="10" height="10" />
+                              </div>
+                            </button>
+                          </div>
+                          <div className="table-body-col semibold">{`Rp ${separator(4000)}`}</div>
+                          <div className="table-body-col">
+                            <button
+                              onClick={() => handleRemoveItem(cart.id!)}
+                              className="btn btn-circle btn-empty"
+                              style={{
+                                width: '30px',
+                                height: '30px',
+                              }}
+                            >
+                              x
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
               {/* ./Looping cart here */}
             </section>
             <section className="table-footer">

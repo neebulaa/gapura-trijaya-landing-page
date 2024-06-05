@@ -56,7 +56,7 @@ import { persist } from 'zustand/middleware';
 
 interface CartState {
   items: any[];
-  addItem: (item: any) => void;
+  setItem: (item: any) => void;
   removeItem: (id: number) => void;
 }
 
@@ -64,7 +64,7 @@ const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       items: [],
-      addItem: (item) =>
+      setItem: (item) =>
         set((state) => ({
           items: [...state.items, item],
         })),
@@ -74,7 +74,7 @@ const useCartStore = create<CartState>()(
         })),
     }),
     {
-      name: 'cart-storage',
+      name: 'cartStorage',
       storage: {
         getItem: (name) => {
           const str = localStorage.getItem(name);
