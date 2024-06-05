@@ -21,6 +21,9 @@ export default function ShoppingCart() {
     handleIncrementQuantity,
     handleDecrementQuantity,
     handleRemoveItem,
+    subtotal,
+    shippingCost,
+    total,
   } = useShoppingCartController();
 
   return (
@@ -96,7 +99,9 @@ export default function ShoppingCart() {
                               </div>
                             </button>
                           </div>
-                          <div className="table-body-col semibold">{`Rp ${separator(4000)}`}</div>
+                          <div className="table-body-col semibold">{`Rp ${separator(
+                            cart.product?.price * cart?.quantity
+                          )}`}</div>
                           <div className="table-body-col">
                             <button
                               onClick={() => handleRemoveItem(cart.id!)}
@@ -163,12 +168,12 @@ export default function ShoppingCart() {
             <h2>Card Total</h2>
             <div className="content-split mt-1-05 justify-between">
               <h5>Subtotal: </h5>
-              <p className="medium">Rp {separator(3000)}</p>
+              <p className="medium">Rp {separator(subtotal)}</p>
             </div>
             <hr className="mt-1" />
             <div className="content-split mt-1 justify-between">
               <h5>Shipping: </h5>
-              <p className="medium">Rp {separator(2000)}</p>
+              <p className="medium">Rp {separator(shippingCost)}</p>
             </div>
             <hr className="mt-1" />
             <div
@@ -176,7 +181,7 @@ export default function ShoppingCart() {
               style={{ fontSize: '1.125rem' }}
             >
               <h5>Total: </h5>
-              <p>{`Rp ${separator(20000)}`}</p>
+              <p>{`Rp ${separator(total)}`}</p>
             </div>
             <Link to="/checkout/billing-information">
               <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button>

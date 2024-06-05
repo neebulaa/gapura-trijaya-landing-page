@@ -11,7 +11,7 @@ export default function useCatalogController() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [productQueryParams, setProductQueryParams] = useState<QueryParams>({
     page: +(searchParams.get('page') ?? 1),
-    limit: +(searchParams.get('limit') ?? 3),
+    limit: +(searchParams.get('limit') ?? 12),
     // orderBy: 'id',
     // sortBy: sortBy.DESC,
   });

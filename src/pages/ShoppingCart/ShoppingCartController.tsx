@@ -70,6 +70,14 @@ export default function useShoppingCartController() {
 
   // useEffect(() => {}, []);
 
+  // Calculate subtotal
+  const subtotal =
+    cartData?.data!.items!.reduce((acc, item) => acc + item.product.price * item.quantity, 0) || 0;
+  // Define shipping cost
+  const shippingCost = 2000; // Adjust this value as needed
+  // Calculate total
+  const total = subtotal + shippingCost;
+
   return {
     cartDataState,
     setCartDataState,
@@ -81,5 +89,8 @@ export default function useShoppingCartController() {
     handleRemoveItem,
     mutateUpdateCartIsFetching,
     mutateRemoveCartIsFetching,
+    subtotal,
+    shippingCost,
+    total,
   };
 }

@@ -1,18 +1,23 @@
 import useCartStore from '@/commons/store/useCartStore';
+import { useCreateCart } from '@/services/queries/cart.query';
 import { IProduct } from '@/types/product';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function useShopDetailFormController(productDetailData: IProduct) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   /**
    * State
    */
   const [quantity, setQuantity] = useState<number>(1);
   const [form] = Form.useForm();
-  const { setItem: addItem } = useCartStore((state) => state);
+  const { setItem } = useCartStore((state) => state);
+
+  /**
+   * Query Model New Cart
+   */
+  const { mutateAsync: mutateCreateCart, isPending: mutateCreateCartIsLoading } = useCreateCart();
 
   /**
    * Handlers
@@ -25,14 +30,26 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     setQuantity((prev) => (prev === 1 ? 1 : prev - 1));
   };
 
+  /**
+   * Handle Submit/Add to Bag
+   */
   const handleSubmit = async () => {
     form.validateFields();
     const values = form.getFieldsValue();
-    console.log('submit values: ', values);
 
-    addItem({
-      ...values,
+    // NOTE: need to add to local storage also
+    // setItem({
+    //   ...values,
+    //   quantity: quantity,
+    // });
+    mutateCreateCart({
+      productId: values.variant,
       quantity: quantity,
+      meta: {
+        note: values.description,
+      },
+    }).then((_res) => {
+      message.success('Successfully added to cart!');
     });
   };
 
@@ -59,6 +76,6 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleSubmit,
-    handleChangeVariant
+    handleChangeVariant,
   };
 }

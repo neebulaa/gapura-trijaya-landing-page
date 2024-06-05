@@ -25,7 +25,7 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleSubmit,
-    handleChangeVariant
+    handleChangeVariant,
   } = useShopDetailFormController(productDetailData);
 
   return (
@@ -53,20 +53,18 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
                   ))}
                 </Row>
               </Form.Item> */}
-              <Form.Item label="Pilih Variant" name="variant" rules={[{ required: false }]}>
-                <Select
-                  // placeholder="Variant"
-                  // filterOption={false}
-                  // optionLabelProp="label"
-                  // defaultActiveFirstOption
-                  defaultValue={`${productDetailData?.variants?.[0]?.id}`}
-                  options={(productDetailData?.variants || []).map((d: IProduct) => ({
-                    value: d.id,
-                    label: d.name,
-                  }))}
-                  onChange={handleChangeVariant}
-                />
-              </Form.Item>
+              {productDetailData?.type === 'configurable' && (
+                <Form.Item label="Pilih Variant" name="variant" rules={[{ required: false }]}>
+                  <Select
+                    defaultValue={`${productDetailData?.variants?.[0]?.id}`}
+                    options={(productDetailData?.variants || []).map((d: IProduct) => ({
+                      value: d.id,
+                      label: d.name,
+                    }))}
+                    onChange={handleChangeVariant}
+                  />
+                </Form.Item>
+              )}
 
               <Form.Item label="Keterangan" name="keterangan" rules={[{ required: false }]}>
                 <Input.TextArea placeholder="Keterangan" />
@@ -80,6 +78,9 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
                   <div onClick={handleDecreaseQuantity}>
                     <IconMinus width="10" height="10" />
                   </div>
+                  <Form.Item hidden name="quantity" rules={[{ required: false }]}>
+                    <Input type="hidden" name="quantity" value={quantity} />
+                  </Form.Item>
                   <p>{quantity}</p>
                   <div onClick={handleIncreaseQuantity}>
                     <IconPlus width="14" height="14" />
