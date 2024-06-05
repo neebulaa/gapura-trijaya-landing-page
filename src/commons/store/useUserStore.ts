@@ -1,9 +1,10 @@
 import { getItem, setItem } from '@/commons/lib/localStorage';
 import { logger } from '@/commons/store/logger';
+import { IUser } from '@/types/user';
 import { create } from 'zustand';
 
 interface UserDataStore {
-  userData: any;
+  userData: IUser | any;
   setUserData: (user: any) => void;
 }
 

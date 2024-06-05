@@ -1,15 +1,10 @@
+import useUserStore from '@/commons/store/useUserStore';
 import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
 import { ArrowLeftOutlined, DownOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Layout, MenuProps, Space, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
-
-// type collapsedType = boolean;
-
-// const onClick: MenuProps["onClick"] = ({ key }) => {
-//   message.info(`Click on item ${key}`);
-// };
 
 /**
  * Type
@@ -25,6 +20,7 @@ type HeaderProps = {
 export default function LayoutHeader(props: HeaderProps) {
   const { collapsed, index, logo, title, prevRoute } = props;
   const navigate = useNavigate();
+  const { userData } = useUserStore((state) => state);
 
   /**
    * Header Menu Items
@@ -94,7 +90,7 @@ export default function LayoutHeader(props: HeaderProps) {
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <span>Username</span>
+              <span>{userData?.name}</span>
               <DownOutlined />
             </Space>
           </a>
