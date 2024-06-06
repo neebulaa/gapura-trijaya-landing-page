@@ -16,6 +16,8 @@ const Register = lazy(() => import('@/pages/Auth/Register'));
 const Shop = lazy(() => import('@/pages/Shop/Shop'));
 const ShopDetail = lazy(() => import('@/pages/Shop/ShopDetail/ShopDetail'));
 const ShoppingCart = lazy(() => import('@/pages/ShoppingCart/ShoppingCart'));
+const Checkout = lazy(() => import('@/pages/Checkout/Checkout'));
+const Profile = lazy(() => import('@/pages/Profile/Profile'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 
 const router = createBrowserRouter([
@@ -72,6 +74,22 @@ const router = createBrowserRouter([
         element: (
           <>
             <Suspense fallback={<RouteLoaderV2 />} children={<ShoppingCart />} />
+          </>
+        ),
+      },
+      {
+        path: '/checkout',
+        element: (
+          <>
+            <Suspense fallback={<RouteLoaderV2 />} children={<Checkout />} />
+          </>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <>
+            <Suspense fallback={<RouteLoaderV2 />} children={<Profile />} />
           </>
         ),
       },
