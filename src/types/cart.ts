@@ -3,7 +3,7 @@ import { IProduct } from '@/types/product';
 
 export interface ICart extends BaseModel {
   userId: string;
-  items?: ICartItem[];
+  items: ICartItem[] | any;
 }
 
 export interface ICartItem extends BaseModel {

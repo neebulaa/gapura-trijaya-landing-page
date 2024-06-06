@@ -1,6 +1,6 @@
 import { IconPropsType } from "@/types/global/icon";
 
-export default function IconEye({
+export default function IconArrowRight({
 	width = "24",
 	height = "24",
 }: IconPropsType) {

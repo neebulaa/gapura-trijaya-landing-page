@@ -1,6 +1,7 @@
 import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
+import { ICart, ICartItem } from '@/types/cart';
 import { Link } from 'react-router-dom';
 
 type CartPopupProps = {
@@ -8,26 +9,7 @@ type CartPopupProps = {
 };
 
 export default function CartPopUp({ close }: CartPopupProps) {
-  // const cart = [
-  //   {
-  //     id: 1,
-  //     product: {
-  //       name: 'Product Name',
-  //       image: '/noimg.png',
-  //     },
-  //     quantity: 2,
-  //     subtotal: 50000,
-  //   },
-  //   {
-  //     id: 2,
-  //     product: {
-  //       name: 'Product Name',
-  //       image: '/noimg.png',
-  //     },
-  //     quantity: 3,
-  //     subtotal: 75000,
-  //   },
-  // ];
+  /** Controller */
   const { cartData, subtotal, shippingCost, total } = useShoppingCartController();
 
   return (
@@ -53,7 +35,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
         <h2>Shopping Cart</h2>
         <hr className="mt-1-05 mb-1" />
         <div className="popup-cart-products">
-          {cartData?.data?.items?.map((cart) => (
+          {(cartData?.data as any)?.items.map((cart: ICartItem) => (
             <div className="popup-cart-product" key={cart.id}>
               <img
                 src={ApiImgUrl(cart.product.images[0]?.path)}
@@ -64,7 +46,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
                   <h3>{cart.product.name}</h3>
                   <p>{cart.quantity} items</p>
                 </div>
-                <p className="popup-cart-product-price">{`Rp ${separator(cart.subtotal)}`}</p>
+                <p className="popup-cart-product-price">{`Rp ${separator(subtotal)}`}</p>
               </div>
             </div>
           ))}

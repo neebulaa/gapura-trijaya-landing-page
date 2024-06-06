@@ -48,9 +48,15 @@ export default function useShopDetailFormController(productDetailData: IProduct)
       meta: {
         note: values.description,
       },
-    }).then((_res) => {
-      message.success('Successfully added to cart!');
-    });
+    })
+      .then((_res) => {
+        message.success('Successfully added to cart!');
+      })
+      .catch((err) => {
+        if (err?.response?.status === 401) {
+          message.error('Please login first');
+        }
+      });
   };
 
   const handleChangeVariant = (value: string) => {

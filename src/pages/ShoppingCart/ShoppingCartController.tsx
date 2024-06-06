@@ -64,15 +64,18 @@ export default function useShoppingCartController() {
    * Effects
    */
   useEffect(() => {
-    setCartDataState((cartData?.data as ICart) || null);
-    setItem(cartData?.data?.items || []);
+    setCartDataState((cartData?.data as any) || null);
+    setItem((cartData?.data as any)?.items || []);
   }, [cartData]);
 
   // useEffect(() => {}, []);
 
   // Calculate subtotal
   const subtotal =
-    cartData?.data!.items!.reduce((acc, item) => acc + item.product.price * item.quantity, 0) || 0;
+    (cartData?.data as any)?.items!.reduce(
+      (acc: any, item: any) => acc + item.product.price * item.quantity,
+      0
+    ) || 0;
   // Define shipping cost
   const shippingCost = 2000; // Adjust this value as needed
   // Calculate total

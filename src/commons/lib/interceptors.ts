@@ -1,9 +1,7 @@
 import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 // import { redirect } from 'react-router-dom';
-import useAuthStore from '@/commons/store/useAuthStore';
-import { getCookie, removeCookie } from './cookieStorage';
-import { removeItem } from './localStorage';
-import useUserStore from '../store/useUserStore';
+import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
+import { getCookie } from './cookieStorage';
 
 export interface ConsoleError {
   status: number;
@@ -33,19 +31,23 @@ export const errorInterceptor = async (error: AxiosError): Promise<void> => {
   // NOTE: Redirect to login page if token is expired
   // 401: Unauthorized
   if (error.response?.status === 401) {
-    const { setIsAuthenticated } = useAuthStore.getState();
-    const { setUserData } = useUserStore.getState();
+    // const { setIsAuthenticated } = useAuthStore.getState();
+    // const { setUserData } = useUserStore.getState();
 
-    setIsAuthenticated(false, null);
-    setUserData(null);
+    // setIsAuthenticated(false, null);
+    // setUserData(null);
 
-    removeCookie('token');
-    removeCookie('isAuthenticated');
-    removeItem('userData');
+    // removeCookie('token');
+    // removeCookie('isAuthenticated');
+    // removeItem('userData');
+
+    LogoutUserSession();
 
     await Promise.reject(error);
     // redirect('/login');
   } else {
+    console.log('error', error);
+    
     if (error.response) {
       const errorMessage: ConsoleError = {
         status: error.response.status,

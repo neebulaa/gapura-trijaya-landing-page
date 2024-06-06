@@ -1,5 +1,5 @@
 import { IProduct } from '@/types/product';
-import create from 'zustand';
+import { create } from 'zustand';
 
 interface ProductState {
   products: IProduct[];
@@ -7,7 +7,7 @@ interface ProductState {
   setProducts: (products: IProduct[]) => void;
   addProduct: (product: IProduct) => void;
   updateProduct: (updatedProduct: IProduct) => void;
-  removeProduct: (productId: number) => void;
+  removeProduct: (productId: string) => void;
   selectProduct: (product: IProduct) => void;
   clearSelectedProduct: () => void;
 }
@@ -23,7 +23,7 @@ const useProductStore = create<ProductState>((set) => ({
         product.id === updatedProduct.id ? updatedProduct : product
       ),
     })),
-  removeProduct: (productId: number) =>
+  removeProduct: (productId: string) =>
     set((state) => ({
       products: state.products.filter((product) => product.id !== productId),
     })),

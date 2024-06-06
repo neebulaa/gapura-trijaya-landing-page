@@ -19,6 +19,21 @@ const ShoppingCart = lazy(() => import('@/pages/ShoppingCart/ShoppingCart'));
 const Checkout = lazy(() => import('@/pages/Checkout/Checkout'));
 const Profile = lazy(() => import('@/pages/Profile/Profile'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
+const CheckoutBillingInformation = lazy(
+  () => import('@/pages/Checkout/components/CheckoutBillingInformation')
+);
+const CheckoutDelivery = lazy(() => import('@/pages/Checkout/components/CheckoutDelivery'));
+const CheckoutPayment = lazy(() => import('@/pages/Checkout/components/CheckoutPayment'));
+const CheckoutSuccess = lazy(() => import('@/pages/Checkout/components/CheckoutSuccess'));
+const MyPoin = lazy(() => import('@/pages/MyPoin/MyPoin'));
+const ProfilePersonalInformation = lazy(
+  () => import('@/pages/Profile/components/ProfilePersonalInformation')
+);
+const ProfileOrders = lazy(() => import('@/pages/Profile/components/ProfileOrders'));
+const ProfileManageAddresse = lazy(
+  () => import('@/pages/Profile/components/ProfileManageAddresse')
+);
+const ProfileSetting = lazy(() => import('@/pages/Profile/components/ProfileSetting'));
 
 const router = createBrowserRouter([
   {
@@ -84,12 +99,97 @@ const router = createBrowserRouter([
             <Suspense fallback={<RouteLoaderV2 />} children={<Checkout />} />
           </>
         ),
+        children: [
+          {
+            path: 'billing-information',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutBillingInformation />} />
+              </>
+            ),
+          },
+          {
+            path: 'delivery',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutDelivery />} />
+              </>
+            ),
+          },
+          {
+            path: 'payment',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutPayment />} />
+              </>
+            ),
+          },
+          {
+            path: 'success',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutSuccess />} />
+              </>
+            ),
+          },
+        ],
       },
       {
         path: '/profile',
         element: (
           <>
             <Suspense fallback={<RouteLoaderV2 />} children={<Profile />} />
+          </>
+        ),
+        children: [
+          {
+            // path: 'personal-information',
+            index: true,
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<ProfilePersonalInformation />} />
+              </>
+            ),
+          },
+          {
+            path: 'personal-information',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<ProfilePersonalInformation />} />
+              </>
+            ),
+          },
+          {
+            path: 'orders',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<ProfileOrders />} />
+              </>
+            ),
+          },
+          {
+            path: 'manage-addresses',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<ProfileManageAddresse />} />
+              </>
+            ),
+          },
+          {
+            path: 'settings',
+            element: (
+              <>
+                <Suspense fallback={<RouteLoaderV2 />} children={<ProfileSetting />} />
+              </>
+            ),
+          },
+        ],
+      },
+      {
+        path: '/my-poin',
+        element: (
+          <>
+            <Suspense fallback={<RouteLoaderV2 />} children={<MyPoin />} />
           </>
         ),
       },

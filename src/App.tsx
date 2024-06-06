@@ -3,6 +3,9 @@ import { Router } from '@/routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ConfigProvider, ThemeConfig } from 'antd';
+import { useEffect } from 'react';
+import { getItem } from './commons/lib/localStorage';
+import { LogoutUserSession } from './commons/utils/Abilities/UserSessionPersistent';
 
 function App() {
   const queryClient = new QueryClient();
@@ -21,6 +24,13 @@ function App() {
       // colorBgContainer: "#fff",
     },
   };
+
+  useEffect(() => {
+    const userData = getItem('userData');
+    if (!userData) {
+      LogoutUserSession();
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
