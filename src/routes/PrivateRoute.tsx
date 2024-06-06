@@ -1,7 +1,7 @@
 import useAuthStore from '@/commons/store/useAuthStore';
 import { me } from '@/services/api/auth.service';
-import { type ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useEffect, type ReactElement } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface Props {
   children: ReactElement;
@@ -9,15 +9,34 @@ interface Props {
 
 export default function PrivateRoute({ children }: Props) {
   const { isAuthenticated } = useAuthStore((state) => state);
-  //   const isAuthenticated = getCookie('isAuthenticated') ? true : false;
-  //   console.log(isAuthenticated, token);
-  try {
-    me().then((res) => {
-      console.log('PrivateRoute: ', res);
-    });
-  } catch (err) {
-    console.log('PrivateRoute Err: ', err);
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUserRole = async () => {
+      try {
+        const res = await me();
+        const roles = res.data?.roles?.map((role: string) => role.toLowerCase());
+
+        if (roles.includes('superadmin') || roles.includes('admin')) {
+          navigate('/admin');
+          // disable this becuase no roles with name 'user'
+          // } else if (roles.includes('user')) {
+          //   navigate('/');
+        } else {
+          navigate('/'); // Redirect to login if no role matches
+        }
+      } catch (err) {
+        console.log('PrivateRoute Err: ', err);
+        navigate('/login'); // Redirect to login on error
+      }
+    };
+
+    if (isAuthenticated) {
+      checkUserRole();
+    } else {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
 
   return isAuthenticated ? children : <Navigate to="/login" />;
 }
