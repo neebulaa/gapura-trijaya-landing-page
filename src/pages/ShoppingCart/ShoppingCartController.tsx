@@ -77,7 +77,7 @@ export default function useShoppingCartController() {
       0
     ) || 0;
   // Define shipping cost
-  const shippingCost = 2000; // Adjust this value as needed
+  const shippingCost = 0; // Adjust this value as needed
   // Calculate total
   const total = subtotal + shippingCost;
 

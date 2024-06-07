@@ -3,6 +3,8 @@ import { IProduct } from '@/types/product';
 
 export interface ICart extends BaseModel {
   userId: string;
+  subtotal: number;
+  total: number;
   items: ICartItem[] | any;
 }
 

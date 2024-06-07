@@ -45,13 +45,13 @@ export default function ShoppingCart() {
                 <Skeleton />
               ) : (
                 <>
-                  {cartData?.data!.items!.length === 0 ? (
+                  {(cartData?.data as any)?.items!.length === 0 ? (
                     <div className="table-body-row">
                       <h4 className="semibold">No items in cart</h4>
                     </div>
                   ) : (
                     <>
-                      {cartData?.data!.items!.map((cart: ICartItem) => (
+                      {(cartData?.data as any)?.items!.map((cart: ICartItem) => (
                         <div className="table-body-row" key={cart.id}>
                           <div className="table-body-col">
                             {cart?.product.images?.length ? (
@@ -165,27 +165,33 @@ export default function ShoppingCart() {
           </div>
 
           <div className="cart-total">
-            <h2>Card Total</h2>
-            <div className="content-split mt-1-05 justify-between">
-              <h5>Subtotal: </h5>
-              <p className="medium">Rp {separator(subtotal)}</p>
-            </div>
-            <hr className="mt-1" />
-            <div className="content-split mt-1 justify-between">
-              <h5>Shipping: </h5>
-              <p className="medium">Rp {separator(shippingCost)}</p>
-            </div>
-            <hr className="mt-1" />
-            <div
-              className="content-split mt-1 justify-between semibold"
-              style={{ fontSize: '1.125rem' }}
-            >
-              <h5>Total: </h5>
-              <p>{`Rp ${separator(total)}`}</p>
-            </div>
-            <Link to="/checkout/billing-information">
-              <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button>
-            </Link>
+            {cartDataIsFetching ? (
+              <Skeleton />
+            ) : (
+              <>
+                <h2>Card Total</h2>
+                <div className="content-split mt-1-05 justify-between">
+                  <h5>Subtotal: </h5>
+                  <p className="medium">Rp {separator(subtotal)}</p>
+                </div>
+                <hr className="mt-1" />
+                <div className="content-split mt-1 justify-between">
+                  <h5>Shipping: </h5>
+                  <p className="medium">Rp {separator(shippingCost)}</p>
+                </div>
+                <hr className="mt-1" />
+                <div
+                  className="content-split mt-1 justify-between semibold"
+                  style={{ fontSize: '1.125rem' }}
+                >
+                  <h5>Total: </h5>
+                  <p>{`Rp ${separator(total)}`}</p>
+                </div>
+                <Link to="/checkout/billing-information">
+                  <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button>
+                </Link>
+              </>
+            )}
           </div>
         </section>
       </section>

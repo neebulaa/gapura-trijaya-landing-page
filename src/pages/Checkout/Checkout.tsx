@@ -1,15 +1,24 @@
 import PageHeader from '@/commons/components/Layout/HomeLayout/PageHeader';
 import AppModal from '@/commons/components/Public/AppModal';
 import HeaderProgress from '@/commons/components/Public/HeaderProgress';
+import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useCheckoutController from '@/pages/Checkout/CheckoutController';
+import { ICartItem } from '@/types/cart';
+import { Button, Form } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export default function Checkout() {
   /** Controller */
-  const {} = useCheckoutController();
+  const { navigate, queryCartData, subtotal, total, handleBillingInformationSubmit } =
+    useCheckoutController();
 
+  // console.log(queryCartData);
+
+  /**
+   * This is the main page for the Checkout page
+   */
   const [cart, setCart] = useState([]);
   const [openModalConfirmationOrder, setOpenModalConfirmationOrder] = useState(false);
   const { pathname } = useLocation();
@@ -55,24 +64,25 @@ export default function Checkout() {
             <div className="card-bordered">
               <h2 className="mb-1-05">Order Summary</h2>
               <div className="summary-products">
-                {cart?.map((c) => (
-                  <div className="summary-product" key={c.id}>
+                {(queryCartData?.data as any)?.items.map((cart: ICartItem) => (
+                  <div className="summary-product" key={cart.id}>
                     <img
-                      src={`${import.meta.env.VITE_APP_URL}${c.product.image}`}
-                      alt={`${import.meta.env.VITE_APP_NAME} - ` + c.product.name}
+                      src={ApiImgUrl(cart.product.images[0]?.small)}
+                      alt={`${import.meta.env.VITE_APP_NAME} - ` + cart.product.name}
                     />
                     <div className="summary-product-info">
-                      <h5>
-                        {c.product.name} x{c.quantity}
+                      <h5 className="overflow-x-auto truncate" title={`${cart.product.name}`}>
+                        {cart.product.name}
+                        <span className="font-bold"> x{cart.quantity}</span>
                       </h5>
-                      <p>{separator(c.subtotal)}</p>
+                      <p>Rp {separator(cart.product.price * cart.quantity)}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className="content-split mt-1-05 justify-between">
                 <h5>Subtotal: </h5>
-                <p className="semibold">Rp. 80.000</p>
+                <p className="semibold">Rp {separator(subtotal)}</p>
               </div>
               <hr className="mt-1" />
               <div className="content-split mt-1 justify-between">
@@ -83,7 +93,7 @@ export default function Checkout() {
               <div className="content-split mt-1 justify-between">
                 <h5>Total: </h5>
                 <p className="bold highlight" style={{ fontSize: '1.125rem' }}>
-                  Rp 200.000
+                  Rp {separator(total)}
                 </p>
               </div>
 
@@ -109,16 +119,31 @@ export default function Checkout() {
                       <button className="btn btn-outline w-100">Back to shop</button>
                     </Link>
                     <Link to={next} className="w-100">
-                      <button className="btn w-100">Place Order</button>
+                      <button className="btn w-100">Place Order 1</button>
                     </Link>
                   </div>
                 </AppModal>
               )}
 
               {pathname != '/checkout/payment' && (
+                // on billing-information
                 <Link to={next}>
-                  <button className="btn w-100 mt-2">Place Order</button>
+                  <button className="btn w-100 mt-2">Place Order 2 </button>
                 </Link>
+                // <Button
+                //   type="primary"
+                //   onClick={handleBillingInformationSubmit}
+                //   className="w-full bg-color-[#18428F] mt-3 shadow-none"
+                //   size="large"
+                //   loading={false}
+                //   style={{
+                //     backgroundColor: '#18428F',
+                //     borderColor: '#18428F',
+                //     borderRadius: '25rem',
+                //   }}
+                // >
+                //   Place Order
+                // </Button>
               )}
               {pathname == '/checkout/payment' && (
                 <button
@@ -127,7 +152,7 @@ export default function Checkout() {
                     setOpenModalConfirmationOrder(true);
                   }}
                 >
-                  Place Order
+                  Place Order 3
                 </button>
               )}
             </div>

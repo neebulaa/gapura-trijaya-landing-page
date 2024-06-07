@@ -38,10 +38,11 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     const values = form.getFieldsValue();
 
     // NOTE: need to add to local storage also
-    // setItem({
-    //   ...values,
-    //   quantity: quantity,
-    // });
+    setItem({
+      ...values,
+      quantity: quantity,
+    });
+
     mutateCreateCart({
       productId: values.variant,
       quantity: quantity,

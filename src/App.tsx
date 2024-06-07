@@ -8,7 +8,15 @@ import { getItem } from './commons/lib/localStorage';
 import { LogoutUserSession } from './commons/utils/Abilities/UserSessionPersistent';
 
 function App() {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: 1,
+        networkMode: 'online',
+      },
+    },
+  });
 
   const config: ThemeConfig = {
     token: {

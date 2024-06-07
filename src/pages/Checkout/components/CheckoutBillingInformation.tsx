@@ -1,12 +1,24 @@
 import FormItem from '@/commons/components/Form/FormItem';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
+import useCheckoutController from '@/pages/Checkout/CheckoutController';
 import { Form, Input, Row } from 'antd';
+import { useEffect } from 'react';
 
-export default function CheckoutBillingInformation() {
+export default function CheckoutBillingInformation(_props?: any) {
+  const { formBillingInformation, userData } = useCheckoutController();
+
+  useEffect(() => {
+    formBillingInformation.setFieldsValue({
+      name: userData?.name,
+      email: userData?.email,
+      phone: userData?.phone,
+    });
+  }, [userData]);
+
   return (
     <section className="checkout-content-body" id="checkout-billing-information">
       <h2 className="mb-1-05">Contact Details</h2>
-      <Form autoComplete="off" className="" layout="vertical">
+      <Form form={formBillingInformation} autoComplete="off" className="" layout="vertical">
         <Row gutter={10}>
           <ResponsiveCol span={24} md={12}>
             <FormItem

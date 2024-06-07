@@ -1,6 +1,7 @@
 import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
 // import { redirect } from 'react-router-dom';
 import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
+import { message } from 'antd';
 import { getCookie } from './cookieStorage';
 
 export interface ConsoleError {
@@ -46,8 +47,12 @@ export const errorInterceptor = async (error: AxiosError): Promise<void> => {
     await Promise.reject(error);
     // redirect('/login');
   } else {
-    console.log('error', error);
-    
+    console.log('Interceptor error: ', error);
+
+    if (error?.code === 'ERR_NETWORK') {
+      message.error('Problem with the server, please try again later.');
+    }
+
     if (error.response) {
       const errorMessage: ConsoleError = {
         status: error.response.status,
