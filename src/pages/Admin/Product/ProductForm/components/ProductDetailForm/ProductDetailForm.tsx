@@ -136,7 +136,11 @@ export default function ProductDetailForm(props: IFormProps) {
                   {attributeData?.data?.map((d) => (
                     <ResponsiveCol key={d.id}>
                       {/* <Form.Item label={d.name} name={`attribute_${d.code}`} rules={[{ required: false }]}> */}
-                      <Form.Item label={d.name} name={`${d.code}`} rules={[{ required: false }]}>
+                      <Form.Item
+                        label={d.name}
+                        name={`${d.code}`}
+                        rules={[{ required: Boolean(d.isRequired) }]}
+                      >
                         <Select
                           mode="multiple"
                           showSearch
