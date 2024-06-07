@@ -1,6 +1,7 @@
 import {
   FolderOutlined,
   PieChartOutlined,
+  SettingOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -40,4 +41,5 @@ export const NavigationItems: MenuItem[] = [
     getItem('Shipment', 'shipment', null),
   ]),
   getItem('User', 'users', <UserOutlined />),
+  getItem('Setting', 'setting', <SettingOutlined />),
 ];

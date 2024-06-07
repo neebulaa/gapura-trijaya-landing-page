@@ -8,6 +8,7 @@ import { RouteObject } from 'react-router-dom';
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard/DashboardIndex'));
 const Profile = lazy(() => import('@/pages/Admin/Profile/ProfileIndex'));
+const Setting = lazy(() => import('@/pages/Admin/Setting/SettingIndex'));
 
 export const AdminRoutes: RouteObject[] = [
   {
@@ -31,6 +32,14 @@ export const AdminRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<RouteLoader />}>
             <Profile />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'setting',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <Setting />
           </Suspense>
         ),
       },

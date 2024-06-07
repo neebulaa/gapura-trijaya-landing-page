@@ -3,8 +3,9 @@ import IconPackage from '@/commons/assets/icons/IconPackage';
 import IconSettings from '@/commons/assets/icons/IconSettings';
 import IconTrophy from '@/commons/assets/icons/IconTrophy';
 import IconUser from '@/commons/assets/icons/IconUser';
-import SearchBar from '@/commons/components/Public/SearchBar';
 import useProfileController from '@/pages/Profile/ProfileController';
+import { SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import { useEffect } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
@@ -76,7 +77,7 @@ export default function Profile() {
       <div className="container-sidebar-right">
         <div className="flex items-center gap-1 justify-between flex-wrap">
           <h2 className="container-sidebar-title"></h2>
-          <SearchBar placeholder="Search" />
+          <Input size="large" className="w-1/3" placeholder="Search" prefix={<SearchOutlined />} />
         </div>
         <div className="card-bordered my-profile-content">
           <Outlet />

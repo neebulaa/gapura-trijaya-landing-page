@@ -133,7 +133,7 @@ export default function LayoutNavbar() {
                     onClick={() => setOpenNavProfileDropdown((prev) => !prev)}
                   >
                     <img
-                      src={`${import.meta.env.VITE_APP_URL}./images/people/people1.png`}
+                      src={`${import.meta.env.VITE_APP_URL}./noimg.png`}
                       alt={`${import.meta.env.VITE_APP_NAME} - people 1`}
                     />
                     <p>{`${userData?.name}`}</p>
