@@ -41,7 +41,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
             <h2>Shopping Cart</h2>
             <hr className="mt-1-05 mb-1" />
 
-            {(cartData?.data as any)?.items.length === 0 ? (
+            {(cartData?.data as any)?.items.length === 0 || !cartData?.data ? (
               <div className="py-5">
                 <h4 className="semibold">No items in cart</h4>
               </div>
