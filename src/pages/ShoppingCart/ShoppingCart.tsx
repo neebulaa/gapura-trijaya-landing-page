@@ -187,7 +187,7 @@ export default function ShoppingCart() {
                   <h5>Total: </h5>
                   <p>{`Rp ${separator(total)}`}</p>
                 </div>
-                <Link to="/checkout/billing-information">
+                <Link to="/order/checkout">
                   <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button>
                 </Link>
               </>

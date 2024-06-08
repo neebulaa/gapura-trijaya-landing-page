@@ -16,15 +16,11 @@ const Register = lazy(() => import('@/pages/Auth/Register'));
 const Shop = lazy(() => import('@/pages/Shop/Shop'));
 const ShopDetail = lazy(() => import('@/pages/Shop/ShopDetail/ShopDetail'));
 const ShoppingCart = lazy(() => import('@/pages/ShoppingCart/ShoppingCart'));
-const Checkout = lazy(() => import('@/pages/Checkout/Checkout'));
 const Profile = lazy(() => import('@/pages/Profile/Profile'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
 const CheckoutBillingInformation = lazy(
   () => import('@/pages/Checkout/components/CheckoutBillingInformation')
 );
-const CheckoutDelivery = lazy(() => import('@/pages/Checkout/components/CheckoutDelivery'));
-const CheckoutPayment = lazy(() => import('@/pages/Checkout/components/CheckoutPayment'));
-const CheckoutSuccess = lazy(() => import('@/pages/Checkout/components/CheckoutSuccess'));
 const MyPoin = lazy(() => import('@/pages/MyPoin/MyPoin'));
 const ProfilePersonalInformation = lazy(
   () => import('@/pages/Profile/components/ProfilePersonalInformation')
@@ -34,6 +30,7 @@ const ProfileManageAddresse = lazy(
   () => import('@/pages/Profile/components/ProfileManageAddresse')
 );
 const ProfileSetting = lazy(() => import('@/pages/Profile/components/ProfileSetting'));
+const Checkout = lazy(() => import('@/pages/Order/Checkout/Checkout'));
 
 const router = createBrowserRouter([
   {
@@ -93,42 +90,26 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/checkout',
-        element: (
-          <>
-            <Suspense fallback={<RouteLoaderV2 />} children={<Checkout />} />
-          </>
-        ),
+        path: '/order',
+        // element: (
+        //   <>
+        //     <Suspense fallback={<RouteLoaderV2 />} children={<Checkout />} />
+        //   </>
+        // ),
         children: [
           {
-            path: 'billing-information',
+            path: 'checkout',
             element: (
               <>
-                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutBillingInformation />} />
+                <Suspense fallback={<RouteLoaderV2 />} children={<Checkout />} />
               </>
             ),
           },
           {
-            path: 'delivery',
+            path: 'received/:orderId',
             element: (
               <>
-                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutDelivery />} />
-              </>
-            ),
-          },
-          {
-            path: 'payment',
-            element: (
-              <>
-                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutPayment />} />
-              </>
-            ),
-          },
-          {
-            path: 'success',
-            element: (
-              <>
-                <Suspense fallback={<RouteLoaderV2 />} children={<CheckoutSuccess />} />
+                <Suspense fallback={<RouteLoaderV2 />} children={<h1>Order Received</h1>} />
               </>
             ),
           },

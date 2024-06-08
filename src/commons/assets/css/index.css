@@ -1936,10 +1936,23 @@ button {
 	box-shadow: none !important;
 }
 
+.ant-steps-item.ant-steps-item-process.text-primary.ant-steps-item-active>div>div.ant-steps-item-content>div {
+	color: var(--primary);
+}
+
 /* END OF ANT OVERRIDE */
 
 /** CUSTOM **/
 .nav-info ul li:nth-child(2):hover {
 	color: rgb(59 130 246 / 0.5);
 	cursor: pointer;
+}
+
+.ant-steps-item.ant-steps-item-process.ant-steps-item-active>div>div.ant-steps-item-icon {
+	background-color: var(--primary);
+	border-color: var(--primary);
+}
+
+.ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-tail::after {
+	background-color: red !important;
 }

@@ -11,6 +11,15 @@ export default {
   // },
   theme: {
     extend: {},
+    colors: {
+      primary: '#18428F',
+      secondary: {
+        100: '#E2E2D5',
+        200: '#888883',
+        300: '#A0A0A0',
+      },
+      disabled: '#9ca3af',
+    },
   },
   plugins: [],
 };
