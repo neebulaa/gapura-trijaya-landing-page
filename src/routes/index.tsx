@@ -31,6 +31,7 @@ const ProfileManageAddresse = lazy(
 );
 const ProfileSetting = lazy(() => import('@/pages/Profile/components/ProfileSetting'));
 const Checkout = lazy(() => import('@/pages/Order/Checkout/Checkout'));
+const Received = lazy(() => import('@/pages/Order/Received/Received'));
 
 const router = createBrowserRouter([
   {
@@ -109,7 +110,7 @@ const router = createBrowserRouter([
             path: 'received/:orderId',
             element: (
               <>
-                <Suspense fallback={<RouteLoaderV2 />} children={<h1>Order Received</h1>} />
+                <Suspense fallback={<RouteLoaderV2 />} children={<Received />} />
               </>
             ),
           },

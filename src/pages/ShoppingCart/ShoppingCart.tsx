@@ -8,7 +8,7 @@ import { separator } from '@/commons/utils/Currency/Currency';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
 import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckboxButton';
 import { ICartItem } from '@/types/cart';
-import { Skeleton } from 'antd';
+import { Button, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default function ShoppingCart() {
@@ -25,6 +25,8 @@ export default function ShoppingCart() {
     shippingCost,
     total,
   } = useShoppingCartController();
+
+  const buttonCheckoutIsDisabled = !((cartData?.data as any)?.items?.length > 0);
 
   return (
     <>
@@ -45,7 +47,8 @@ export default function ShoppingCart() {
                 <Skeleton />
               ) : (
                 <>
-                  {(cartData?.data as any)?.items!.length === 0 ? (
+                  {!(cartData?.data as any)?.items ||
+                  (cartData?.data as any)?.items!.length === 0 ? (
                     <div className="table-body-row">
                       <h4 className="semibold">No items in cart</h4>
                     </div>
@@ -188,7 +191,15 @@ export default function ShoppingCart() {
                   <p>{`Rp ${separator(total)}`}</p>
                 </div>
                 <Link to="/order/checkout">
-                  <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button>
+                  {/* <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button> */}
+                  <Button
+                    type="primary"
+                    className="w-full mt-4 shadow-none rounded-full bg-primary"
+                    size="large"
+                    disabled={buttonCheckoutIsDisabled}
+                  >
+                    Proceed to checkout
+                  </Button>
                 </Link>
               </>
             )}

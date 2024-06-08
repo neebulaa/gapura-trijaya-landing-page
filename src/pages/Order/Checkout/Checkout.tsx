@@ -53,7 +53,13 @@ export default function Checkout() {
                 label="Email"
                 name="email"
                 className="font-normal"
-                rules={[{ required: true }]}
+                rules={[
+                  {
+                    required: true,
+                    type: 'email',
+                    message: 'Please input a valid email',
+                  },
+                ]}
                 // validationErrors={validationErrors}
               >
                 <Input placeholder="Email" size="large" />

@@ -18,6 +18,7 @@ export default {
         200: '#888883',
         300: '#A0A0A0',
       },
+      white: '#f2f2f2',
       disabled: '#9ca3af',
     },
   },
