@@ -11,8 +11,14 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 
 export default function Checkout() {
   /** Controller */
-  const { navigate, queryCartData, subtotal, total, handleBillingInformationSubmit } =
-    useCheckoutController();
+  const {
+    navigate,
+    queryCartData,
+    subtotal,
+    total,
+    handleBillingInformationSubmit,
+    handlePlaceOrderSubmit,
+  } = useCheckoutController();
 
   // console.log(queryCartData);
 
@@ -119,7 +125,9 @@ export default function Checkout() {
                       <button className="btn btn-outline w-100">Back to shop</button>
                     </Link>
                     <Link to={next} className="w-100">
-                      <button className="btn w-100">Place Order 1</button>
+                      <button className="btn w-100" onClick={handlePlaceOrderSubmit}>
+                        Place Order 1
+                      </button>
                     </Link>
                   </div>
                 </AppModal>

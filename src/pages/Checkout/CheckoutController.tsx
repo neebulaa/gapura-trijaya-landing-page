@@ -25,6 +25,9 @@ export default function useCheckoutController() {
   // const handleBillingInformationSubmit = () => {
   //   console.log('Place Order');
   // };
+  const handlePlaceOrderSubmit = () => {
+    console.log('Place Order');
+  };
 
   /**
    * Calculate Subtotal, Shipping Cost, and Total
@@ -51,5 +54,6 @@ export default function useCheckoutController() {
     shippingCost,
     total,
     handleBillingInformationSubmit,
+    handlePlaceOrderSubmit,
   };
 }
