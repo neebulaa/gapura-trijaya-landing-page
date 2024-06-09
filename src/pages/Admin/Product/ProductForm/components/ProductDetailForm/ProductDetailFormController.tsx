@@ -138,7 +138,7 @@ export default function useProductDetailFormController(props: IFormProps) {
           title: 'Success',
           message: res?.message as string,
         });
-        navigate(`/admin/products`);
+        // navigate(`/admin/products`);
       })
       .catch((err) => {
         if (err.response && err.response.status === 422)

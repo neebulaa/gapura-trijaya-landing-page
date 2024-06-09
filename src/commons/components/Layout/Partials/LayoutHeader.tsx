@@ -90,7 +90,7 @@ export default function LayoutHeader(props: HeaderProps) {
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              <span>{userData?.name}</span>
+              <span>{userData?.firstName}</span>
               <DownOutlined />
             </Space>
           </a>

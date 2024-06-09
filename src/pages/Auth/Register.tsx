@@ -53,6 +53,7 @@ export default function Register() {
       await me().then((res) => {
         setUserData(res!.data);
       });
+      message.success('Register successfully!');
       navigate('/');
     } catch (err: any) {
       if (err?.response && err?.response.status === 422) {
@@ -94,15 +95,28 @@ export default function Register() {
           <Row gutter={10}>
             <ResponsiveCol span={24} md={12}>
               <FormItem
-                label="Name"
-                name="name"
+                label="First Name"
+                name="firstName"
                 className="font-normal"
                 rules={[{ required: true }]}
                 validationErrors={validationErrors}
               >
-                <Input placeholder="name" size="large" />
+                <Input placeholder="First Name" size="large" />
               </FormItem>
             </ResponsiveCol>
+            <ResponsiveCol span={24} md={12}>
+              <FormItem
+                label="Last Name"
+                name="lastName"
+                className="font-normal"
+                rules={[{ required: true }]}
+                validationErrors={validationErrors}
+              >
+                <Input placeholder="Last Name" size="large" />
+              </FormItem>
+            </ResponsiveCol>
+          </Row>
+          <Row gutter={10}>
             <ResponsiveCol span={24} md={12}>
               <FormItem
                 label="Email"
@@ -114,9 +128,7 @@ export default function Register() {
                 <Input placeholder="email" size="large" />
               </FormItem>
             </ResponsiveCol>
-          </Row>
-          <Row>
-            <ResponsiveCol span={24} md={24}>
+            <ResponsiveCol span={24} md={12}>
               <FormItem
                 label="Phone Number (Whatsapp)"
                 name="phone"

@@ -7,20 +7,31 @@ export default function ProfilePersonalInformation() {
     <>
       <h2 className="mb-1-05">Contact Details</h2>
       <Form layout="vertical">
-        <Row gutter={24}>
-          <ResponsiveCol span={24} md={24}>
+        <Row gutter={20}>
+          <ResponsiveCol span={24} md={12}>
             <FormItem
-              label="Name"
-              name="name"
+              label="First Name"
+              name="firstName"
               className="font-normal"
               rules={[{ required: true }]}
               // validationErrors={validationErrors}
             >
-              <Input placeholder="Name" size="large" />
+              <Input placeholder="First Name" size="large" />
+            </FormItem>
+          </ResponsiveCol>
+          <ResponsiveCol span={24} md={12}>
+            <FormItem
+              label="Last Name"
+              name="lastName"
+              className="font-normal"
+              rules={[{ required: true }]}
+              // validationErrors={validationErrors}
+            >
+              <Input placeholder="Last Name" size="large" />
             </FormItem>
           </ResponsiveCol>
         </Row>
-        <Row gutter={24}>
+        <Row gutter={20}>
           <ResponsiveCol span={24} md={24}>
             <FormItem
               label="Email"

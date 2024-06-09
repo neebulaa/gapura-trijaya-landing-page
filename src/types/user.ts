@@ -1,7 +1,8 @@
 import { BaseModel } from '@/types/base';
 
 export interface IUser extends BaseModel {
-  name: string;
+  firstName: string;
+  lastName?: string;
   email: string;
   emailVerifiedAt: Date;
   googleId?: null;

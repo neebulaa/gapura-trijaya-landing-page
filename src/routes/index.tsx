@@ -18,9 +18,6 @@ const ShopDetail = lazy(() => import('@/pages/Shop/ShopDetail/ShopDetail'));
 const ShoppingCart = lazy(() => import('@/pages/ShoppingCart/ShoppingCart'));
 const Profile = lazy(() => import('@/pages/Profile/Profile'));
 const Contact = lazy(() => import('@/pages/Contact/Contact'));
-const CheckoutBillingInformation = lazy(
-  () => import('@/pages/Checkout/components/CheckoutBillingInformation')
-);
 const MyPoin = lazy(() => import('@/pages/MyPoin/MyPoin'));
 const ProfilePersonalInformation = lazy(
   () => import('@/pages/Profile/components/ProfilePersonalInformation')
