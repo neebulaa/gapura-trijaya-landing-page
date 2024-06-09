@@ -1,11 +1,13 @@
 import useCartStore from '@/commons/store/useCartStore';
 import { useCreateCart } from '@/services/queries/cart.query';
 import { IProduct } from '@/types/product';
-import { Form, message } from 'antd';
+import { Form, Select, message } from 'antd';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export default function useShopDetailFormController(productDetailData: IProduct) {
   // const navigate = useNavigate();
+  const { Option } = Select;
 
   /**
    * State
@@ -13,6 +15,13 @@ export default function useShopDetailFormController(productDetailData: IProduct)
   const [quantity, setQuantity] = useState<number>(1);
   const [form] = Form.useForm();
   const { setItem } = useCartStore((state) => state);
+
+  /** Product Attributes: State */
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [formValues, setFormValues] = useState<{ [key: string]: string }>({});
+
+  console.log('searchParams: ', searchParams);
+  console.log('formValues: ', formValues);
 
   /**
    * Query Model New Cart
@@ -66,6 +75,30 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     console.log('variant: ', value);
   };
 
+  const renderAttributeSelects = (attributes: { [key: string]: { [key: string]: string } }) => {
+    return Object.keys(attributes).map((key) => {
+      const label = `Pilih ${key.charAt(0).toUpperCase() + key.slice(1)}`;
+      const defaultValue = formValues[key] || Object.keys(attributes[key])[0];
+
+      return (
+        <Form.Item key={key} label={label} name={key} rules={[{ required: false }]}>
+          <Select
+            defaultValue={defaultValue}
+            value={formValues[key]}
+            onChange={(value) => handleSelectChange(key, value)}
+            placeholder={`Pilih ${key}`}
+          >
+            {Object.keys(attributes[key]).map((attrKey) => (
+              <Option key={attrKey} value={attrKey}>
+                {attributes[key][attrKey]}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+      );
+    });
+  };
+
   /**
    * Effects
    */
@@ -76,6 +109,27 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     });
   }, [productDetailData]);
 
+  /**
+   * Product Attribute: Effects
+   */
+  useEffect(() => {
+    const initialValues: { [key: string]: string } = {};
+    Object.keys(productDetailData?.attributes || {}).forEach((key) => {
+      const firstOptionKey = Object.keys(productDetailData.attributes[key])[0];
+      initialValues[key] = searchParams.get(key) || firstOptionKey;
+    });
+    setFormValues(initialValues);
+  }, [productDetailData, searchParams]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(formValues);
+    setSearchParams(params);
+  }, [formValues, setSearchParams]);
+
+  const handleSelectChange = (key: string, value: string) => {
+    setFormValues((prev) => ({ ...prev, [key]: value }));
+  };
+
   return {
     form,
     quantity,
@@ -83,6 +137,9 @@ export default function useShopDetailFormController(productDetailData: IProduct)
     handleIncreaseQuantity,
     handleDecreaseQuantity,
     handleSubmit,
+    mutateCreateCartIsLoading,
     handleChangeVariant,
+    renderAttributeSelects,
+    handleSelectChange,
   };
 }

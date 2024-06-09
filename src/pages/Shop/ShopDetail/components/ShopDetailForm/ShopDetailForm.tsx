@@ -12,6 +12,8 @@ type ShopDetailFormProps = {
   refetch?: () => void;
 };
 
+const { Option } = Select;
+
 export default function ShopDetailForm(props: ShopDetailFormProps) {
   const { productDetailData, isPending, refetch } = props;
 
@@ -26,6 +28,7 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
     handleDecreaseQuantity,
     handleSubmit,
     handleChangeVariant,
+    renderAttributeSelects,
   } = useShopDetailFormController(productDetailData);
 
   return (
@@ -42,28 +45,20 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
             )}
             <hr className="mt-1 mb-1" />
             <Form form={form} layout="vertical">
-              {/* <Form.Item label={`Pilih variant: Test`} name="variant" rules={[{ required: false }]}>
-                <Row gutter={[16, 16]}>
-                  {productDetailData?.variants?.map((variant: IProduct) => (
-                    <Col key={variant.id}>
-                      <Button key={variant.id} type="default">
-                        {variant.name}
-                      </Button>
-                    </Col>
-                  ))}
-                </Row>
-              </Form.Item> */}
               {productDetailData?.type === 'configurable' && (
-                <Form.Item label="Pilih Variant" name="variant" rules={[{ required: false }]}>
-                  <Select
-                    defaultValue={`${productDetailData?.variants?.[0]?.id}`}
-                    options={(productDetailData?.variants || []).map((d: IProduct) => ({
-                      value: d.id,
-                      label: d.name,
-                    }))}
-                    onChange={handleChangeVariant}
-                  />
-                </Form.Item>
+                <>
+                  {/* <Form.Item label="Pilih Variant" name="variant" rules={[{ required: false }]}>
+                    <Select
+                      defaultValue={`${productDetailData?.variants?.[0]?.id}`}
+                      options={(productDetailData?.variants || []).map((d: IProduct) => ({
+                        value: d.id,
+                        label: d.name,
+                      }))}
+                      onChange={handleChangeVariant}
+                    />
+                  </Form.Item> */}
+                  {renderAttributeSelects(productDetailData?.attributes)}
+                </>
               )}
 
               <Form.Item label="Keterangan" name="keterangan" rules={[{ required: false }]}>

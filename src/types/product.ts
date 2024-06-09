@@ -15,6 +15,7 @@ export interface IProduct extends BaseModel {
   length: null;
   shortDescription: string;
   description: string;
+  attributes?: any;
   status: number;
   categories: ICategory[];
   images: any[];

@@ -34,7 +34,7 @@ export default function ProductCard(props: IProduct) {
             <h4 className="card-highlighter">{`Category Name`}</h4>
             <p className="mt-1 card-description flex gap-04 items-center">
               Mulai dari
-              <span className="product-price">Rp {separator(props?.price!)}</span>
+              <span className="product-price">Rp {separator((props.variants as IProduct[])[0]?.price!)}</span>
             </p>
             <div className="mt-1 flex gap-05">
               <div className="accent">
