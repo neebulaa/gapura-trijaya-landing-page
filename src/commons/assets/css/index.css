@@ -287,7 +287,7 @@ button {
 	display: flex;
 	flex-direction: column;
 	position: absolute;
-	width: 100%;
+	/* width: 100%; */
 	color: var(--black);
 	border: 1px solid var(--light-gray);
 	border-radius: 10px;

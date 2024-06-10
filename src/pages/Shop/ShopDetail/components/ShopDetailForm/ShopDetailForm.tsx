@@ -3,19 +3,13 @@ import IconMinus from '@/commons/assets/icons/IconMinus';
 import IconPlus from '@/commons/assets/icons/IconPlus';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useShopDetailFormController from '@/pages/Shop/ShopDetail/components/ShopDetailForm/ShopDetailFormController';
-import { IProduct } from '@/types/product';
-import { Form, Input, Select, Skeleton } from 'antd';
+import { ShopDetailFormProps } from '@/pages/Shop/ShopDetail/components/ShopDetailForm/interface/ShopDetailForm.interface';
+import { Button, Form, Input, Skeleton } from 'antd';
 
-type ShopDetailFormProps = {
-  productDetailData: IProduct | any;
-  isPending?: boolean;
-  refetch?: () => void;
-};
-
-const { Option } = Select;
+// const { Option } = Select;
 
 export default function ShopDetailForm(props: ShopDetailFormProps) {
-  const { productDetailData, isPending, refetch } = props;
+  const { productDetailData, isPending, selectedVariant } = props;
 
   /**
    * Controller
@@ -26,10 +20,10 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
     // setQuantity,
     handleIncreaseQuantity,
     handleDecreaseQuantity,
-    handleSubmit,
-    handleChangeVariant,
+    handleAddToCart,
     renderAttributeSelects,
-  } = useShopDetailFormController(productDetailData);
+    addItemCartIsLoading,
+  } = useShopDetailFormController(props);
 
   return (
     <>
@@ -38,27 +32,16 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
       ) : (
         <>
           <section className="shop-product-detail-form">
-            <h1 className="product-name">{productDetailData.name}</h1>
-            <h2 className="product-price">Rp {separator(productDetailData?.variants[0]?.price)}</h2>
+            {/* <h1 className="product-name">{productDetailData.name}</h1> */}
+            <h1 className="product-name">{selectedVariant?.name}</h1>
+            <h2 className="product-price">Rp {separator(selectedVariant?.price)}</h2>
             {productDetailData?.shortDescription && (
               <p className="product-description">{productDetailData?.shortDescription}</p>
             )}
             <hr className="mt-1 mb-1" />
             <Form form={form} layout="vertical">
               {productDetailData?.type === 'configurable' && (
-                <>
-                  {/* <Form.Item label="Pilih Variant" name="variant" rules={[{ required: false }]}>
-                    <Select
-                      defaultValue={`${productDetailData?.variants?.[0]?.id}`}
-                      options={(productDetailData?.variants || []).map((d: IProduct) => ({
-                        value: d.id,
-                        label: d.name,
-                      }))}
-                      onChange={handleChangeVariant}
-                    />
-                  </Form.Item> */}
-                  {renderAttributeSelects(productDetailData?.attributes)}
-                </>
+                <>{renderAttributeSelects(productDetailData?.attributes)}</>
               )}
 
               <Form.Item label="Keterangan" name="keterangan" rules={[{ required: false }]}>
@@ -81,14 +64,28 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
                     <IconPlus width="14" height="14" />
                   </div>
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn uppercase add-to-bag-button"
-                  onClick={handleSubmit}
+                  disabled={addItemCartIsLoading}
+                  onClick={() => handleAddToCart()}
                 >
                   <IconBag width="14" height="17" />
                   Add to bag
-                </button>
+                </button> */}
+                <Button
+                  type="primary"
+                  className="uppercase rounded-full bg-primary w-full shadow-none px-[0.875rem] py-[1.75rem]"
+                  size="large"
+                  loading={addItemCartIsLoading}
+                  onClick={() => handleAddToCart()}
+                  style={{
+                    padding: '1.75rem 0.875rem',
+                  }}
+                >
+                  <IconBag width="14" height="17" />
+                  Add to bag
+                </Button>
               </div>
             </Form>
           </section>

@@ -4,8 +4,13 @@ import ShopDetailGallery from '@/pages/Shop/ShopDetail/components/ShopDetailGall
 import useShopDetailController from './ShopDetailController';
 
 export default function ShopDetail() {
-  const { productDetailData, productDetailDataIsFetching, productDetailDataIsRefetch } =
-    useShopDetailController();
+  const {
+    productDetailData,
+    productDetailDataIsFetching,
+    productDetailDataIsRefetch,
+    selectedVariant,
+    setSelectedVariant,
+  } = useShopDetailController();
 
   return (
     <>
@@ -19,6 +24,8 @@ export default function ShopDetail() {
             productDetailData={productDetailData?.data!}
             isPending={productDetailDataIsFetching}
             refetch={productDetailDataIsRefetch}
+            selectedVariant={selectedVariant}
+            setSelectedVariant={setSelectedVariant}
           />
         </section>
         <section

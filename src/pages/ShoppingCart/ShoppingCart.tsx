@@ -7,26 +7,22 @@ import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
 import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckboxButton';
-import { ICartItem } from '@/types/cart';
-import { Button, Skeleton } from 'antd';
+import { Button, Divider, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 
 export default function ShoppingCart() {
   const {
-    cartDataState,
-    setCartDataState,
     cartData,
     cartDataIsFetching,
-    cartDataIsRefetch,
     handleIncrementQuantity,
     handleDecrementQuantity,
     handleRemoveItem,
-    subtotal,
-    shippingCost,
-    total,
+    cartSubTotal,
+    cartTotal,
   } = useShoppingCartController();
 
-  const buttonCheckoutIsDisabled = !((cartData?.data as any)?.items?.length > 0);
+  // const buttonCheckoutIsDisabled = !((cartData?.data as any)?.items?.length > 0);
+  const buttonCheckoutIsDisabled = cartData.length === 0;
 
   return (
     <>
@@ -43,84 +39,72 @@ export default function ShoppingCart() {
             </header>
             <section className="table-body">
               {/* Looping cart here */}
-              {cartDataIsFetching ? (
-                <Skeleton />
+              {cartData.length === 0 ? (
+                <div className="table-body-row">
+                  <h4 className="semibold">No items in cart</h4>
+                </div>
               ) : (
                 <>
-                  {!(cartData?.data as any)?.items ||
-                  (cartData?.data as any)?.items!.length === 0 ? (
-                    <div className="table-body-row">
-                      <h4 className="semibold">No items in cart</h4>
+                  {cartData?.map((cart: any) => (
+                    <div className="table-body-row" key={cart.id}>
+                      <div className="table-body-col">
+                        {cart?.image.length ? (
+                          <img src={ApiImgUrl(cart?.image)} alt={cart?.name} />
+                        ) : (
+                          <img src={`/noimg.png`} alt={cart?.name} />
+                        )}
+                        <h4 className="semibold">
+                          <Link to={cart?.slug ? `/shop/${cart?.slug}?${cart.queryUrl}` : '#'}>{cart?.name}</Link>
+                        </h4>
+                      </div>
+                      <div className="table-body-col">{`Rp ${separator(cart?.price)}`}</div>
+                      <div className="table-body-col">
+                        <button
+                          className="btn btn-empty btn-quantity no-hover no-pointer"
+                          style={{
+                            padding: '.5rem',
+                          }}
+                        >
+                          <div
+                            className="btn btn-circle btn-tertiary"
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                            }}
+                            onClick={() => handleDecrementQuantity(cart.id!, cart.quantity!)}
+                          >
+                            <IconMinus width="8" height="2" />
+                          </div>
+                          <p>{cart?.quantity}</p>
+                          <div
+                            className="btn btn-circle btn-tertiary"
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                            }}
+                            onClick={() => handleIncrementQuantity(cart.id!, cart.quantity!)}
+                          >
+                            <IconPlus width="10" height="10" />
+                          </div>
+                        </button>
+                      </div>
+                      <div className="table-body-col semibold">{`Rp ${separator(
+                        cart.price * cart?.quantity
+                      )}`}</div>
+                      <div className="table-body-col">
+                        <button
+                          onClick={() => handleRemoveItem(cart.id!)}
+                          className="btn btn-circle btn-empty"
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                          }}
+                        >
+                          x
+                        </button>
+                      </div>
                     </div>
-                  ) : (
-                    <>
-                      {(cartData?.data as any)?.items!.map((cart: ICartItem) => (
-                        <div className="table-body-row" key={cart.id}>
-                          <div className="table-body-col">
-                            {cart?.product.images?.length ? (
-                              <img
-                                src={ApiImgUrl(cart?.product.images[0].path)}
-                                alt={cart?.product.name}
-                              />
-                            ) : (
-                              <img src={`/noimg.png`} alt={cart?.product.name} />
-                            )}
-                            <h4 className="semibold">
-                              <Link to={`/shop/${cart?.product.slug}`}>{cart?.product.name}</Link>
-                            </h4>
-                          </div>
-                          <div className="table-body-col">{`Rp ${separator(
-                            cart?.product.price
-                          )}`}</div>
-                          <div className="table-body-col">
-                            <button
-                              className="btn btn-empty btn-quantity no-hover no-pointer"
-                              style={{
-                                padding: '.5rem',
-                              }}
-                            >
-                              <div
-                                className="btn btn-circle btn-tertiary"
-                                style={{
-                                  width: '30px',
-                                  height: '30px',
-                                }}
-                                onClick={() => handleDecrementQuantity(cart.id!, cart.quantity!)}
-                              >
-                                <IconMinus width="8" height="2" />
-                              </div>
-                              <p>{cart?.quantity}</p>
-                              <div
-                                className="btn btn-circle btn-tertiary"
-                                style={{
-                                  width: '30px',
-                                  height: '30px',
-                                }}
-                                onClick={() => handleIncrementQuantity(cart.id!, cart.quantity!)}
-                              >
-                                <IconPlus width="10" height="10" />
-                              </div>
-                            </button>
-                          </div>
-                          <div className="table-body-col semibold">{`Rp ${separator(
-                            cart.product?.price * cart?.quantity
-                          )}`}</div>
-                          <div className="table-body-col">
-                            <button
-                              onClick={() => handleRemoveItem(cart.id!)}
-                              className="btn btn-circle btn-empty"
-                              style={{
-                                width: '30px',
-                                height: '30px',
-                              }}
-                            >
-                              x
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </>
-                  )}
+                  ))}
                 </>
               )}
               {/* ./Looping cart here */}
@@ -175,20 +159,21 @@ export default function ShoppingCart() {
                 <h2>Card Total</h2>
                 <div className="content-split mt-1-05 justify-between">
                   <h5>Subtotal: </h5>
-                  <p className="medium">Rp {separator(subtotal)}</p>
+                  <p className="medium">Rp {separator(cartSubTotal)}</p>
                 </div>
-                <hr className="mt-1" />
-                <div className="content-split mt-1 justify-between">
+                {/* <hr className="mt-1" /> */}
+                {/* <div className="content-split mt-1 justify-between">
                   <h5>Shipping: </h5>
                   <p className="medium">Rp {separator(shippingCost)}</p>
-                </div>
-                <hr className="mt-1" />
+                </div> */}
+                {/* <hr className="mt-1" /> */}
+                <Divider className="my-2" />
                 <div
                   className="content-split mt-1 justify-between semibold"
                   style={{ fontSize: '1.125rem' }}
                 >
                   <h5>Total: </h5>
-                  <p>{`Rp ${separator(total)}`}</p>
+                  <p>{`Rp ${separator(cartTotal)}`}</p>
                 </div>
                 <Link to="/order/checkout">
                   {/* <button className="btn btn-full w-100 mt-1-05">Proceed to checkout</button> */}

@@ -1,7 +1,6 @@
 import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
-import { ICartItem } from '@/types/cart';
 import { Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -11,8 +10,7 @@ type CartPopupProps = {
 
 export default function CartPopUp({ close }: CartPopupProps) {
   /** Controller */
-  const { cartData, cartDataIsFetching, subtotal, shippingCost, total } =
-    useShoppingCartController();
+  const { cartData, cartDataIsFetching, cartTotal } = useShoppingCartController();
 
   return (
     <section
@@ -41,26 +39,26 @@ export default function CartPopUp({ close }: CartPopupProps) {
             <h2>Shopping Cart</h2>
             <hr className="mt-1-05 mb-1" />
 
-            {(cartData?.data as any)?.items.length === 0 || !cartData?.data ? (
+            {!cartData || cartData.length < 1 ? (
               <div className="py-5">
                 <h4 className="semibold">No items in cart</h4>
               </div>
             ) : (
               <>
                 <div className="popup-cart-products">
-                  {(cartData?.data as any)?.items.map((cart: ICartItem) => (
+                  {cartData.map((cart: any) => (
                     <div className="popup-cart-product" key={cart.id}>
                       <img
-                        src={ApiImgUrl(cart.product.images[0]?.path)}
-                        alt={`${import.meta.env.VITE_APP_NAME} - ` + cart.product.name}
+                        src={ApiImgUrl(cart.image)}
+                        alt={`${import.meta.env.VITE_APP_NAME} - ` + cart.name}
                       />
                       <div className="popup-cart-product-desc w-100">
                         <div className="popup-cart-product-title">
-                          <h3>{cart.product.name}</h3>
+                          <h3>{cart.name}</h3>
                           <p>{cart.quantity} items</p>
                         </div>
                         <p className="popup-cart-product-price">{`Rp ${separator(
-                          cart.product.price * cart.quantity
+                          cart.price * cart.quantity
                         )}`}</p>
                       </div>
                     </div>
@@ -69,7 +67,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
                 <hr className="mt-2 mb-1" />
                 <div className="mb-2 flex justify-between items-center">
                   <h3>Total</h3>
-                  <h2 className="highlight">Rp {separator(total)}</h2>
+                  <h2 className="highlight">Rp {separator(cartTotal)}</h2>
                 </div>
               </>
             )}

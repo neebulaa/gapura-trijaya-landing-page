@@ -1,4 +1,6 @@
 import { useGetProductBySlug } from '@/services/queries/product.query';
+import { IProduct } from '@/types/product';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function useShopDetailController() {
@@ -7,8 +9,8 @@ export default function useShopDetailController() {
   /**
    * State
    */
-  //   const [product, setProduct] = useState<IProduct | null>(null);
-  //   const [category, setCategory] = useState<Category | null>(null);
+  // const { selectedProduct, setProducts } = useProductStore((state) => state);
+  const [selectedVariant, setSelectedVariant] = useState<IProduct | null>(null);
 
   /**
    * Queries
@@ -22,10 +24,17 @@ export default function useShopDetailController() {
   /**
    * Effects
    */
+  useEffect(() => {
+    if (productDetailData) {
+      setSelectedVariant(productDetailData?.data);
+    }
+  }, [productDetailData]);
 
   return {
     productDetailData,
     productDetailDataIsFetching,
     productDetailDataIsRefetch,
+    selectedVariant,
+    setSelectedVariant,
   };
 }
