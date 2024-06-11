@@ -36,9 +36,9 @@ export const NavigationItems: MenuItem[] = [
     getItem('Category', 'categories', null),
     getItem('Attribute', 'attributes', null),
   ]),
-  getItem('Order', 'order', <ShoppingCartOutlined />, [
-    getItem('Order', 'order', null),
-    getItem('Shipment', 'shipment', null),
+  getItem('Order', 'orders', <ShoppingCartOutlined />, [
+    getItem('Order', 'orders', null),
+    getItem('Shipment', 'shipments', null),
   ]),
   getItem('User', 'users', <UserOutlined />),
   getItem('Setting', 'setting', <SettingOutlined />),

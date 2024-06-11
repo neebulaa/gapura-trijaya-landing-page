@@ -5,6 +5,7 @@ import { ProductRoutes } from '@/routes/Admin/ProductRoute';
 import { UserRoutes } from '@/routes/Admin/UserRoute';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
+import { OrderRoutes } from './OrderRoute';
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard/DashboardIndex'));
 const Profile = lazy(() => import('@/pages/Admin/Profile/ProfileIndex'));
@@ -27,6 +28,7 @@ export const AdminRoutes: RouteObject[] = [
       ...ProductRoutes,
       ...AttributeRoutes,
       ...UserRoutes,
+      ...OrderRoutes,
       {
         path: 'profile',
         element: (
