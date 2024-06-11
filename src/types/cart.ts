@@ -1,17 +1,12 @@
-import { BaseModel } from '@/types/base';
-import { IProduct } from '@/types/product';
-
-export interface ICart extends BaseModel {
-  userId: string;
-  subtotal: number;
-  total: number;
-  items: ICartItem[] | any;
-}
-
-export interface ICartItem extends BaseModel {
-  cartId: string;
-  productId: string;
+export interface ICartItem {
+  id: string;
+  name: string;
+  slug: string;
+  queryUrl?: string;
+  price: number;
+  image: string;
   quantity: number;
-  meta: null;
-  product: IProduct;
+  attributes?: any;
+  // meta?: any;
+  // product?: any;
 }

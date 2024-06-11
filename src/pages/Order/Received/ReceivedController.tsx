@@ -1,4 +1,10 @@
+import { separator } from '@/commons/utils/Currency/Currency';
+import { useGetReceivedOrder } from '@/services/queries/order.query';
+import { useParams } from 'react-router-dom';
+
 export default function useReceivedController() {
+  const { orderId } = useParams<{ orderId: string }>();
+
   /** State */
 
   const order = {
@@ -49,7 +55,19 @@ export default function useReceivedController() {
     paymentUrl: 'https://payment.example.com/inv-123456',
   };
 
-  const columns = [
+  /**
+   * Query the order details
+   */
+  const {
+    data: orderData,
+    isPending: orderDataIsFetching,
+    refetch: orderDataIsRefetch,
+  } = useGetReceivedOrder(orderId!);
+
+  /**
+   * Table properties for the received order
+   */
+  const ReceivedOrderTableProps = [
     {
       title: '#',
       dataIndex: 'sku',
@@ -64,35 +82,47 @@ export default function useReceivedController() {
       title: 'Description',
       dataIndex: 'attributes',
       key: 'attributes',
-      render: (text: string) => <div dangerouslySetInnerHTML={{ __html: text }} />,
+      render: (text: string) => {
+        if (!text) return 'No description available';
+
+        const attributes = JSON.parse(text);
+        const attributeItems = Object.entries(attributes).map(
+          ([key, value]) => `<li>${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}</li>`
+        );
+        return <div dangerouslySetInnerHTML={{ __html: `<ul>${attributeItems.join('')}</ul>` }} />;
+      },
     },
     {
       title: 'Quantity',
       dataIndex: 'qty',
       key: 'qty',
+      align: 'center',
     },
     {
       title: 'Unit Cost',
       dataIndex: 'basePrice',
       key: 'basePrice',
-      render: (text: string) => `\Rp ${parseFloat(text).toFixed(2)}`,
+      render: (text: string) => `Rp ${separator(text)}`,
     },
     {
       title: 'Total',
       dataIndex: 'subTotal',
       key: 'subTotal',
-      render: (text: string) => `\Rp ${parseFloat(text).toFixed(2)}`,
+      render: (text: string) => `Rp ${separator(text)}`,
     },
   ];
 
-  const orderItems = order.orderItems.map((item: any) => ({
+  const orderItems = orderData?.data.orderItems.map((item: any) => ({
     ...item,
     key: item.sku,
+    // attributes: JSON.stringify(item.attributes),
   }));
 
   return {
-    order,
-    columns,
+    orderData,
+    orderDataIsFetching,
+    orderDataIsRefetch,
+    ReceivedOrderTableProps,
     orderItems,
   };
 }

@@ -20,7 +20,12 @@ export default function Checkout() {
     cartItems,
     cartSubTotal,
     cartTotal,
-    //
+    provinceData,
+    handleProvinceChange,
+    cityData,
+    cityDataIsFetching,
+    cityDataIsStale,
+    handleCityChange
   } = useCheckoutController();
 
   const steps = [
@@ -135,11 +140,37 @@ export default function Checkout() {
                 name="provinceId"
                 rules={[{ required: true, message: 'Province is required' }]}
               >
-                <Select placeholder="- Please Select -" size="large">
-                  {/* Replace with dynamic data */}
+                {/* <Select placeholder="- Please Select -" size="large">
                   <Option value="1">Province 1</Option>
                   <Option value="2">Province 2</Option>
-                </Select>
+                </Select> */}
+                {/* <Select
+                  showSearch
+                  placeholder="- Please Select -"
+                  size="large"
+                  filterOption={false}
+                  optionLabelProp="label"
+                  options={(Object?.entries(provinceData?.data) || []).map(([id, name]) => ({
+                    value: id,
+                    label: name,
+                  }))}
+                /> */}
+                <Select
+                  showSearch
+                  placeholder="- Please Select -"
+                  size="large"
+                  filterOption={true}
+                  optionLabelProp="label"
+                  onChange={handleProvinceChange}
+                  options={
+                    provinceData?.data
+                      ? Object.entries(provinceData.data).map(([id, name]) => ({
+                          value: id,
+                          label: name,
+                        }))
+                      : []
+                  }
+                />
               </Form.Item>
             </ResponsiveCol>
           </Row>
@@ -150,11 +181,27 @@ export default function Checkout() {
                 name="cityId"
                 rules={[{ required: true, message: 'City is required' }]}
               >
-                <Select placeholder="- Please Select -" size="large">
-                  {/* Replace with dynamic data */}
+                {/* <Select placeholder="- Please Select -" size="large" disabled={!cityDataIsStale}>
                   <Option value="1">City 1</Option>
                   <Option value="2">City 2</Option>
-                </Select>
+                </Select> */}
+                <Select
+                  showSearch
+                  placeholder="- Please Select -"
+                  size="large"
+                  filterOption={true}
+                  optionLabelProp="label"
+                  onChange={handleCityChange}
+                  disabled={!cityDataIsStale || cityDataIsFetching}
+                  options={
+                    cityData?.data
+                      ? Object.entries(cityData.data).map(([id, name]) => ({
+                          value: id,
+                          label: name,
+                        }))
+                      : []
+                  }
+                />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -176,8 +223,8 @@ export default function Checkout() {
               >
                 <Select placeholder="- Please Select -" size="large">
                   {/* Replace with dynamic data */}
-                  <Option value="1">ZNE</Option>
-                  <Option value="2">Z&T</Option>
+                  <Option value="zne">ZNE</Option>
+                  <Option value="z&t">Z&T</Option>
                 </Select>
               </Form.Item>
             </Col>
@@ -191,7 +238,7 @@ export default function Checkout() {
     <>
       <PageHeader title="Checkout" navigations={['Home', 'Order', 'Checkout']} />
       <section className="container">
-        <Form form={form} layout="vertical">
+        <Form form={form} layout="vertical" autoComplete="off">
           <Row gutter={20}>
             <Col span={24} md={14}>
               <div className="steps-">
@@ -241,12 +288,22 @@ export default function Checkout() {
                     <div className="flex justify-between mb-2 items-center" key={item.id}>
                       <div className="flex items-center">
                         {item.image ? (
-                          <img src={ApiImgUrl(item.image)} width={50} alt="" className="border rounded-lg" />
+                          <img
+                            src={ApiImgUrl(item.image)}
+                            width={50}
+                            alt={item.name}
+                            className="border rounded-lg"
+                          />
                         ) : (
-                          <img src={'/noimg.png'} width={50} alt="" className="border rounded-lg" />
+                          <img
+                            src={'/noimg.png'}
+                            width={50}
+                            alt={item.name}
+                            className="border rounded-lg"
+                          />
                         )}
-                        <h3>
-                          <span className="pl-2">{item.name}</span>
+                        <h3 className="pl-2">
+                          <span>{item.name}</span>
                           <span className="font-semibold">&nbsp; x{item.quantity}</span>
                         </h3>
                       </div>
