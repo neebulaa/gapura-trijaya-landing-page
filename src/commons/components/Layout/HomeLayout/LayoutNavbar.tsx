@@ -2,10 +2,11 @@ import IconCart from '@/commons/assets/icons/IconCart';
 import IconChevronDown from '@/commons/assets/icons/IconChevronDown';
 import IconSearch from '@/commons/assets/icons/IconSearch';
 import CartPopUp from '@/commons/components/Public/CartPopUp';
+import useCartStore from '@/commons/store/useCartStore';
 import useUserStore from '@/commons/store/useUserStore';
 import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
 import { logout } from '@/services/api/auth.service';
-import { message } from 'antd';
+import { Badge, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
@@ -23,6 +24,7 @@ export default function LayoutNavbar() {
     return window.innerWidth <= 768;
   });
   const { userData } = useUserStore((state) => state);
+  const { items: cartItems } = useCartStore((state) => state);
 
   /**
    * Handle Logout
@@ -106,8 +108,10 @@ export default function LayoutNavbar() {
                 </li>
                 <li>
                   {!isMobile && (
-                    <div onClick={() => setOpenCartPopup(true)}>
-                      <IconCart width={'20'} height={'20'} />
+                    <div onClick={() => setOpenCartPopup(true)} className="flex items-center">
+                      <Badge count={cartItems?.length}>
+                        <IconCart width={'20'} height={'20'} />
+                      </Badge>
                     </div>
                   )}
 

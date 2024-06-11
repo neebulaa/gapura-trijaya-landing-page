@@ -29,5 +29,6 @@ export const useGetProductByQuery = (slug: string, params: any) => {
       return await axiosGetProduct<any, any>(`/v1/product-query/${slug}`, params);
     },
     enabled: !!slug,
+    // staleTime: 0, // Always stale
   });
 };

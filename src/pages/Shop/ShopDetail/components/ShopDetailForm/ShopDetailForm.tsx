@@ -9,7 +9,7 @@ import { Button, Form, Input, Skeleton } from 'antd';
 // const { Option } = Select;
 
 export default function ShopDetailForm(props: ShopDetailFormProps) {
-  const { productDetailData, isPending, selectedVariant } = props;
+  const { productDetailData, isPending } = props;
 
   /**
    * Controller
@@ -23,6 +23,7 @@ export default function ShopDetailForm(props: ShopDetailFormProps) {
     handleAddToCart,
     renderAttributeSelects,
     addItemCartIsLoading,
+    selectedVariant,
   } = useShopDetailFormController(props);
 
   return (

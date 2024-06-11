@@ -46,8 +46,8 @@ export default function CartPopUp({ close }: CartPopupProps) {
             ) : (
               <>
                 <div className="popup-cart-products">
-                  {cartData.map((cart: any) => (
-                    <div className="popup-cart-product" key={cart.id}>
+                  {cartData.map((cart: any, key) => (
+                    <div className="popup-cart-product" key={key}>
                       <img
                         src={ApiImgUrl(cart.image)}
                         alt={`${import.meta.env.VITE_APP_NAME} - ` + cart.name}
@@ -66,7 +66,7 @@ export default function CartPopUp({ close }: CartPopupProps) {
                 </div>
                 <hr className="mt-2 mb-1" />
                 <div className="mb-2 flex justify-between items-center">
-                  <h3>Total</h3>
+                  <h3 className="font-semibold">Total</h3>
                   <h2 className="highlight">Rp {separator(cartTotal)}</h2>
                 </div>
               </>

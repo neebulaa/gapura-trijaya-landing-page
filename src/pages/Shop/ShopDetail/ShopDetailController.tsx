@@ -1,6 +1,6 @@
+import { useProductStore } from '@/commons/store/useProductStore';
 import { useGetProductBySlug } from '@/services/queries/product.query';
-import { IProduct } from '@/types/product';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function useShopDetailController() {
@@ -9,8 +9,7 @@ export default function useShopDetailController() {
   /**
    * State
    */
-  // const { selectedProduct, setProducts } = useProductStore((state) => state);
-  const [selectedVariant, setSelectedVariant] = useState<IProduct | null>(null);
+  const { selectedVariant, setSelectedVariant } = useProductStore((state) => state);
 
   /**
    * Queries

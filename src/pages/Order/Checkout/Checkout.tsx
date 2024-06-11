@@ -1,6 +1,8 @@
 import FormItem from '@/commons/components/Form/FormItem';
 import PageHeader from '@/commons/components/Layout/HomeLayout/PageHeader';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
+import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
+import { separator } from '@/commons/utils/Currency/Currency';
 import useCheckoutController from '@/pages/Order/Checkout/CheckoutController';
 import { Button, Card, Col, Divider, Form, Input, Row, Select, Steps } from 'antd';
 
@@ -15,6 +17,9 @@ export default function Checkout() {
     prevStep,
     form,
     handlePlaceOrder,
+    cartItems,
+    cartSubTotal,
+    cartTotal,
     //
   } = useCheckoutController();
 
@@ -231,23 +236,30 @@ export default function Checkout() {
               <Card>
                 <h3 className="font-semibold text-md mb-4">Order Summary</h3>
                 <div className="">
-                  {/* product list */}
-                  <div className="flex justify-between mb-2 items-center">
-                    <div className="flex items-center">
-                      <img src={'/noimg.png'} width={50} alt="" className="border" />
-                      <h3>
-                        Product Name
-                        <span className="font-semibold">&nbsp; x2</span>
-                      </h3>
+                  {/* loop product list */}
+                  {cartItems.map((item) => (
+                    <div className="flex justify-between mb-2 items-center" key={item.id}>
+                      <div className="flex items-center">
+                        {item.image ? (
+                          <img src={ApiImgUrl(item.image)} width={50} alt="" className="border rounded-lg" />
+                        ) : (
+                          <img src={'/noimg.png'} width={50} alt="" className="border rounded-lg" />
+                        )}
+                        <h3>
+                          <span className="pl-2">{item.name}</span>
+                          <span className="font-semibold">&nbsp; x{item.quantity}</span>
+                        </h3>
+                      </div>
+                      <span>Rp {separator(item.price)}</span>
                     </div>
-                    <span>Rp 100.000</span>
-                  </div>
+                  ))}
+                  {/* ./loop product list */}
                   <Divider className="my-2" />
                 </div>
                 <div className="">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>Rp 100.000</span>
+                    <span>Rp {separator(cartSubTotal)}</span>
                   </div>
                   <Divider className="my-2" />
                   <div className="flex justify-between">
@@ -255,9 +267,9 @@ export default function Checkout() {
                     <span>Rp 10.000</span>
                   </div>
                   <Divider className="my-2" />
-                  <div className="flex justify-between mb-4">
+                  <div className="flex justify-between mb-4 font-semibold">
                     <span>TOTAL</span>
-                    <span>Rp 110.000</span>
+                    <span>Rp {separator(cartTotal)}</span>
                   </div>
                 </div>
                 <Button

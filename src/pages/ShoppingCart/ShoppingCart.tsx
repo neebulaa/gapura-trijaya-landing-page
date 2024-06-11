@@ -48,7 +48,7 @@ export default function ShoppingCart() {
                   {cartData?.map((cart: any) => (
                     <div className="table-body-row" key={cart.id}>
                       <div className="table-body-col">
-                        {cart?.image.length ? (
+                        {cart?.image?.length ? (
                           <img src={ApiImgUrl(cart?.image)} alt={cart?.name} />
                         ) : (
                           <img src={`/noimg.png`} alt={cart?.name} />
@@ -151,7 +151,7 @@ export default function ShoppingCart() {
             </div>
           </div>
 
-          <div className="cart-total">
+          <div className="cart-total p-3">
             {cartDataIsFetching ? (
               <Skeleton />
             ) : (

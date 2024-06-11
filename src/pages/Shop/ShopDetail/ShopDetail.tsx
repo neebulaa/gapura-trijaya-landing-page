@@ -1,15 +1,15 @@
 import PageHeaderNav from '@/commons/components/Layout/HomeLayout/PageHeaderNav';
 import ShopDetailForm from '@/pages/Shop/ShopDetail/components/ShopDetailForm/ShopDetailForm';
 import ShopDetailGallery from '@/pages/Shop/ShopDetail/components/ShopDetailGallery/ShopDetailGallery';
-import useShopDetailController from './ShopDetailController';
+import useShopDetailController from '@/pages/Shop/ShopDetail/ShopDetailController';
 
 export default function ShopDetail() {
   const {
     productDetailData,
     productDetailDataIsFetching,
     productDetailDataIsRefetch,
-    selectedVariant,
-    setSelectedVariant,
+    // selectedVariant,
+    // setSelectedVariant,
   } = useShopDetailController();
 
   return (
@@ -24,8 +24,8 @@ export default function ShopDetail() {
             productDetailData={productDetailData?.data!}
             isPending={productDetailDataIsFetching}
             refetch={productDetailDataIsRefetch}
-            selectedVariant={selectedVariant}
-            setSelectedVariant={setSelectedVariant}
+            // selectedVariant={selectedVariant}
+            // setSelectedVariant={setSelectedVariant}
           />
         </section>
         <section

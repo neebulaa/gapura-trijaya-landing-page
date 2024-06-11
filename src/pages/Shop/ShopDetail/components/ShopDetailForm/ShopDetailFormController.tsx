@@ -1,16 +1,16 @@
 import useCartStore from '@/commons/store/useCartStore';
-import useProductStore from '@/commons/store/useProductStore';
-import useUserStore from '@/commons/store/useUserStore';
+import { useProductStore } from '@/commons/store/useProductStore';
+import { ShopDetailFormProps } from '@/pages/Shop/ShopDetail/components/ShopDetailForm/interface/ShopDetailForm.interface';
 import { useGetProductByQuery } from '@/services/queries/product.query';
-import { Form, Select, message } from 'antd';
+import { App, Form, Select } from 'antd';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ShopDetailFormProps } from '@/pages/Shop/ShopDetail/components/ShopDetailForm/interface/ShopDetailForm.interface';
 
 export default function useShopDetailFormController(props: ShopDetailFormProps) {
   // const navigate = useNavigate();
-  const { productDetailData, selectedVariant, setSelectedVariant } = props;
+  const { productDetailData } = props;
   const { Option } = Select;
+  const { message } = App.useApp();
 
   /**
    * State
@@ -18,6 +18,7 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   const [quantity, setQuantity] = useState<number>(1);
   const [form] = Form.useForm();
   const { addItem, isLoading: addItemCartIsLoading } = useCartStore((state) => state);
+  const { selectedVariant, setSelectedVariant } = useProductStore((state) => state);
   // const { userData } = useUserStore((state) => state);
   // const { selectedProduct } = useProductStore((state) => state);
   // const { items, addItem } = useCart();
@@ -42,8 +43,12 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   // const { mutateAsync: mutateCreateCart, isPending: mutateCreateCartIsLoading } = useCreateCart();
 
   /** Query Model: Get Product Variant */
+  // const { data: productVariantData } = useGetProductByQuery(
+  //   productDetailData?.slug,
+  //   searchParamGet(searchParams)
+  // );
   const { data: productVariantData } = useGetProductByQuery(
-    productDetailData?.slug,
+    selectedVariant?.slug as string,
     searchParamGet(searchParams)
   );
 
@@ -64,7 +69,7 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   const handleAddToCart = () => {
     // form.validateFields();
     // const values = form.getFieldsValue();
-    console.log('add to cart: ', selectedVariant?.id, quantity);
+    // console.log('add to cart: ', selectedVariant?.id, quantity);
 
     addItem({
       id: selectedVariant?.id!,
@@ -136,6 +141,24 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
       );
       form.setFieldsValue(initialValues);
     }
+
+    // console.log('values: ', form.getFieldsValue());
+    setSearchParams({
+      ...form.getFieldsValue(),
+      keterangan: form.getFieldValue('keterangan')?.toString() || '',
+    });
+    
+    // 
+    if (productVariantData) {
+      setSelectedVariant?.({
+        ...productDetailData,
+        id: productVariantData?.data.id,
+        name: productVariantData?.data.name,
+        slug: productVariantData?.data.slug,
+        price: productVariantData?.data.price,
+        image: productVariantData?.data.images ? productVariantData?.data?.images[0]?.path : '',
+      });
+    }
   }, [productDetailData, searchParams, form]);
 
   /**
@@ -152,8 +175,11 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
       });
     }
 
-    // console.log('new productVariantData: ', productVariantData);
-  }, [productVariantData]);
+    // console.log('new productVariantData: ', selectedVariant);
+    console.log('new productVariantData: ', selectedVariant);
+    console.log('searchParams: ', searchParams.toString());
+    
+  }, [productVariantData, productDetailData]);
 
   /** Effects: Cart */
   // useEffect(() => {
@@ -173,5 +199,6 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
     renderAttributeSelects,
     handleSelectChange,
     addItemCartIsLoading,
+    selectedVariant,
   };
 }
