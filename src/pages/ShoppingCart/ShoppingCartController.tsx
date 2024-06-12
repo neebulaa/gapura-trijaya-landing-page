@@ -1,13 +1,10 @@
 import useCartStore from '@/commons/store/useCartStore';
-import { ICart } from '@/types/cart';
 import { message } from 'antd';
-import { useState } from 'react';
 
 export default function useShoppingCartController() {
   /**
    * State
    */
-  const [cartDataState, setCartDataState] = useState<ICart | null>(null);
   const {
     items: cartData,
     updateItem: updateItemCart,
@@ -82,8 +79,6 @@ export default function useShoppingCartController() {
   // const total = subtotal + shippingCost;
 
   return {
-    cartDataState,
-    setCartDataState,
     cartData,
     cartDataIsFetching,
     handleIncrementQuantity,

@@ -74,24 +74,80 @@ export default function useOrderIndexController() {
   /** Dummy data of OrderData */
   const orderData: IOrder[] = [
     {
-      key: '1',
-      orderId: 'ORD001',
-      orderDate: '2024-06-01 12:00:00',
-      grandTotal: 500000,
-      customerName: 'John Doe',
-      customerEmail: 'john.doe@example.com',
+      id: '1',
+      userId: null,
+      code: 'ORD001',
       status: 'Pending',
+      orderDate: '2024-06-01 12:00:00',
+      paymentDue: '2024-06-05',
       paymentStatus: 'Unpaid',
+      paymentToken: null,
+      paymentUrl: null,
+      baseTotalPrice: '400000',
+      taxAmount: '50000',
+      taxPercent: '10',
+      discountAmount: '0',
+      discountPercent: '0',
+      shippingCost: '50000',
+      grandTotal: '500000',
+      note: '',
+      customerFirstName: 'John',
+      customerLastName: 'Doe',
+      customerAddress1: '123 Main St',
+      customerAddress2: '',
+      customerPhone: '08123456789',
+      customerEmail: 'john.doe@example.com',
+      customerCityId: '1',
+      customerProvinceId: '1',
+      customerPostcode: 12345,
+      shippingCourier: null,
+      shippingServiceName: null,
+      approvedBy: null,
+      approvedAt: null,
+      cancelledBy: null,
+      cancelledAt: null,
+      cancellationNote: null,
+      deletedAt: null,
+      customerFullName: 'John Doe',
+      orderItems: [],
     },
     {
-      key: '2',
-      orderId: 'ORD002',
-      orderDate: '2024-06-02 14:30:00',
-      grandTotal: 750000,
-      customerName: 'Jane Smith',
-      customerEmail: 'jane.smith@example.com',
+      id: '2',
+      userId: null,
+      code: 'ORD002',
       status: 'Completed',
+      orderDate: '2024-06-02 14:30:00',
+      paymentDue: '2024-06-06',
       paymentStatus: 'Paid',
+      paymentToken: null,
+      paymentUrl: null,
+      baseTotalPrice: '650000',
+      taxAmount: '100000',
+      taxPercent: '15',
+      discountAmount: '0',
+      discountPercent: '0',
+      shippingCost: '0',
+      grandTotal: '750000',
+      note: '',
+      customerFirstName: 'Jane',
+      customerLastName: 'Smith',
+      customerAddress1: '456 Market St',
+      customerAddress2: '',
+      customerPhone: '08234567890',
+      customerEmail: 'jane.smith@example.com',
+      customerCityId: '2',
+      customerProvinceId: '2',
+      customerPostcode: 54321,
+      shippingCourier: null,
+      shippingServiceName: null,
+      approvedBy: null,
+      approvedAt: null,
+      cancelledBy: null,
+      cancelledAt: null,
+      cancellationNote: null,
+      deletedAt: null,
+      customerFullName: 'Jane Smith',
+      orderItems: [],
     },
     // Tambahkan lebih banyak data sesuai kebutuhan
   ];
@@ -100,9 +156,9 @@ export default function useOrderIndexController() {
   const OrderTableProps: ColumnType<IOrder>[] | any = [
     {
       title: 'Order ID',
-      dataIndex: 'orderId',
-      key: 'orderId',
-      render: (text, record) => (
+      dataIndex: 'code',
+      key: 'code',
+      render: (text: string, record: IOrder) => (
         <>
           {text}
           <br />
@@ -114,15 +170,15 @@ export default function useOrderIndexController() {
       title: 'Grand Total',
       dataIndex: 'grandTotal',
       key: 'grandTotal',
-      render: (text) => `Rp ${text.toLocaleString()}`,
+      render: (text: number) => `Rp ${text.toLocaleString()}`,
     },
     {
       title: 'Name',
-      dataIndex: 'customerName',
-      key: 'customerName',
-      render: (text, record) => (
+      dataIndex: 'customerFirstName',
+      key: 'customerFirstName',
+      render: (text: string, record: IOrder) => (
         <>
-          {text}
+          {text} {record.customerLastName}
           <br />
           <span style={{ fontSize: 12, fontWeight: 'normal' }}>{record.customerEmail}</span>
         </>
@@ -132,7 +188,7 @@ export default function useOrderIndexController() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (text, record) => (
+      render: (text: string, record: IOrder) => (
         <Tag color={record.status === 'Pending' ? 'warning' : 'success'}>{text}</Tag>
       ),
     },
@@ -140,7 +196,7 @@ export default function useOrderIndexController() {
       title: 'Payment',
       dataIndex: 'paymentStatus',
       key: 'paymentStatus',
-      render: (text, record) => (
+      render: (text: string, record: IOrder) => (
         <Tag color={record.paymentStatus === 'Unpaid' ? 'default' : 'success'}>{text}</Tag>
       ),
     },
@@ -151,8 +207,8 @@ export default function useOrderIndexController() {
       width: '15%',
       align: 'center',
       fixed: 'right',
-      render: (text, record) => (
-        <ToggleableLink to={`/admin/orders/${record.key!}/show`}>
+      render: (_text: string, record: IOrder) => (
+        <ToggleableLink to={`/admin/orders/${record.id!}/show`}>
           <ActionButton
             icon={<EyeOutlined />}
             hoverMessage="Show"

@@ -112,7 +112,7 @@ export default function OrderIndex() {
               scroll={{ x: 700 }}
               bordered={true}
               size="small"
-              rowKey={(record) => record.key!}
+              rowKey={(record) => record.id!}
               columns={OrderTableProps}
               dataSource={orderData}
               //   pagination={{

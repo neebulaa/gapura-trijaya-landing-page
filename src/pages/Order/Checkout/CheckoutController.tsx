@@ -1,11 +1,12 @@
 import useCartStore from '@/commons/store/useCartStore';
-import { useCreateOrder } from '@/services/queries/order.query';
-import { Form, message } from 'antd';
+import { useCreateOrder, useGetCities, useGetProvinces } from '@/services/queries/order.query';
+import { App, Form } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function useCheckoutController() {
   const navigate = useNavigate();
+  const { message } = App.useApp();
 
   /** State */
   const [currentStep, setCurrentStep] = useState(0);
@@ -14,14 +15,31 @@ export default function useCheckoutController() {
     items: cartItems,
     subTotal: cartSubTotal,
     total: cartTotal,
-    //
+    clearCart,
   } = useCartStore.getState();
+  const [provinceId, setProvinceId] = useState<number>();
 
   /**
    * Query Model: Create Order
    */
-  const { mutateAsync: mutateCreateOrder, isPending: mutateCreateOrderIsLoading } =
+  const { mutateAsync: mutateCreateOrder, isPending: _mutateCreateOrderIsLoading } =
     useCreateOrder();
+
+  /**
+   * Query Model: Get Provinces
+   */
+  const { data: provinceData, isPending: provinceDataIsFetching } = useGetProvinces({
+    enabled: currentStep === 1 ? true : false,
+  });
+
+  /**
+   * Query Model: Get Cities
+   */
+  const {
+    data: cityData,
+    isPending: cityDataIsFetching,
+    isStale: cityDataIsStale,
+  } = useGetCities({ provinceId: provinceId }, { enabled: provinceId ? true : false });
 
   /** Steps */
   const buttonPlaceOrderDisabled = currentStep !== 1;
@@ -43,6 +61,21 @@ export default function useCheckoutController() {
   };
 
   /**
+   * Provinces: onchage select province
+   */
+  const handleProvinceChange = (value: number) => {
+    form.setFieldsValue({ provinceId: value, cityId: null });
+    setProvinceId(value);
+  };
+
+  /**
+   * Provinces: onchage select province
+   */
+  const handleCityChange = (value: number) => {
+    console.log('city changed');
+  };
+
+  /**
    * Place Order: Handle Submit
    */
   const handlePlaceOrder = async () => {
@@ -54,14 +87,16 @@ export default function useCheckoutController() {
       carts: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,
+        attributes: item.attributes,
         // price: item.product.price,
         // total: item.product.price * item.quantity,
       })),
     };
-    console.log('values:', params);
+
     await mutateCreateOrder(params)
       .then((res) => {
         message.success('Order has been placed successfully');
+        clearCart();
         navigate(`/order/received/${res.data.id}`);
       })
       .catch((err) => {
@@ -69,6 +104,10 @@ export default function useCheckoutController() {
         console.log('Failed to place order:', err);
       });
   };
+
+  /**
+   * Effects
+   */
 
   return {
     currentStep,
@@ -81,5 +120,12 @@ export default function useCheckoutController() {
     cartItems,
     cartSubTotal,
     cartTotal,
+    provinceData,
+    provinceDataIsFetching,
+    handleProvinceChange,
+    cityData,
+    cityDataIsFetching,
+    cityDataIsStale,
+    handleCityChange,
   };
 }

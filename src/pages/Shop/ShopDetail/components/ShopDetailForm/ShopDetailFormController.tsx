@@ -26,6 +26,7 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   /** Product Attributes: State */
   const [searchParams, setSearchParams] = useSearchParams();
 
+  /** Helper: Get dynamic search param on url */
   const searchParamGet = (searchParams: any) => {
     let params: any = {};
     for (let [key, value] of searchParams.entries()) {
@@ -34,8 +35,6 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
     }
     return params;
   };
-
-  // console.log(getParams(searchParams));
 
   /**
    * Query Model New Cart
@@ -53,7 +52,7 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   );
 
   /**
-   * Handlers
+   * Handlers: Quantity Increment/Decrement
    */
   const handleIncreaseQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -69,7 +68,6 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
   const handleAddToCart = () => {
     // form.validateFields();
     // const values = form.getFieldsValue();
-    // console.log('add to cart: ', selectedVariant?.id, quantity);
 
     addItem({
       id: selectedVariant?.id!,
@@ -79,6 +77,7 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
       price: selectedVariant?.price as number,
       image: selectedVariant?.images?.[0].path,
       quantity: quantity,
+      attributes: searchParamGet(searchParams),
     });
     message.success('Successfully added to cart!');
   };
@@ -142,13 +141,13 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
       form.setFieldsValue(initialValues);
     }
 
-    // console.log('values: ', form.getFieldsValue());
-    setSearchParams({
-      ...form.getFieldsValue(),
-      keterangan: form.getFieldValue('keterangan')?.toString() || '',
-    });
-    
-    // 
+    // set url params
+    const values = form.getFieldsValue();
+    delete values.keterangan;
+    delete values.quantity;
+    setSearchParams(values);
+
+    //
     if (productVariantData) {
       setSelectedVariant?.({
         ...productDetailData,
@@ -178,7 +177,6 @@ export default function useShopDetailFormController(props: ShopDetailFormProps) 
     // console.log('new productVariantData: ', selectedVariant);
     console.log('new productVariantData: ', selectedVariant);
     console.log('searchParams: ', searchParams.toString());
-    
   }, [productVariantData, productDetailData]);
 
   /** Effects: Cart */
