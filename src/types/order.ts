@@ -35,10 +35,10 @@ export interface IOrder extends BaseModel {
   cancellationNote: null;
   deletedAt: null;
   customerFullName: string;
-  orderItems: OrderItem[];
+  orderItems: IOrderItem[];
 }
 
-export interface OrderItem extends BaseModel {
+export interface IOrderItem extends BaseModel {
   orderId: string;
   productId: string;
   qty: number;
@@ -54,4 +54,15 @@ export interface OrderItem extends BaseModel {
   name: string;
   weight: string;
   attributes: string;
+}
+
+export interface IShippingService {
+  service: string;
+  cost: number;
+  etd: string;
+  courier: string;
+}
+
+export interface ShippingApiResponse {
+  results: IShippingService[];
 }

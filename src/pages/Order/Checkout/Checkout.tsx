@@ -4,6 +4,7 @@ import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
 import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useCheckoutController from '@/pages/Order/Checkout/CheckoutController';
+import { IShippingService } from '@/types/order';
 import { Button, Card, Col, Divider, Form, Input, Row, Select, Steps } from 'antd';
 
 const { Option } = Select;
@@ -17,15 +18,22 @@ export default function Checkout() {
     prevStep,
     form,
     handlePlaceOrder,
+    mutateCreateOrderIsLoading,
     cartItems,
     cartSubTotal,
     cartTotal,
     provinceData,
     handleProvinceChange,
+    filterProvinceOption,
     cityData,
     cityDataIsFetching,
     cityDataIsStale,
-    handleCityChange
+    handleCityChange,
+    filterCityOption,
+    shippingServices,
+    mutateShippingServicesIsLoading,
+    handleShippingServicesChange,
+    selectedShippingService,
   } = useCheckoutController();
 
   const steps = [
@@ -140,27 +148,12 @@ export default function Checkout() {
                 name="provinceId"
                 rules={[{ required: true, message: 'Province is required' }]}
               >
-                {/* <Select placeholder="- Please Select -" size="large">
-                  <Option value="1">Province 1</Option>
-                  <Option value="2">Province 2</Option>
-                </Select> */}
-                {/* <Select
-                  showSearch
-                  placeholder="- Please Select -"
-                  size="large"
-                  filterOption={false}
-                  optionLabelProp="label"
-                  options={(Object?.entries(provinceData?.data) || []).map(([id, name]) => ({
-                    value: id,
-                    label: name,
-                  }))}
-                /> */}
                 <Select
                   showSearch
                   placeholder="- Please Select -"
                   size="large"
-                  filterOption={true}
                   optionLabelProp="label"
+                  filterOption={filterProvinceOption}
                   onChange={handleProvinceChange}
                   options={
                     provinceData?.data
@@ -181,17 +174,14 @@ export default function Checkout() {
                 name="cityId"
                 rules={[{ required: true, message: 'City is required' }]}
               >
-                {/* <Select placeholder="- Please Select -" size="large" disabled={!cityDataIsStale}>
-                  <Option value="1">City 1</Option>
-                  <Option value="2">City 2</Option>
-                </Select> */}
                 <Select
                   showSearch
                   placeholder="- Please Select -"
                   size="large"
-                  filterOption={true}
                   optionLabelProp="label"
+                  filterOption={filterCityOption}
                   onChange={handleCityChange}
+                  loading={!cityDataIsStale || cityDataIsFetching}
                   disabled={!cityDataIsStale || cityDataIsFetching}
                   options={
                     cityData?.data
@@ -219,12 +209,22 @@ export default function Checkout() {
               <Form.Item
                 label="Shipping Cost"
                 name="shippingService"
-                rules={[{ required: true, message: 'City is required' }]}
+                rules={[{ required: true, message: 'Shipping Cost is required' }]}
               >
-                <Select placeholder="- Please Select -" size="large">
-                  {/* Replace with dynamic data */}
-                  <Option value="zne">ZNE</Option>
-                  <Option value="z&t">Z&T</Option>
+                <Select
+                  placeholder="- Please Select -"
+                  size="large"
+                  disabled={mutateShippingServicesIsLoading || cityDataIsFetching}
+                  loading={mutateShippingServicesIsLoading}
+                  onChange={handleShippingServicesChange}
+                  className="w-full"
+                >
+                  {shippingServices?.results.map((service: IShippingService) => (
+                    <Option key={service.service} value={service.service}>
+                      {service.service} | Rp {separator(service.cost)} |{' '}
+                      {service.etd.replace('HARI', '')} days
+                    </Option>
+                  ))}
                 </Select>
               </Form.Item>
             </Col>
@@ -321,12 +321,12 @@ export default function Checkout() {
                   <Divider className="my-2" />
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>Rp 10.000</span>
+                    <span>Rp {separator(selectedShippingService?.cost)}</span>
                   </div>
                   <Divider className="my-2" />
                   <div className="flex justify-between mb-4 font-semibold">
                     <span>TOTAL</span>
-                    <span>Rp {separator(cartTotal)}</span>
+                    <span>Rp {separator(cartTotal + selectedShippingService?.cost)}</span>
                   </div>
                 </div>
                 <Button
@@ -336,7 +336,7 @@ export default function Checkout() {
                     buttonPlaceOrderDisabled ? 'bg-disabled' : 'bg-primary'
                   }`}
                   size="large"
-                  loading={false}
+                  loading={mutateCreateOrderIsLoading}
                   disabled={buttonPlaceOrderDisabled ? true : false}
                 >
                   Place Order

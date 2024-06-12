@@ -1,7 +1,7 @@
 import PageHeader from '@/commons/components/Layout/HomeLayout/PageHeader';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useReceivedController from '@/pages/Order/Received/ReceivedController';
-import { Col, List, Row, Skeleton, Space, Table, Tag, Typography } from 'antd';
+import { Button, Col, List, Row, Skeleton, Space, Table, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 
 const { Title, Paragraph } = Typography;
@@ -115,18 +115,18 @@ export default function Received() {
                         </Space>
                       </List.Item>
                     </List>
-                    {/* {!order.isPaid && <a href={order.paymentUrl}>Proceed to payment</a>} */}
-                    {/* {!orderData.data.isPaid && (
+                    {/* {!orderData.data.isPaid && <a href={order.paymentUrl}>Proceed to payment</a>} */}
+                    {orderData.data?.paymentStatus === 'unpaid' ? (
                       <Button
                         type="primary"
-                        href={order.paymentUrl}
+                        href={`#`}
                         target="_blank"
                         size="large"
                         className="rounded-full bg-primary shadow-none px-6 mt-2 w-full"
                       >
                         Proceed to payment
                       </Button>
-                    )} */}
+                    ) : null}
                   </Col>
                 </Row>
               </>

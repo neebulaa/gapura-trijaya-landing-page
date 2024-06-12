@@ -1,7 +1,12 @@
 import useCartStore from '@/commons/store/useCartStore';
-import { useCreateOrder, useGetCities, useGetProvinces } from '@/services/queries/order.query';
+import {
+  useCreateOrder,
+  useGetCities,
+  useGetProvinces,
+  useMutateShippingServices,
+} from '@/services/queries/order.query';
 import { App, Form } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function useCheckoutController() {
@@ -18,11 +23,18 @@ export default function useCheckoutController() {
     clearCart,
   } = useCartStore.getState();
   const [provinceId, setProvinceId] = useState<number>();
+  const [shippingServices, setShippingServices] = useState<any>();
+  const [selectedShippingService, setSelectedShippingService] = useState<any>({
+    service: '',
+    cost: 0,
+    etd: '',
+    courier: '',
+  });
 
   /**
    * Query Model: Create Order
    */
-  const { mutateAsync: mutateCreateOrder, isPending: _mutateCreateOrderIsLoading } =
+  const { mutateAsync: mutateCreateOrder, isPending: mutateCreateOrderIsLoading } =
     useCreateOrder();
 
   /**
@@ -40,6 +52,15 @@ export default function useCheckoutController() {
     isPending: cityDataIsFetching,
     isStale: cityDataIsStale,
   } = useGetCities({ provinceId: provinceId }, { enabled: provinceId ? true : false });
+
+  /**
+   * Query Model: Mutate Shipping Services
+   */
+  const {
+    mutateAsync: mutateShippingServices,
+    isPending: mutateShippingServicesIsLoading,
+    isIdle: _mutateShippingServicesIsIdle,
+  } = useMutateShippingServices();
 
   /** Steps */
   const buttonPlaceOrderDisabled = currentStep !== 1;
@@ -68,22 +89,68 @@ export default function useCheckoutController() {
     setProvinceId(value);
   };
 
+  /** Province: filter province option */
+  const filterProvinceOption = (input: string, option: any) =>
+    option.label.toLowerCase().includes(input.toLowerCase());
+
   /**
    * Provinces: onchage select province
    */
-  const handleCityChange = (value: number) => {
-    console.log('city changed');
+  const handleCityChange = async (value: number) => {
+    // console.log('city changed: ', value);
+    form.setFieldsValue({ shippingService: null });
+    await mutateShippingServices({
+      cityId: value,
+      carts: cartItems.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+      })),
+    }).then((res) => {
+      console.log('res: ', res);
+      setShippingServices(res.data);
+    });
+  };
+
+  /** Province: filter city option */
+  const filterCityOption = (input: string, option: any) =>
+    option.label.toLowerCase().includes(input.toLowerCase());
+
+  /**
+   * Handles the change event for the shipping services.
+   *
+   * @param value - The selected value for the shipping services.
+   */
+  const handleShippingServicesChange = (value: string) => {
+    const trimmedValue = value.replace(/\s/g, '').toLowerCase();
+    // Temukan layanan pengiriman yang sesuai dengan nilai yang dipilih setelah menghapus spasi
+    const selectedService = shippingServices?.results?.find(
+      (service: any) => service.service.replace(/\s/g, '').toLowerCase() === trimmedValue
+    );
+
+    setSelectedShippingService(selectedService);
+    // console.log('shipping cost changed: ', selectedService);
   };
 
   /**
-   * Place Order: Handle Submit
+   * Handles the place order action.
+   * Validates form fields, retrieves field values, and sends a request to create an order.
+   * If successful, displays a success message, clears the cart, and navigates to the received order page.
+   * If unsuccessful, displays an error message and logs the error.
    */
   const handlePlaceOrder = async () => {
     await form.validateFields();
-    const values = form.getFieldsValue();
     const params = {
-      ...values,
-      ...(form as any).getFieldValue(),
+      address1: form.getFieldValue('address1'),
+      address2: form.getFieldValue('address2'),
+      provinceId: form.getFieldValue('provinceId'),
+      cityId: form.getFieldValue('cityId'),
+      postcode: form.getFieldValue('postcode'),
+      shippingService: form.getFieldValue('shippingService')?.replace(/\s/g, ''),
+      firstName: form.getFieldValue('firstName'),
+      lastName: form.getFieldValue('lastName'),
+      email: form.getFieldValue('email'),
+      phone: form.getFieldValue('phone'),
+      note: form.getFieldValue('note'),
       carts: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,
@@ -108,6 +175,9 @@ export default function useCheckoutController() {
   /**
    * Effects
    */
+  useEffect(() => {
+    if (cartItems.length < 1) navigate('/shop');
+  }, [cartItems]);
 
   return {
     currentStep,
@@ -117,15 +187,22 @@ export default function useCheckoutController() {
     prevStep,
     form,
     handlePlaceOrder,
+    mutateCreateOrderIsLoading,
     cartItems,
     cartSubTotal,
     cartTotal,
     provinceData,
     provinceDataIsFetching,
     handleProvinceChange,
+    filterProvinceOption,
     cityData,
     cityDataIsFetching,
     cityDataIsStale,
     handleCityChange,
+    filterCityOption,
+    shippingServices,
+    mutateShippingServicesIsLoading,
+    handleShippingServicesChange,
+    selectedShippingService,
   };
 }

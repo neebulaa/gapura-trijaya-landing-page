@@ -40,3 +40,11 @@ export const useGetCities = (params: any, { enabled }: QueryOptions) => {
     enabled: !!enabled,
   });
 };
+
+export const useMutateShippingServices = () => {
+  return useMutation({
+    mutationFn: async (shippingPayload: any) => {
+      return await axiosPost(`/v1/order/shipping-cost`, shippingPayload);
+    },
+  });
+};
