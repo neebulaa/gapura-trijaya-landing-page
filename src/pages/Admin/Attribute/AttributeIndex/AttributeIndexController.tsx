@@ -6,7 +6,7 @@ import { useDeleteAttribute, useGetAttributes } from '@/services/queries/admin/a
 import { IAttribute } from '@/types/attribute';
 import { QueryParams, sortBy } from '@/types/base';
 import { DeleteOutlined, EditOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Tag } from 'antd';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import { useEffect, useState } from 'react';
 import { URLSearchParamsInit, useSearchParams } from 'react-router-dom';
@@ -112,6 +112,15 @@ export default function useAttributeIndexController() {
       title: 'Type',
       dataIndex: 'type',
       key: 'type',
+    },
+    {
+      title: 'Use In Configurable Product',
+      dataIndex: 'isConfigurable',
+      key: 'isConfigurable',
+      align: 'center',
+      render: (text: boolean) => {
+        return text ? <Tag color="success">Yes</Tag> : <Tag color="default">No</Tag>;
+      },
     },
     {
       title: 'Action',

@@ -18,6 +18,7 @@ export default function AttributeForm(props: IFormProps) {
   const {
     form,
     breadcrumbItem,
+    inputCodeFormatter,
     handleSubmit,
     mutateCreateAttributeIsLoading,
     mutateUpdateAttributeIsLoading,
@@ -44,7 +45,7 @@ export default function AttributeForm(props: IFormProps) {
           <Row gutter={24}>
             <ResponsiveCol>
               <Form.Item label="Code" name="code" rules={[{ required: true }]}>
-                <Input placeholder="Code" />
+                <Input placeholder="Code" onChange={inputCodeFormatter} />
               </Form.Item>
             </ResponsiveCol>
             <ResponsiveCol>
@@ -114,7 +115,7 @@ export default function AttributeForm(props: IFormProps) {
               </Form.Item>
             </ResponsiveCol>
           </Row>
-          <Row gutter={24}>
+          {/* <Row gutter={24}>
             <ResponsiveCol>
               <Form.Item label="Validation" name="validation" rules={[{ required: false }]}>
                 <Select
@@ -132,7 +133,7 @@ export default function AttributeForm(props: IFormProps) {
                 />
               </Form.Item>
             </ResponsiveCol>
-          </Row>
+          </Row> */}
           <Divider orientation="left" plain orientationMargin="0">
             Configuration
           </Divider>

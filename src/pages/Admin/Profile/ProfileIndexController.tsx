@@ -53,15 +53,12 @@ export default function useProfileIndexController() {
   useEffect(() => {
     if (profileData) {
       form.setFieldsValue({
-        name: profileData?.data.name,
+        firstName: profileData?.data.firstName,
+        lastName: profileData?.data.lastName,
         email: profileData?.data.email,
       });
     }
   }, [profileData]);
-
-  useEffect(() => {
-    console.log('Validation Errors: ', validationErrors);
-  }, [validationErrors]);
 
   return {
     form,

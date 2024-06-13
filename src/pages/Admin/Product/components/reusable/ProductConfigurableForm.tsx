@@ -44,7 +44,7 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
               rules={[{ required: true }]}
               validationErrors={validationErrors}
             >
-              <Input placeholder="SKU" />
+              <Input placeholder="Variant Name" />
             </FormItem>
           </ResponsiveCol>
           <ResponsiveCol span={24} md={3}>
@@ -67,14 +67,14 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
             <Form.Item
               label="Stock"
               name={`variants[${variant.id}][qty]`}
-              rules={[{ required: false }]}
+              rules={[{ required: true}]}
             >
               <InputNumber
-                min={0}
+                min={1}
                 // max={10}
                 // step={0.1}
                 defaultValue={0}
-                placeholder="Width"
+                placeholder="Stock"
                 className="w-full"
               />
             </Form.Item>

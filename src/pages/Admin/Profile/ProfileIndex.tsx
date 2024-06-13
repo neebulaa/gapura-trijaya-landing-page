@@ -25,14 +25,24 @@ export default function ProfileIndex() {
             onFinish={handleSubmit}
           >
             <Row gutter={24}>
-              <ResponsiveCol span={24} md={24}>
+              <ResponsiveCol span={24} md={12}>
                 <FormItem
-                  label="Name"
-                  name="name"
+                  label="First Name"
+                  name="firstName"
                   rules={[{ required: true }]}
                   validationErrors={validationErrors}
                 >
-                  <Input placeholder="Name" className="w-full" />
+                  <Input placeholder="First Name" className="w-full" />
+                </FormItem>
+              </ResponsiveCol>
+              <ResponsiveCol span={24} md={12}>
+                <FormItem
+                  label="Last Name"
+                  name="lastName"
+                  rules={[{ required: true }]}
+                  validationErrors={validationErrors}
+                >
+                  <Input placeholder="Last Name" className="w-full" />
                 </FormItem>
               </ResponsiveCol>
             </Row>

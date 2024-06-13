@@ -120,6 +120,16 @@ export function useAttributeFormController(props: IFormProps) {
   }, []);
 
   /**
+   * Handles the change event of an input element and formats the input code.
+   * @param e - The change event object.
+   */
+  const inputCodeFormatter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const transformedValue = value.toLowerCase().replace(/\s/g, ''); // Mengubah menjadi lowercase dan menghapus spasi
+    form.setFieldsValue({ code: transformedValue }); // Update nilai pada form
+  };
+
+  /**
    * Breadcrumb
    */
   const breadcrumbItem = [
@@ -137,6 +147,7 @@ export function useAttributeFormController(props: IFormProps) {
   return {
     form,
     breadcrumbItem,
+    inputCodeFormatter,
     attributeParentData,
     handleAttributeParentSearch,
     handleSubmit,
