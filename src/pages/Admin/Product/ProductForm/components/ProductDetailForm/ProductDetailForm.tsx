@@ -182,7 +182,7 @@ export default function ProductDetailForm(props: IFormProps) {
                       name="shortDescription"
                       rules={[{ required: false }]}
                     >
-                      <Input.TextArea placeholder="shortDescription" rows={3} />
+                      <Input.TextArea placeholder="Short Description" rows={3} />
                     </Form.Item>
                   </ResponsiveCol>
                 </Row>

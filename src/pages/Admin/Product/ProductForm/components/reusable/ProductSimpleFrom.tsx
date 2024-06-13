@@ -27,14 +27,16 @@ export default function ProductSimpleForm(props: IProductSimpleFormProps) {
               // max={10}
               step={0.1}
               defaultValue={0}
-              placeholder="Weight"
+              placeholder="Price"
+              prefix="Rp"
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               className="w-full"
               stringMode
             />
           </FormItem>
         </ResponsiveCol>
         <ResponsiveCol span={24} md={8}>
-          <Form.Item label="Weight" name="weight" rules={[{ required: true }]}>
+          <Form.Item label="Weight [KG]" name="weight" rules={[{ required: true }]}>
             <InputNumber
               min={0}
               max={10}
@@ -47,12 +49,12 @@ export default function ProductSimpleForm(props: IProductSimpleFormProps) {
           </Form.Item>
         </ResponsiveCol>
         <ResponsiveCol span={24} md={8}>
-          <Form.Item label="Qty Stock" name="qty" rules={[{ required: true }]}>
+          <Form.Item label="Qty Stock" name="qty" rules={[{ required: true }]} initialValue={1}>
             <InputNumber
-              min={0}
+              min={1}
               // max={10}
-              defaultValue={0}
-              placeholder="Weight"
+              defaultValue={1}
+              placeholder="Stock"
               className="w-full"
               stringMode
             />

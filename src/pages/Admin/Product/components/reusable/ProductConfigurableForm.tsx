@@ -59,6 +59,8 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
                 // max={10}
                 defaultValue={0}
                 placeholder="Price"
+                prefix="Rp"
+                formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 className="w-full"
               />
             </FormItem>
@@ -67,13 +69,14 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
             <Form.Item
               label="Stock"
               name={`variants[${variant.id}][qty]`}
-              rules={[{ required: true}]}
+              rules={[{ required: true }]}
+              initialValue={1}
             >
               <InputNumber
                 min={1}
                 // max={10}
                 // step={0.1}
-                defaultValue={0}
+                defaultValue={1}
                 placeholder="Stock"
                 className="w-full"
               />
@@ -81,7 +84,7 @@ export default function ProductConfigurableForm(props: IProductConfigrableFormPr
           </ResponsiveCol>
           <ResponsiveCol span={24} md={3}>
             <Form.Item
-              label="Weight"
+              label="Weight [KG]"
               name={`variants[${variant.id}][weight]`}
               rules={[{ required: true }]}
             >
