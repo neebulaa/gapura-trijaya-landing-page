@@ -1956,3 +1956,16 @@ button {
 .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-tail::after {
 	background-color: red !important;
 }
+
+/** Search Icon **/
+.search-icon:hover {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/** Search List Hover **/
+.search-list:hover {
+	background-color: #f5f5f5;
+	cursor: pointer;
+}

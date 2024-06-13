@@ -8,6 +8,7 @@ import '@/commons/assets/css/index.css';
 import '@/commons/assets/css/responsive.css';
 import Footer from '@/commons/components/Public/Footer';
 import { App as AntdApp } from 'antd';
+import SearchModal from '@/commons/components/SearchModal/SearchModal.tsx';
 
 export default function PublicLayout() {
   return (
@@ -19,6 +20,7 @@ export default function PublicLayout() {
             marginTop: '100px', // this is how many pxs the fixed navbar is
           }}
         >
+          <SearchModal />
           <Outlet />
         </section>
         <Footer />

@@ -1,15 +1,16 @@
 import { axiosGet, axiosGetAll } from '@/services/api/admin/api.service';
 import { QueryParams } from '@/types/base';
 import { IProduct } from '@/types/product';
-import { useQuery } from '@tanstack/react-query';
+import { UndefinedInitialDataOptions, useQuery } from '@tanstack/react-query';
 import { axiosGetProduct } from '../api/product.service';
 
-export const useGetProducts = (params: QueryParams) => {
+export const useGetProducts = (params: QueryParams, enabled: boolean = true) => {
   return useQuery({
     queryKey: ['products', { params }],
     queryFn: async () => {
       return await axiosGetAll<QueryParams, IProduct>(`/v1/products`, params);
     },
+    enabled,
   });
 };
 

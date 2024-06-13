@@ -9,6 +9,7 @@ import { logout } from '@/services/api/auth.service';
 import { Badge, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import useSearchModal from '@/commons/store/useSearchModal.ts';
 
 export default function LayoutNavbar() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function LayoutNavbar() {
   });
   const { userData } = useUserStore((state) => state);
   const { items: cartItems } = useCartStore((state) => state);
+  const { toggle: toggleSearchModal } = useSearchModal((state) => state);
 
   /**
    * Handle Logout
@@ -104,7 +106,9 @@ export default function LayoutNavbar() {
 
               <ul className="nav-action">
                 <li>
-                  <IconSearch width={'20'} height={'20'} />
+                  <div onClick={() => toggleSearchModal()} className={'search-icon'}>
+                    <IconSearch width={'20'} height={'20'} />
+                  </div>
                 </li>
                 <li>
                   {!isMobile && (
