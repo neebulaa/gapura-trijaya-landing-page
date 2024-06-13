@@ -14,7 +14,7 @@ export default function ShopDetail() {
 
   return (
     <>
-      <PageHeaderNav navigations={['Home', 'Shop', `${productDetailData?.data.name}`]} />
+      <PageHeaderNav navigations={[{label: "Home", link: '/'}, {label: "Shop", link: '/shop'}, {label: `${productDetailData?.data.name}`}]} />
       <section className="container mt-1">
         <section id="shop-product-detail">
           {/* <ShopProductDetailGallery images={product.images!} />

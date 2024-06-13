@@ -17,7 +17,14 @@ export default function Received() {
 
   return (
     <>
-      <PageHeader title="Order Received" navigations={['Home', 'Order', 'Received']} />
+      <PageHeader
+        title="Order Received"
+        navigations={[
+          { label: 'Home', link: '/' },
+          { label: 'Order', link: '/order' },
+          { label: 'Received' },
+        ]}
+      />
       <div className="container">
         {orderDataIsFetching ? (
           <Skeleton />

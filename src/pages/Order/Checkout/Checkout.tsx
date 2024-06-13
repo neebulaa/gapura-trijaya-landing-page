@@ -236,7 +236,14 @@ export default function Checkout() {
 
   return (
     <>
-      <PageHeader title="Checkout" navigations={['Home', 'Order', 'Checkout']} />
+      <PageHeader
+        title="Checkout"
+        navigations={[
+          { label: 'Home', link: '/' },
+          { label: 'Order', link: '/order' },
+          { label: 'Checkout' },
+        ]}
+      />
       <section className="container">
         <Form form={form} layout="vertical" autoComplete="off">
           <Row gutter={20}>
@@ -337,7 +344,7 @@ export default function Checkout() {
                   }`}
                   size="large"
                   loading={mutateCreateOrderIsLoading}
-                  disabled={buttonPlaceOrderDisabled ? true : false}
+                  disabled={buttonPlaceOrderDisabled}
                 >
                   Place Order
                 </Button>

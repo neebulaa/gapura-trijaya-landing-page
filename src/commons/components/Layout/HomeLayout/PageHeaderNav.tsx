@@ -1,8 +1,10 @@
 import IconChevronRight from '@/commons/assets/icons/IconChevronRight';
 import { Fragment } from 'react';
+import {Link} from "react-router-dom";
+import {INavigation} from "@/types/global/navigation.ts";
 
 type PageHeaderNavProps = {
-  navigations?: string[];
+  navigations?: INavigation[]
 };
 
 export default function PageHeaderNav({ navigations = [] }: PageHeaderNavProps) {
@@ -14,12 +16,11 @@ export default function PageHeaderNav({ navigations = [] }: PageHeaderNavProps) 
             {navigations.map((nav, i) =>
               i == navigations.length - 1 ? (
                 <span className="last" key={i}>
-                  {nav}
+                  {nav.label}
                 </span>
               ) : (
                 <Fragment key={i}>
-                  {/* <Link to="/">{nav}</Link> */}
-                  <span>{nav}</span>
+                   <Link to={nav.link ?? '/'}>{nav.label}</Link>
                   <IconChevronRight width={'20'} height={'20'} />
                 </Fragment>
               )

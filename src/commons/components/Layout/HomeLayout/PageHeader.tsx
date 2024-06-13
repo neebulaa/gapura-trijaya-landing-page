@@ -1,9 +1,11 @@
 import IconChevronRight from '@/commons/assets/icons/IconChevronRight';
 import { Fragment, ReactNode } from 'react';
+import {INavigation} from "@/types/global/navigation.ts";
+import {Link} from "react-router-dom";
 
 type PageHeaderProps = {
   title: string;
-  navigations?: string[];
+  navigations?: INavigation[];
   children?: ReactNode;
 };
 
@@ -17,11 +19,11 @@ export default function PageHeader({ title, navigations = [], children }: PageHe
             {navigations.map((nav, i) =>
               i == navigations.length - 1 ? (
                 <span className="last" key={i}>
-                  {nav}
+                  {nav.label}
                 </span>
               ) : (
                 <Fragment key={i}>
-                  <span>{nav}</span>
+                  <Link to={nav.link ?? '/'}>{nav.label}</Link>
                   <IconChevronRight width={'25'} height={'25'} />
                 </Fragment>
               )

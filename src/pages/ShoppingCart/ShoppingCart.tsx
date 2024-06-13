@@ -26,7 +26,10 @@ export default function ShoppingCart() {
 
   return (
     <>
-      <PageHeader title="Shopping Cart" navigations={['Home', 'Shopping Cart']} />
+      <PageHeader
+        title="Shopping Cart"
+        navigations={[{ label: 'Home', link: '/' }, { label: 'Shopping Cart' }]}
+      />
       <section className="container" id="shopping-cart">
         <div className="table-container">
           <section className="shopping-cart-table">
@@ -54,7 +57,9 @@ export default function ShoppingCart() {
                           <img src={`/noimg.png`} alt={cart?.name} />
                         )}
                         <h4 className="semibold">
-                          <Link to={cart?.slug ? `/shop/${cart?.slug}?${cart.queryUrl}` : '#'}>{cart?.name}</Link>
+                          <Link to={cart?.slug ? `/shop/${cart?.slug}?${cart.queryUrl}` : '#'}>
+                            {cart?.name}
+                          </Link>
                         </h4>
                       </div>
                       <div className="table-body-col">{`Rp ${separator(cart?.price)}`}</div>
@@ -89,7 +94,7 @@ export default function ShoppingCart() {
                         </button>
                       </div>
                       <div className="table-body-col semibold">{`Rp ${separator(
-                        cart.price * cart?.quantity
+                        cart.price * cart?.quantity,
                       )}`}</div>
                       <div className="table-body-col">
                         <button
