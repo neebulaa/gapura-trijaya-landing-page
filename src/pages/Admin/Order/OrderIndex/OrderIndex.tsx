@@ -1,5 +1,6 @@
 import usePageEffect from '@/commons/hooks/usePageEffect';
 import useOrderIndexController from '@/pages/Admin/Order/OrderIndex/OrderIndexController';
+import { IOrder } from '@/types/order';
 import { FilterOutlined, RedoOutlined } from '@ant-design/icons';
 import {
   Breadcrumb,
@@ -114,7 +115,7 @@ export default function OrderIndex() {
               size="small"
               rowKey={(record) => record.id!}
               columns={OrderTableProps}
-              dataSource={orderData}
+              dataSource={(orderData?.data as IOrder[]) || []}
               //   pagination={{
               //     total: categoryData?.meta.total,
               //     current: categoryData?.meta.currentPage,

@@ -1,4 +1,4 @@
-import { ProductStatus, getStatusString } from '@/types/enum/product-status.enum';
+import { ProductStatus, getProductStatusString } from '@/types/enum/product-status.enum';
 import { Tag } from 'antd';
 
 export default function ProductStatusNode({ status }: { status: ProductStatus }) {
@@ -14,7 +14,7 @@ export default function ProductStatusNode({ status }: { status: ProductStatus })
               : 'default'
           }
         >
-          {getStatusString(status)}
+          {getProductStatusString(status)}
         </Tag>
       ) : (
         '-'

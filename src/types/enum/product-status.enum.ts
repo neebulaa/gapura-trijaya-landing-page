@@ -24,6 +24,6 @@ export const STATUSES: { [key in ProductStatus]: string } = {
  * - getStatusString(ProductStatus.ACTIVE) // Output: 'active'
  * - getStatusString(ProductStatus.INACTIVE) // Output: 'inactive'
  */
-export function getStatusString(status: ProductStatus): string {
+export function getProductStatusString(status: ProductStatus): string {
   return STATUSES[status];
 }

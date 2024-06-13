@@ -1,4 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
+import { useGetOrder } from '@/services/queries/admin/order.query.ts';
+import { ColumnType } from 'antd/es/table';
+import { IOrderItem } from '@/types/order.ts';
+import { separator } from '@/commons/utils/Currency/Currency.ts';
 
 export default function useOrderDetailController() {
   /**
@@ -13,65 +17,18 @@ export default function useOrderDetailController() {
   const { id } = useParams();
 
   /**
-   * Dummy Order Detail
+   * Query Model Get One Order
    */
-  const orderDetail = {
-    orderId: '123',
-    customerFirstName: 'John',
-    customerLastName: 'Doe',
-    customerAddress1: '123 Main St',
-    customerAddress2: 'Apt 101',
-    customerEmail: 'john@example.com',
-    customerPhone: '123-456-7890',
-    customerPostcode: '12345',
-    shipment: {
-      id: '456',
-      firstName: 'Jane',
-      lastName: 'Doe',
-      address1: '456 Oak St',
-      address2: 'Suite 202',
-      email: 'jane@example.com',
-      phone: '987-654-3210',
-      postcode: '54321',
-    },
-    code: 'ORD-123456',
-    orderDate: '2024-06-11',
-    status: 'Completed',
-    isCancelled: false,
-    isPaid: false,
-    cancellationNote: '',
-    paymentStatus: 'Paid',
-    shippingServiceName: 'Express Shipping',
-    baseTotalPrice: '$100.00',
-    taxAmount: '$10.00',
-    shippingCost: '$15.00',
-    grandTotal: '$125.00',
-    orderItems: [
-      {
-        sku: 'SKU-001',
-        name: 'Product 1',
-        attributes: 'Size: Large, Color: Blue',
-        qty: 2,
-        basePrice: '$50.00',
-        subTotal: '$100.00',
-      },
-      {
-        sku: 'SKU-002',
-        name: 'Product 2',
-        attributes: 'Size: Medium, Color: Red',
-        qty: 1,
-        basePrice: '$50.00',
-        subTotal: '$50.00',
-      },
-    ],
-    trashed: false,
-    paymentUrl: 'https://payment.example.com/inv-123456',
-  };
+  const {
+    data: orderData,
+    isPending: orderDataIsFetching,
+    refetch: orderDataIsRefetch,
+  } = useGetOrder(id!, { enabled: true });
 
   /**
    * Order Items Table Columns Props
    */
-  const OrderItemsTableProps = [
+  const OrderItemsTableProps: ColumnType<IOrderItem>[] = [
     {
       title: 'SKU',
       dataIndex: 'sku',
@@ -86,6 +43,20 @@ export default function useOrderDetailController() {
       title: 'Attributes',
       dataIndex: 'attributes',
       key: 'attributes',
+      render: (text: string) => {
+        if (!text) return 'No description available';
+        let attributes;
+        try {
+          attributes = JSON.parse(text);
+        } catch (error) {
+          return 'Invalid description format';
+        }
+        if (!attributes || typeof attributes !== 'object') return 'No description available';
+        const attributeItems = Object.entries(attributes).map(
+          ([key, value]) => `<li>${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}</li>`,
+        );
+        return <div dangerouslySetInnerHTML={{ __html: `<ul>${attributeItems.join('')}</ul>` }} />;
+      },
     },
     {
       title: 'Qty',
@@ -97,17 +68,21 @@ export default function useOrderDetailController() {
       title: 'Base Price',
       dataIndex: 'basePrice',
       key: 'basePrice',
+      render: (text) => `Rp ${separator(text)}`,
     },
     {
       title: 'Sub Total',
       dataIndex: 'subTotal',
       key: 'subTotal',
+      render: (text) => `Rp ${separator(text)}`,
     },
   ];
 
   return {
     breadcrumbItem,
-    orderDetail,
+    orderData,
+    orderDataIsFetching,
+    orderDataIsRefetch,
     OrderItemsTableProps,
   };
 }

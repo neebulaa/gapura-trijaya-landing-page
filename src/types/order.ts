@@ -3,10 +3,10 @@ import { BaseModel } from '@/types/base';
 export interface IOrder extends BaseModel {
   userId: null;
   code: string;
-  status: string;
+  status: OrderStatusType | any;
   orderDate: Date | any;
   paymentDue: Date | string;
-  paymentStatus: string;
+  paymentStatus: OrderPaymentStatusType | any;
   paymentToken: null;
   paymentUrl: null;
   baseTotalPrice: string;
@@ -66,3 +66,7 @@ export interface IShippingService {
 export interface ShippingApiResponse {
   results: IShippingService[];
 }
+
+export type OrderStatusType = 'created' | 'confirmed' | 'delivered' | 'completed' | 'cancelled';
+
+export type OrderPaymentStatusType = 'paid' | 'unpaid' | 'pending' | 'failed';

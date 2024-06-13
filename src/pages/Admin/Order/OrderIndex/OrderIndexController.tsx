@@ -1,14 +1,19 @@
 import ActionButton from '@/commons/components/Button/ActionButton';
+import { separator } from '@/commons/utils/Currency/Currency';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
+import { useGetOrders } from '@/services/queries/admin/order.query';
 import { QueryParams, sortBy } from '@/types/base';
 import { OutletContextInterface } from '@/types/global/outletContext';
 import { IOrder } from '@/types/order';
 import { EyeOutlined } from '@ant-design/icons';
-import { Form, Tag } from 'antd';
+import { Form } from 'antd';
 import { ColumnType } from 'antd/es/table';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useOutletContext, useSearchParams } from 'react-router-dom';
+import OrderStatusNode from '@/pages/Admin/Order/components/reusable/OrderStatusNode';
+import OrderPaymentStatusNode from '@/pages/Admin/Order/components/reusable/OrderPaymentStatusNode';
 
 export default function useOrderIndexController() {
   const { openNotification } = useOutletContext<OutletContextInterface>();
@@ -27,6 +32,15 @@ export default function useOrderIndexController() {
   const [filterForm] = Form.useForm();
 
   /**
+   * Query Model: Get Orders
+   */
+  const {
+    data: orderData,
+    isPending: orderDataIsFetching,
+    refetch: orderDataIsRefetch,
+  } = useGetOrders(queryParams);
+
+  /**
    * Handle Search
    */
   const handleSearch = debounce((value: string) => {
@@ -42,7 +56,11 @@ export default function useOrderIndexController() {
    * Add Filter
    */
   const handleFilter = () => {
-    const status = filterForm.getFieldValue('status');
+    const params = {
+      q: filterForm.getFieldValue('q'),
+      status: filterForm.getFieldValue('status'),
+      dateRange: filterForm.getFieldValue('dateRange'),
+    };
 
     setQueryParams((prevState) => ({
       ...prevState,
@@ -52,6 +70,8 @@ export default function useOrderIndexController() {
       //   }
       //   : {}),
     }));
+
+    console.log('handle filter: ', params);
   };
 
   /**
@@ -71,87 +91,6 @@ export default function useOrderIndexController() {
   /** Breadcrumb item */
   const breadcrumbItem = [{ title: 'Home' }, { title: 'Order' }];
 
-  /** Dummy data of OrderData */
-  const orderData: IOrder[] = [
-    {
-      id: '1',
-      userId: null,
-      code: 'ORD001',
-      status: 'Pending',
-      orderDate: '2024-06-01 12:00:00',
-      paymentDue: '2024-06-05',
-      paymentStatus: 'Unpaid',
-      paymentToken: null,
-      paymentUrl: null,
-      baseTotalPrice: '400000',
-      taxAmount: '50000',
-      taxPercent: '10',
-      discountAmount: '0',
-      discountPercent: '0',
-      shippingCost: '50000',
-      grandTotal: '500000',
-      note: '',
-      customerFirstName: 'John',
-      customerLastName: 'Doe',
-      customerAddress1: '123 Main St',
-      customerAddress2: '',
-      customerPhone: '08123456789',
-      customerEmail: 'john.doe@example.com',
-      customerCityId: '1',
-      customerProvinceId: '1',
-      customerPostcode: 12345,
-      shippingCourier: null,
-      shippingServiceName: null,
-      approvedBy: null,
-      approvedAt: null,
-      cancelledBy: null,
-      cancelledAt: null,
-      cancellationNote: null,
-      deletedAt: null,
-      customerFullName: 'John Doe',
-      orderItems: [],
-    },
-    {
-      id: '2',
-      userId: null,
-      code: 'ORD002',
-      status: 'Completed',
-      orderDate: '2024-06-02 14:30:00',
-      paymentDue: '2024-06-06',
-      paymentStatus: 'Paid',
-      paymentToken: null,
-      paymentUrl: null,
-      baseTotalPrice: '650000',
-      taxAmount: '100000',
-      taxPercent: '15',
-      discountAmount: '0',
-      discountPercent: '0',
-      shippingCost: '0',
-      grandTotal: '750000',
-      note: '',
-      customerFirstName: 'Jane',
-      customerLastName: 'Smith',
-      customerAddress1: '456 Market St',
-      customerAddress2: '',
-      customerPhone: '08234567890',
-      customerEmail: 'jane.smith@example.com',
-      customerCityId: '2',
-      customerProvinceId: '2',
-      customerPostcode: 54321,
-      shippingCourier: null,
-      shippingServiceName: null,
-      approvedBy: null,
-      approvedAt: null,
-      cancelledBy: null,
-      cancelledAt: null,
-      cancellationNote: null,
-      deletedAt: null,
-      customerFullName: 'Jane Smith',
-      orderItems: [],
-    },
-    // Tambahkan lebih banyak data sesuai kebutuhan
-  ];
-
   /** Table: Order Table Props */
   const OrderTableProps: ColumnType<IOrder>[] | any = [
     {
@@ -160,9 +99,11 @@ export default function useOrderIndexController() {
       key: 'code',
       render: (text: string, record: IOrder) => (
         <>
-          {text}
+          <span className="font-medium"> {text}</span>
           <br />
-          <span style={{ fontSize: 12, fontWeight: 'normal' }}>{record.orderDate}</span>
+          <span style={{ fontSize: 12, fontWeight: 'normal' }}>
+            {dayjs(record.orderDate).format('HH:mm:ss DD/MM/YYYY')}
+          </span>
         </>
       ),
     },
@@ -170,7 +111,7 @@ export default function useOrderIndexController() {
       title: 'Grand Total',
       dataIndex: 'grandTotal',
       key: 'grandTotal',
-      render: (text: number) => `Rp ${text.toLocaleString()}`,
+      render: (text: number) => `Rp ${separator(text)}`,
     },
     {
       title: 'Name',
@@ -188,16 +129,14 @@ export default function useOrderIndexController() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (text: string, record: IOrder) => (
-        <Tag color={record.status === 'Pending' ? 'warning' : 'success'}>{text}</Tag>
-      ),
+      render: (_text: string, record: IOrder) => <OrderStatusNode status={record.status} />,
     },
     {
       title: 'Payment',
       dataIndex: 'paymentStatus',
       key: 'paymentStatus',
-      render: (text: string, record: IOrder) => (
-        <Tag color={record.paymentStatus === 'Unpaid' ? 'default' : 'success'}>{text}</Tag>
+      render: (_text: string, record: IOrder) => (
+        <OrderPaymentStatusNode status={record.paymentStatus} />
       ),
     },
     {

@@ -44,12 +44,12 @@ export default function Received() {
                       Billing Address
                     </Paragraph>
                     <address>
-                      {orderData.data.customerFirstName} {orderData.data.customerLastName}
-                      <br /> {orderData.data.customerAddress1}
-                      <br /> {orderData.data.customerAddress2} <br />
-                      <br /> Email: {orderData.data.customerEmail}
-                      <br /> Phone: {orderData.data.customerPhone}
-                      <br /> Postcode: {orderData.data.customerPostcode}
+                      {orderData?.data?.customerFirstName} {orderData?.data?.customerLastName}
+                      <br /> {orderData?.data?.customerAddress1}
+                      <br /> {orderData?.data?.customerAddress2} <br />
+                      <br /> Email: {orderData?.data?.customerEmail}
+                      <br /> Phone: {orderData?.data?.customerPhone}
+                      <br /> Postcode: {orderData?.data?.customerPostcode}
                     </address>
                   </Col>
                   <Col span={8}>
@@ -60,12 +60,12 @@ export default function Received() {
                       Shipment Address
                     </Paragraph>
                     <address>
-                      {orderData.data.customerFirstName} {orderData.data.customerLastName}
-                      <br /> {orderData.data.customerAddress1}
-                      <br /> {orderData.data.customerAddress2} <br />
-                      <br /> Email: {orderData.data.customerEmail}
-                      <br /> Phone: {orderData.data.customerPhone}
-                      <br /> Postcode: {orderData.data.customerPostcode}
+                      {orderData?.data?.customerFirstName} {orderData?.data?.customerLastName}
+                      <br /> {orderData?.data?.customerAddress1}
+                      <br /> {orderData?.data?.customerAddress2} <br />
+                      <br /> Email: {orderData?.data?.customerEmail}
+                      <br /> Phone: {orderData?.data?.customerPhone}
+                      <br /> Postcode: {orderData?.data?.customerPostcode}
                     </address>
                   </Col>
                   <Col span={8}>
@@ -77,15 +77,16 @@ export default function Received() {
                     </Paragraph>
                     <address>
                       Invoice ID:{' '}
-                      <span className="text-dark font-semibold">#{orderData.data.code}</span>
-                      <br /> {dayjs(orderData.data.orderDate).format('HH:mm:ss DD/MM/YYYY')}
+                      <span className="text-dark font-semibold">#{orderData?.data?.code}</span>
+                      <br /> {dayjs(orderData?.data?.orderDate).format('HH:mm:ss DD/MM/YYYY')}
                       <br /> Status:
-                      <Tag className="ml-2">{orderData.data.status}</Tag>
+                      <Tag className="ml-2">{orderData?.data?.status}</Tag>
                       <br /> Payment Status:
                       <Tag color="yellow" className="ml-2">
-                        {orderData.data.paymentStatus}
+                        {orderData?.data?.paymentStatus}
                       </Tag>
-                      <br /> Shipped by: {orderData.data.shippingServiceName}
+                      <br /> Shipped by:{' '}
+                      <span className="font-medium">{orderData?.data?.shippingServiceName}</span>
                     </address>
                   </Col>
                 </Row>
