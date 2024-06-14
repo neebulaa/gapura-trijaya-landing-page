@@ -97,6 +97,7 @@ export default function useOrderIndexController() {
       title: 'Order ID',
       dataIndex: 'code',
       key: 'code',
+      width: '25%',
       render: (text: string, record: IOrder) => (
         <>
           <span className="font-medium"> {text}</span>
@@ -129,12 +130,16 @@ export default function useOrderIndexController() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
+      width: '10%',
+      align: 'center',
       render: (_text: string, record: IOrder) => <OrderStatusNode status={record.status} />,
     },
     {
       title: 'Payment',
       dataIndex: 'paymentStatus',
       key: 'paymentStatus',
+      width: '10%',
+      align: 'center',
       render: (_text: string, record: IOrder) => (
         <OrderPaymentStatusNode status={record.paymentStatus} />
       ),

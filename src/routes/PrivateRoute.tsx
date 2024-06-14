@@ -1,7 +1,7 @@
 import useAuthStore from '@/commons/store/useAuthStore';
 import { me } from '@/services/api/auth.service';
 import { useEffect, type ReactElement } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface Props {
   children: ReactElement;
@@ -10,6 +10,7 @@ interface Props {
 export default function PrivateRoute({ children }: Props) {
   const { isAuthenticated } = useAuthStore((state) => state);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const checkUserRole = async () => {
@@ -18,7 +19,9 @@ export default function PrivateRoute({ children }: Props) {
         const roles = res.data?.roles?.map((role: string) => role.toLowerCase());
 
         if (roles.includes('superadmin') || roles.includes('admin')) {
-          navigate('/admin');
+          if (location.pathname === '/login' || location.pathname === '/register') {
+            navigate('/admin');
+          }
           // disable this becuase no roles with name 'user'
           // } else if (roles.includes('user')) {
           //   navigate('/');

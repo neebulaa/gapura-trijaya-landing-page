@@ -71,7 +71,7 @@ export default function useProductImageFormController() {
     },
     // action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
     // action: `${import.meta.env.VITE_API_URL}v1/admin/products/images/${id}`,
-    customRequest: ({ file, onSuccess }) => {
+    customRequest: ({ file }) => {
       const formData = new FormData();
       formData.append('image', file);
 
@@ -83,7 +83,7 @@ export default function useProductImageFormController() {
         body: formData,
       })
         .then((res) => res.json())
-        .then((res) => {
+        .then((_res) => {
           // onSuccess(res, file);
           productImageDataRefetch();
           message.success(`File uploaded successfully.`);

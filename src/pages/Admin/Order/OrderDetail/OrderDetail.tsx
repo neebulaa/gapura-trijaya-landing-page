@@ -4,6 +4,7 @@ import useOrderDetailController from '@/pages/Admin/Order/OrderDetail/OrderDetai
 import { Breadcrumb, Button, Card, Col, List, Row, Skeleton, Space, Table, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
+import { separator } from '@/commons/utils/Currency/Currency';
 
 export default function OrderDetail() {
   /** Controller */
@@ -31,10 +32,7 @@ export default function OrderDetail() {
           <>
             <Row gutter={24} className="mb-4">
               <Col xl={8} lg={8}>
-                <p
-                  className="text-dark mb-2"
-                  style={{ fontWeight: 'normal', fontSize: '16px', textTransform: 'uppercase' }}
-                >
+                <p className="text-dark mb-2 text-primary uppercase font-medium text-base">
                   Billing Address
                 </p>
                 <address>
@@ -47,10 +45,7 @@ export default function OrderDetail() {
                 </address>
               </Col>
               <Col xl={8} lg={8}>
-                <p
-                  className="text-dark mb-2"
-                  style={{ fontWeight: 'normal', fontSize: '16px', textTransform: 'uppercase' }}
-                >
+                <p className="text-dark mb-2 text-primary uppercase font-medium text-base">
                   Shipment Address
                 </p>
                 <address>
@@ -63,10 +58,7 @@ export default function OrderDetail() {
                 </address>
               </Col>
               <Col xl={8} lg={8}>
-                <p
-                  className="text-dark mb-2"
-                  style={{ fontWeight: 'normal', fontSize: '16px', textTransform: 'uppercase' }}
-                >
+                <p className="text-dark mb-2 text-primary uppercase font-medium text-base">
                   Details
                 </p>
                 <address>
@@ -113,22 +105,22 @@ export default function OrderDetail() {
                 <List className="cart-page-total">
                   <List.Item>
                     <Space>
-                      Subtotal <span>{orderData?.data.baseTotalPrice}</span>
+                      Subtotal <span>Rp {separator(orderData?.data?.baseTotalPrice)}</span>
                     </Space>
                   </List.Item>
                   <List.Item>
                     <Space>
-                      Tax (10%) <span>{orderData?.data.taxAmount}</span>
+                      Tax (10%) <span>Rp {separator(orderData?.data?.taxAmount)}</span>
                     </Space>
                   </List.Item>
                   <List.Item>
                     <Space>
-                      Shipping Cost <span>{orderData?.data.shippingCost}</span>
+                      Shipping Cost <span>Rp {separator(orderData?.data?.shippingCost)}</span>
                     </Space>
                   </List.Item>
-                  <List.Item>
+                  <List.Item className="font-semibold">
                     <Space>
-                      Total <span>{orderData?.data.grandTotal}</span>
+                      Total <span>Rp {separator(orderData?.data?.grandTotal)}</span>
                     </Space>
                   </List.Item>
                 </List>
@@ -142,7 +134,7 @@ export default function OrderDetail() {
                       type="primary"
                       // href={orderData?.data.paymentUrl}
                       target="_blank"
-                      className="bg-primary shadow-none px-6 mt-2 w-full"
+                      className="shadow-none px-6 mt-2 w-full"
                     >
                       Proceed to shipment
                     </Button>
@@ -153,7 +145,7 @@ export default function OrderDetail() {
                   // href={orderData?.data.paymentUrl}
                   target="_blank"
                   size="large"
-                  className="rounded-full bg-primary shadow-none px-6 mt-2 w-full"
+                  className="shadow-none px-6 mt-2 w-full"
                 >
                   Mark as Completed
                 </Button>

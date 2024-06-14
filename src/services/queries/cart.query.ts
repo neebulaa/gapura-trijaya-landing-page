@@ -1,12 +1,11 @@
 import { axiosDelete, axiosGetAll, axiosPost, axiosPut } from '@/services/api/admin/api.service';
-import { ICart } from '@/types/cart';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetCarts = () => {
   return useQuery({
     queryKey: ['carts'],
     queryFn: async () => {
-      return await axiosGetAll<any, ICart>(`/v1/cart`);
+      return await axiosGetAll<any, any>(`/v1/cart`);
     },
   });
 };

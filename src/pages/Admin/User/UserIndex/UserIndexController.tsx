@@ -87,6 +87,9 @@ export default function useUserIndexController() {
       title: 'Name',
       dataIndex: 'name',
       key: 'name',
+      render(_: string, record: IUser) {
+        return `${record.firstName} ${record.lastName ?? ''}`;
+      },
     },
     {
       title: 'Email',
