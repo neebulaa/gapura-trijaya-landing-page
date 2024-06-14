@@ -10,6 +10,8 @@ import { Badge, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useSearchModal from '@/commons/store/useSearchModal.ts';
+import useScreenSize from '@/commons/store/useScreenSize.ts';
+import usePublicSidebar from '@/commons/store/usePublicSidebar.ts';
 
 export default function LayoutNavbar() {
   const navigate = useNavigate();
@@ -17,13 +19,11 @@ export default function LayoutNavbar() {
   /**
    * State
    */
-  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const { openSidebar, setOpenSidebar } = usePublicSidebar();
   const [openCartPopup, setOpenCartPopup] = useState<boolean>(false);
   const [openNavProfileDropdown, setOpenNavProfileDropdown] = useState<boolean>(false);
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState(() => {
-    return window.innerWidth <= 768;
-  });
+  const { isMobile, setIsMobile } = useScreenSize();
   const { userData } = useUserStore((state) => state);
   const { items: cartItems } = useCartStore((state) => state);
   const { toggle: toggleSearchModal } = useSearchModal((state) => state);
@@ -106,7 +106,13 @@ export default function LayoutNavbar() {
 
               <ul className="nav-action">
                 <li>
-                  <div onClick={() => toggleSearchModal()} className={'search-icon'}>
+                  <div
+                    onClick={() => {
+                      toggleSearchModal();
+                      setOpenSidebar(false);
+                    }}
+                    className={'search-icon'}
+                  >
                     <IconSearch width={'20'} height={'20'} />
                   </div>
                 </li>
@@ -174,7 +180,7 @@ export default function LayoutNavbar() {
             </div>
             <div
               className={`burger ${openSidebar ? 'open' : ''}`}
-              onClick={() => setOpenSidebar((prev) => !prev)}
+              onClick={() => setOpenSidebar(!openSidebar)}
             >
               <span></span>
               <span></span>

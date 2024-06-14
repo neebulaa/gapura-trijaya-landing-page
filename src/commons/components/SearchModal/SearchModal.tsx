@@ -6,6 +6,8 @@ import { useGetProducts } from '@/services/queries/product.query.ts';
 import IconSearch from '@/commons/assets/icons/IconSearch.tsx';
 import { debounce } from '@/commons/utils/Debounce.ts';
 import { Link } from 'react-router-dom';
+import useScreenSize from '@/commons/store/useScreenSize.ts';
+import usePublicSidebar from '@/commons/store/usePublicSidebar.ts';
 
 const SearchModal = () => {
   const { isOpen, toggle: toggleSearchModal } = useSearchModal((state) => state);
@@ -33,15 +35,21 @@ const SearchModal = () => {
     }
   }, [isOpen]);
 
+  const { isMobile } = useScreenSize();
+  const { setOpenSidebar } = usePublicSidebar();
+
   return (
     <Modal
-      width={'40%'}
+      width={isMobile ? '100%' : '40%'}
       centered={false}
       open={isOpen}
       footer={false}
       closable={false}
       maskClosable={true}
-      onCancel={() => toggleSearchModal()}
+      onCancel={() => {
+        toggleSearchModal();
+        setOpenSidebar(true);
+      }}
     >
       <Row>
         <Col md={24} xs={24} className={'mb-2'}>
@@ -81,7 +89,7 @@ const SearchModal = () => {
                 dataSource={productsData?.data}
                 renderItem={(item) => (
                   <div className={'search-list'}>
-                    <Link to={`/shop/${item.name}`} onClick={() => toggleSearchModal()}>
+                    <Link to={`/shop/${item.slug}`} onClick={() => toggleSearchModal()}>
                       <List.Item>{item.name}</List.Item>
                     </Link>
                   </div>
