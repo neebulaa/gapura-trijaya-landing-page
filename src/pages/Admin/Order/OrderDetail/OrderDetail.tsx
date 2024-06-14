@@ -5,6 +5,8 @@ import { Breadcrumb, Button, Card, Col, List, Row, Skeleton, Space, Table, Tag }
 import dayjs from 'dayjs';
 import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
 import { separator } from '@/commons/utils/Currency/Currency';
+import { EditOutlined } from '@ant-design/icons';
+import ToggleableLink from '@/commons/utils/ToggleableLink';
 
 export default function OrderDetail() {
   /** Controller */
@@ -38,23 +40,31 @@ export default function OrderDetail() {
                 <address>
                   {orderData?.data?.customerFirstName} {orderData?.data?.customerLastName}
                   <br /> {orderData?.data?.customerAddress1}
-                  <br /> {orderData?.data?.customerAddress2} <br />
-                  <br /> Email: {orderData?.data?.customerEmail}
-                  <br /> Phone: {orderData?.data?.customerPhone}
-                  <br /> Postcode: {orderData?.data?.customerPostcode}
+                  <br /> {orderData?.data?.customerAddress2}
+                  <br />
+                  <span className="font-semibold">Email:</span> {orderData?.data?.customerEmail}
+                  <br />
+                  <span className="font-semibold">Phone:</span> {orderData?.data?.customerPhone}
+                  <br />
+                  <span className="font-semibold">Postcode:</span>{' '}
+                  {orderData?.data?.customerPostcode}
                 </address>
               </Col>
               <Col xl={8} lg={8}>
-                <p className="text-dark mb-2 text-primary uppercase font-medium text-base">
+                <p className="text-dark mb-2 text-primary uppercase font-semibold text-base">
                   Shipment Address
                 </p>
                 <address>
                   {orderData?.data?.customerFullName}
                   <br /> {orderData?.data?.customerAddress1}
-                  <br /> {orderData?.data?.customerAddress2} <br />
-                  <br /> Email: {orderData?.data?.customerEmail}
-                  <br /> Phone: {orderData?.data?.customerPhone}
-                  <br /> Postcode: {orderData?.data?.customerPostcode}
+                  <br /> {orderData?.data?.customerAddress2}
+                  <br />
+                  <span className="font-semibold">Email:</span> {orderData?.data?.customerEmail}
+                  <br />
+                  <span className="font-semibold">Phone:</span> {orderData?.data?.customerPhone}
+                  <br />
+                  <span className="font-semibold">Postcode:</span>{' '}
+                  {orderData?.data?.customerPostcode}
                 </address>
               </Col>
               <Col xl={8} lg={8}>
@@ -62,17 +72,19 @@ export default function OrderDetail() {
                   Details
                 </p>
                 <address>
-                  Invoice ID:{' '}
-                  <span className="text-dark font-semibold">#{orderData?.data?.code}</span>
+                  <span className="font-semibold">Invoice ID: </span>
+                  <span className="font-semibold text-blue">#{orderData?.data?.code}</span>
                   <br /> {dayjs(orderData?.data?.orderDate).format('HH:mm:ss DD/MM/YYYY')}
-                  <br /> Status:
+                  <br /> <span className="font-semibold">Status:</span>
                   <Tag className="ml-2">{orderData?.data?.status}</Tag>
-                  <br /> Payment Status:
+                  <br /> <span className="font-semibold">Payment Status:</span>
                   <Tag color="yellow" className="ml-2">
                     {orderData?.data?.paymentStatus}
                   </Tag>
-                  <br /> Shipped by:{' '}
-                  <span className="font-medium">{orderData?.data?.shippingServiceName}</span>
+                  <br /> <span className="font-semibold">Shipped by:</span>{' '}
+                  <span className="font-semibold text-blue">
+                    {orderData?.data?.shippingServiceName}
+                  </span>
                 </address>
               </Col>
             </Row>
@@ -90,18 +102,6 @@ export default function OrderDetail() {
             </Row>
             <Row gutter={24} className="mt-4">
               <Col span={8} offset={16}>
-                {/* <p
-              className="text-dark mb-2"
-              style={{ fontWeight: 'normal', fontSize: '16px', textTransform: 'uppercase' }}
-            >
-              Summary
-            </p>
-            <address>
-              Base Total Price: {orderData?.data.baseTotalPrice}
-              <br /> Tax Amount: {orderData?.data.taxAmount}
-              <br /> Shipping Cost: {orderData?.data.shippingCost}
-              <br /> Grand Total: {orderData?.data.grandTotal}
-            </address> */}
                 <List className="cart-page-total">
                   <List.Item>
                     <Space>
@@ -128,26 +128,22 @@ export default function OrderDetail() {
             </Row>
             <Row gutter={24} className="mt-4">
               <Col span={8} offset={16}>
+                {/* IS PAID */}
                 {orderData?.data.paymentStatus === OrderPaymentStatus.PAID ? (
-                  <>
-                    <Button
-                      type="primary"
-                      // href={orderData?.data.paymentUrl}
-                      target="_blank"
-                      className="shadow-none px-6 mt-2 w-full"
-                    >
+                  <ToggleableLink to={`/admin/shipments/${orderData?.data?.id!}/edit`}>
+                    <Button icon={<EditOutlined />} type="primary" className="w-full shadow-none">
                       Proceed to shipment
                     </Button>
-                  </>
+                  </ToggleableLink>
                 ) : null}
-                <Button
-                  type="primary"
-                  // href={orderData?.data.paymentUrl}
-                  target="_blank"
-                  size="large"
-                  className="shadow-none px-6 mt-2 w-full"
-                >
+                <Button type="primary" target="_blank" className="shadow-none mt-2 w-full">
                   Mark as Completed
+                </Button>
+                <Button type="default" target="_blank" className="shadow-none mt-2 w-full">
+                  Cancel
+                </Button>
+                <Button type="default" target="_blank" className="shadow-none mt-2 w-full">
+                  Remove
                 </Button>
               </Col>
             </Row>

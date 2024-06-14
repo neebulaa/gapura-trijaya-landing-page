@@ -1,4 +1,3 @@
-import { api } from '@/commons/lib/api';
 import { getCookie } from '@/commons/lib/cookieStorage';
 import {
   useDeleteProductImage,
@@ -7,9 +6,7 @@ import {
 } from '@/services/queries/admin/product.image.query';
 import { QueryParams, sortBy } from '@/types/base';
 import { OutletContextInterface } from '@/types/global/outletContext';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UploadProps, message } from 'antd';
-import { RcFile } from 'antd/es/upload';
 import { useState } from 'react';
 import { useOutletContext, useParams } from 'react-router-dom';
 

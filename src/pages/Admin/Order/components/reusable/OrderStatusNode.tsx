@@ -10,8 +10,12 @@ export default function OrderStatusNode({ status }: { status: OrderStatus }) {
             status === OrderStatus.CREATED
               ? 'success'
               : status === OrderStatus.DELIVERED
-                ? 'info'
-                : 'default'
+                ? 'blue'
+                : status === OrderStatus.CONFIRMED
+                  ? 'purple'
+                  : status === OrderStatus.CANCELLED
+                    ? 'error'
+                    : 'default'
           }
         >
           {getOrderStatusString(status)}
