@@ -1,4 +1,4 @@
-import { CreatePromoDto, IPromo, PromoQuery, UpdatePromoDto } from '@/types/promo.ts';
+import { IPromo, PromoQuery } from '@/types/promo.ts';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   axiosDelete,

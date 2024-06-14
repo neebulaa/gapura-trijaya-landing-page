@@ -8,13 +8,7 @@ import {
   useUpdatePromo,
 } from '@/services/queries/admin/promo.query.ts';
 import { Form } from 'antd';
-import {
-  CreatePromoDto,
-  DiscountTypeEnum,
-  IPromo,
-  PromoTypeEnum,
-  UpdatePromoDto,
-} from '@/types/promo.ts';
+import { CreatePromoDto, DiscountTypeEnum, PromoTypeEnum, UpdatePromoDto } from '@/types/promo.ts';
 import { debounce } from '@/commons/utils/Debounce.ts';
 import dayjs from 'dayjs';
 
@@ -22,7 +16,7 @@ const usePromoFormController = (props: IFormProps) => {
   const { formType } = props;
 
   const { openNotification } = useOutletContext<OutletContextInterface>();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   /**
    * Params
@@ -74,10 +68,7 @@ const usePromoFormController = (props: IFormProps) => {
    * Disable Form
    */
   const disableFormBeforePromoType = useMemo(() => {
-    if (tempSubmitData?.promoType) {
-      return false;
-    }
-    return true;
+    return !tempSubmitData?.promoType;
   }, [tempSubmitData]);
 
   /**
