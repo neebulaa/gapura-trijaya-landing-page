@@ -4,6 +4,7 @@ import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
 import { IValidationErrors } from '@/types/base';
 import { App, Button, Form, Input, Row } from 'antd';
 import { useState } from 'react';
+import ContactGoogleMaps from './components/ContactGoogleMaps/ContactGoogleMaps';
 
 export default function Contact() {
   const { message } = App.useApp();
@@ -32,29 +33,32 @@ export default function Contact() {
       <section className="container" id="contact">
         <div className="contact-info">
           <h1>Let's Chat, Reach Out to Us</h1>
-          <p className="mt-1">
+          <p className="mt-[1.25rem] mb-1">
             Have questions or feedback? We’re Here to help. Send us a message and we’ll respond in
             our working hours
           </p>
-          <div className="card-bordered mt-1">
+          <div className="card-bordered mt-4">
             <div>
               <div className="flex gap-05">
                 <div className="highlight">
                   <IconLocation width="20" height="20" />
                 </div>
-                <p className="semibold">Rumah Michelle</p>
+                <p className="semibold">Trijaya Mandiri Digital Printing - Percetakan Pontianak</p>
               </div>
               <p className="mt-05">
-                Sungai Jawi, Kec. Pontianak Kota, Kota Pontianak, Kalimantan Barat , Pontianak Kota,
-                Kota Pontianak, Kalimantan Barat, 628983167799
+                Jl. Sumatera Gg. Sederhana Akcaya Kec. Pontianak Sel. Kota Pontianak, Kalimantan
+                Barat 78121, Indonesia
               </p>
               <div
-                className="mt-1"
+                className="mt-4"
                 style={{
-                  height: '200px',
+                  height: '400px',
                   background: 'lightgray',
+                  position: 'relative',
                 }}
-              ></div>
+              >
+                <ContactGoogleMaps />
+              </div>
             </div>
           </div>
         </div>
