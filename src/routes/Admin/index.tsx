@@ -6,6 +6,7 @@ import { UserRoutes } from '@/routes/Admin/UserRoute';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
 import { OrderRoutes } from './OrderRoute';
+import { PromoRoutes } from '@/routes/Admin/PromoRoute.tsx';
 
 const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard/DashboardIndex'));
 const Profile = lazy(() => import('@/pages/Admin/Profile/ProfileIndex'));
@@ -29,6 +30,7 @@ export const AdminRoutes: RouteObject[] = [
       ...AttributeRoutes,
       ...UserRoutes,
       ...OrderRoutes,
+      ...PromoRoutes,
       {
         path: 'profile',
         element: (

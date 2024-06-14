@@ -6,13 +6,13 @@ type Props = {
   index: boolean;
   title: string;
   prevRoute?: string | number;
+  docTitle?: string;
 };
 
 const usePageEffect = (props: Props) => {
-  const { index, title, prevRoute } = props;
+  const { index, title, prevRoute, docTitle } = props;
 
-  const { handleIndex, handlePrevRoute, handleTitle } =
-    useOutletContext<OutletContextInterface>();
+  const { handleIndex, handlePrevRoute, handleTitle } = useOutletContext<OutletContextInterface>();
 
   useEffect(() => {
     handleIndex(index);
@@ -20,6 +20,7 @@ const usePageEffect = (props: Props) => {
     if (prevRoute) {
       handlePrevRoute(prevRoute);
     }
+    document.title = `Trijaya${docTitle ? ` - ${docTitle}` : ''}`;
   }, []);
 };
 

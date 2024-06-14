@@ -13,7 +13,7 @@ export function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
-  children?: MenuItem[]
+  children?: MenuItem[],
 ): MenuItem {
   return {
     // key,
@@ -35,6 +35,7 @@ export const NavigationItems: MenuItem[] = [
     getItem('Product', 'products', null),
     getItem('Category', 'categories', null),
     getItem('Attribute', 'attributes', null),
+    getItem('Promo', 'promos', null),
   ]),
   getItem('Order', 'orders', <ShoppingCartOutlined />, [
     getItem('Order', 'orders', null),
