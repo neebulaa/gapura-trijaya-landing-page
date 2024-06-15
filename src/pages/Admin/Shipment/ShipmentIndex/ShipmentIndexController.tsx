@@ -4,6 +4,7 @@ import ToggleableLink from '@/commons/utils/ToggleableLink';
 import ShipmentStatusNode from '@/pages/Admin/Shipment/components/reusable/ShipmentStatusNode';
 import { useGetShipments } from '@/services/queries/admin/shipment.query';
 import { QueryParams, sortBy } from '@/types/base';
+import { ShipmentStatus } from '@/types/enum/shipment-status.enum';
 import { IShipment } from '@/types/shipment';
 import { EyeOutlined } from '@ant-design/icons';
 import { ColumnType, TablePaginationConfig } from 'antd/es/table';
@@ -101,12 +102,15 @@ export default function useShipmentIndexController() {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-      render: (status: string, record: IShipment) => (
+      render: (status: ShipmentStatus, record: IShipment) => (
         <>
-          {/* <div>{status}</div> */}
           <ShipmentStatusNode status={status} />
           <div style={{ fontSize: '12px', fontWeight: 'normal' }}>
-            {dayjs(record.shippedAt).format('HH:mm:ss DD/MM/YYYY')}
+            <>
+              {record.shippedAt
+                ? dayjs(record.shippedAt).format('HH:mm:ss DD/MM/YYYY')
+                : 'Not Shipped'}
+            </>
           </div>
         </>
       ),

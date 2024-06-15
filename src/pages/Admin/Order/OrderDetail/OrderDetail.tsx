@@ -1,12 +1,23 @@
-import ActionButton from '@/commons/components/Button/ActionButton';
 import usePageEffect from '@/commons/hooks/usePageEffect';
-import useOrderDetailController from '@/pages/Admin/Order/OrderDetail/OrderDetailController';
-import { Breadcrumb, Button, Card, Col, List, Row, Skeleton, Space, Table, Tag } from 'antd';
-import dayjs from 'dayjs';
-import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
 import { separator } from '@/commons/utils/Currency/Currency';
-import { EditOutlined } from '@ant-design/icons';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
+import useOrderDetailController from '@/pages/Admin/Order/OrderDetail/OrderDetailController';
+import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  List,
+  Popconfirm,
+  Row,
+  Skeleton,
+  Space,
+  Table,
+  Tag,
+} from 'antd';
+import dayjs from 'dayjs';
 
 export default function OrderDetail() {
   /** Controller */
@@ -131,20 +142,52 @@ export default function OrderDetail() {
                 {/* IS PAID */}
                 {orderData?.data.paymentStatus === OrderPaymentStatus.PAID ? (
                   <ToggleableLink to={`/admin/shipments/${orderData?.data?.shipment!.id!}/edit`}>
-                    <Button icon={<EditOutlined />} type="primary" className="w-full shadow-none">
+                    <Button icon={<EditOutlined />} type="primary" className="w-full shadow-none" disabled={true}>
                       Proceed to shipment
                     </Button>
                   </ToggleableLink>
                 ) : null}
-                <Button type="primary" target="_blank" className="shadow-none mt-2 w-full">
-                  Mark as Completed
-                </Button>
-                <Button type="default" target="_blank" className="shadow-none mt-2 w-full">
-                  Cancel
-                </Button>
-                <Button type="default" target="_blank" className="shadow-none mt-2 w-full">
-                  Remove
-                </Button>
+                {/* Mark as Completed */}
+                <Popconfirm
+                  title="Yakin menandai sebagai Completed?"
+                  onConfirm={() => console.log('test')}
+                  placement="left"
+                >
+                  <Button
+                    icon={<CheckOutlined />}
+                    type="primary"
+                    className="w-full shadow-none mt-2"
+                  >
+                    Mark as Completed
+                  </Button>
+                </Popconfirm>
+                {/* Mark as Cancel */}
+                <Popconfirm
+                  title="Yakin untuk Cancel?"
+                  onConfirm={() => console.log('test')}
+                  placement="left"
+                >
+                  <Button
+                    icon={<CloseOutlined />}
+                    type="default"
+                    className="w-full shadow-none mt-2"
+                  >
+                    Cancel
+                  </Button>
+                </Popconfirm>
+                <Popconfirm
+                  title="Yakin untuk Remove?"
+                  onConfirm={() => console.log('test')}
+                  placement="left"
+                >
+                  <Button
+                    icon={<DeleteOutlined />}
+                    type="default"
+                    className="w-full shadow-none mt-2"
+                  >
+                    Remove
+                  </Button>
+                </Popconfirm>
               </Col>
             </Row>
           </>

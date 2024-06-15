@@ -1,6 +1,6 @@
 import usePageEffect from '@/commons/hooks/usePageEffect';
 import useShipmentDetailController from '@/pages/Admin/Shipment/ShipmentDetail/ShipmentDetailController';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, Card } from 'antd';
 
 export default function ShipmentDetail() {
   /** Controller */
@@ -15,7 +15,9 @@ export default function ShipmentDetail() {
   return (
     <>
       <Breadcrumb items={breadcrumbItem} />
-      <h1>Shipment Detail</h1>
+      <Card>
+        <div>Shipment Detail</div>
+      </Card>
     </>
   );
 }
