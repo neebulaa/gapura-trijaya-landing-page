@@ -1,11 +1,12 @@
 import { BaseModel } from '@/types/base';
 import { IOrder } from '@/types/order';
+import { ShipmentStatus } from './enum/shipment-status.enum';
 
 export interface IShipment extends BaseModel {
   userId: string;
   orderId: string;
   trackNumber: string;
-  status: string;
+  status: ShipmentStatus;
   totalQty: number;
   totalWeight: number;
   firstName: string;

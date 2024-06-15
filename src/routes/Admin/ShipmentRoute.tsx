@@ -1,8 +1,11 @@
 import RouteLoader from '@/commons/components/RouteLoader';
+import { FormType } from '@/types/global/form';
 import { lazy, Suspense } from 'react';
 import { RouteObject } from 'react-router-dom';
 
 const ShipmentIndex = lazy(() => import('@/pages/Admin/Shipment/ShipmentIndex/ShipmentIndex'));
+const ShipmentForm = lazy(() => import('@/pages/Admin/Shipment/ShipmentForm/ShipmentForm'));
+const ShipmentDetail = lazy(() => import('@/pages/Admin/Shipment/ShipmentDetail/ShipmentDetail'));
 
 export const ShipmentRoutes: RouteObject[] = [
   {
@@ -32,14 +35,22 @@ export const ShipmentRoutes: RouteObject[] = [
       //     </Suspense>
       //   ),
       // },
-      // {
-      //   path: ':id/show',
-      //   element: (
-      //     <Suspense fallback={<RouteLoader />}>
-      //       <OrderDetail />
-      //     </Suspense>
-      //   ),
-      // },
+      {
+        path: ':id/show',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <ShipmentDetail />
+          </Suspense>
+        ),
+      },
+      {
+        path: ':id/edit',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <ShipmentForm formType={FormType.UPDATE} />
+          </Suspense>
+        ),
+      },
     ],
   },
 ];

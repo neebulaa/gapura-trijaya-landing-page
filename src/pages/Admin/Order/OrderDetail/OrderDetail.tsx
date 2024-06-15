@@ -130,7 +130,7 @@ export default function OrderDetail() {
               <Col span={8} offset={16}>
                 {/* IS PAID */}
                 {orderData?.data.paymentStatus === OrderPaymentStatus.PAID ? (
-                  <ToggleableLink to={`/admin/shipments/${orderData?.data?.id!}/edit`}>
+                  <ToggleableLink to={`/admin/shipments/${orderData?.data?.shipment!.id!}/edit`}>
                     <Button icon={<EditOutlined />} type="primary" className="w-full shadow-none">
                       Proceed to shipment
                     </Button>

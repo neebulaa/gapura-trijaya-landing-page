@@ -1,6 +1,7 @@
 import ActionButton from '@/commons/components/Button/ActionButton';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
+import ShipmentStatusNode from '@/pages/Admin/Shipment/components/reusable/ShipmentStatusNode';
 import { useGetShipments } from '@/services/queries/admin/shipment.query';
 import { QueryParams, sortBy } from '@/types/base';
 import { IShipment } from '@/types/shipment';
@@ -102,7 +103,8 @@ export default function useShipmentIndexController() {
       key: 'status',
       render: (status: string, record: IShipment) => (
         <>
-          <div>{status}</div>
+          {/* <div>{status}</div> */}
+          <ShipmentStatusNode status={status} />
           <div style={{ fontSize: '12px', fontWeight: 'normal' }}>
             {dayjs(record.shippedAt).format('HH:mm:ss DD/MM/YYYY')}
           </div>
@@ -138,7 +140,7 @@ export default function useShipmentIndexController() {
       align: 'center',
       fixed: 'right',
       render: (_text: string, record: IShipment) => (
-        <ToggleableLink to={`/admin/shipment/${record.id!}/show`}>
+        <ToggleableLink to={`/admin/shipments/${record.id!}/show`}>
           <ActionButton
             icon={<EyeOutlined />}
             hoverMessage="Show"
