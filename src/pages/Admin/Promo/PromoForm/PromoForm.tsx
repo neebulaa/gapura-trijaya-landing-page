@@ -3,9 +3,24 @@ import { FormType, IFormProps } from '@/types/global/form.ts';
 import usePageEffect from '@/commons/hooks/usePageEffect.tsx';
 import usePromoFormController from '@/pages/Admin/Promo/PromoForm/PromoFormController.tsx';
 import { Link } from 'react-router-dom';
-import { Breadcrumb, Button, Card, DatePicker, Form, Input, InputNumber, Row, Select } from 'antd';
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  Row,
+  Select,
+  Space,
+  Table,
+} from 'antd';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol.tsx';
 import { DiscountTypeEnum, PromoTypeEnum } from '@/types/promo.ts';
+import { PlusOutlined } from '@ant-design/icons';
+import PromoQuantityProductModal from '@/pages/Admin/Promo/Components/PromoQuantityProductModal/PromoQuantityProductModal.tsx';
 
 const PromoForm = (props: IFormProps) => {
   /**
@@ -39,6 +54,9 @@ const PromoForm = (props: IFormProps) => {
     tempSubmitData,
     handleValuesChanges,
     disableFormBeforePromoType,
+    handleModal,
+    productModalProps,
+    detailTableProps,
   } = usePromoFormController(props);
 
   return (
@@ -156,7 +174,42 @@ const PromoForm = (props: IFormProps) => {
             </Button>
           </Form.Item>
         </Card>
+
+        {tempSubmitData.promoType === PromoTypeEnum.QTY ? (
+          <Card>
+            <Row>
+              <Col md={24} className={'mb-2'}>
+                <Space direction={'vertical'} align={'end'} className={'w-full'}>
+                  <Button
+                    type={'primary'}
+                    icon={<PlusOutlined />}
+                    onClick={() => handleModal('open', undefined, FormType.CREATE)}
+                  >
+                    Add Product
+                  </Button>
+                </Space>
+              </Col>
+              <Col md={24} className={'mb-2'}>
+                <Table
+                  bordered={true}
+                  size="small"
+                  rowKey={(record) => record.productId!}
+                  columns={detailTableProps}
+                  dataSource={[...(tempSubmitData?.promoDetails ?? [])]}
+                  pagination={false}
+                />
+              </Col>
+            </Row>
+          </Card>
+        ) : null}
       </Form>
+
+      <PromoQuantityProductModal
+        {...productModalProps}
+        tempDetails={tempSubmitData.promoDetails ?? []}
+        handleOk={(data, type) => handleModal('submit', data, type)}
+        handleCancel={() => handleModal('close')}
+      />
     </>
   );
 };

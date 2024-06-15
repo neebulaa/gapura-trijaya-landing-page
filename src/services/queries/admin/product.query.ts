@@ -10,15 +10,13 @@ import { QueryOptions } from '@/types/global/queryOptions';
 import { IProduct } from '@/types/product';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useGetProducts = (params: QueryParams) => {
+export const useGetProducts = (params: QueryParams, { enabled }: QueryOptions = {}) => {
   return useQuery({
     queryKey: ['products', { params }],
     queryFn: async () => {
-      return await axiosGetAll<QueryParams, IProduct>(
-        `/v1/admin/products`,
-        params
-      );
+      return await axiosGetAll<QueryParams, IProduct>(`/v1/admin/products`, params);
     },
+    enabled: !!enabled,
   });
 };
 
@@ -43,10 +41,7 @@ export const useCreateProduct = () => {
 export const useUpdateProduct = (id: string) => {
   return useMutation({
     mutationFn: async (updatedProduct: any) => {
-      return await axiosPut<any, any>(
-        `/v1/admin/products/${id}`,
-        updatedProduct
-      );
+      return await axiosPut<any, any>(`/v1/admin/products/${id}`, updatedProduct);
     },
   });
 };
@@ -57,9 +52,9 @@ export const useDeleteProduct = () => {
     mutationFn: async (id: string) => {
       return await axiosDelete<any>(`/v1/admin/products/${id}`);
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       // @ts-ignore
-      queryClient.invalidateQueries('products').then((r) => null);
+      await queryClient.invalidateQueries('products');
     },
   });
 };

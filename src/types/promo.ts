@@ -1,6 +1,7 @@
 import { BaseModel, QueryParams } from '@/types/base.ts';
 import { IUser } from '@/types/user.ts';
 import { Dayjs } from 'dayjs';
+import { IProduct } from '@/types/product.ts';
 
 export enum PromoStatusEnum {
   DRAFT = 'draft',
@@ -34,6 +35,16 @@ export interface IPromo extends BaseModel {
   createdBy?: IUser;
   updatedById: string;
   updatedBy?: IUser;
+  promoDetails?: IPromoDetail[];
+}
+
+export interface IPromoDetail extends BaseModel {
+  id: string;
+  promoId: string;
+  promo: IPromo;
+  productId: string;
+  product: IProduct;
+  qty: number;
 }
 
 export interface CreatePromoDto {
@@ -46,8 +57,21 @@ export interface CreatePromoDto {
   description?: string;
   discountType?: DiscountTypeEnum;
   promoType?: PromoTypeEnum;
+  promoDetails?: CreatePromoDetailDto[];
 }
 
-export interface UpdatePromoDto extends CreatePromoDto {}
+export interface UpdatePromoDto extends CreatePromoDto {
+  promoDetails?: UpdatePromoDetailDto[];
+}
+
+export interface CreatePromoDetailDto {
+  productId?: string;
+  product?: IProduct;
+  qty?: number;
+}
+
+export interface UpdatePromoDetailDto extends CreatePromoDetailDto {
+  id?: string;
+}
 
 export interface PromoQuery extends QueryParams {}
