@@ -1,4 +1,5 @@
 import { BaseModel } from '@/types/base';
+import { IShipment } from '@/types/shipment';
 
 export interface IOrder extends BaseModel {
   userId: null;
@@ -9,7 +10,7 @@ export interface IOrder extends BaseModel {
   paymentStatus: OrderPaymentStatusType | any;
   paymentToken: null;
   paymentUrl: null;
-  baseTotalPrice: string;
+  baseTotalPrice: number;
   taxAmount: string;
   taxPercent: string;
   discountAmount: string;
@@ -36,6 +37,7 @@ export interface IOrder extends BaseModel {
   deletedAt: null;
   customerFullName: string;
   orderItems: IOrderItem[];
+  shipment: IShipment;
 }
 
 export interface IOrderItem extends BaseModel {
@@ -70,3 +72,7 @@ export interface ShippingApiResponse {
 export type OrderStatusType = 'created' | 'confirmed' | 'delivered' | 'completed' | 'cancelled';
 
 export type OrderPaymentStatusType = 'paid' | 'unpaid' | 'pending' | 'failed';
+
+export interface UpdateShipmentDto {
+  trackNumber: string;
+}

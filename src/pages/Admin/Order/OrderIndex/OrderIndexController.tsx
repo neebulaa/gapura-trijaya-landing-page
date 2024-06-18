@@ -2,18 +2,18 @@ import ActionButton from '@/commons/components/Button/ActionButton';
 import { separator } from '@/commons/utils/Currency/Currency';
 import { debounce } from '@/commons/utils/Debounce';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
+import OrderPaymentStatusNode from '@/pages/Admin/Order/components/reusable/OrderPaymentStatusNode';
+import OrderStatusNode from '@/pages/Admin/Order/components/reusable/OrderStatusNode';
 import { useGetOrders } from '@/services/queries/admin/order.query';
 import { QueryParams, sortBy } from '@/types/base';
 import { OutletContextInterface } from '@/types/global/outletContext';
 import { IOrder } from '@/types/order';
 import { EyeOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
-import { ColumnType } from 'antd/es/table';
+import { ColumnType, TablePaginationConfig } from 'antd/es/table';
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import { useOutletContext, useSearchParams } from 'react-router-dom';
-import OrderStatusNode from '@/pages/Admin/Order/components/reusable/OrderStatusNode';
-import OrderPaymentStatusNode from '@/pages/Admin/Order/components/reusable/OrderPaymentStatusNode';
+import { useEffect, useState } from 'react';
+import { URLSearchParamsInit, useOutletContext, useSearchParams } from 'react-router-dom';
 
 export default function useOrderIndexController() {
   const { openNotification } = useOutletContext<OutletContextInterface>();
@@ -36,9 +36,25 @@ export default function useOrderIndexController() {
    */
   const {
     data: orderData,
-    isPending: orderDataIsFetching,
+    isFetching: orderDataIsFetching,
     refetch: orderDataIsRefetch,
   } = useGetOrders(queryParams);
+
+  /**
+   * Effects
+   */
+  useEffect(() => {
+    if (orderData && orderData.meta.total < (queryParams.page ?? 1) && orderData.meta.total !== 0) {
+      setQueryParams({
+        ...queryParams,
+        page: orderData.meta.total,
+      });
+    }
+  }, [orderData]);
+
+  useEffect(() => {
+    setSearchParams(queryParams as URLSearchParamsInit);
+  }, [queryParams]);
 
   /**
    * Handle Search
@@ -90,6 +106,17 @@ export default function useOrderIndexController() {
 
   /** Breadcrumb item */
   const breadcrumbItem = [{ title: 'Home' }, { title: 'Order' }];
+
+  /**
+   * Handle: Table Change/Get Category Data
+   */
+  const handleTableChange = (newPagination: TablePaginationConfig) => {
+    setQueryParams({
+      ...queryParams,
+      page: newPagination.current,
+      limit: newPagination.pageSize,
+    });
+  };
 
   /** Table: Order Table Props */
   const OrderTableProps: ColumnType<IOrder>[] | any = [
@@ -168,7 +195,10 @@ export default function useOrderIndexController() {
     breadcrumbItem,
     filterForm,
     handleSearch,
+    handleTableChange,
     orderData,
+    orderDataIsFetching,
+    orderDataIsRefetch,
     OrderTableProps,
     isFilterVisible,
     setIsFilterVisible,

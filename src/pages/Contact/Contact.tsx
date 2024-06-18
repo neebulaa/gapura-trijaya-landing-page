@@ -2,11 +2,14 @@ import IconLocation from '@/commons/assets/icons/IconLocation';
 import FormItem from '@/commons/components/Form/FormItem';
 import ResponsiveCol from '@/commons/components/Responsive/ResponsiveCol';
 import { IValidationErrors } from '@/types/base';
-import { App, Button, Form, Input, Row } from 'antd';
+import { App, Button, Form, Input, InputNumber, Row } from 'antd';
 import { useState } from 'react';
+import ContactGoogleMaps from './components/ContactGoogleMaps/ContactGoogleMaps';
+import { useContactController } from './ContactController';
 
 export default function Contact() {
   const { message } = App.useApp();
+  const { form, handleSubmit } = useContactController(); // Use the controller
 
   /**
    * State
@@ -15,46 +18,38 @@ export default function Contact() {
     message: '',
     errors: {},
   });
-  const [form] = Form.useForm();
-
-  /**
-   * Handle Submit
-   */
-  const handleSubmit = async () => {
-    await form.validateFields();
-    const values = form.getFieldsValue();
-    console.log('values: ', values);
-    message.success('MOCK: Your message has been sent');
-  };
 
   return (
     <>
       <section className="container" id="contact">
         <div className="contact-info">
           <h1>Let's Chat, Reach Out to Us</h1>
-          <p className="mt-1">
-            Have questions or feedback? We’re Here to help. Send us a message and we’ll respond in
-            our working hours
+          <p className="mt-[1.25rem] mb-1">
+            Have questions or feedback? We’re here to help. Send us a message and we’ll respond
+            during our working hours.
           </p>
-          <div className="card-bordered mt-1">
+          <div className="card-bordered mt-4">
             <div>
               <div className="flex gap-05">
                 <div className="highlight">
                   <IconLocation width="20" height="20" />
                 </div>
-                <p className="semibold">Rumah Michelle</p>
+                <p className="semibold">Trijaya Mandiri Digital Printing - Percetakan Pontianak</p>
               </div>
               <p className="mt-05">
-                Sungai Jawi, Kec. Pontianak Kota, Kota Pontianak, Kalimantan Barat , Pontianak Kota,
-                Kota Pontianak, Kalimantan Barat, 628983167799
+                Jl. Sumatera Gg. Sederhana Akcaya Kec. Pontianak Sel. Kota Pontianak, Kalimantan
+                Barat 78121, Indonesia
               </p>
               <div
-                className="mt-1"
+                className="mt-4"
                 style={{
-                  height: '200px',
+                  height: '400px',
                   background: 'lightgray',
+                  position: 'relative',
                 }}
-              ></div>
+              >
+                <ContactGoogleMaps />
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +61,7 @@ export default function Contact() {
                   label="Your Name"
                   name="name"
                   className="font-normal"
-                  rules={[{ required: false }]}
+                  rules={[{ required: true, message: 'Please enter your name' }]}
                   validationErrors={validationErrors}
                 >
                   <Input placeholder="name" size="large" />
@@ -76,13 +71,18 @@ export default function Contact() {
             <Row>
               <ResponsiveCol span={24} md={24}>
                 <FormItem
-                  label="Phone Number (Whatsapp)"
+                  label="Phone Number (WhatsApp)"
                   name="phone"
                   className="font-normal"
-                  rules={[{ required: false }]}
+                  rules={[{ required: true, message: 'Please enter your phone number' }]}
                   validationErrors={validationErrors}
                 >
-                  <Input addonBefore={`+62`} placeholder="phone" size="large" />
+                  <InputNumber
+                    className="w-full"
+                    addonBefore={`+62`}
+                    placeholder="phone"
+                    size="large"
+                  />
                 </FormItem>
               </ResponsiveCol>
             </Row>
@@ -92,10 +92,10 @@ export default function Contact() {
                   label="Messages"
                   name="message"
                   className="font-normal"
-                  rules={[{ required: false }]}
+                  rules={[{ required: true, message: 'Please enter your message' }]}
                   validationErrors={validationErrors}
                 >
-                  <Input.TextArea placeholder="message" size="large" rows={4} />
+                  <Input.TextArea placeholder="message" size="large" rows={6} />
                 </FormItem>
               </ResponsiveCol>
             </Row>
@@ -108,6 +108,7 @@ export default function Contact() {
                 style={{
                   backgroundColor: '#18428F',
                   borderColor: '#18428F',
+                  height: '3.2rem',
                   borderRadius: '25rem',
                 }}
               >

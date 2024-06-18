@@ -23,7 +23,10 @@ export default function OrderIndex() {
     breadcrumbItem,
     filterForm,
     handleSearch,
+    handleTableChange,
     orderData,
+    orderDataIsFetching,
+    orderDataIsRefetch,
     OrderTableProps,
     isFilterVisible,
     setIsFilterVisible,
@@ -46,12 +49,12 @@ export default function OrderIndex() {
       <Card>
         <Row className="mb-4">
           <Col md={6} sm={4}>
-            <Input placeholder="Search" onChange={(e) => console.log(e.target.value)} />
+            <Input placeholder="Search" onChange={(e) => handleSearch(e.target.value)} />
           </Col>
           <Col md={12} className="px-2">
             <Space>
-              <Button type="primary" onClick={() => console.log('search')}>
-                <RedoOutlined spin={false} />
+              <Button type="primary" onClick={() => orderDataIsRefetch()}>
+                <RedoOutlined spin={orderDataIsFetching} />
               </Button>
               {/* bikin tombol trigger muncul filter disini */}
               <Tooltip title="Filter" placement="right">
@@ -116,15 +119,15 @@ export default function OrderIndex() {
               rowKey={(record) => record.id!}
               columns={OrderTableProps}
               dataSource={(orderData?.data as IOrder[]) || []}
-              //   pagination={{
-              //     total: categoryData?.meta.total,
-              //     current: categoryData?.meta.currentPage,
-              //     showSizeChanger: true,
-              //     showTotal: (total) => `Total ${total} items`,
-              //     size: 'default',
-              //   }}
-              //   onChange={handleTableChange}
-              //   loading={categoryDataIsFetching}
+              pagination={{
+                total: orderData?.meta.total,
+                current: orderData?.meta.currentPage,
+                showSizeChanger: true,
+                showTotal: (total) => `Total ${total} items`,
+                size: 'default',
+              }}
+              onChange={handleTableChange}
+              loading={orderDataIsFetching}
             />
           </Col>
         </Row>

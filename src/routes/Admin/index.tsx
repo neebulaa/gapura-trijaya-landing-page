@@ -2,6 +2,7 @@ import RouteLoader from '@/commons/components/RouteLoader';
 import { AttributeRoutes } from '@/routes/Admin/AttributeRoute';
 import { CategoryRoutes } from '@/routes/Admin/CategoryRoute';
 import { ProductRoutes } from '@/routes/Admin/ProductRoute';
+import { ShipmentRoutes } from '@/routes/Admin/ShipmentRoute';
 import { UserRoutes } from '@/routes/Admin/UserRoute';
 import { Suspense, lazy } from 'react';
 import { RouteObject } from 'react-router-dom';
@@ -31,6 +32,7 @@ export const AdminRoutes: RouteObject[] = [
       ...UserRoutes,
       ...OrderRoutes,
       ...PromoRoutes,
+      ...ShipmentRoutes,
       {
         path: 'profile',
         element: (
