@@ -36,6 +36,8 @@ export interface IPromo extends BaseModel {
   updatedById: string;
   updatedBy?: IUser;
   promoDetails?: IPromoDetail[];
+  maxUsage: number;
+  usageCount: number;
 }
 
 export interface IPromoDetail extends BaseModel {
@@ -58,6 +60,7 @@ export interface CreatePromoDto {
   discountType?: DiscountTypeEnum;
   promoType?: PromoTypeEnum;
   promoDetails?: CreatePromoDetailDto[];
+  maxUsage?: number;
 }
 
 export interface UpdatePromoDto extends CreatePromoDto {

@@ -102,6 +102,22 @@ const PromoForm = (props: IFormProps) => {
               </Form.Item>
             </ResponsiveCol>
 
+            <ResponsiveCol hidden={tempSubmitData.promoType !== PromoTypeEnum.CODE}>
+              <Form.Item
+                label="Kuota Kupon"
+                name="maxUsage"
+                rules={[{ required: tempSubmitData.promoType === PromoTypeEnum.CODE }]}
+                hidden={tempSubmitData.promoType !== PromoTypeEnum.CODE}
+              >
+                <InputNumber
+                  min={0}
+                  className={'w-full'}
+                  placeholder={'Kuota Kupon'}
+                  disabled={disableFormBeforePromoType}
+                />
+              </Form.Item>
+            </ResponsiveCol>
+
             <ResponsiveCol>
               <Form.Item label="Tipe Diskon" name="discountType" rules={[{ required: true }]}>
                 <Select
