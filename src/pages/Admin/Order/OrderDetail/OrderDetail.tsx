@@ -3,7 +3,13 @@ import { separator } from '@/commons/utils/Currency/Currency';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
 import useOrderDetailController from '@/pages/Admin/Order/OrderDetail/OrderDetailController';
 import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
-import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  CreditCardOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
 import {
   Breadcrumb,
   Button,
@@ -27,6 +33,9 @@ export default function OrderDetail() {
     orderDataIsFetching,
     orderDataIsRefetch,
     OrderItemsTableProps,
+    handleOrderCancel,
+    handleOrderRemove,
+    handleBypassPayment,
   } = useOrderDetailController();
 
   usePageEffect({
@@ -102,6 +111,7 @@ export default function OrderDetail() {
             <Row gutter={24}>
               <Col span={24}>
                 <Table
+                  rowKey={(record) => record.id!}
                   scroll={{ x: 700 }}
                   bordered={true}
                   size="small"
@@ -139,14 +149,34 @@ export default function OrderDetail() {
             </Row>
             <Row gutter={24} className="mt-4">
               <Col span={8} offset={16}>
+                {/* Mark as Cancel */}
+                <Popconfirm
+                  title="Bypass payment?"
+                  onConfirm={handleBypassPayment}
+                  placement="left"
+                >
+                  <Button
+                    icon={<CreditCardOutlined />}
+                    type="primary"
+                    className="w-full shadow-none mt-2"
+                    disabled={orderData?.data.paymentStatus === OrderPaymentStatus.PAID}
+                  >
+                    Bypass Payment (Development Only)
+                  </Button>
+                </Popconfirm>
                 {/* IS PAID */}
-                {orderData?.data.paymentStatus === OrderPaymentStatus.PAID ? (
-                  <ToggleableLink to={`/admin/shipments/${orderData?.data?.shipment!.id!}/edit`}>
-                    <Button icon={<EditOutlined />} type="primary" className="w-full shadow-none" disabled={true}>
-                      Proceed to shipment
-                    </Button>
-                  </ToggleableLink>
-                ) : null}
+                {/* {orderData?.data.paymentStatus === OrderPaymentStatus.PAID ? ( */}
+                <ToggleableLink to={`/admin/shipments/${orderData?.data?.shipment!.id!}/edit`}>
+                  <Button
+                    icon={<EditOutlined />}
+                    type="primary"
+                    className="w-full shadow-none mt-2"
+                    disabled={orderData?.data.paymentStatus !== OrderPaymentStatus.PAID}
+                  >
+                    Proceed to shipment
+                  </Button>
+                </ToggleableLink>
+                {/* ) : null} */}
                 {/* Mark as Completed */}
                 <Popconfirm
                   title="Yakin menandai sebagai Completed?"
@@ -157,14 +187,25 @@ export default function OrderDetail() {
                     icon={<CheckOutlined />}
                     type="primary"
                     className="w-full shadow-none mt-2"
+                    disabled={true}
                   >
                     Mark as Completed
                   </Button>
                 </Popconfirm>
                 {/* Mark as Cancel */}
-                <Popconfirm
+                <ToggleableLink to={`/admin/orders/${orderData?.data?.id!}/cancel`}>
+                  <Button
+                    icon={<CloseOutlined />}
+                    type="default"
+                    className="w-full shadow-none mt-2"
+                    disabled={false}
+                  >
+                    Cancel
+                  </Button>
+                </ToggleableLink>
+                {/* <Popconfirm
                   title="Yakin untuk Cancel?"
-                  onConfirm={() => console.log('test')}
+                  onConfirm={handleOrderCancel}
                   placement="left"
                 >
                   <Button
@@ -174,10 +215,10 @@ export default function OrderDetail() {
                   >
                     Cancel
                   </Button>
-                </Popconfirm>
+                </Popconfirm> */}
                 <Popconfirm
                   title="Yakin untuk Remove?"
-                  onConfirm={() => console.log('test')}
+                  onConfirm={handleOrderRemove}
                   placement="left"
                 >
                   <Button
