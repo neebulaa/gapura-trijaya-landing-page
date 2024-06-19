@@ -671,12 +671,15 @@ button {
 
 /* your voucher section start */
 .voucher-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  justify-content: flex-start;
   gap: 2rem;
+  padding: 0.45rem 0;
 }
 
 .voucher-card {
+  width: 350px;
+  max-width: 500px;
   border-radius: 10px;
   overflow: hidden;
   background: white;
@@ -704,6 +707,11 @@ button {
 .voucher-copy > p {
   color: #163ed4;
   font-weight: 500;
+  margin-top: 0.5rem;
+}
+
+.voucher-card .list-container{
+  padding: 0.5rem 0;
 }
 
 .voucher-card ul {

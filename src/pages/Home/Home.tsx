@@ -1,5 +1,6 @@
 import Hero from '@/commons/components/Public/Hero';
 import Products from '@/pages/Home/components/Products';
+import Promos from '@/pages/Home/components/Promos.tsx';
 
 export default function Home() {
   return (
@@ -85,6 +86,8 @@ export default function Home() {
       </section>
       {/* ./BENEFITS SECTION  */}
       <Products />
+      {/* PROMOS SECTION */}
+      <Promos />
       {/* ABOUT SECTION */}
       <section
         className="container"

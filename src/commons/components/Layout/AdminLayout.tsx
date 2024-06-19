@@ -61,7 +61,9 @@ export default function RootLayout() {
             </div>
           </Sider>
           <Layout className={`layout-wrapper ${collapsed ? 'collapsed' : ''}`}>
-            <Content className={`content-wrapper overflow-y-auto overflow-x-hidden ${collapsed ? 'collapsed' : ''}`}>
+            <Content
+              className={`content-wrapper overflow-y-auto overflow-x-hidden ${collapsed ? 'collapsed' : ''}`}
+            >
               <motion.div
                 key={location.pathname}
                 initial="initial"
