@@ -1,8 +1,8 @@
 import { axiosGet, axiosGetAll } from '@/services/api/admin/api.service';
 import { QueryParams, SuccessResponse } from '@/types/base';
+import { QueryOptions } from '@/types/global/queryOptions.ts';
 import { IOrder } from '@/types/order';
 import { useQuery } from '@tanstack/react-query';
-import { QueryOptions } from '@/types/global/queryOptions.ts';
 
 export const useGetOrders = (params: QueryParams) => {
   return useQuery({
@@ -22,3 +22,4 @@ export const useGetOrder = (id: string, { enabled }: QueryOptions) => {
     enabled: !!enabled,
   });
 };
+

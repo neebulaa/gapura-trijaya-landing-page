@@ -4,6 +4,7 @@ import { RouteObject } from 'react-router-dom';
 
 const OrderIndex = lazy(() => import('@/pages/Admin/Order/OrderIndex/OrderIndex'));
 const OrderDetail = lazy(() => import('@/pages/Admin/Order/OrderDetail/OrderDetail'));
+const OrderCancel = lazy(() => import('@/pages/Admin/Order/OrderCancel/OrderCancel'));
 
 export const OrderRoutes: RouteObject[] = [
   {
@@ -38,6 +39,14 @@ export const OrderRoutes: RouteObject[] = [
         element: (
           <Suspense fallback={<RouteLoader />}>
             <OrderDetail />
+          </Suspense>
+        ),
+      },
+      {
+        path: ':id/cancel',
+        element: (
+          <Suspense fallback={<RouteLoader />}>
+            <OrderCancel />
           </Suspense>
         ),
       },

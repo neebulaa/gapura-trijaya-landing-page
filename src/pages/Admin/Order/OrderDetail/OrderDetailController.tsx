@@ -1,8 +1,9 @@
-import { Link, useParams } from 'react-router-dom';
-import { useGetOrder } from '@/services/queries/admin/order.query.ts';
-import { ColumnType } from 'antd/es/table';
-import { IOrderItem } from '@/types/order.ts';
+import { api } from '@/commons/lib/api';
 import { separator } from '@/commons/utils/Currency/Currency.ts';
+import { useGetOrder } from '@/services/queries/admin/order.query.ts';
+import { IOrderItem } from '@/types/order.ts';
+import { ColumnType } from 'antd/es/table';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 export default function useOrderDetailController() {
   /**
@@ -15,6 +16,7 @@ export default function useOrderDetailController() {
   ];
 
   const { id } = useParams();
+  const navigate = useNavigate();
 
   /**
    * Query Model Get One Order
@@ -24,6 +26,30 @@ export default function useOrderDetailController() {
     isPending: orderDataIsFetching,
     refetch: orderDataIsRefetch,
   } = useGetOrder(id!, { enabled: true });
+
+  /**
+   * Handle Cancel Order
+   */
+  const handleOrderCancel = () => {
+    console.log('Cancel Order');
+  };
+
+  /**
+   * Handle Remove Order
+   */
+  const handleOrderRemove = () => {
+    console.log('Remove Order');
+  };
+
+  /**
+   * Handle Bypass payment
+   */
+  const handleBypassPayment = () => {
+    api.get(`/v1/admin/orders/${id}/bypass-payment`).then((res) => {
+      console.log(res);
+      orderDataIsRefetch();
+    });
+  };
 
   /**
    * Order Items Table Columns Props
@@ -84,5 +110,8 @@ export default function useOrderDetailController() {
     orderDataIsFetching,
     orderDataIsRefetch,
     OrderItemsTableProps,
+    handleOrderCancel,
+    handleOrderRemove,
+    handleBypassPayment,
   };
 }
