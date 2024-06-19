@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import VoucherCard from '@/commons/components/Public/VoucherCard.tsx';
 import { useGetPublicPromos } from '@/services/queries/promo.query.ts';
-import { PromoQuery } from '@/types/promo.ts';
+import { PromoQuery, PromoTypeEnum } from '@/types/promo.ts';
 
 const Promos = () => {
   /**
@@ -10,6 +10,7 @@ const Promos = () => {
   const [simplePromoParams] = useState<PromoQuery>({
     page: 1,
     limit: 4,
+    promoType: PromoTypeEnum.CODE,
   });
 
   const { data: promosData, isFetching: promosDataIsFetching } =

@@ -1,5 +1,9 @@
 import useCartStore from '@/commons/store/useCartStore';
 import { message } from 'antd';
+import { useGetPublicPromoByCode, useGetPublicPromos } from '@/services/queries/promo.query.ts';
+import { useEffect, useState } from 'react';
+import { IPromo, PromoQuery, PromoTypeEnum } from '@/types/promo.ts';
+import { debounce } from '@/commons/utils/Debounce.ts';
 
 export default function useShoppingCartController() {
   /**
@@ -12,8 +16,14 @@ export default function useShoppingCartController() {
     isLoading: cartDataIsFetching,
     subTotal: cartSubTotal,
     total: cartTotal,
+    promoValue: cartPromo,
+    appliedVoucher,
+    applyVoucher,
+    resetVoucher,
+    calculateCart,
   } = useCartStore((state) => state);
   // const { cartItemIdState, setCartItemIdState } = useState<string>('');
+  const [openMyCouponModal, setOpenMyCouponModal] = useState(false);
 
   /**
    * ================================
@@ -42,6 +52,42 @@ export default function useShoppingCartController() {
 
   /** Query Remove Cart */
   // const { mutateAsync: mutateRemoveCart, isPending: mutateRemoveCartIsFetching } = useDeleteCart();
+
+  /**
+   * Get Promo
+   */
+  const [promoQuery, setPromoQuery] = useState<PromoQuery>({
+    page: 1,
+    limit: 10,
+    promoType: PromoTypeEnum.CODE,
+  });
+  const { data: promoDataQuery, isFetching: promoDataIsFetchingQuery } = useGetPublicPromos(
+    promoQuery,
+    openMyCouponModal,
+  );
+  const [applyPromoQuery, setApplyPromoQuery] = useState<string>('');
+  const { data: promoData, isFetching: promoDataIsFetching } =
+    useGetPublicPromoByCode(applyPromoQuery);
+
+  /**
+   * Handle Apply Promo
+   */
+  const handleApplyPromo = async (promoCode: string, isModal: boolean = false) => {
+    applyVoucher(promoDataQuery?.data.find((promo) => promo.code === promoCode) || ({} as IPromo));
+
+    if (isModal) {
+      setTimeout(() => {
+        setOpenMyCouponModal(false);
+      }, 200);
+    }
+  };
+
+  /**
+   * Handle Reset Promo
+   */
+  const handleResetPromo = async () => {
+    resetVoucher();
+  };
 
   /**
    * Handle Increment Quantity
@@ -87,5 +133,13 @@ export default function useShoppingCartController() {
     cartSubTotal,
     // shippingCost,
     cartTotal,
+    handleApplyPromo,
+    openMyCouponModal,
+    setOpenMyCouponModal,
+    promoDataQuery,
+    promoDataIsFetchingQuery,
+    appliedVoucher,
+    handleResetPromo,
+    cartPromo,
   };
 }

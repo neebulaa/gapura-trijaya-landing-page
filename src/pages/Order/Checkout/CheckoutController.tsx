@@ -20,6 +20,7 @@ export default function useCheckoutController() {
     items: cartItems,
     subTotal: cartSubTotal,
     total: cartTotal,
+    promoValue: cartPromoValue,
     clearCart,
   } = useCartStore.getState();
   const [provinceId, setProvinceId] = useState<number>();
@@ -124,7 +125,7 @@ export default function useCheckoutController() {
     const trimmedValue = value.replace(/\s/g, '').toLowerCase();
     // Temukan layanan pengiriman yang sesuai dengan nilai yang dipilih setelah menghapus spasi
     const selectedService = shippingServices?.results?.find(
-      (service: any) => service.service.replace(/\s/g, '').toLowerCase() === trimmedValue
+      (service: any) => service.service.replace(/\s/g, '').toLowerCase() === trimmedValue,
     );
 
     setSelectedShippingService(selectedService);
@@ -204,5 +205,6 @@ export default function useCheckoutController() {
     mutateShippingServicesIsLoading,
     handleShippingServicesChange,
     selectedShippingService,
+    cartPromoValue,
   };
 }

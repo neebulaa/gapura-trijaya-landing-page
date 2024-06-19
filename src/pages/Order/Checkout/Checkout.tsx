@@ -34,6 +34,7 @@ export default function Checkout() {
     mutateShippingServicesIsLoading,
     handleShippingServicesChange,
     selectedShippingService,
+    cartPromoValue,
   } = useCheckoutController();
 
   const steps = [
@@ -325,6 +326,12 @@ export default function Checkout() {
                     <span>Subtotal</span>
                     <span>Rp {separator(cartSubTotal)}</span>
                   </div>
+                  {cartPromoValue !== 0 ? (
+                    <div className="content-split justify-between">
+                      <h5>Potongan Promo: </h5>
+                      <p className="medium">- Rp {separator(cartPromoValue)}</p>
+                    </div>
+                  ) : null}
                   <Divider className="my-2" />
                   <div className="flex justify-between">
                     <span>Shipping</span>

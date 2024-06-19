@@ -77,4 +77,6 @@ export interface UpdatePromoDetailDto extends CreatePromoDetailDto {
   id?: string;
 }
 
-export interface PromoQuery extends QueryParams {}
+export interface PromoQuery extends QueryParams {
+  promoType?: PromoTypeEnum;
+}

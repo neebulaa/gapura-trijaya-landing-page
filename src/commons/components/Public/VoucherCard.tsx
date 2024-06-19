@@ -6,7 +6,6 @@ import IconCopy from '@/commons/assets/icons/IconCopy.tsx';
 import { message } from 'antd';
 
 export interface VoucherCardProps {
-  key: string;
   name: string;
   code: string;
   discountAmount: number;
@@ -24,6 +23,9 @@ export interface VoucherCardProps {
   promoDetails?: IPromoDetail[];
   maxUsage: number;
   usageCount: number;
+  key: string;
+  width?: number | 'full';
+  handleApplyCode?: (code: string) => void;
 }
 
 const VoucherCard = (props: VoucherCardProps) => {
@@ -35,7 +37,11 @@ const VoucherCard = (props: VoucherCardProps) => {
   };
 
   return (
-    <div className={'voucher-card'} key={props.key}>
+    <div
+      className={'voucher-card'}
+      key={props.key}
+      style={{ ...(props.width === 'full' ? { width: '100%' } : {}) }}
+    >
       <h3>
         {props.discountType === DiscountTypeEnum.AMOUNT
           ? `Rp. ${props.discountAmount}`
@@ -48,13 +54,24 @@ const VoucherCard = (props: VoucherCardProps) => {
         <div className={'voucher-copy'}>
           <p>Code: {props.code}</p>
 
-          <div
-            style={{ display: 'flex', gap: '0.5rem', cursor: 'pointer' }}
-            onClick={() => handleClipboard(props.code)}
-          >
-            <IconCopy />
-            <h4>COPY</h4>
-          </div>
+          {!props.handleApplyCode ? (
+            <div
+              style={{ display: 'flex', gap: '0.5rem', cursor: 'pointer' }}
+              onClick={() => handleClipboard(props.code)}
+            >
+              <IconCopy />
+              <h4>COPY</h4>
+            </div>
+          ) : null}
+
+          {!!props.handleApplyCode ? (
+            <div
+              style={{ display: 'flex', gap: '0.5rem', cursor: 'pointer' }}
+              onClick={() => props.handleApplyCode?.(props.code)}
+            >
+              <h4>APPLY</h4>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

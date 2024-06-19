@@ -7,8 +7,12 @@ import { ApiImgUrl } from '@/commons/utils/ApiImgUrl';
 import { separator } from '@/commons/utils/Currency/Currency';
 import useShoppingCartController from '@/pages/ShoppingCart/ShoppingCartController';
 import ToggleCheckboxButton from '@/pages/ShoppingCart/components/ToggleCheckboxButton';
-import { Button, Divider, Skeleton } from 'antd';
+import { Button, Divider, Modal, Skeleton } from 'antd';
 import { Link } from 'react-router-dom';
+import VoucherCard from '@/commons/components/Public/VoucherCard.tsx';
+import useScreenSize from '@/commons/store/useScreenSize.ts';
+import IconCross from '@/commons/assets/icons/IconCross.tsx';
+import { DiscountTypeEnum } from '@/types/promo.ts';
 
 export default function ShoppingCart() {
   const {
@@ -19,10 +23,19 @@ export default function ShoppingCart() {
     handleRemoveItem,
     cartSubTotal,
     cartTotal,
+    handleApplyPromo,
+    openMyCouponModal,
+    setOpenMyCouponModal,
+    promoDataQuery,
+    promoDataIsFetchingQuery,
+    appliedVoucher,
+    handleResetPromo,
+    cartPromo,
   } = useShoppingCartController();
 
   // const buttonCheckoutIsDisabled = !((cartData?.data as any)?.items?.length > 0);
   const buttonCheckoutIsDisabled = cartData.length === 0;
+  const { isMobile } = useScreenSize();
 
   return (
     <>
@@ -129,19 +142,42 @@ export default function ShoppingCart() {
                 <h2>Add new coupon</h2>
                 <p
                   className="pointer highlight semibold"
-                  // onClick={() => setOpenMyCouponModal(true)}
+                  onClick={() => setOpenMyCouponModal(true)}
                 >
                   My coupons
                 </p>
               </div>
               <div className="input-icon">
                 {/* Applied coupon */}
-                {/* <div className="mt-05 mb-05 ml-05 mr-05 semibold badge badge-primary badge-border word-nowrap">
-									TRJ00001 (-5%)
-								</div> */}
-                <IconCoupon width="24" height="24" className="ml-1" />
-                <input placeholder="Enter Voucher" type="text" className="tj-input" />
-                <p className="highlight semibold ml-auto mr-1 cursor-pointer">Apply</p>
+                {appliedVoucher.code ? (
+                  <div className="mt-05 mb-05 ml-05 mr-05 semibold badge badge-primary badge-border word-nowrap">
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                      <h4>
+                        {appliedVoucher.code} (
+                        {appliedVoucher.discountType === DiscountTypeEnum.AMOUNT
+                          ? `Rp. ${appliedVoucher.discountAmount}`
+                          : `${appliedVoucher.discountPercent} %`}
+                        )
+                      </h4>
+                      <div className={'cursor-pointer'} onClick={() => handleResetPromo()}>
+                        <IconCross width="15" height="15" />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                {!appliedVoucher.code ? (
+                  <>
+                    <IconCoupon width="24" height="24" className="ml-1" />
+                    <input placeholder="Enter Voucher" type="text" className="tj-input" />
+                    <p
+                      className="highlight semibold ml-auto mr-2 cursor-pointer"
+                      // onClick={() => handleApplyPromo()}
+                    >
+                      Apply
+                    </p>
+                  </>
+                ) : null}
               </div>
             </div>
             <div className="card-bordered">
@@ -166,6 +202,12 @@ export default function ShoppingCart() {
                   <h5>Subtotal: </h5>
                   <p className="medium">Rp {separator(cartSubTotal)}</p>
                 </div>
+                {cartPromo !== 0 ? (
+                  <div className="content-split justify-between">
+                    <h5>Potongan Promo: </h5>
+                    <p className="medium">- Rp {separator(cartPromo)}</p>
+                  </div>
+                ) : null}
                 {/* <hr className="mt-1" /> */}
                 {/* <div className="content-split mt-1 justify-between">
                   <h5>Shipping: </h5>
@@ -196,6 +238,44 @@ export default function ShoppingCart() {
           </div>
         </section>
       </section>
+
+      <Modal
+        centered={true}
+        width={isMobile ? '100%' : '40%'}
+        closable={false}
+        onCancel={() => setOpenMyCouponModal(false)}
+        open={openMyCouponModal}
+        footer={false}
+        styles={{
+          body: { maxHeight: 'calc(100vh - 200px)', overflowY: 'auto' },
+        }}
+        title={
+          <header className="modal-header">
+            <h2>My Coupons</h2>
+            <div className="modal-close" onClick={() => setOpenMyCouponModal(false)}>
+              <IconCross width="25" height="25" />
+            </div>
+          </header>
+        }
+      >
+        <div
+          style={{
+            padding: '0.75rem 0.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+          }}
+        >
+          {(promoDataQuery?.data ?? []).map((voucher) => (
+            <VoucherCard
+              {...voucher}
+              key={voucher.id}
+              width={'full'}
+              handleApplyCode={(code) => handleApplyPromo(code, true)}
+            />
+          ))}
+        </div>
+      </Modal>
     </>
   );
 }

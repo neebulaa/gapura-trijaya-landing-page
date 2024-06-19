@@ -2,10 +2,12 @@
 import { ICartItem } from '@/types/cart';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { DiscountTypeEnum, IPromo } from '@/types/promo.ts';
 
 interface CartState {
   items: ICartItem[];
   subTotal: number;
+  promoValue: number;
   total: number;
   addItem: (item: ICartItem) => void;
   updateItem: (id: string, quantity: number) => void;
@@ -14,6 +16,9 @@ interface CartState {
   isLoading: boolean;
   setLoading: (loading: boolean) => void;
   calculateCart: () => void;
+  appliedVoucher: IPromo;
+  applyVoucher: (voucherCode: IPromo) => void;
+  resetVoucher: () => void;
 }
 
 const useCartStore = create<CartState>()(
@@ -22,6 +27,8 @@ const useCartStore = create<CartState>()(
       items: [],
       subTotal: 0,
       total: 0,
+      promoValue: 0,
+      appliedVoucher: {} as IPromo,
       isLoading: false,
       setLoading: (loading: boolean) => set({ isLoading: loading }),
       addItem: (newItem: ICartItem) => {
@@ -35,7 +42,7 @@ const useCartStore = create<CartState>()(
               const updatedItems = state.items.map((item, index) =>
                 index === existingItemIndex
                   ? { ...item, quantity: item.quantity + newItem.quantity }
-                  : item
+                  : item,
               );
               return { items: updatedItems, isLoading: false };
             } else {
@@ -51,7 +58,7 @@ const useCartStore = create<CartState>()(
         setTimeout(() => {
           set((state) => {
             const updatedItems = state.items.map((item) =>
-              item.id === id ? { ...item, quantity } : item
+              item.id === id ? { ...item, quantity } : item,
             );
             return { items: updatedItems, isLoading: false };
           });
@@ -82,8 +89,37 @@ const useCartStore = create<CartState>()(
         const items = get().items;
         const subTotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
         const shippingCost = 0; // Adjust this value as needed
-        const total = subTotal + shippingCost;
-        set({ subTotal, total });
+        let total = subTotal + shippingCost;
+        const appliedVoucher = get().appliedVoucher;
+        let promoValue = 0;
+
+        if (appliedVoucher.code) {
+          const today = new Date();
+          const startDate = new Date(
+            (appliedVoucher.startDate as unknown as string).replace(' ', 'T'),
+          );
+          const endDate = new Date((appliedVoucher.endDate as unknown as string).replace(' ', 'T'));
+
+          if (today >= startDate && today <= endDate) {
+            if (appliedVoucher.discountType === DiscountTypeEnum.AMOUNT) {
+              total -= appliedVoucher.discountAmount;
+              promoValue = appliedVoucher.discountAmount;
+            } else {
+              total -= (appliedVoucher.discountPercent / 100) * total;
+              promoValue = (appliedVoucher.discountPercent / 100) * total;
+            }
+          }
+        }
+
+        set({ subTotal, total, promoValue });
+      },
+      applyVoucher: (voucherCode: IPromo) => {
+        set({ appliedVoucher: voucherCode });
+        get().calculateCart();
+      },
+      resetVoucher: () => {
+        set({ appliedVoucher: {} as IPromo });
+        get().calculateCart();
       },
     }),
     {
@@ -107,8 +143,8 @@ const useCartStore = create<CartState>()(
         },
         removeItem: (name) => localStorage.removeItem(name),
       },
-    }
-  )
+    },
+  ),
 );
 
 export default useCartStore;
