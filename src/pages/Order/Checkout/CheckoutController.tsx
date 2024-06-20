@@ -22,6 +22,7 @@ export default function useCheckoutController() {
     total: cartTotal,
     promoValue: cartPromoValue,
     clearCart,
+    appliedVoucher,
   } = useCartStore.getState();
   const [provinceId, setProvinceId] = useState<number>();
   const [shippingServices, setShippingServices] = useState<any>();
@@ -152,6 +153,8 @@ export default function useCheckoutController() {
       email: form.getFieldValue('email'),
       phone: form.getFieldValue('phone'),
       note: form.getFieldValue('note'),
+      discountAmount: +cartPromoValue,
+      promoId: appliedVoucher?.id ?? undefined,
       carts: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,

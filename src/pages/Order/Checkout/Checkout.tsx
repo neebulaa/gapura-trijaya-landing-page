@@ -241,7 +241,7 @@ export default function Checkout() {
         title="Checkout"
         navigations={[
           { label: 'Home', link: '/' },
-          { label: 'Order', link: '/order' },
+          { label: 'Order', link: '/cart' },
           { label: 'Checkout' },
         ]}
       />

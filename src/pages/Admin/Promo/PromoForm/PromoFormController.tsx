@@ -183,6 +183,7 @@ const usePromoFormController = (props: IFormProps) => {
               productId: detail.productId,
               qty: detail.qty,
             })),
+            maxUsage: form.getFieldValue('maxUsage'),
           });
 
           openNotification({
@@ -221,6 +222,7 @@ const usePromoFormController = (props: IFormProps) => {
               productId: detail.productId,
               qty: detail.qty,
             })),
+            maxUsage: form.getFieldValue('maxUsage'),
           });
 
           openNotification({

@@ -58,22 +58,24 @@ export default function useShoppingCartController() {
    */
   const [promoQuery, setPromoQuery] = useState<PromoQuery>({
     page: 1,
-    limit: 10,
+    limit: 50,
     promoType: PromoTypeEnum.CODE,
   });
   const { data: promoDataQuery, isFetching: promoDataIsFetchingQuery } = useGetPublicPromos(
     promoQuery,
-    openMyCouponModal,
+    true,
   );
-  const [applyPromoQuery, setApplyPromoQuery] = useState<string>('');
-  const { data: promoData, isFetching: promoDataIsFetching } =
-    useGetPublicPromoByCode(applyPromoQuery);
 
   /**
    * Handle Apply Promo
    */
   const handleApplyPromo = async (promoCode: string, isModal: boolean = false) => {
-    applyVoucher(promoDataQuery?.data.find((promo) => promo.code === promoCode) || ({} as IPromo));
+    const findVoucher = promoDataQuery?.data?.find((promo) => promo.code === promoCode);
+    if (!findVoucher) {
+      message.error('Promo code not found');
+      return;
+    }
+    applyVoucher(findVoucher || ({} as IPromo));
 
     if (isModal) {
       setTimeout(() => {

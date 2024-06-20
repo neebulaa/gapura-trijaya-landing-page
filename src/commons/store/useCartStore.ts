@@ -3,6 +3,7 @@ import { ICartItem } from '@/types/cart';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { DiscountTypeEnum, IPromo } from '@/types/promo.ts';
+import { round } from 'lodash';
 
 interface CartState {
   items: ICartItem[];
@@ -80,6 +81,10 @@ const useCartStore = create<CartState>()(
         setTimeout(() => {
           set(() => ({
             items: [],
+            subTotal: 0,
+            total: 0,
+            promoValue: 0,
+            appliedVoucher: {} as IPromo,
             isLoading: false,
           }));
           get().calculateCart();
@@ -102,11 +107,11 @@ const useCartStore = create<CartState>()(
 
           if (today >= startDate && today <= endDate) {
             if (appliedVoucher.discountType === DiscountTypeEnum.AMOUNT) {
-              total -= appliedVoucher.discountAmount;
               promoValue = appliedVoucher.discountAmount;
+              total -= promoValue;
             } else {
-              total -= (appliedVoucher.discountPercent / 100) * total;
-              promoValue = (appliedVoucher.discountPercent / 100) * total;
+              promoValue = round((appliedVoucher.discountPercent / 100) * total);
+              total -= promoValue;
             }
           }
         }

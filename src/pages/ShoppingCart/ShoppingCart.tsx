@@ -172,7 +172,10 @@ export default function ShoppingCart() {
                     <input placeholder="Enter Voucher" type="text" className="tj-input" />
                     <p
                       className="highlight semibold ml-auto mr-2 cursor-pointer"
-                      // onClick={() => handleApplyPromo()}
+                      onClick={async () => {
+                        const input = document.querySelector('.tj-input') as HTMLInputElement;
+                        await handleApplyPromo(input.value, false);
+                      }}
                     >
                       Apply
                     </p>
