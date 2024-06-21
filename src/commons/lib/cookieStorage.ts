@@ -20,11 +20,11 @@ const getCookie = (key: string): string | null => {
  * Saves a value to cookies with the given key.
  * @param key The key to use to store the value in cookies.
  * @param value The value to save to cookies.
- * @param days The number of days until the cookie expires. Defaults to 7 days.
+ * @param minutes The number of days until the cookie expires. Defaults to 60 minutes.
  */
-const setCookie = (key: string, value: string | boolean, days: number = 7) => {
+const setCookie = (key: string, value: string | boolean, minutes: number = 60) => {
   const date = new Date();
-  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  date.setTime(date.getTime() + minutes * 60 * 1000);
   const expires = `expires=${date.toUTCString()}`;
   document.cookie = `${key}=${encodeURIComponent(value)};${expires};path=/`;
 };

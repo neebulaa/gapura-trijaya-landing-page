@@ -8,10 +8,7 @@ interface AuthState {
 }
 
 export interface AuthStore extends AuthState {
-  setIsAuthenticated: (
-    args: AuthState['isAuthenticated'],
-    token?: AuthState['token']
-  ) => void;
+  setIsAuthenticated: (args: AuthState['isAuthenticated'], token?: AuthState['token']) => void;
 }
 
 const initialState: Pick<AuthStore, keyof AuthState> = {
@@ -25,12 +22,13 @@ const useAuthStore = create<AuthStore>()(
       ...initialState,
       setIsAuthenticated: (isAuthenticated, token) => {
         set(() => ({ isAuthenticated, token }));
-        setCookie('isAuthenticated', isAuthenticated, 1);
-        setCookie('token', token ? token : '', 1);
+        setCookie('isAuthenticated', isAuthenticated, import.meta.env.VITE_TOKEN_EXPIRE);
+        setCookie('token', token ? token : '', import.meta.env.VITE_TOKEN_EXPIRE);
+        setCookie('refresh_token', token ? token : '', import.meta.env.VITE_REFRESH_EXPIRE);
       },
     }),
-    'authStore'
-  )
+    'authStore',
+  ),
 );
 
 export default useAuthStore;

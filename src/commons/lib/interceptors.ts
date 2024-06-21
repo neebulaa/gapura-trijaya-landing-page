@@ -1,8 +1,12 @@
 import { type AxiosError, type AxiosResponse, type InternalAxiosRequestConfig } from 'axios';
-// import { redirect } from 'react-router-dom';
 import { LogoutUserSession } from '@/commons/utils/Abilities/UserSessionPersistent';
 import { message } from 'antd';
 import { getCookie } from './cookieStorage';
+import useUserStore from '@/commons/store/useUserStore.ts';
+import useAuthStore from '@/commons/store/useAuthStore.ts';
+import { refresh } from '@/services/api/auth.service.ts';
+import { redirect } from 'react-router-dom';
+import { api } from '@/commons/lib/api.ts';
 
 export interface ConsoleError {
   status: number;
@@ -10,7 +14,7 @@ export interface ConsoleError {
 }
 
 export const requestInterceptor = (
-  config: InternalAxiosRequestConfig
+  config: InternalAxiosRequestConfig,
 ): InternalAxiosRequestConfig => {
   // NOTE: Simple token logic
   // const currentDate = new Date();
@@ -31,21 +35,45 @@ export const successInterceptor = (response: AxiosResponse): AxiosResponse => {
 export const errorInterceptor = async (error: AxiosError): Promise<void> => {
   // NOTE: Redirect to login page if token is expired
   // 401: Unauthorized
-  if (error.response?.status === 401) {
-    // const { setIsAuthenticated } = useAuthStore.getState();
-    // const { setUserData } = useUserStore.getState();
+  // @ts-ignore
+  if (error.response?.status === 401 && error.response?.data?.message !== 'Token not refreshed') {
+    const { setIsAuthenticated } = useAuthStore.getState();
+    const { setUserData } = useUserStore.getState();
 
-    // setIsAuthenticated(false, null);
-    // setUserData(null);
+    await refresh()
+      .then((res) => {
+        setIsAuthenticated(true, res.authorization.accessToken);
+        setUserData(res.user);
+        // @ts-ignore
+        api
+          .request({
+            ...error.config,
+            headers: {
+              ...error.config?.headers,
+              Authorization: `Bearer ${res.authorization.accessToken}`,
+            },
+          })
+          .then((res) => {
+            // @ts-ignore
+            if (res.data.message?.includes('logged out')) {
+              message.info('You have been logged out');
+              LogoutUserSession();
+              redirect('/login');
+            }
+          });
+      })
+      .catch(() => {
+        setIsAuthenticated(false, null);
+        setUserData(null);
+        LogoutUserSession();
+        redirect('/login');
+      });
 
     // removeCookie('token');
     // removeCookie('isAuthenticated');
     // removeItem('userData');
 
-    LogoutUserSession();
-
     await Promise.reject(error);
-    // redirect('/login');
   } else {
     console.log('Interceptor error: ', error);
 

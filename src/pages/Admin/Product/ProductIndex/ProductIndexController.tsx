@@ -34,7 +34,7 @@ export default function useProductIndexController() {
     data: productData,
     isFetching: productDataIsFetching,
     refetch: productDataRefetch,
-  } = useGetProducts(queryParams);
+  } = useGetProducts(queryParams, { enabled: true });
 
   /**
    * Query: Delete Product
