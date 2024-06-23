@@ -1,9 +1,10 @@
 import { separator } from '@/commons/utils/Currency/Currency';
-import { useGetOrder } from '@/services/queries/admin/order.query';
+import { useCancelOrder, useGetOrder } from '@/services/queries/admin/order.query';
 import { IValidationErrors } from '@/types/base';
+import { OutletContextInterface } from '@/types/global/outletContext';
 import { Form } from 'antd';
-import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useOutletContext, useParams } from 'react-router-dom';
 
 export default function useOrderCancelController() {
   /**
@@ -14,6 +15,8 @@ export default function useOrderCancelController() {
     { title: <Link to="/admin/orders">Order</Link> },
     { title: `Cancel` },
   ];
+
+  const { openNotification } = useOutletContext<OutletContextInterface>();
 
   const { id } = useParams();
 
@@ -36,14 +39,48 @@ export default function useOrderCancelController() {
   } = useGetOrder(id!, { enabled: true });
 
   /**
+   * Query Model: Cancel Order
+   */
+  const { mutateAsync: mutateCancelOrder, isPending: mutateCancelOrderIsLoading } = useCancelOrder(
+    id!,
+  );
+
+  /**
    * Handle Form Submit: Cancel Order
    */
   const handleFormSubmit = () => {
     form.validateFields();
-    // const values = form.getFieldsValue();
+    const values = form.getFieldsValue();
 
     // Do cancel
+    mutateCancelOrder(values)
+      .then((res: any) => {
+          openNotification({
+            type: 'success',
+            title: 'Success',
+            message: res.message as string,
+            // message: 'Category has been created successfully.',
+          });
+      })
+      .catch((err: any) => {
+          openNotification({
+            type: 'error',
+            title: 'Error',
+            message: err?.response.data.message,
+          });
+      });
   };
+
+  /**
+   * Effects
+   */
+  useEffect(() => {
+    if (orderData) {
+      form.setFieldsValue({
+        cancellationNote: orderData?.data?.cancellationNote,
+      });
+    }
+  }, [orderData]);
 
   /**
    * Table Columns Props: Shipment Order Items

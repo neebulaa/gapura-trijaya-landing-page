@@ -1,8 +1,8 @@
-import { axiosGet, axiosGetAll } from '@/services/api/admin/api.service';
+import { axiosGet, axiosGetAll, axiosPut } from '@/services/api/admin/api.service';
 import { QueryParams, SuccessResponse } from '@/types/base';
 import { QueryOptions } from '@/types/global/queryOptions.ts';
 import { IOrder } from '@/types/order';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetOrders = (params: QueryParams) => {
   return useQuery({
@@ -23,3 +23,15 @@ export const useGetOrder = (id: string, { enabled }: QueryOptions) => {
   });
 };
 
+export const useCancelOrder = (id: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (cancelOrder: any) => {
+      return await axiosPut<any, any>(`/v1/admin/orders/${id}/cancel`, cancelOrder);
+    },
+    onSuccess: () => {
+      // @ts-ignore
+      queryClient.invalidateQueries(['order', id]).then((r) => null);
+    },
+  });
+};

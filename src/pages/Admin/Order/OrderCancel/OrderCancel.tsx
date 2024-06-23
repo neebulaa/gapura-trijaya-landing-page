@@ -4,7 +4,8 @@ import { separator } from '@/commons/utils/Currency/Currency';
 import useOrderCancelController from '@/pages/Admin/Order/OrderCancel/OrderCancelController';
 import OrderPaymentStatusNode from '@/pages/Admin/Order/components/reusable/OrderPaymentStatusNode';
 import OrderStatusNode from '@/pages/Admin/Order/components/reusable/OrderStatusNode';
-import { Breadcrumb, Button, Card, Col, Form, Input, Row, Select, Space, Table } from 'antd';
+import { OrderStatus } from '@/types/enum/order-status.enum';
+import { Breadcrumb, Button, Card, Col, Form, Input, Row, Space, Table } from 'antd';
 import dayjs from 'dayjs';
 
 export default function OrderCancel() {
@@ -16,7 +17,7 @@ export default function OrderCancel() {
     orderDataIsFetching,
     orderDataIsRefetch,
     OrderItemsTableProps,
-    handleFormSubmit
+    handleFormSubmit,
   } = useOrderCancelController();
 
   usePageEffect({
@@ -41,13 +42,13 @@ export default function OrderCancel() {
           >
             <Form form={form} layout="vertical" onFinish={handleFormSubmit}>
               <FormItem
-                name="trackNumber"
-                label="Track Number"
+                name="cancellationNote"
+                label="Cancellation Note"
                 className="font-medium"
                 rules={[{ required: false }]}
                 validationErrors={validationErrors}
               >
-                <Input.TextArea placeholder="Track Number/RESI" rows={5}/>
+                <Input.TextArea placeholder="Cancellation Note" rows={5} />
               </FormItem>
               <Form.Item>
                 <Space>
@@ -121,12 +122,12 @@ export default function OrderCancel() {
                       Rp {separator(orderData?.data?.baseTotalPrice)}
                     </span>
                   </li>
-                  <li className="mid pb-3 text-dark">
+                  {/* <li className="mid pb-3 text-dark">
                     Tax(10%)
                     <span className="d-inline-block float-right text-default">
                       Rp {separator(orderData?.data?.taxAmount)}
                     </span>
-                  </li>
+                  </li> */}
                   <li className="mid pb-3 text-dark">
                     Shipping Cost
                     <span className="d-inline-block float-right text-default">

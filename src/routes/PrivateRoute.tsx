@@ -1,8 +1,7 @@
 import useAuthStore from '@/commons/store/useAuthStore';
-import { me } from '@/services/api/auth.service';
+import useUserStore from '@/commons/store/useUserStore.ts';
 import { useEffect, type ReactElement } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import useUserStore from '@/commons/store/useUserStore.ts';
 
 interface Props {
   children: ReactElement;
@@ -30,7 +29,9 @@ export default function PrivateRoute({ children }: Props) {
     const targetPath = isAdmin ? '/admin' : '/';
 
     if (isAdminPage) {
-      navigate(targetPath);
+      if (location.pathname === '/login' || location.pathname === '/register') {
+        navigate(targetPath);
+      }
     }
 
     if (isAuthPage) {

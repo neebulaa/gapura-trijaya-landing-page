@@ -3,13 +3,7 @@ import { separator } from '@/commons/utils/Currency/Currency';
 import ToggleableLink from '@/commons/utils/ToggleableLink';
 import useOrderDetailController from '@/pages/Admin/Order/OrderDetail/OrderDetailController';
 import { OrderPaymentStatus } from '@/types/enum/order-status.enum.ts';
-import {
-  CheckOutlined,
-  CloseOutlined,
-  CreditCardOutlined,
-  DeleteOutlined,
-  EditOutlined,
-} from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined, CreditCardOutlined, EditOutlined } from '@ant-design/icons';
 import {
   Breadcrumb,
   Button,
@@ -129,11 +123,11 @@ export default function OrderDetail() {
                       Subtotal <span>Rp {separator(orderData?.data?.baseTotalPrice)}</span>
                     </Space>
                   </List.Item>
-                  <List.Item>
+                  {/* <List.Item>
                     <Space>
                       Tax (10%) <span>Rp {separator(orderData?.data?.taxAmount)}</span>
                     </Space>
-                  </List.Item>
+                  </List.Item> */}
                   <List.Item>
                     <Space>
                       Shipping Cost <span>Rp {separator(orderData?.data?.shippingCost)}</span>
@@ -198,25 +192,12 @@ export default function OrderDetail() {
                     icon={<CloseOutlined />}
                     type="default"
                     className="w-full shadow-none mt-2"
-                    disabled={false}
+                    disabled={orderData?.data.paymentStatus === OrderPaymentStatus.PAID}
                   >
                     Cancel
                   </Button>
                 </ToggleableLink>
                 {/* <Popconfirm
-                  title="Yakin untuk Cancel?"
-                  onConfirm={handleOrderCancel}
-                  placement="left"
-                >
-                  <Button
-                    icon={<CloseOutlined />}
-                    type="default"
-                    className="w-full shadow-none mt-2"
-                  >
-                    Cancel
-                  </Button>
-                </Popconfirm> */}
-                <Popconfirm
                   title="Yakin untuk Remove?"
                   onConfirm={handleOrderRemove}
                   placement="left"
@@ -228,7 +209,7 @@ export default function OrderDetail() {
                   >
                     Remove
                   </Button>
-                </Popconfirm>
+                </Popconfirm> */}
               </Col>
             </Row>
           </>
